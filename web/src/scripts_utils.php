@@ -10,12 +10,18 @@
 		}
 	}
 
-	function generateScriptNodes() {
+	function generateScriptNodes($preventCache) {
 		global $libraries;
 		global $scriptsLocation;
 
+		$randomParam = "";
+
+		if ($preventCache) {
+			$randomParam = "?disableCacheParam=" . time();
+		}
+
 		foreach ($libraries as $library) {
-			echo "<script src='$scriptsLocation/$library' type='text/javascript' charset='utf-8'></script>";
+			echo "<script src='$scriptsLocation/$library$randomParam' type='text/javascript' charset='utf-8'></script>";
 			echo "\n";
 		}
 	}
