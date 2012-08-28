@@ -1,0 +1,33 @@
+/**
+ * interface PointerDataType implements DataType: describes the primitive type INTEGER
+ * @author michael
+ */
+ 
+
+  
+var PointerDataType = function(){
+
+	// @Override(DataType)	
+	this.getName = function(){ 
+		return "POINTER";
+	}	
+	
+	// @Override(DataType)		
+	this.getSize = function(){ 
+		return 4;	// in bytes
+	}		
+	
+	// @Override(DataType)		
+	this.initMemory = function(memory, address){
+		memory.setValue(address, new PointerMemoryValue(), this.getSize());
+	}
+	
+	// @Override(DataType)		
+	this.buildMemoryValue = function(value){
+		return new PointerMemoryValue(value);
+	}	
+
+}
+
+// prototype based inheritance
+PointerDataType.prototype = new DataType();

@@ -1,0 +1,30 @@
+body {
+	font: 13px Helvetica, Arial, sans-serif;
+}
+
+#graphicalMemoryViewContainer {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: solid 1px #333;
+	height: 480px;
+	left: 50%;
+	top: 50%;
+	width: 640px;
+	border: 1px black solid	
+}
+
+div {
+	display: inline-block;
+}
+
+.flattenMemoryDiv {
+	height: 480px;
+	overflow-x: hide;	
+	overflow-y: auto;
+}
+
+.flattenMemoryTable {
+	border: 1px black solid;
+	border-collapse: collapse;
+	padding: 0px;
+}
