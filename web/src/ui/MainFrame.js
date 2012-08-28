@@ -250,6 +250,40 @@ var MainFrame = function(algoViewApp) {
 						}
 					]
 				},
+			}, {
+				text: 'Help',
+				menu: {
+					xtype: 'menu',
+					showSeparator: false,
+					items: [
+						{
+							text: 'AlgoView manual',
+							//plain: true,
+							cls: ,
+							handler: function() {
+								window.open("https://dev.isen.fr/dev/courses/ComputerScience/fr/slides.html?presentation=informatique/programmation/algo/simple_language/algoview");
+							}
+						},
+						{
+							text: 'Simple Language description',
+							//plain: true,
+							handler: function() {
+								window.open("https://dev.isen.fr/dev/courses/ComputerScience/fr/slides.html?presentation=informatique/programmation/algo/simple_language");
+							}
+						},
+						{
+							text: 'Simple Language grammar',
+							//plain: true,
+							handler: function() {
+								window.open("https://dev.isen.fr/dev/courses/ComputerScience/fr/slides.html?presentation=informatique/programmation/algo/simple_language/grammaire_simple_language");
+							}
+						},
+						/*{
+							text: 'About',
+						} */
+					],
+				}
+				
 			},
 			'-', {
 				id: 'runStopButton',
