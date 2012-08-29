@@ -237,12 +237,58 @@ var MainFrame = function(algoViewApp) {
 								]
 								}).show();
 							}
-						},/* {
+						}, {
 							text: "Rename program...",
 							handler: function() {
-								
+								Ext.create('Ext.Window', {
+									title: "Rename program",
+									maskOnDisable: false,
+									modal: true,
+									renderTo: Ext.getBody(),
+									items: [{
+										xtype: 'form',
+										width: 500,
+										frame: true,
+										bodyPadding: '10 10 0',
+										defaults: {
+											anchor: '100%',
+											allowBlank: false,
+											msgTarget: 'side',
+											labelWidth: 50
+										},
+										items: [
+											{
+												xtype: 'textfield',
+												id: 'form-program-name',
+												size: 50,
+												labelWidth: 120,
+												fieldLabel: 'New program name',
+												name: 'program-name',
+												value: Ext.getCmp('editor-1').title.substr(0, Ext.getCmp('editor-1').title.length - 3),
+												allowBlank: false,
+											},
+										],
+										buttons: [
+											{
+												text: 'Rename',
+												handler: function() {
+													var form = this.up('form').getForm();
+													if (form.isValid()) {
+														Ext.getCmp('editor-1').setTitle(Ext.getCmp("form-program-name").getValue() + ".sl");
+														this.up('window').close();
+													}
+												}
+											},{
+												text: 'Cancel',
+												handler: function() {
+													this.up('window').close();
+												}
+											}
+										]
+									}]
+								}).show();
 							}
-						}, */{
+						}, {
 							text: 'Download program',
 							handler: function() {
 								algoViewApp.downloadFile();
@@ -327,11 +373,11 @@ var MainFrame = function(algoViewApp) {
 				handler: function() {
 					algoViewApp.stepOutProgram();
 				}
-			},{
+			}/*, {
 				xtype: 'tbfill'
 			},{
 				text: 'AlgoView.js Rev. XXX'
-			}
+			} */
 		);
 
 		tb.suspendLayout = false;

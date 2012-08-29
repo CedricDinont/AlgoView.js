@@ -1,6 +1,8 @@
 var AlgoViewApp = function() {
 	this.program = new Program();
-	this.programRunner = new ProgramRunner(this.program);
+	
+	this.programRunner = new ProgramRunner(this.program, getUrlVar("memorySize"));
+	
 	this.mainFrame = new MainFrame(this);
 	this.externalController = new ExternalController(this);
 	this.remoteWindows = new Array();
@@ -73,7 +75,7 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			if (message.programName != undefined) {
 				Ext.getCmp('editor-1').setTitle(message.programName);
 			} else {
-				Ext.getCmp('editor-1').setTitle("Program");
+				Ext.getCmp('editor-1').setTitle("Program.sl");
 			}
 			break;
 		case "algoview-compile-program":
@@ -171,4 +173,25 @@ function loadScript(relativePath) {
    script.type= "text/javascript";
    script.src= scriptsLocation + relativePath;
    body.appendChild(script);	
+}
+
+getUrlVars = function() {
+    var vars = [], hash;
+    var args = window.location.href.slice(window.location.href.indexOf('?') + 1);
+    var index = args.indexOf('#');
+    if (index != -1) {
+	args = args.slice(0, index);
+    }
+    var hashes = args.split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+  
+getUrlVar = function(name) {
+	return getUrlVars()[name];
 }

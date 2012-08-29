@@ -1,6 +1,14 @@
-var ProgramRunner = function(program) {
+var ProgramRunner = function(program, memorySize) {
 	this.program = program;
-	this.memory = new Memory(255);
+	
+	if ((memorySize == undefined) || (memorySize < 0)) {
+		memorySize = 255;
+	}
+	if (memorySize > 10000) {
+		memorySize = 10000;
+	}
+	this.memory = new Memory(memorySize);
+
 	this.nodeStack = new NodeStack();
 
 	this.programTree;
@@ -284,3 +292,4 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 		}
 	}
 }
+
