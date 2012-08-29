@@ -227,6 +227,16 @@ MemoryUnitView.prototype.update = function(){
 		this.valueStringObject.attr( {"text" : memoryUnitValueString } );
 
 		var fillOpacity = 0;
+		
+		/** Pour voir les modifications apportées durant une transaction.
+		 * A revoir avec Michaël pour validation.
+		 * voir aussi pour avoir exactement la même couleur quand dans la table view
+		 * (essayer d'avoir une opacité à 1, ce qui implique que le texte de la boîte est au-dessus).
+		 **/
+		if (this.memoryUnit.hasChanged()) {
+			this.boxObject.attr( {fill: MemoryUnitView.NODE_CHANGED_FILL_COLOR } );
+			fillOpacity = MemoryUnitView.CHANGED_OPACITY;
+		}
 
 		// special case of a POINTER
 		if( this.memoryUnit.getValue() instanceof PointerMemoryValue ){
@@ -237,6 +247,7 @@ MemoryUnitView.prototype.update = function(){
 			
 			if( this.memory.getUnit(pointeeAddress) == undefined  ){
 				this.validAddress = false;
+				this.boxObject.attr( {fill:MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR } );
 				fillOpacity = MemoryUnitView.INVALID_ADDRESS_OPACITY;
 			}
 			else{
@@ -415,8 +426,8 @@ MemoryUnitView.prototype.getAllObjects = function(){
 	
 	var objects = [];
 	
-	objects.push( this.boxObject );
-	
+	objects.push( this.boxObject );	
+
 	objects.addAll( this.linkedObjects );
 	
 	return objects;
@@ -440,7 +451,9 @@ MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR = "black";
 MemoryUnitView.VARIABLE_NAME_STROKE_COLOR = MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR;		
 MemoryUnitView.UNACCESSIBLE_NODE_STROKE_COLOR = "red";	
 MemoryUnitView.INVALID_ADDRESS_OPACITY = 0.2;
-MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR = "red";	
+MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR = "red";
+MemoryUnitView.CHANGED_OPACITY = 0.2;
+MemoryUnitView.NODE_CHANGED_FILL_COLOR = "blue"; //"#D7EFFF";	
 MemoryUnitView.TICK_ATTRIBUTES = {stroke: MemoryUnitView.TICK_COLOR};
 MemoryUnitView.BOX_ATTRIBUTES = {fill: MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR, stroke: MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR, "fill-opacity": 0, "stroke-width": MemoryUnitView.NODE_LINE_WIDTH, cursor: "move"};
 MemoryUnitView.INTERNAL_BOX_ATTRIBUTES = {fill: MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR, stroke: MemoryUnitView.FIELD_STROKE_COLOR, "fill-opacity": 0, "stroke-width": MemoryUnitView.NODE_LINE_WIDTH, cursor: "move"};
