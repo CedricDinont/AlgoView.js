@@ -138,7 +138,7 @@ var MainFrame = function(algoViewApp) {
 				id: 'southTabPanel',
 				split: true,
 				height: 200,
-				minHeight: 120,
+				minHeight: 40,
 				layout: {
 					type: 'border',
 					padding: 5
@@ -167,6 +167,8 @@ var MainFrame = function(algoViewApp) {
 				text: 'File',
 				menu:{
 					xtype: 'menu',
+					cls: 'no-icon-menu',
+					showSeparator: false,
 					items: [
 						{
 							text: 'Load local file...',
@@ -303,6 +305,7 @@ var MainFrame = function(algoViewApp) {
 				text: 'Help',
 				menu: {
 					xtype: 'menu',
+					cls: 'no-icon-menu',
 					showSeparator: false,
 					items: [
 						{
@@ -431,6 +434,7 @@ var MainFrame = function(algoViewApp) {
 		switch (event.type) {
 			case "OUTPUT_TEXT":
 				$j('#outputPanel-body').append("<div>" + event.text + "</div>");
+				Ext.getCmp('outputPanel').scrollBy(0, 50, false);
 				break;
 			case "DONE_STEP":
 				// console.log("DONE_STEP", event.filePosition);
@@ -445,6 +449,7 @@ var MainFrame = function(algoViewApp) {
 				break;
 			case "COMPILED_PROGRAM":
 				$j('#outputPanel-body').html("<div>Compiled without error.</div>");
+				Ext.getCmp('outputPanel').scrollBy(0, 50, false);
 				this.goInDebugMode();
 				Ext.getCmp('editor-1').editor.setReadOnly(true);
 				Ext.getCmp('editor-1').initCurrentLines();
@@ -454,6 +459,7 @@ var MainFrame = function(algoViewApp) {
 				Ext.getCmp('editor-1').initCurrentLines();
 				Ext.getCmp('editor-1').editor.setReadOnly(false);
 				$j('#outputPanel-body').append("<hr /><div>Program terminated.</div>");
+				Ext.getCmp('outputPanel').scrollBy(0, 50, false);
 				break;
 			case "ENTERING_FUNCTION":
 				Ext.getCmp('editor-1').pushCurrentLine(-1);

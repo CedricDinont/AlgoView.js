@@ -127,3 +127,7 @@ table th {
 	right: 98%;
 	z-index: 10;
 }
+
+div.no-icon-menu a.x-menu-item, div.no-icon-menu a.x-menu-item-link {
+    padding-left: 0;
+}

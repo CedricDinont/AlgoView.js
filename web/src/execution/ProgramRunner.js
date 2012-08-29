@@ -204,8 +204,6 @@ ProgramRunner.prototype.stopProgram = function() {
 	this.memory.endTransaction();
 	
 	this.reset();
-	
-	this.state = "STOPPED";
 }
 
 ProgramRunner.prototype.stepInFunctions = function() {

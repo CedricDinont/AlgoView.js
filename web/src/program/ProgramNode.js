@@ -40,6 +40,7 @@ ProgramNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	} else {
 		this.currentChild = 0;
 		nodeStack.pop();
+		programRunner.state = "STOPPED";
         programRunner.notifyListeners(new ProgramRunnerEvent(programRunner, "STOPPED_PROGRAM"));
         return false;
 	}
