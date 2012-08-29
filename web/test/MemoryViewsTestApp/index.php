@@ -60,7 +60,7 @@
 				</td>
 				<td>
 					<!-- style="width:190px" provisoire, pour régler un bug de scrollbars -->
-					<div id="stackTableViewContainer" class="flattenMemoryDiv"  style="width:190px"></div>
+					<div id="stackTableViewContainer" class="flattenMemoryDiv"  style="width:245px"></div>
 				</td>
 				<td>
 					<!-- style="width:190px" provisoire, pour régler un bug de scrollbars -->

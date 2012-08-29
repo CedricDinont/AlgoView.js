@@ -26,7 +26,7 @@
 			include "../../src/program.php";
 			include "../../src/parser.php";
 			
-			generateScriptNodes();
+			generateScriptNodes(true);
 		?>
 		
 		<script type="text/javascript" src="../../lib/qunit-1.7.js"></script>

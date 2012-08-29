@@ -20,6 +20,8 @@ var ProgramRunner = function(program, memorySize) {
 	this.errors = new Array();
 	this.listeners = new Array();
 	this.breakpoints = new BreakpointList();
+	
+	this.state = "STOPPED";
 
 	org.antlr.runtime.BaseRecognizer.prototype.emitErrorMessage = function (msg) {
 		console.log(msg);
@@ -47,7 +49,7 @@ ProgramRunner.prototype.notifyListeners = function(event) {
 }
 
 ProgramRunner.prototype.getProgramTree = function() {
-		return this.programTree;
+	return this.programTree;
 }
 
 ProgramRunner.prototype.reset = function() {
@@ -88,6 +90,8 @@ ProgramRunner.prototype.compile = function() {
 	}
 
 	this.programTree = programTree.tree;
+	
+	this.state = "COMPILED";
 	
 	var event = new ProgramRunnerEvent(this, "COMPILED_PROGRAM");
     this.notifyListeners(event);
@@ -167,6 +171,8 @@ ProgramRunner.prototype.findStructureDeclarations = function(program) {
 ProgramRunner.prototype.start = function() {
 	this.nodeStack.push(this.programTree);
 	
+	this.state = "RUNNING";
+	
 	if (this.startPaused) {
 		this.memory.beginTransaction();	
 		this.doStep(function() {
@@ -196,6 +202,10 @@ ProgramRunner.prototype.stopProgram = function() {
 		return true;
 	});
 	this.memory.endTransaction();
+	
+	this.reset();
+	
+	this.state = "STOPPED";
 }
 
 ProgramRunner.prototype.stepInFunctions = function() {

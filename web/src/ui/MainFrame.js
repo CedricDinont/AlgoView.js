@@ -143,6 +143,9 @@ var MainFrame = function(algoViewApp) {
 					type: 'border',
 					padding: 5
 				},
+				defaults: {
+					autoScroll:true
+				},
 				items: [{
 						id: 'outputPanel',
 						title: 'Output',
@@ -438,9 +441,10 @@ var MainFrame = function(algoViewApp) {
 				Ext.getCmp('editor-1').setCurrentLine(event.filePosition - 1);
 				break;
 			case "STARTED_PROGRAM":
+				$j('#outputPanel-body').append("<div>Running program.</div><hr />");
 				break;
 			case "COMPILED_PROGRAM":
-				$j('#outputPanel-body').html("<div>Compiled without error.</div><hr />");
+				$j('#outputPanel-body').html("<div>Compiled without error.</div>");
 				this.goInDebugMode();
 				Ext.getCmp('editor-1').editor.setReadOnly(true);
 				Ext.getCmp('editor-1').initCurrentLines();
@@ -449,6 +453,7 @@ var MainFrame = function(algoViewApp) {
 				this.leaveDebugMode();
 				Ext.getCmp('editor-1').initCurrentLines();
 				Ext.getCmp('editor-1').editor.setReadOnly(false);
+				$j('#outputPanel-body').append("<hr /><div>Program terminated.</div>");
 				break;
 			case "ENTERING_FUNCTION":
 				Ext.getCmp('editor-1').pushCurrentLine(-1);

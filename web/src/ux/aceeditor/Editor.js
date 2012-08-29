@@ -271,6 +271,10 @@ me.editor.getSession().setAnnotations([
 		this.editor.session.clearBreakpoint(row);
 	},
 	
+	clearBreakpoints: function() {
+		this.editor.session.clearBreakpoints();	
+	},
+	
 	setCurrentLine: function(line) {
 		try {
 			this.editor.renderer.removeGutterDecoration(this.currentLines.pop(), "current_line");

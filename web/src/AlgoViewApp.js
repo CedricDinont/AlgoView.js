@@ -18,7 +18,9 @@ var AlgoViewApp = function() {
 }
 
 AlgoViewApp.prototype.loadText = function(text) {
+	this.mainFrame.editors[0].clearBreakpoints();
 	this.mainFrame.editors[0].getSession().getDocument().setValue(text);
+	
 	//this.programRunner.program.text = text;
 }
 
@@ -79,12 +81,16 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			this.hideGraphicalView();
 			break;
 		case "algoview-load-program-text":
+			if (this.programRunner.state == "RUNNING") {
+				this.programRunner.stopProgram();
+			}
 			this.loadText(message.programText);
 			if (message.programName != undefined) {
 				Ext.getCmp('editor-1').setTitle(message.programName);
 			} else {
 				Ext.getCmp('editor-1').setTitle("Program.sl");
 			}
+			$j('#outputPanel-body').html("<div>File successfully loaded.</div><hr />");
 			break;
 		case "algoview-compile-program":
 			this.compileProgram();
