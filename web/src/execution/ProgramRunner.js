@@ -1,7 +1,7 @@
 var ProgramRunner = function(program, memorySize) {
 	this.program = program;
 	
-	if ((memorySize == undefined) || (memorySize < 0)) {
+	if ((memorySize == undefined) || (memorySize <= 0)) {
 		memorySize = 255;
 	}
 	if (memorySize > 10000) {
@@ -13,6 +13,7 @@ var ProgramRunner = function(program, memorySize) {
 
 	this.programTree;
 	
+	this.startPaused = false;
 	this.stopAtBegin = false;
 	this.stopAfterInstructionExecution = false;
 
@@ -25,6 +26,14 @@ var ProgramRunner = function(program, memorySize) {
 		$j('#outputPanel-body').html("<div class='error-message'>" + msg + "</div>");
 		algoViewApp.programRunner.errors.push(msg);
 	};
+}
+
+ProgramRunner.prototype.setStopAfterInstructionExecution = function(value) {
+	this.stopAfterInstructionExecution = value;
+}
+
+ProgramRunner.prototype.setStartPaused = function(value) {
+	this.startPaused = value;
 }
 
 ProgramRunner.prototype.addListener = function(listener) {
@@ -158,11 +167,15 @@ ProgramRunner.prototype.findStructureDeclarations = function(program) {
 ProgramRunner.prototype.start = function() {
 	this.nodeStack.push(this.programTree);
 	
-	this.memory.beginTransaction();	
-	this.doStep(function() {
-		return true;
-	});
-	this.memory.endTransaction();
+	if (this.startPaused) {
+		this.memory.beginTransaction();	
+		this.doStep(function() {
+			return true;
+		});
+		this.memory.endTransaction();
+	} else {
+		this.continueToNextBreakpoint();
+	}
 }
 
 ProgramRunner.prototype.stopProgram = function() {
@@ -221,7 +234,7 @@ ProgramRunner.prototype.stepOutCurrentFunction = function() {
 	
 	this.memory.beginTransaction();	
 	this.doStep(function(currentNode) {
-		// On stoppe quand on revient sur le fonction noeud précédemment trouvé
+		// On stoppe quand on revient sur le noeud fonction précédemment trouvé
 		if (currentNode === currentFunctionNode) {
 			return true;
 		} else {
@@ -240,6 +253,9 @@ ProgramRunner.prototype.stepOutCurrentFunction = function() {
 ProgramRunner.prototype.continueToNextBreakpoint = function() {
 	var self = this;
 	
+	var oldStopAtBegin = this.stopAtBegin;
+	this.stopAtBegin = true;
+	
 	this.memory.beginTransaction();	
 	this.doStep(function(currentNode) {
 		var currentFilePosition = self.nodeStack.peek().getFilePosition();
@@ -250,6 +266,8 @@ ProgramRunner.prototype.continueToNextBreakpoint = function() {
 		}
 	});	
 	this.memory.endTransaction();	
+	
+	this.stopAtBegin = oldStopAtBegin;
 }
 
 ProgramRunner.prototype.doStep = function(stopChecker) {

@@ -55,6 +55,14 @@ AlgoViewApp.prototype.setBreakpoint = function(line) {
 	this.mainFrame.editors[0].setBreakpoint(line);
 }
 
+AlgoViewApp.prototype.setStopAfterInstructionExecution = function(value) {
+	this.programRunner.setStopAfterInstructionExecution(value);
+}
+
+AlgoViewApp.prototype.setStartPaused = function(value) {
+	this.programRunner.setStartPaused(value);
+}
+
 AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 	switch (message.command) {
 		case "algoview-register":
@@ -102,6 +110,9 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 		case "algoview-set-memory-send-events":
 			this.setMemorySendEvents(message.value);
 			break;
+		case "algoview-set-stop-after-instruction-execution":
+			this.setStopAfterInstructionExecution(message.value);
+			break;
 		case "algoview-disable-editor-workers":
 			this.setUseEditorWorkers(false);
 			break;
@@ -110,6 +121,9 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			break;
 		case "algoview-reset-interface":
 			this.resetInterface();
+			break;
+		case "algoview-set-start-paused":
+			this.setStartPaused(message.value);
 			break;
 	}
 }

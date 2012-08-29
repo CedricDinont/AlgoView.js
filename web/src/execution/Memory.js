@@ -129,7 +129,8 @@ Memory.prototype.setValue = function(address, value, dataSize) { // dataSize is 
 	// the memory has at least 1 value; it is not empty anymore
 	this.empty = false;	
 	
-	// no need to change the boolean value.changed with is true by default
+	value.setChanged(true);
+	
 	this.changed();
 }	
 	

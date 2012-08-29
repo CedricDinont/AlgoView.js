@@ -23,6 +23,7 @@ ReturnNode.prototype.execute = function(memory, nodeStack, programRunner) {
 			nodeStack.pop();
 		}
 		var functionNode = nodeStack.peek();
+		functionNode.returnExecuted = true;
 		functionNode.setValue(this.getReturnExpression().getValue());
 	}
 	return false;

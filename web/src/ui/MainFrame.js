@@ -319,10 +319,21 @@ var MainFrame = function(algoViewApp) {
 							handler: function() {
 								window.open("https://dev.isen.fr/dev/courses/ComputerScience/fr/slides.html?presentation=informatique/programmation/algo/simple_language/grammaire_simple_language");
 							}
-						},
-						/*{
+						}, '-',
+						{
 							text: 'About',
-						} */
+							handler: function() {
+								Ext.Msg.alert('About', 'AlgoView.js 0.1<br />\
+									<hr /><br />\
+									&copy; 2012 ISEN Computer Science Department<br />\
+									<br />\
+									Core developers:<br />\
+									<ul>\
+										<li>&nbsp;&nbsp;- <a href="mailto:cedric.dinont@isen.fr">Cédric Dinont</a></li>\
+										<li>&nbsp;&nbsp;- <a href="mailto:michael.soulignac@isen.fr">Michaël Soulignac</a></li>\
+									</ul>');
+							}
+						} 
 					],
 				}
 				
@@ -429,6 +440,7 @@ var MainFrame = function(algoViewApp) {
 			case "STARTED_PROGRAM":
 				break;
 			case "COMPILED_PROGRAM":
+				$j('#outputPanel-body').html("<div>Compiled without error.</div><hr />");
 				this.goInDebugMode();
 				Ext.getCmp('editor-1').editor.setReadOnly(true);
 				Ext.getCmp('editor-1').initCurrentLines();
@@ -443,9 +455,6 @@ var MainFrame = function(algoViewApp) {
 				break;
 			case "EXITING_FUNCTION":
 				Ext.getCmp('editor-1').popCurrentLine();
-				break;
-			case "COMPILED_PROGRAM":
-				$j('#outputPanel-body').html("<div>Compiled without error.</div><hr />");
 				break;
 		}
 	}

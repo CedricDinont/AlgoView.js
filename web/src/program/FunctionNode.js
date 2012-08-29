@@ -2,6 +2,7 @@ var FunctionNode = function(tokenType, token) {
 	ExpressionNode.call(this, tokenType, token);
 	
 	this.parametersValues;
+	this.returnExecuted = false;
 	
 	this.type = "FUNCTION_NODE";
 }
@@ -74,7 +75,12 @@ FunctionNode.prototype.execute = function(memory, nodeStack, programRunner) {
 			this.currentChild++;
 			
 			nodeStack.push(this.getEnd());
-			return true;
+			
+			if (this.returnExecuted === true) {
+				return false;
+			} else {
+				return true;
+			}
 	} else {
 		this.currentChild = 0;
 		nodeStack.pop();
