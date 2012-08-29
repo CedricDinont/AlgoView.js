@@ -38,7 +38,7 @@
 }
 
 .changed {
-	background-color: #D7EFFF; /* #D7FFFB; */
+	background-color: rgba(50, 90, 255, 0.2); /*#D7EFFF;*/  /* #D7FFFB; */
 }
 
 .unchanged {

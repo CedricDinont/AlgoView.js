@@ -82,7 +82,7 @@
 			include "../../src/memory_views.php";
 			include "../../src/program.php";
 			
-			generateScriptNodes();
+			generateScriptNodes(true);
 		?>
 
 		<script src="variableCreationUtils.js" type="text/javascript" charset="utf-8"></script>  	
