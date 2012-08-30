@@ -18,11 +18,15 @@ Ext.onReady(function() {
 	algoViewApp = new AlgoViewApp();
 
 	var hideMask = function () {
-		Ext.get('loading').remove();
-		Ext.fly('loading-mask').animate({
-			opacity: 0,
-			remove: true,
-		});
+		try {
+			Ext.get('loading').remove();
+			Ext.fly('loading-mask').animate({
+				opacity: 0,
+				remove: true,
+			});
+		} catch (e) {
+			console.log("Cannot remove loading mask", e);
+		}
 	};
 
 	Ext.defer(hideMask, 250);

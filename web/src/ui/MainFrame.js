@@ -59,6 +59,12 @@ var MainFrame = function(algoViewApp, layoutName) {
 		this.initViewport();
 		this.viewport.doLayout();
 	//	this.viewport.update();
+		try {
+			parent.focus();
+		} catch (e) {
+			console.log("Cannot set focus to parent", e);
+			// Silently ignore if we have no parent.
+		}
 	}
 
 	this.createToolbar = function() {
@@ -483,7 +489,6 @@ var MainFrame = function(algoViewApp, layoutName) {
 		this.createTableViewsContainer();
 		
 		this.viewport.doLayout();
-		this.viewport.update();
 		
 		var extEditor = Ext.getCmp('editor-1');
 		this.editors.push(extEditor); // Attention : editor n'est créé qu'à l'affichage du composant
