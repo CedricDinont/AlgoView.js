@@ -57,7 +57,8 @@ Memory.prototype.isUsed = function(address) {
 	return (value.getState() != MemoryState.UNUSED);
 }		
 
-Memory.prototype.setValue = function(address, value, dataSize) { // dataSize is optionnal and internally used by Heap.malloc()
+Memory.prototype.setValue = function(address, originalValue, dataSize) { // dataSize is optionnal and internally used by Heap.malloc()
+	var value = originalValue.clone();
 	var memoryUnit;
 	var dataType;
 	var oldValue = this.memoryValues[address];
