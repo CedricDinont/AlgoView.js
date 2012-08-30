@@ -50,7 +50,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		if (layoutName != undefined) {
 			this.layoutName = layoutName;
 		} else {
-			this.layoutName = "complete"; //"only-stack-view"; //"only-tables-view"; //"only-graphical-view"; // "complete";
+			this.layoutName = "complete";
 		}
 	
 		this.layout = this.layouts[this.layoutName];
