@@ -18,6 +18,7 @@ var AlgoViewApp = function() {
 }
 
 AlgoViewApp.prototype.loadText = function(text) {
+	console.log("Editor", this.mainFrame.editors[0]);
 	this.mainFrame.editors[0].clearBreakpoints();
 	this.mainFrame.editors[0].getSession().getDocument().setValue(text);
 	

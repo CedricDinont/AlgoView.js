@@ -38,9 +38,7 @@ Ext.define('Ext.ux.aceeditor.Editor', {
 		me.getSession().setTabSize(me.tabSize);
 		me.getSession().setUseSoftTabs(me.useSoftTabs);
 		me.setValue(me.sourceCode);
-		
-		// me.editor.getSession().setUseWorker(false);
-		
+				
 		me.editor.getSession().on('change', function() {
 			me.fireEvent('change', me);
 		}, me);

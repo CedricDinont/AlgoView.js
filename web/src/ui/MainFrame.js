@@ -58,6 +58,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		this.resetViewport();
 		this.initViewport();
 		this.viewport.doLayout();
+	//	this.viewport.update();
 	}
 
 	this.createToolbar = function() {
@@ -319,9 +320,9 @@ var MainFrame = function(algoViewApp, layoutName) {
 			title: 'Program.sl',
 			parser: 'simple_language',
 			theme: 'algoview',
+			deferredRender: false,
 		});
 		editorsTabPanel.add(editorPanel);
-
 	}
 	
 	this.createOutputPanel = function() {
@@ -409,6 +410,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 	}
 	
 	this.resetViewport = function() {
+		this.editors = new Array();
 		this.viewport.removeAll(true);
 	}
 
@@ -425,6 +427,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 				id: 'center',
 				minHeight: 80,
 				layout: 'fit',
+				deferredRender: false,
 			},{
 				region: 'south',
 				xtype: 'tabpanel',
@@ -452,7 +455,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 				width: '30%',
 				minWidth: 100,
 				minHeight: 140,
-			//	deferredRender: false,
+				deferredRender: false,
 			});
 			this.viewport.add(west);
 		}
@@ -467,6 +470,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 				//width: 350,
 				minWidth: 120,
 				minHeight: 140,
+				deferredRender: false,
 			});
 			this.viewport.add(east);
 		}
