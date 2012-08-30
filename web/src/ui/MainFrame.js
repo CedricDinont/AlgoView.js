@@ -358,6 +358,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'heapTableViewContainer',
+			manageOverflow: 1,
 		});
 		Ext.getCmp("tableViewsContainer").add(panel);
 		
@@ -471,8 +472,8 @@ var MainFrame = function(algoViewApp, layoutName) {
 			var east = Ext.create("Ext.panel.Panel", {
 				region: 'east',
 				id: 'east',
-				floatable: true,
-				split: true,
+				//floatable: true,
+				//split: true,
 				layout: 'fit',
 				//width: 350,
 				minWidth: 120,
