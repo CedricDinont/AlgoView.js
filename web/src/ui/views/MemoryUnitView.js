@@ -10,12 +10,9 @@
  * @param hideLocationLabel (optionnal and 2D-array specific) : boolean allowing hiding labels in the case of a "matrix" display 
  * @author michael  
  */
-var MemoryUnitView = function(heapGraphicalView, memoryUnit, x, y, fieldName, nested, hideLocationLabel){
+var MemoryUnitView = function(heapGraphicalView, memoryUnit, x, y, fieldName, nested, hideLocationLabel){	// throws IllegalArgumentException
 
-	if(heapGraphicalView == undefined || memoryUnit == undefined){
-			throw new Error("[MemoryUnitView()] Illegal Argument");
-	}
-	
+
 	this.x = x; this.y = y;
 	this.heapGraphicalView = heapGraphicalView;
 	this.memoryUnit = memoryUnit;
@@ -115,7 +112,7 @@ MemoryUnitView.prototype.getMemoryUnitValueString = function(){
 	var memoryUnitValueString = this.memoryUnit.hasValue() ? this.memoryUnit.getValue().toString() : MemoryUnitView.UNINITIALIZED_UNIT_STRING;	
 	
 	if( this.memoryUnit.isBoolean() ){
-		memoryUnitValueString = memoryUnitValueString.substring(0, 1);
+		memoryUnitValueString = memoryUnitValueString.substring(0, 1).toUpperCase();
 	}
 	
 	return memoryUnitValueString;
@@ -254,11 +251,8 @@ MemoryUnitView.prototype.update = function(){
 		// special case of a POINTER
 		if( this.memoryUnit.getValue() instanceof PointerMemoryValue ){
 			
-			
-			var pointeeAddress = this.memoryUnit.getPrimitiveValue();
-			
-			
-			if( this.memory.getUnit(pointeeAddress) == undefined  ){
+		
+			if( !this.memoryUnit.isValidPointer()  ){
 				this.validAddress = false;
 				this.boxObject.attr( {fill:MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR } );
 				fillOpacity = MemoryUnitView.INVALID_ADDRESS_OPACITY;
@@ -471,7 +465,7 @@ MemoryUnitView.UNACCESSIBLE_NODE_STROKE_COLOR = "red";
 MemoryUnitView.INVALID_ADDRESS_OPACITY = 0.2;
 MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR = "red";
 MemoryUnitView.CHANGED_OPACITY = 0.2;
-MemoryUnitView.NODE_CHANGED_FILL_COLOR = "blue"; //"#D7EFFF";	
+MemoryUnitView.NODE_CHANGED_FILL_COLOR = "rgb(0, 90, 255)";
 MemoryUnitView.TICK_ATTRIBUTES = {stroke: MemoryUnitView.TICK_COLOR};
 MemoryUnitView.BOX_ATTRIBUTES = {fill: MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR, stroke: MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR, "fill-opacity": 0, "stroke-width": MemoryUnitView.NODE_LINE_WIDTH, cursor: "move"};
 MemoryUnitView.INTERNAL_BOX_ATTRIBUTES = {fill: MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR, stroke: MemoryUnitView.FIELD_STROKE_COLOR, "fill-opacity": 0, "stroke-width": MemoryUnitView.NODE_LINE_WIDTH, cursor: "move"};

@@ -81,21 +81,28 @@ var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells,
 						
 						var typeClassName;
 						
+						var backgroundClassName = value.hasChanged() ? "changed" : "";	
+						
 						// special case of POINTER
 						if (dataType instanceof PointerDataType) {
 							typeClassName = "address";
+							
+							if( !unit.isValidPointer() ){
+								backgroundClassName = "invalid";
+							}
+											
 						} else {
 							typeClassName = "value";				
 						}
 						
-						var changedClassName = value.hasChanged() ? "changed" : "unchanged";						
-						heapTableHTML += "<td rowspan= '" + rowSpan + "' class='" + typeClassName + " " + changedClassName + "'> " + dataString + " </td>"; 		
+											
+						heapTableHTML += "<td rowspan= '" + rowSpan + "' class='" + typeClassName + " " + backgroundClassName + "'> " + dataString + " </td>"; 		
 					} else {
 						var value = heap.getMemory().getValue(i, true);
 						dataString = buildDataString(value);
 						
-						var changedClassName = value.hasChanged() ? "changed" : "unchanged";		
-						heapTableHTML += "<td class='" + changedClassName + "'> " + dataString + " </td>"; 
+						var backgroundClassName = value.hasChanged() ? "changed" : "";		
+						heapTableHTML += "<td class='" + backgroundClassName + "'> " + dataString + " </td>"; 
 					}
 				}
 				heapTableHTML += "</tr>";

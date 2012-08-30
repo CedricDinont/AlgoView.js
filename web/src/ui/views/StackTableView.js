@@ -80,20 +80,30 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 
 			stackTableHTML += "<td>" + i + " </td>";
 
+
+			var backgroundClassName = value.hasChanged() ? "changed" : "";		
+			
 			// special case of POINTER
 			if (dataType instanceof PointerDataType) {
 				typeClassName = "address";
+				
+				if( !unit.isValidPointer() ){
+					backgroundClassName = "invalid"
+				}
+
+							
+				
 			} else {
 				typeClassName = "value";				
 			}
 
-			var changedClassName = value.hasChanged() ? "changed" : "unchanged";						
+				
 
 			if (valueRowSpan == 1) {
 				if (! showIntermediateCells) {
 					valueRowSpan = dataSize;
 				}
-				stackTableHTML += "<td rowspan= '" + valueRowSpan + "' class='" + typeClassName + " " + changedClassName + "'> " + dataString + " </td>"; 						
+				stackTableHTML += "<td rowspan= '" + valueRowSpan + "' class='" + typeClassName + " " + backgroundClassName + "'> " + dataString + " </td>"; 						
 			}
 
 
@@ -103,7 +113,7 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 				if (! showIntermediateCells) {
 					variableRowSpan = enclosingDataSize;
 				}								
-				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + changedClassName + "'> " + stack.getVariableName(i) + "</td>";
+				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + backgroundClassName + "'> " + stack.getVariableName(i) + "</td>";
 				accumulatedNumberOfVariables++;	
 
 			}

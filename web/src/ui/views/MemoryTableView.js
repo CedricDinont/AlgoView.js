@@ -56,7 +56,14 @@ var MemoryTableView = function(containerId){
 
 				var value = memory.getValue(i, true); // true = internal access ; allow to access to parts of memory values
 				var pointersString = buildPointersString( value );
-				var className = value.hasChanged() ? "changed" : "unchanged";
+				var className = value.hasChanged() ? "changed" : "";
+				
+				var unit = memory.getUnit(i);
+				
+				if( unit != undefined && value instanceof PointerMemoryValue && !unit.isValidPointer() ){
+					className = "invalid";
+				}
+								
 				var stackAccessString = value.isAccessibleFromStack() ? "*" : "";
 				memoryTableHTML += "<td class='"+ className + "'> " + value.toString() + stackAccessString + pointersString + " </td>"; 		
 
