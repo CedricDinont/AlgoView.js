@@ -57,6 +57,24 @@ MemoryUnit.prototype.getBaseAddress = function(refAddress){
 	
 }
 
+MemoryUnit.prototype.hasChangedRecursive = function(){
+	
+	if( this.isComposedDataType() ){
+	
+		for(var child in this.children){
+			if( child.hasChangedRecursive() ){ // recursion
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	else{
+		return this.hasChanged();
+	}
+}
+
+
 
 MemoryUnit.prototype.getChild = function(childAddress){
 	

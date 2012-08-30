@@ -1,5 +1,5 @@
 /**
- * interface PointerDataType implements DataType: describes the primitive type INTEGER
+ * interface PointerDataType implements DataType: describes the primitive type POINTER
  * @author michael
  */
  

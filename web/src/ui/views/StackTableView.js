@@ -85,14 +85,14 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 			stackTableHTML += "<td>" + i + " </td>";
 
 
-			var backgroundClassName = value.hasChanged() ? "changed" : "";		
+			var valueBackgroundClassName = value.hasChanged() ? "changed" : "";		
 			
 			// special case of POINTER
 			if (dataType instanceof PointerDataType) {
 				typeClassName = "address";
 				
 				if(  memory.getUnit( value ) == undefined  ){
-					backgroundClassName = "invalid";
+					valueBackgroundClassName = "invalid";
 				}
 
 							
@@ -107,17 +107,17 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 				if (! showIntermediateCells) {
 					valueRowSpan = dataSize;
 				}
-				stackTableHTML += "<td rowspan= '" + valueRowSpan + "' class='" + typeClassName + " " + backgroundClassName + "'> " + dataString + " </td>"; 						
+				stackTableHTML += "<td rowspan= '" + valueRowSpan + "' class='" + typeClassName + " " + valueBackgroundClassName + "'> " + dataString + " </td>"; 						
 			}
 
 
-			
+			var unitBackgroundClassName = unit.hasChangedRecursive() ? "changed" : "";	
 			
 			if (variableRowSpan == 0) {
 				if (! showIntermediateCells) {
 					variableRowSpan = enclosingDataSize;
 				}								
-				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + backgroundClassName + "'> " + stack.getVariableName(i) + "</td>";
+				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + unitBackgroundClassName + "'> " + stack.getVariableName(i) + "</td>";
 				accumulatedNumberOfVariables++;	
 
 			}
