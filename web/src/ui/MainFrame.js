@@ -1,4 +1,4 @@
-var MainFrame = function(algoViewApp) {
+var MainFrame = function(algoViewApp, layoutName) {
 	this.app = algoViewApp;
 	this.viewport;
 	this.toolbar;
@@ -8,21 +8,35 @@ var MainFrame = function(algoViewApp) {
 	this.memoryGraphicalView;
 
 	this.editors = new Array();
-
+	this.layouts = new Array();
+	
+	this.layouts["complete"] = {
+		editorsContainer: 'west',
+		graphicalViewContainer: 'center',
+		tableViewsContainer: 'east',
+	};
+	
+	this.layouts["only-graphical-view"] = {
+		editorsContainer: 'west',
+		graphicalViewContainer: 'center',
+		east: false,
+	};
+	
+	this.layouts["only-tables-view"] = {
+		west: false,
+		editorsContainer: 'center',
+		tableViewsContainer: 'east',
+	};
+	
+	this.layouts["only-stack-view"] = {
+		west: false,
+		editorsContainer: 'center',
+		tableViewsContainer: 'east',
+		heapView: false,
+	};
+	
+	
 	var self = this;
-
-	this.initViews = function() {
-		var memory = this.app.programRunner.memory;
-
-        this.memoryGraphicalView = new MemoryGraphicalView("graphicalMemoryViewContainer-body");
-		memory.addView(this.memoryGraphicalView);
-
-		this.heapTableView = new HeapTableView("heapTableViewContainer-body");
-		memory.addView(this.heapTableView);	
-
-		this.stackTableView = new StackTableView("stackTableViewContainer-body");
-		memory.addView(this.stackTableView);					
-	}
 
 	this.resizeEditors = function(mainFrame) {
 		console.log('resize');
@@ -32,138 +46,27 @@ var MainFrame = function(algoViewApp) {
 		}
 	}
 
-	this.initViewport = function() {
-		this.viewport = Ext.create('Ext.Viewport', {
-			layout: {
-				type: 'border',
-				padding: 0
-			},
-			defaults: {
-				split: true
-			},
-			items: [{
-				region: 'north',
-				id: 'north',
-				split: false,
-				height: 30,
-				minHeight: 30,
-				maxHeight: 30,
-			},{
-				region: 'west',
-				split: true,
-				width: '30%',
-				minWidth: 100,
-				minHeight: 140,
-				xtype: 'tabpanel',
-				deferredRender: false,
-				
-				items: [{
-							id: 'editor-1',
-							title: 'Program.sl',
-							xtype: 'AceEditor',
-							parser: 'simple_language',
-							theme: 'algoview',
-					}],
-				
-			/*	items: [ {
-					id: 'opened_files',
-					title: 'Files',
-					xtype: 'tabpanel',
-					deferredRender: false,
-					listeners: {
-						//resize: this.resizeEditors(this),
-						tabchange: function(tp, newTab) {
-						//	editor.resize();
-						//	newTab.on('resize', function() {	
-						//		editor.resize();
-						//	}); 
-						}
-					},
-					items: [{
-							id: 'editor-1',
-							title: 'Program',
-							xtype: 'AceEditor',
-							parser: 'simple_language',
-							theme: 'algoview',
-					}]	
-				},{
-					id: 'all_files',
-					title: 'Repositories',
-					xtype: 'treepanel',
-					rootVisible: false,
-					useArrows: true,
-					root: {
-						text: 'Root',
-						expanded: true,
-						children: [{
-							text: 'f1',
-						//	leaf: true,
-						}, {
-							text: 'f2',
-						//	leaf: true,
-						}]
-					}
-				}], */
-			},{
-				region: 'center',
-				id: 'center',
-				minHeight: 80,
-				items: [{
-					id: 'graphicalMemoryViewContainer'
-				}]
-			},{
-				region: 'east',
-				id: 'east',
-				floatable: true,
-				split: true,
-				width: 300,
-				minWidth: 120,
-				minHeight: 140,
-				items: {
-					id: 'tableViewsContainer',
-					layout: {
-						type: 'hbox',
-						padding: 0,
-						align: 'stretch'
-					},
-					items: [{
-						id: 'stackTableViewContainer',
-					}, {
-						id: 'heapTableViewContainer',
-					}]
-				}
-			},{
-				region: 'south',
-				xtype: 'tabpanel',
-				id: 'southTabPanel',
-				split: true,
-				height: 200,
-				minHeight: 40,
-				layout: {
-					type: 'border',
-					padding: 5
-				},
-				defaults: {
-					autoScroll:true
-				},
-				items: [{
-						id: 'outputPanel',
-						title: 'Output',
-					},/* {
-						id: 'stackTracePanel',
-						title: 'Call Stack',
-					} */
-				]
-			}]
-		});
+	this.setLayout = function(layoutName) {
+		if (layoutName != undefined) {
+			this.layoutName = layoutName;
+		} else {
+			this.layoutName = "complete"; //"only-stack-view"; //"only-tables-view"; //"only-graphical-view"; // "complete";
+		}
+	
+		this.layout = this.layouts[this.layoutName];
+		
+		this.initViewport();
+		this.viewport.doLayout();
+	}
 
-		var tb = Ext.create('Ext.toolbar.Toolbar');
-		tb.suspendLayout = true;
-		tb.render('north-body');
+	this.createToolbar = function() {
+		var toolbar = Ext.create('Ext.toolbar.Toolbar');
+		toolbar.suspendLayout = true;
+		toolbar.render('north-body');
 		
 		var mainFrameRef = this;
 
-		tb.add({
+		toolbar.add({
 				text: 'File',
 				menu:{
 					xtype: 'menu',
@@ -390,28 +293,184 @@ var MainFrame = function(algoViewApp) {
 				handler: function() {
 					algoViewApp.stepOutProgram();
 				}
-			}/*, {
-				xtype: 'tbfill'
-			},{
-				text: 'AlgoView.js Rev. XXX'
-			} */
+			}
 		);
 
-		tb.suspendLayout = false;
-		tb.doLayout();
-		this.toolbar = tb;
+		toolbar.suspendLayout = false;
+		toolbar.doLayout();
+		this.toolbar = toolbar;
+	}
+	
+	this.createEditor = function() {
+		var parent = this.layout.editorsContainer;
+		if (parent == undefined) {
+			return;
+		}
+		
+		var editorsTabPanel = Ext.create("Ext.tab.Panel", {
+			id: 'editorsTabPanel',
+			deferredRender: false,
+		});
+		Ext.getCmp(parent).add(editorsTabPanel);
 
-	/*	$j(':regex(id, editor-.*-body)').each(function(index) {
-			$j(this).css('background-color', 'white');
-		}); */
+		var editorPanel = Ext.create("Ext.ux.aceeditor.Panel", {
+			id: 'editor-1',
+			title: 'Program.sl',
+			parser: 'simple_language',
+			theme: 'algoview',
+		});
+		editorsTabPanel.add(editorPanel);
 
+	}
+	
+	this.createOutputPanel = function() {
+		var outputPanel = Ext.create("Ext.panel.Panel", {
+			id: 'outputPanel',
+			title: 'Output',
+			autoScroll:true
+		});
+		Ext.getCmp("south").add(outputPanel);
+	}
+	
+	this.createStackTableView = function() {
+		var panel = Ext.create("Ext.panel.Panel", {
+			id: 'stackTableViewContainer',
+		});
+		Ext.getCmp("tableViewsContainer").add(panel);
+		
+		this.stackTableView = new StackTableView("stackTableViewContainer-body");
+		this.app.programRunner.memory.addView(this.stackTableView);			
+	}
+	
+	this.createHeapTableView = function() {
+		var panel = Ext.create("Ext.panel.Panel", {
+			id: 'heapTableViewContainer',
+		});
+		Ext.getCmp("tableViewsContainer").add(panel);
+		
+		this.heapTableView = new HeapTableView("heapTableViewContainer-body");
+		this.app.programRunner.memory.addView(this.heapTableView);			
+	}
+	
+	this.createMemoryGraphicalView = function() {		
+        this.memoryGraphicalView = new MemoryGraphicalView("graphicalMemoryViewContainer-body");
+		this.app.programRunner.memory.addView(this.memoryGraphicalView);	
+	}
+	
+	this.createTableViewsContainer = function() {
+		var parent = this.layout.tableViewsContainer;
+		if (parent == undefined) {
+			return;
+		}
+		
+		var panel = Ext.create("Ext.panel.Panel", {
+			id: 'tableViewsContainer',
+			layout: {
+				type: 'hbox',
+				padding: 0,
+				align: 'stretch'
+			}
+		});
+		Ext.getCmp(parent).add(panel);
+		
+		this.createStackTableView();
+		this.createHeapTableView();
+	}
+
+	this.createGraphicalMemoryViewContainer = function() {
+		var parent = this.layout.graphicalViewContainer;
+		if (parent == undefined) {
+			return;
+		}
+		
+		var panel = Ext.create("Ext.panel.Panel", {
+			id: 'graphicalMemoryViewContainer',
+		});
+		Ext.getCmp(parent).add(panel);
+		
+		this.createMemoryGraphicalView();
+	}
+
+	this.initViewport = function() {
+		this.viewport = Ext.create('Ext.Viewport', {
+			layout: {
+				type: 'border',
+				padding: 0
+			},
+			defaults: {
+				split: true
+			},
+			items: [{
+				region: 'north',
+				id: 'north',
+				split: false,
+				height: 30,
+				minHeight: 30,
+				maxHeight: 30,
+			},{
+				region: 'center',
+				id: 'center',
+				minHeight: 80,
+				layout: 'fit',
+			},{
+				region: 'south',
+				xtype: 'tabpanel',
+				id: 'south',
+				split: true,
+				height: 200,
+				minHeight: 40,
+				layout: {
+					type: 'border',
+					padding: 5
+				}
+			}]
+		});
+		
+		this.viewport.suspendLayout = true;
+		
+		this.createToolbar();
+		this.createOutputPanel();
+		
+		if (this.layout.west !== false) {
+			var west = Ext.create("Ext.panel.Panel", {
+				region: 'west',
+				id: 'west',
+				split: true,
+				layout: 'fit',
+				width: '30%',
+				minWidth: 100,
+				minHeight: 140,
+			//	deferredRender: false,
+			});
+			this.viewport.add(west);
+		}
+		
+		if (this.layout.east !== false) {
+			var east = Ext.create("Ext.panel.Panel", {
+				region: 'east',
+				id: 'east',
+				floatable: true,
+				split: true,
+				layout: 'fit',
+				width: 350,
+				minWidth: 120,
+				minHeight: 140,
+			});
+			this.viewport.add(east);
+		}
+		
+		this.createEditor();
+		
+		this.viewport.suspendLayout = false;
+		this.viewport.doLayout();
+		this.createGraphicalMemoryViewContainer();
+		this.createTableViewsContainer();
+		
+		this.viewport.doLayout();
+		
 		var extEditor = Ext.getCmp('editor-1');
 		this.editors.push(extEditor); // Attention : editor n'est créé qu'à l'affichage du composant
 	}
-
-	this.initViewport();
-	this.initViews();
-	this.viewport.doLayout();
 	
 	this.toggleDebugButtons = function() {
 		Ext.getCmp('continueButton').setDisabled(! Ext.getCmp('continueButton').disabled);
@@ -437,11 +496,9 @@ var MainFrame = function(algoViewApp) {
 				Ext.getCmp('outputPanel').scrollBy(0, 50, false);
 				break;
 			case "DONE_STEP":
-				// console.log("DONE_STEP", event.filePosition);
 				Ext.getCmp('editor-1').setCurrentLine(event.filePosition - 1);
 				break;
 			case "DONE_INSTRUCTION":
-				// console.log("DONE_INSTRUCTION", event.filePosition);
 				Ext.getCmp('editor-1').setCurrentLine(event.filePosition - 1);
 				break;
 			case "STARTED_PROGRAM":
@@ -470,7 +527,7 @@ var MainFrame = function(algoViewApp) {
 		}
 	}
 	
-	this.app.programRunner.addListener(this);
+	this.setLayout(layoutName);
 	
 	Ext.getCmp('editor-1').editor.getSession().on("changeBreakpoint", function() {
 		var breakpoints = Ext.getCmp('editor-1').editor.getSession().getBreakpoints();
@@ -484,5 +541,6 @@ var MainFrame = function(algoViewApp) {
 		}
 		self.app.programRunner.breakpoints.setBreakpoints(newBreakpointsArray);
 	});
+	
+	this.app.programRunner.addListener(this);
 }
-

@@ -6,3 +6,8 @@ var StringNode = function(tokenType, token) {
 
 // Prototype based inheritance
 StringNode.prototype = new Node();
+
+Node.prototype.execute = function(memory, nodeStack, programRunner) {
+	nodeStack.pop();
+	return false;
+}

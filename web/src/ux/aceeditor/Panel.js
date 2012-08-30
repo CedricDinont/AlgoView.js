@@ -19,6 +19,7 @@ Ext.define('Ext.ux.aceeditor.Panel', {
 
 	listeners: {
 		resize: function() {
+			//console.log("resize editor");
 			if (this.editor) {
 				this.editor.resize();
 			}
