@@ -28,9 +28,14 @@
 	addJsLibrary("execution/CharacterMemoryValue.js");
 	addJsLibrary("execution/PointerMemoryValue.js");
 
+	addJsLibrary("exceptions/Exception.js");
 	addJsLibrary("exceptions/InvalidAddressException.js");
+	addJsLibrary("exceptions/PartOfPrimitiveTypeException.js");
 	addJsLibrary("exceptions/AlreadyAllocatedSegmentException.js");
 	addJsLibrary("exceptions/IllegalArgumentException.js");
 	addJsLibrary("exceptions/DoubleFreeException.js");
+	addJsLibrary("exceptions/EmptyStackException.js");	
+	addJsLibrary("exceptions/StackOverflowException.js");
+	addJsLibrary("exceptions/BadVariableNameException.js");	
 
 ?>

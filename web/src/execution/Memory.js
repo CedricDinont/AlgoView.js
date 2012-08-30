@@ -26,10 +26,10 @@ Memory.prototype = new AbstractModel();
 // the internalAccess allows to read a part of a memory value or unallocated areas
 Memory.prototype.getValue = function(address, internalAccess) {
 	if (!internalAccess && !this.isUsed(address)) {
-		throw new Error("[Memory.getValue()] Trying to read in unallocated memory area");  // -> InvalidAddressException
+		JSUtils.throwException("UnallocatedSegmentException", "Memory.getValue", address);			
 	}
 	else if (!internalAccess && this.getUnit(address) == undefined) {
-		throw new Error("[Memory.getValue()] Trying to read in a part of a primitive data type");  // -> InvalidAddressException
+		JSUtils.throwException("PartOfPrimitiveTypeException", "Memory.getValue", address);		
 	}		
 		
 	return this.memoryValues[address];
@@ -51,7 +51,7 @@ Memory.prototype.isUsed = function(address) {
 	var value = this.memoryValues[address];
 	
 	if (value == undefined) {
-		throw new Error("[Memory.isUsed()] : no memory value at address " + address);  // -> BadAddressException
+		JSUtils.throwException("InvalidAddressException", "Memory.getValue", address);
 	}
 	
 	return (value.getState() != MemoryState.UNUSED);
@@ -65,17 +65,17 @@ Memory.prototype.setValue = function(address, originalValue, dataSize) { // data
 		
 	if (dataSize != undefined) {// memory allocation context
 		if (this.isUsed(address)) {
-			throw new Error("[Memory.setValue()] Trying to use realloc a memory area in use"); // -> AlreadyAllocatedSegmentException
+			JSUtils.throwException("AlreadyAllocatedSegmentException", "Memory.setValue", address);			
 		}
 	} else {
 		if (!this.isUsed(address)) {
-			throw new Error("[Memory.setValue()] Trying to write in an unallocated memory area"); // -> InvalidAddressException
+			JSUtils.throwException("UnallocatedSegmentException", "Memory.setValue", address);						
 		} else {			
 			memoryUnit = this.getUnit(address);
 			
 			// accès interdit à l'intérieur d'un type de base
 			if (memoryUnit == undefined) {
-				throw new Error("[Memory.setValue()] Trying to write in a part of a primitive data type"); // -> InvalidAddressException
+				JSUtils.throwException("PartOfPrimitiveTypeException", "Memory.setValue", address);				
 			} else { // type composé (tableau, structure) 
 				dataType = memoryUnit.getDataType();
 				
@@ -168,7 +168,7 @@ Memory.prototype.free = function(address) { // prototype provisoire
 	var unit = this.getUnit(address);
 
 	if(unit == undefined){	// free region !
-		throw new Error("[Memory.free()] Trying to deallocate a free memory segment");	 // -> DoubleFreeException
+		JSUtils.throwException("DoubleFreeException", "Memory.free", address);		
 	}
 	
 	if (unit.isComposedDataType()) {

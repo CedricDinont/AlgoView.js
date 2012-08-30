@@ -23,7 +23,7 @@ Stack.prototype.pop = function() {	// throws EmptyStackException
 	var variable = this.variables.pop();
 	
 	if (variable == undefined) {
-		throw new Error("[Stack.pop()] empty stack"); // -> EmptyStackException
+		JSUtils.throwException("EmptyStackException", "Stack.pop");				
 	}
 	
 	this.decrementNumberOfVariablesForCurrentFunction();
@@ -37,13 +37,13 @@ Stack.prototype.pop = function() {	// throws EmptyStackException
 	this.memory.free(address);		
 }
 
-Stack.prototype.push = function(variableDeclarationNode) {
+Stack.prototype.push = function(variableDeclarationNode) {	// throws StackOverflowException
 	var variableType = variableDeclarationNode.getVariableType();	
 	var endAddressTrial = this.endAddress - variableType.getSize();
 	var minEndAddress = this.memory.getHeap().getLastVariableAddress();
 	
 	if (endAddressTrial < minEndAddress - 1) {
-		throw new Error("[Stack.push()] Stack overflow");	// -> StackOverflowException 
+		JSUtils.throwException("StackOverflowException", "Stack.push");	
 	}
 	
 	this.endAddress = endAddressTrial;
@@ -96,7 +96,7 @@ Stack.prototype.getVariableName = function(address) {	// throws BadAddressExcpet
 	if (variable != undefined) {
 		return variable.getName();
 	} else {
-		throw new Error("[Stack.getVariableName()] Unable to find a variable at address " + address); // -> BadAddressExcpetion
+		JSUtils.throwException("InvalidAddressException", "Stack.getVariableName", address);		
 	}
 }
 
@@ -117,7 +117,7 @@ Stack.prototype.findVariable = function(name) {	// throws BadVariableNameExcepti
 		}
 	}
 	
-	throw new Error("[Stack.findVariable()] Unable to find the variable named: " + name); // -> BadVariableNameException
+	JSUtils.throwException("BadVariableNameException", "Stack.findVariable", name);	
 }
 
 Stack.prototype.setVariableValue = function(name, memoryValue) {

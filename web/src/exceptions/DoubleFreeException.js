@@ -1,14 +1,22 @@
 /**
  * class DoubleFreeException : raised when the user tries to deallocate a free memory space
- * @param message : the error message
+ * @param functionName : the name of the function that raised the exception  
+ * @param address : the start address of the free memory space
  * @author michael
  */
-var DoubleFreeException = function(message){
-	
-	Error.call(this, message);
 
+var DoubleFreeException = function(functionName, address){
+	
+	Exception.call(this, functionName);
+	
+	this.address = address;
 
 }
 
 // prototype based inheritance
-DoubleFreeException.prototype = new Error();
+DoubleFreeException.prototype = new Exception();
+
+
+DoubleFreeException.prototype.toString = function(){
+	return this.functionNameStringPrefix() + "Trying to deallocate a free memory segment at address " + this.address;
+}

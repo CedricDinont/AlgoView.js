@@ -1,16 +1,22 @@
 /**
- * class InvalidAddressException : raised when the user tries to access to a forbidden memory segment
- *	- unallocated memory cell
- *	- memory cell which is part (but not the beginning of) a multi-cell data type 
- * @param message : the error message
+ * class InvalidAddressException : raised when the user tries to access to an invalid address
+ * @param functionName : the name of the function that raised the exception  
+ * @param address : the invalid address
  * @author michael
  */
-var InvalidAddressException = function(message){
-	
-	Error.call(this, message);
 
+var InvalidAddressException = function(functionName, address){
+	
+	Exception.call(this, functionName);
+	
+	this.address = address;
 
 }
 
 // prototype based inheritance
-InvalidAddressException.prototype = new Error();
+InvalidAddressException.prototype = new Exception();
+
+
+InvalidAddressException.prototype.toString = function(){
+	return this.functionNameStringPrefix() + "Invalid address : " + this.address;
+}

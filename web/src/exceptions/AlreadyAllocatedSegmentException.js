@@ -1,14 +1,23 @@
 /**
- * class InvalidAddressException : raised when the user tries to allocate a same memory cell several times
- * @param message : the error message
+ * class AlreadyAllocatedSegmentException extends Exception: raised when the user tries to allocate a same memory cell several times
+ * @param functionName : the name of the function that raised the exception 
+ * @param address : the start address of the already allocated segment
  * @author michael
  */
-var AlreadyAllocatedSegmentException = function(message){
+var AlreadyAllocatedSegmentException = function(functionName, address){
 	
-	Error.call(this, message);
-
+	Exception.call(this, functionName);
+	
+	this.address = address;
 
 }
 
 // prototype based inheritance
-AlreadyAllocatedSegmentException.prototype = new Error();
+AlreadyAllocatedSegmentException.prototype = new Exception();
+
+
+AlreadyAllocatedSegmentException.prototype.toString = function(){
+	return this.functionNameStringPrefix() + "Trying to use realloc a memory area in use at address " + this.address;
+}
+
+
