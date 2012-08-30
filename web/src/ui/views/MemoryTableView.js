@@ -60,9 +60,10 @@ var MemoryTableView = function(containerId){
 				
 				var unit = memory.getUnit(i);
 				
-				if( unit != undefined && value instanceof PointerMemoryValue && !unit.isValidPointer() ){
+				/*
+				if( unit != undefined && value instanceof PointerMemoryValue && memory.getValue( value ) == undefined ){
 					className = "invalid";
-				}
+				}*/
 								
 				var stackAccessString = value.isAccessibleFromStack() ? "*" : "";
 				memoryTableHTML += "<td class='"+ className + "'> " + value.toString() + stackAccessString + pointersString + " </td>"; 		

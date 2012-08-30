@@ -86,10 +86,10 @@ var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells,
 						// special case of POINTER
 						if (dataType instanceof PointerDataType) {
 							typeClassName = "address";
-							
+							/*
 							if( !unit.isValidPointer() ){
 								backgroundClassName = "invalid";
-							}
+							}*/
 											
 						} else {
 							typeClassName = "value";				

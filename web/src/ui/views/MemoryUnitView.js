@@ -245,8 +245,8 @@ MemoryUnitView.prototype.update = function(){
 		// special case of a POINTER
 		if( this.memoryUnit.getValue() instanceof PointerMemoryValue ){
 			
-		
-			if( !this.memoryUnit.isValidPointer()  ){
+			/*
+			if( this.memoryUnit.memory.getValue( this.memoryUnit.getValue() ) == undefined ){
 				this.validAddress = false;
 				this.boxObject.attr( {fill:MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR } );
 				fillOpacity = MemoryUnitView.INVALID_ADDRESS_OPACITY;
@@ -254,7 +254,7 @@ MemoryUnitView.prototype.update = function(){
 			else{
 				
 				this.validAddress = true;
-			}
+			}*/
 
 
 		}

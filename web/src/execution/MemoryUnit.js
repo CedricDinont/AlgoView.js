@@ -215,20 +215,5 @@ MemoryUnit.prototype.isBoolean = function(){
 	return (this.dataType instanceof BooleanDataType);
 }
 	
-MemoryUnit.prototype.isValidPointer = function(){
-	
-	if( !(this.dataType instanceof PointerDataType) ){
-		
-		return false;
-	}
-	
-	var pointeeAddress = this.getPrimitiveValue();
-	
-	if(   ){
-		return false;
-	}
-	
-	return true;
-					
-}	
+
 
