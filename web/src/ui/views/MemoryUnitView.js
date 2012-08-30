@@ -27,7 +27,7 @@ var MemoryUnitView = function(heapGraphicalView, memoryUnit, x, y, fieldName, ne
 	this.isField = false;
 	this.validAddress = true;
 	this.name = this.memoryUnit instanceof Variable ? this.memoryUnit.getName() : undefined;
-
+	this.childViews = [];	// child views for composed data types
 	
 	if( fieldName != undefined ){
 		
@@ -105,7 +105,7 @@ var MemoryUnitView = function(heapGraphicalView, memoryUnit, x, y, fieldName, ne
 								function(){ } );
 	}
 	
-	this.update();	
+	//this.update();	
 
 	
 }
@@ -218,6 +218,7 @@ MemoryUnitView.prototype.update = function(){
 		else{
 			this.boxObject.attr( {stroke: MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR } );
 		}
+
 	}
 			
 	if( !this.composedType ){
@@ -253,10 +254,6 @@ MemoryUnitView.prototype.update = function(){
 			}
 			else{
 				
-				if( !this.validAddress){
-					
-				}
-				
 				this.validAddress = true;
 			}
 
@@ -265,6 +262,12 @@ MemoryUnitView.prototype.update = function(){
 		
 		this.boxObject.attr( {"fill-opacity": fillOpacity } );	
 	}
+	
+		
+	// mise à jour des vues filles
+	for(var i=0; i<this.childViews.length; i++){
+		this.childViews[i].update();
+	}	
 
 
 }	
@@ -314,7 +317,9 @@ MemoryUnitView.prototype.build2DArrayFields = function(nbRows, nbCols){
 				currentCol = 0;
 				currentRow++;
 				hideLocationLabel = true;
-			}			
+			}		
+			
+			this.childViews.push( fieldView );
 		
 		}
 		
@@ -367,6 +372,7 @@ MemoryUnitView.prototype.buildFields = function(){
 			i++;
 			
 			this.linkedObjects.addAll( fieldView.getAllObjects() );	
+			this.childViews.push( fieldView );
 			
 		}
 	}
