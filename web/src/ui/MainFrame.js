@@ -240,7 +240,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 						{
 							text: 'About',
 							handler: function() {
-								Ext.Msg.alert('About', 'AlgoView.js 0.1<br />\
+								Ext.Msg.alert('About', 'AlgoView.js 0.1 Beta<br />\
 									<hr /><br />\
 									&copy; 2012 ISEN Computer Science Department<br />\
 									<br />\

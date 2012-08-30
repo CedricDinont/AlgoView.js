@@ -32,7 +32,7 @@ AlgoViewApp.prototype.loadProgramTemplate = function() {
 \n\
 \n\
 /**\n\
- * Functions\n\
+ * Subprograms\n\
  **/\n\
 \n\
 \n\
