@@ -63,14 +63,21 @@
 	padding: 0px:
 }
 
-/*
-#heapTableViewContainer-body {
-	overflow-y: auto;
+.stackTableAddressCell {
+	width: 25px;
 }
 
-#stackTableViewContainer-body {
-	overflow-y: auto;
-}*/
+.stackTableValueCell {
+	width: 50px;
+}
+
+.stackTableVariableCell {
+	width: 50px;
+}
+
+.stackTableFunctionCallCell {
+	width: 50px;
+}
 
 .flattenMemoryTable td, .flattenMemoryTable th {
 	text-align: center;

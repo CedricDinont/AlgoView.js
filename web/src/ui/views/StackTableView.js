@@ -36,7 +36,7 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 			
 		var stackTableHTML = "<table id='stackHTMLTable' border='1' class='flattenMemoryTable'>";
 		stackTableHTML += "<tr><th colspan='4'>Stack</th>";
-		stackTableHTML += "</tr><tr><th>Address</th><th>Value</th><th>Variable</th><th>Function<br/>call</th></tr>";
+		stackTableHTML += "</tr><tr><th class='stackTableAddressCell'>Address</th><th>Value</th><th>Variable</th><th>Function<br/>call</th></tr>";
 
 		var startAddress = memory.getSize();
 		var endAddress = stack.getEndAddress();
@@ -56,7 +56,7 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 			variableRowSpan--;
 				 
 			if (valueRowSpan > 1) {
-				stackTableHTML += "<td> " + i + " </td>";
+				stackTableHTML += "<td class='stackTableAddressCell'> " + i + " </td>";
 				stackTableHTML += "</tr>";
 				valueRowSpan--;
 				continue;
