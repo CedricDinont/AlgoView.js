@@ -25,6 +25,31 @@ AlgoViewApp.prototype.loadText = function(text) {
 	//this.programRunner.program.text = text;
 }
 
+AlgoViewApp.prototype.loadProgramTemplate = function() {
+	var template = "/**\n\
+ * Structures\n\
+ **/\n\
+\n\
+\n\
+/**\n\
+ * Functions\n\
+ **/\n\
+\n\
+\n\
+/**\n\
+ * Entry point\n\
+ **/\n\
+PROCEDURE main()\n\
+VAR\n\
+\n\
+BEGIN\n\
+	PRINT(\"Hello, world!\")\n\
+END\n\
+";
+
+	this.loadText(template);
+}
+
 AlgoViewApp.prototype.compileProgram = function() {
 	this.programRunner.program.text = this.mainFrame.editors[0].editor.getSession().getDocument().getValue();
 	this.programRunner.compile();

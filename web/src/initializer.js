@@ -16,6 +16,7 @@ Ext.onReady(function() {
 	$j = jQuery.noConflict();
 	
 	algoViewApp = new AlgoViewApp();
+	algoViewApp.loadProgramTemplate();
 
 	var hideMask = function () {
 		try {
