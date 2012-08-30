@@ -466,7 +466,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 				id: 'east',
 				floatable: true,
 				split: true,
-				layout: 'hbox',
+				layout: 'fit',
 				//width: 350,
 				minWidth: 120,
 				minHeight: 140,
