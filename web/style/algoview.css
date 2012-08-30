@@ -63,6 +63,15 @@
 	padding: 0px:
 }
 
+/*
+#heapTableViewContainer-body {
+	overflow-y: auto;
+}
+
+#stackTableViewContainer-body {
+	overflow-y: auto;
+}*/
+
 .flattenMemoryTable td, .flattenMemoryTable th {
 	text-align: center;
 	padding-top: 0px;

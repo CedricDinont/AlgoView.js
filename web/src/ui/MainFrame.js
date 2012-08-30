@@ -343,7 +343,11 @@ var MainFrame = function(algoViewApp, layoutName) {
 	this.createStackTableView = function() {
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'stackTableViewContainer',
-		//	layout: 'table',
+			layout: {
+				type: 'fit',
+				manageOverflow: 2,
+			},
+			overflowY: 'scroll',
 		});
 		Ext.getCmp("tableViewsContainer").add(panel);
 		
@@ -358,7 +362,12 @@ var MainFrame = function(algoViewApp, layoutName) {
 		
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'heapTableViewContainer',
-			manageOverflow: 1,
+			layout: {
+				type: 'fit',
+				manageOverflow: 2,
+				//reserveScrollbar: true,
+			},
+			overflowY: 'scroll',
 		});
 		Ext.getCmp("tableViewsContainer").add(panel);
 		
