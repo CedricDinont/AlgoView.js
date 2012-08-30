@@ -361,7 +361,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		});
 		Ext.getCmp("tableViewsContainer").add(panel);
 		
-		this.heapTableView = new HeapTableView("heapTableViewContainer-body");
+		this.heapTableView = new HeapTableView("heapTableViewContainer-body", false, false, panel);
 		this.app.programRunner.memory.addView(this.heapTableView);			
 	}
 	
