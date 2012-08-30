@@ -5,11 +5,13 @@
  * @author michael
  */
  
-var StackTableView = function(containerId, showDebugInfos, showIntermediateCells) {
+var StackTableView = function(containerId, showDebugInfos, showIntermediateCells, extComponent) {
 
 	View.call(this);		// View implementation
 	
 	var containerElement = document.getElementById(containerId);
+	
+	this.extComponent = extComponent;
 	
 	// @Override
 	this.update = function(memory) {
@@ -135,6 +137,10 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 		
 		stackTableHTML += "</table>";
 		containerElement.innerHTML = stackTableHTML;
+		
+		if (extComponent != undefined) {
+			extComponent.doLayout();
+		}
 	}
 
 }

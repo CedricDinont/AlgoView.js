@@ -6,11 +6,13 @@
  * @param showIntermediateCells (optionnal) : asks for a detailed view of memory units (expliciting unused memory units)  
  * @author michael
  */
-var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells){
+var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells, extComponent) {
 
 	View.call(this);		// View implementation
 	
 	var containerElement = document.getElementById(containerId);
+
+	this.extComponent = extComponent;
 
 	// @Override
 	this.update = function(memory) {
@@ -100,7 +102,11 @@ var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells)
 			}
 			heapTableHTML += "</table>";	
 			containerElement.innerHTML = heapTableHTML;
-		}	
+		}
+		
+		if (extComponent != undefined) {
+			extComponent.doLayout();
+		}
 	}
 	
 }

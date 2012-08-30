@@ -343,10 +343,11 @@ var MainFrame = function(algoViewApp, layoutName) {
 	this.createStackTableView = function() {
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'stackTableViewContainer',
+		//	layout: 'table',
 		});
 		Ext.getCmp("tableViewsContainer").add(panel);
 		
-		this.stackTableView = new StackTableView("stackTableViewContainer-body");
+		this.stackTableView = new StackTableView("stackTableViewContainer-body", false, false, panel);
 		this.app.programRunner.memory.addView(this.stackTableView);			
 	}
 	
