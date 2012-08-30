@@ -28,11 +28,11 @@ var MainFrame = function(algoViewApp, layoutName) {
 		tableViewsContainer: 'east',
 	};
 	
-	this.layouts["only-stack-view"] = {
+	this.layouts["only-stack-table-view"] = {
 		west: false,
 		editorsContainer: 'center',
 		tableViewsContainer: 'east',
-		heapView: false,
+		tableHeapView: false,
 	};
 	
 	
@@ -55,6 +55,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 	
 		this.layout = this.layouts[this.layoutName];
 		
+		this.resetViewport();
 		this.initViewport();
 		this.viewport.doLayout();
 	}
@@ -343,6 +344,10 @@ var MainFrame = function(algoViewApp, layoutName) {
 	}
 	
 	this.createHeapTableView = function() {
+		if (this.layout.tableHeapView === false) {
+			return;
+		}
+		
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'heapTableViewContainer',
 		});
@@ -390,8 +395,8 @@ var MainFrame = function(algoViewApp, layoutName) {
 		
 		this.createMemoryGraphicalView();
 	}
-
-	this.initViewport = function() {
+	
+	this.createViewport = function() {
 		this.viewport = Ext.create('Ext.Viewport', {
 			layout: {
 				type: 'border',
@@ -400,7 +405,15 @@ var MainFrame = function(algoViewApp, layoutName) {
 			defaults: {
 				split: true
 			},
-			items: [{
+		});
+	}
+	
+	this.resetViewport = function() {
+		this.viewport.removeAll(true);
+	}
+
+	this.initViewport = function() {
+		this.viewport.add([{
 				region: 'north',
 				id: 'north',
 				split: false,
@@ -423,8 +436,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 					type: 'border',
 					padding: 5
 				}
-			}]
-		});
+			}]);
 		
 		this.viewport.suspendLayout = true;
 		
@@ -451,8 +463,8 @@ var MainFrame = function(algoViewApp, layoutName) {
 				id: 'east',
 				floatable: true,
 				split: true,
-				layout: 'fit',
-				width: 350,
+				layout: 'hbox',
+				//width: 350,
 				minWidth: 120,
 				minHeight: 140,
 			});
@@ -527,6 +539,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		}
 	}
 	
+	this.createViewport();
 	this.setLayout(layoutName);
 	
 	Ext.getCmp('editor-1').editor.getSession().on("changeBreakpoint", function() {

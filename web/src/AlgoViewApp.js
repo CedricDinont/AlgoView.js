@@ -65,6 +65,10 @@ AlgoViewApp.prototype.setStartPaused = function(value) {
 	this.programRunner.setStartPaused(value);
 }
 
+AlgoViewApp.prototype.setLayout = function(layoutName) {
+	this.mainFrame.setLayout(layoutName);
+}
+
 AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 	switch (message.command) {
 		case "algoview-register":
@@ -130,6 +134,9 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			break;
 		case "algoview-set-start-paused":
 			this.setStartPaused(message.value);
+			break;
+		case "algoview-set-layout":
+			this.setLayout(message.name);
 			break;
 	}
 }
