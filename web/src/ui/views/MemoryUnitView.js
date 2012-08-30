@@ -237,12 +237,6 @@ MemoryUnitView.prototype.update = function(){
 
 		var fillOpacity = 0;
 		
-		/** 
-		 * TODO: A revoir avec Michaël pour validation.
-		 * 
-		 * Permet de voir les modifications apportées durant une transaction.
-		 * Bug à corriger : les tableaux 2D et les structures imbriquées ne se mettent pas bien à jour.
-		 **/
 		if (this.memoryUnit.hasChanged()) {
 			this.boxObject.attr( {fill: MemoryUnitView.NODE_CHANGED_FILL_COLOR } );
 			fillOpacity = MemoryUnitView.CHANGED_OPACITY;

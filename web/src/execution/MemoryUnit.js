@@ -224,7 +224,7 @@ MemoryUnit.prototype.isValidPointer = function(){
 	
 	var pointeeAddress = this.getPrimitiveValue();
 	
-	if( this.memory.getUnit(pointeeAddress) == undefined  ){
+	if(   ){
 		return false;
 	}
 	
