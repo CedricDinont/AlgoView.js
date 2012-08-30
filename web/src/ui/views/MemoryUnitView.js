@@ -228,10 +228,11 @@ MemoryUnitView.prototype.update = function(){
 
 		var fillOpacity = 0;
 		
-		/** Pour voir les modifications apportées durant une transaction.
-		 * A revoir avec Michaël pour validation.
-		 * voir aussi pour avoir exactement la même couleur quand dans la table view
-		 * (essayer d'avoir une opacité à 1, ce qui implique que le texte de la boîte est au-dessus).
+		/** 
+		 * TODO: A revoir avec Michaël pour validation.
+		 * 
+		 * Permet de voir les modifications apportées durant une transaction.
+		 * Bug à corriger : les tableaux 2D et les structures imbriquées ne se mettent pas bien à jour.
 		 **/
 		if (this.memoryUnit.hasChanged()) {
 			this.boxObject.attr( {fill: MemoryUnitView.NODE_CHANGED_FILL_COLOR } );
