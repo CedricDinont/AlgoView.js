@@ -51,3 +51,8 @@ CharacterMemoryValue.prototype.convertTo = function(type) {
 			break;
 	}
 }
+
+// @Override
+CharacterMemoryValue.prototype.clone = function() { 	
+	return new CharacterMemoryValue(this.value, this.state);
+} 

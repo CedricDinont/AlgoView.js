@@ -26,6 +26,8 @@
 		<input type="text" size="3" id="freeAddress"> </input>	
 								
 		<button onclick="reset()"> Reset </button>	
+		
+		<button onclick="pushRandomBoolean()"> Push boolean </button>			
 				
 		<button onclick="pushRandomCharacter()"> Push character </button>		
 		

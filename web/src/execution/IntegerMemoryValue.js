@@ -92,3 +92,8 @@ IntegerMemoryValue.prototype.convertTo = function(type) {
 			break;
 	}
 }
+
+// @Override
+IntegerMemoryValue.prototype.clone = function() { 	
+	return new IntegerMemoryValue(this.value, this.state);
+} 

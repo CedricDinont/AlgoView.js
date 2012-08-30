@@ -1,3 +1,9 @@
+/**
+ * class BooleanMemoryValue extends MemoryValue
+ * @param value : the value to store in the superclass field "value"
+ * @author Michaël, Cédric
+ **/
+ 
 var BooleanMemoryValue = function(value) {
 
 	var typeOfValue = (typeof value);
@@ -45,3 +51,16 @@ BooleanMemoryValue.prototype.convertTo = function(type) {
 			break;
 	}
 }
+
+// @Override
+BooleanMemoryValue.prototype.getStringValue = function() { 	
+	return this.getPrimitiveValue().toString();	// boolean -> string conversion
+} 
+
+// @Override
+BooleanMemoryValue.prototype.clone = function() { 	
+	return new BooleanMemoryValue(this.value, this.state);
+} 
+
+
+

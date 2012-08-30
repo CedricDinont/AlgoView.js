@@ -169,6 +169,14 @@ pushNestedStructure = function() {
 	_memory.endTransaction();
 }
 
+
+pushRandomBoolean = function() {
+	var booleanInt = MathUtils.randomNumber(0, 1);
+
+	
+	pushVariable(new BooleanDataType(), new BooleanMemoryValue(booleanInt == 0));
+}
+
 pushRandomCharacter = function() {
 	var charcode = MathUtils.randomNumber(97, 122);
 	var variableContent = String.fromCharCode(charcode);

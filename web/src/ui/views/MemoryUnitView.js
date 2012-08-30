@@ -110,10 +110,21 @@ var MemoryUnitView = function(heapGraphicalView, memoryUnit, x, y, fieldName, ne
 	
 }
 
+MemoryUnitView.prototype.getMemoryUnitValueString = function(){
+	
+	var memoryUnitValueString = this.memoryUnit.hasValue() ? this.memoryUnit.getValue().toString() : MemoryUnitView.UNINITIALIZED_UNIT_STRING;	
+	
+	if( this.memoryUnit.isBoolean() ){
+		memoryUnitValueString = memoryUnitValueString.substring(0, 1);
+	}
+	
+	return memoryUnitValueString;
+}
+
 MemoryUnitView.prototype.buildValueLabel = function(x, y){
 	
 	var value = this.memory.getValue( this.address );
-	var memoryUnitValueString = this.memoryUnit.hasValue() ? value.toString() : MemoryUnitView.UNINITIALIZED_UNIT_STRING;		
+	var memoryUnitValueString = this.getMemoryUnitValueString();
 	this.valueStringObject = this.ctx.text(x+this.width/2, y+this.height/2, memoryUnitValueString );
 	
 	if( value instanceof PointerMemoryValue ){
@@ -223,7 +234,7 @@ MemoryUnitView.prototype.update = function(){
 			
 	if( !this.composedType ){
 		
-		var memoryUnitValueString = this.memoryUnit.hasValue() ? this.memoryUnit.getValueString() : MemoryUnitView.UNINITIALIZED_UNIT_STRING;		
+		var memoryUnitValueString = this.getMemoryUnitValueString();	
 		
 		this.valueStringObject.attr( {"text" : memoryUnitValueString } );
 

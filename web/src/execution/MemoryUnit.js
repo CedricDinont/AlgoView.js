@@ -209,5 +209,10 @@ MemoryUnit.prototype.isStructure = function(){
 	
 	return (this.dataType instanceof StructureDataType);
 }
+
+MemoryUnit.prototype.isBoolean = function(){
+	
+	return (this.dataType instanceof BooleanDataType);
+}
 	
 

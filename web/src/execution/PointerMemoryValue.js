@@ -37,3 +37,8 @@ PointerMemoryValue.prototype.convertTo = function(type) {
 			break;
 	}
 }
+
+// @Override
+PointerMemoryValue.prototype.clone = function() { 	
+	return new PointerMemoryValue(this.value, this.state);
+} 

@@ -1,6 +1,7 @@
 /**
  * class MemoryValue : provides an uniform way to manipulate the value of all supported data types
- * @param containerId : identifier of the HTML element that will contain the HeapGraphicalView
+ * @param value : the wrapped primitive type
+ * @param state : an symbol of the MemoryState "enum"
  * @author michael
  */
  
@@ -77,5 +78,9 @@ MemoryValue.prototype.getPrimitiveValue = function() {
 
 MemoryValue.prototype.getStringValue = function() { 	// this method can be overridden if necessary
 	return this.getPrimitiveValue();
+} 
+
+MemoryValue.prototype.clone = function() { 	// this method can be overridden if necessary
+	return new MemoryValue(this.value, this.state);
 } 
 
