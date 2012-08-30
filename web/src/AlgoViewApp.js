@@ -48,6 +48,7 @@ END\n\
 ";
 
 	this.loadText(template);
+	this.setBreakpoint(17);
 }
 
 AlgoViewApp.prototype.compileProgram = function() {

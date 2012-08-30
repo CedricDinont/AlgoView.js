@@ -481,8 +481,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 			var east = Ext.create("Ext.panel.Panel", {
 				region: 'east',
 				id: 'east',
-				//floatable: true,
-				//split: true,
+				split: false,  // Pour empêcher le redimensionnement
 				layout: 'fit',
 				//width: 350,
 				minWidth: 120,
