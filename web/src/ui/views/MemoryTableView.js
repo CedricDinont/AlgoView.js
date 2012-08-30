@@ -76,7 +76,7 @@ var MemoryTableView = function(containerId){
 		}
 		
 		var d2 = new Date();
-		console.log("memory view refresh: " + (d2 - d1));		
+		this.log("memory view refresh: " + (d2 - d1));		
 	
 	}
 	
