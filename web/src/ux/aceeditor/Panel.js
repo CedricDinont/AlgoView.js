@@ -68,6 +68,8 @@ Ext.define('Ext.ux.aceeditor.Panel', {
 		me.oldSourceCode = me.sourceCode;
 		me.callParent(arguments);
 
+		me.initEditor();
+
 		// init editor on afterlayout
 		me.on('afterlayout', function() {
 			if (me.url) {
@@ -75,11 +77,11 @@ Ext.define('Ext.ux.aceeditor.Panel', {
 					url: me.url,
 					success: function(response) {
 						me.sourceCode = response.responseText;
-						me.initEditor();
+						//me.initEditor();
 					}
 				});
 			} else {
-				me.initEditor();
+			//	me.initEditor();
 			}
 		}, me, {
 			single: true

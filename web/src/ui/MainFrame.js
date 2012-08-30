@@ -329,6 +329,106 @@ var MainFrame = function(algoViewApp, layoutName) {
 			deferredRender: false,
 		});
 		editorsTabPanel.add(editorPanel);
+		
+		var quickReferencePanel = Ext.create("Ext.ux.aceeditor.Panel", {
+			id: 'quick-reference-editor',
+			title: 'Quick reference',
+			parser: 'simple_language',
+			theme: 'algoview',
+			deferredRender: false,
+		});
+		editorsTabPanel.add(quickReferencePanel); 
+		quickReferencePanel.setUseWorker(false);
+		quickReferencePanel.editor.renderer.setShowGutter(false);
+		this.fillQuickReferenceEditor();
+		quickReferencePanel.editor.setReadOnly(true);
+		editorsTabPanel.setActiveTab(editorPanel);
+	}
+	
+	this.fillQuickReferenceEditor = function() {
+		var quickReference = "\n\
+	/**\n\
+	 * Variable types\n\
+	 **/\n\
+	BOOLEAN\n\
+	INTEGER\n\
+	FLOAT\n\
+	CHARACTER\n\
+	POINTER\n\
+	POINTER<VARIABLE_TYPE>\n\
+	STRUCT StructureName\n\
+\n\
+	/**\n\
+	 * Structure declaration\n\
+	 **/\n\
+	STRUCT StructureName\n\
+		field1 : TYPE\n\
+		field2 : TYPE\n\
+\n\
+	/**\n\
+	 * Subprogram declaration\n\
+	 **/\n\
+	FUNCTION functionName(parameter1 : TYPE, parameter2 : TYPE) : TYPE\n\
+	VAR\n\
+		variables_declarations\n\
+	BEGIN\n\
+		instructions\n\
+	END\n\
+\n\
+	PROCEDURE procedureName(parameter1 : VARIABLE_TYPE, parameter2 : VARIABLE_TYPE)\n\
+	VAR\n\
+		variables_declarations\n\
+	BEGIN\n\
+		instructions\n\
+	END\n\
+\n\
+\n\
+	/**\n\
+	 * Assignation\n\
+	 **/\n\
+	variable <- value\n\
+\n\
+\n\
+	/**\n\
+	 * Control structures\n\
+	 **/\n\
+	IF (condition) THEN\n\
+		instructions\n\
+	END_IF\n\
+\n\
+	IF (condition) THEN\n\
+		instructions\n\
+	ELSE\n\
+		instructions\n\
+	END_IF\n\
+\n\
+	FOR variable FROM start TO end DO\n\
+		instructions\n\
+	END_FOR\n\
+\n\
+	FOR variable FROM start TO end STEP stepValue DO\n\
+		instructions\n\
+	END_FOR\n\
+\n\
+	WHILE (condition) DO\n\
+		instructions\n\
+	END_WHILE\n\
+\n\
+	DO\n\
+		instructions\n\
+	WHILE (condition)\n\
+\n\
+\n\
+	/**\n\
+	 * Dynamic memory allocation\n\
+	 **/\n\
+	pointer <- ALLOC(type)\n\
+\n\
+	pointer <- ALLOC(type, numberOfElements)\n\
+\n\
+	FREE(pointer)\n\
+ \n";
+		Ext.getCmp("quick-reference-editor").getSession().getDocument().setValue(quickReference);
 	}
 	
 	this.createOutputPanel = function() {
@@ -458,7 +558,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 				}
 			}]);
 		
-		this.viewport.suspendLayout = true;
+		//this.viewport.suspendLayout = true;
 		
 		this.createToolbar();
 		this.createOutputPanel();
@@ -491,9 +591,9 @@ var MainFrame = function(algoViewApp, layoutName) {
 			this.viewport.add(east);
 		}
 		
-		this.createEditor();
+		this.createEditor(); // Attention, il faut que le layout soit actif pour appeler cette fonction
 		
-		this.viewport.suspendLayout = false;
+		//this.viewport.suspendLayout = false;
 		this.viewport.doLayout();
 		this.createGraphicalMemoryViewContainer();
 		this.createTableViewsContainer();

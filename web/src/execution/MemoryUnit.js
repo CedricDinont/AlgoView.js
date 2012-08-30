@@ -62,7 +62,7 @@ MemoryUnit.prototype.hasChangedRecursive = function(){
 	if( this.isComposedDataType() ){
 	
 		for(var child in this.children){
-			if( child.hasChangedRecursive() ){ // recursion
+			if(this.children[child].hasChangedRecursive() ){ // recursion
 				return true;
 			}
 		}
