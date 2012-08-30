@@ -483,6 +483,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		this.createTableViewsContainer();
 		
 		this.viewport.doLayout();
+		this.viewport.update();
 		
 		var extEditor = Ext.getCmp('editor-1');
 		this.editors.push(extEditor); // Attention : editor n'est créé qu'à l'affichage du composant

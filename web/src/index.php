@@ -91,7 +91,7 @@ FxAAOw==" width="32" height="32" />
 		<?php
 			include "algoview.php";
 
-			generateScriptNodes(false);
+			generateScriptNodes(true);
 		?>
 	</body>
 </html>
