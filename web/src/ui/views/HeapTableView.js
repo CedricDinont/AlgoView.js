@@ -39,6 +39,8 @@ var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells,
 		
 		if(heap != undefined) {
 			var heapTableHTML = "<table id='heapHTMLTable' border='1' class='flattenMemoryTable'>";
+			heapTableHTML += "<col class='heapTableAddressColumn'/>";
+			heapTableHTML += "<col class='heapTableValueColumn'/>";
 			heapTableHTML += "<tr><th colspan='4'>Heap</th>";
 			heapTableHTML += "<tr><th>Address</th><th>Value</th></tr>";
 			

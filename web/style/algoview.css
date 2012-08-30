@@ -80,6 +80,14 @@
 	width: 50px;
 }
 
+.heapTableAddressColumn {
+	width: 50px;
+}
+
+.heapTableValueColumn {
+	width: 70px;
+}
+
 .flattenMemoryTable {
 	table-layout:fixed;
 }
