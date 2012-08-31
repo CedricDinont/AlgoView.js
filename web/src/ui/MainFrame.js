@@ -513,6 +513,13 @@ var MainFrame = function(algoViewApp, layoutName) {
 		
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'graphicalMemoryViewContainer',
+			listeners: {
+				resize: function() {
+					if (self.memoryGraphicalView != undefined) {
+						self.memoryGraphicalView.updateDimension();
+					}
+				}
+			}
 		});
 		Ext.getCmp(parent).add(panel);
 		
