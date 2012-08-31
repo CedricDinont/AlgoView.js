@@ -1559,6 +1559,7 @@ importScripts("../../../../program/parser/SimpleLanguageParser.js");
 importScripts("../../../deepCopy/deepCopy.js");
 
 importScripts("../../../../program/Program.js");
+importScripts("../../../../program/FileLocation.js");
 importScripts("../../../../program/Node.js");
 importScripts("../../../../program/ProgramNode.js");
 importScripts("../../../../program/PrintNode.js");
@@ -1598,6 +1599,8 @@ importScripts("../../../../program/RandomNode.js");
 importScripts("../../../../program/ErrorNode.js");
 importScripts("../../../../program/AddressNode.js");
 importScripts("../../../../program/DereferenceNode.js");
+importScripts("../../../../program/BeginNode.js");
+importScripts("../../../../program/EndNode.js");
 	
 importScripts("../../../../program/VariableTypeNode.js");
 importScripts("../../../../program/VariableNameNode.js");
@@ -1608,6 +1611,8 @@ importScripts("../../../../program/StructureNameNode.js");
 importScripts("../../../../program/VariablesDeclarationListNode.js");
 importScripts("../../../../program/VariablesDeclarationNode.js");
 importScripts("../../../../execution/NodeStack.js");
+importScripts("../../../../execution/Breakpoint.js");
+importScripts("../../../../execution/BreakpointList.js");
 importScripts("../../../../execution/ProgramRunner.js");
 importScripts("../../../../execution/ProgramRunnerEvent.js");
 
@@ -1640,10 +1645,16 @@ importScripts("../../../../execution/FloatMemoryValue.js");
 importScripts("../../../../execution/CharacterMemoryValue.js");
 importScripts("../../../../execution/PointerMemoryValue.js");
 
+importScripts("../../../../exceptions/Exception.js");
 importScripts("../../../../exceptions/InvalidAddressException.js");
+importScripts("../../../../exceptions/PartOfPrimitiveTypeException.js");
 importScripts("../../../../exceptions/AlreadyAllocatedSegmentException.js");
 importScripts("../../../../exceptions/IllegalArgumentException.js");
 importScripts("../../../../exceptions/DoubleFreeException.js");
+importScripts("../../../../exceptions/EmptyStackException.js");	
+importScripts("../../../../exceptions/StackOverflowException.js");
+importScripts("../../../../exceptions/BadVariableNameException.js");	
+
 
 var SimpleLanguageWorker = exports.SimpleLanguageWorker = function(sender) {
     Mirror.call(this, sender);
