@@ -95,6 +95,10 @@ AlgoViewApp.prototype.setLayout = function(layoutName) {
 	this.mainFrame.setLayout(layoutName);
 }
 
+AlgoViewApp.prototype.setShowQuickReference = function(value) {
+	this.mainFrame.setShowQuickReference(value);
+}
+
 AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 	switch (message.command) {
 		case "algoview-register":
@@ -164,6 +168,9 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 		case "algoview-set-layout":
 			this.setLayout(message.name);
 			break;
+		case "algoview-set-show-quick-reference":
+			this.setShowQuickReference(message.value);
+			break
 	}
 }
 

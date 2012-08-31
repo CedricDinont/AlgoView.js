@@ -10,6 +10,9 @@ var MainFrame = function(algoViewApp, layoutName) {
 	this.editors = new Array();
 	this.layouts = new Array();
 	
+	this.showQuickReference = true;
+	this.quickReferencePanel;
+	
 	this.layouts["complete"] = {
 		editorsContainer: 'west',
 		graphicalViewContainer: 'center',
@@ -330,19 +333,21 @@ var MainFrame = function(algoViewApp, layoutName) {
 		});
 		editorsTabPanel.add(editorPanel);
 		
-		var quickReferencePanel = Ext.create("Ext.ux.aceeditor.Panel", {
+		this.quickReferencePanel = Ext.create("Ext.ux.aceeditor.Panel", {
 			id: 'quick-reference-editor',
 			title: 'Quick reference',
 			parser: 'simple_language',
 			theme: 'algoview',
 			deferredRender: false,
 		});
-		editorsTabPanel.add(quickReferencePanel); 
-		quickReferencePanel.setUseWorker(false);
-		quickReferencePanel.editor.renderer.setShowGutter(false);
+		editorsTabPanel.add(this.quickReferencePanel); 
+		this.quickReferencePanel.setUseWorker(false);
+		this.quickReferencePanel.editor.renderer.setShowGutter(false);
 		this.fillQuickReferenceEditor();
-		quickReferencePanel.editor.setReadOnly(true);
+		this.quickReferencePanel.editor.setReadOnly(true);
 		editorsTabPanel.setActiveTab(editorPanel);
+		
+		this.setShowQuickReference(this.showQuickReference);
 	}
 	
 	this.fillQuickReferenceEditor = function() {
@@ -619,6 +624,19 @@ var MainFrame = function(algoViewApp, layoutName) {
 	this.leaveDebugMode = function() {
 		this.toggleDebugButtons();
 		Ext.getCmp('runStopButton').setText("Run");
+	}
+	
+	this.setShowQuickReference = function(showQuickReference) {
+		if (showQuickReference != this.showQuickReference) {
+			this.showQuickReference = showQuickReference;
+			
+			if (showQuickReference) {
+				Ext.getCmp('editorsTabPanel').add(this.quickReferencePanel);
+			} else {
+				Ext.getCmp('editorsTabPanel').remove(this.quickReferencePanel);
+			}
+		}
+
 	}
 	
 	this.programChanged = function(event) {
