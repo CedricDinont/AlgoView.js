@@ -88,7 +88,7 @@ Heap.prototype.malloc = function(datatype, nbelements, maxAddress) {
 Heap.prototype.recomputeLastVariableAddress = function() {
 	var lastVariableAddress = -Infinity;
 	
-	for(memoryUnitKey in this.memoryUnits) {
+	for (memoryUnitKey in this.memoryUnits) {
 		var variable = this.memoryUnits[memoryUnitKey];
 		var variableEndAddress = variable.getAddress() + variable.getDataType().getSize();
 		lastVariableAddress = Math.max( lastVariableAddress, variableEndAddress);
@@ -98,12 +98,12 @@ Heap.prototype.recomputeLastVariableAddress = function() {
 }
 
 Heap.prototype.findMemoryUnit = function(address) {
-	for(memoryUnitKey in this.memoryUnits) {
+	for (memoryUnitKey in this.memoryUnits) {
 		var memoryUnit = this.memoryUnits[memoryUnitKey];
 		var startAddress = memoryUnit.getAddress();
 		var endAddress = startAddress + memoryUnit.getDataType().getSize();
 		
-		if ((startAddress <= address) && (adress < endAddress)) {
+		if ((startAddress <= address) && (address < endAddress)) {
 				return memoryUnit;
 		}
 	}

@@ -39,7 +39,8 @@ ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) 
 			if (pointerMemoryValue.isNil()) {
 				throw new UseOfNilAsArray();
 			}
-			arrayBaseAddress = pointerMemoryValue.getValue();
+			console.log("PointerMemoryValue", pointerMemoryValue);
+			arrayBaseAddress = pointerMemoryValue.getPrimitiveValue();
 			var heapMemoryUnit = memory.getHeap().findMemoryUnit(arrayBaseAddress);
 			console.log(heapMemoryUnit);
 			arrayDataType = heapMemoryUnit.getDataType();
@@ -47,15 +48,15 @@ ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) 
 			// TODO: Traiter ce cas
 		}
 		
-		index = this.getIndexExpression().getValue().getValue();
-		if ((index < 0) || (arrayDataType >= type.getSize())) {
+		index = this.getIndexExpression().getValue().getPrimitiveValue();
+		if ((index < 0) || (index >= arrayDataType.getSize())) {
 			throw new TryToAccessIncorrectArrayElementException(null, index);
 		}
 		
 		elementAddress = arrayBaseAddress + (arrayDataType.getElementsSize() * index);
 		this.setAddress(elementAddress);
-		this.setValue(memory.getValue(elementAddress.getAddress()));
-		this.setDataType(type.getElementsDataType());
+		this.setValue(memory.getValue(elementAddress));
+		this.setDataType(arrayDataType.getElementsDataType());
 	}
 	
 	return false;
