@@ -9,8 +9,8 @@
 var VariableNameNode = function(tokenType, token, name) {	
 
 	AssignableNode.call(this, tokenType, token);	
-	this.name = name;
 
+	this.name = name;
 }
 
 // prototype based inheritance

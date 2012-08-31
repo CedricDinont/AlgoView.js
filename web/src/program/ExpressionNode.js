@@ -18,6 +18,7 @@ ExpressionNode.prototype.setValue = function(memoryValue) {
 ExpressionNode.prototype.containsFunctionCall = function() {
 	for (var i in this.children) {
 		var currentChild = this.children[i];
+		
 		if (currentChild.type == "FUNCTION_CALL") {
 			return true;
 		}
