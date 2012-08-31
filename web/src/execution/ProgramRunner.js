@@ -81,6 +81,8 @@ ProgramRunner.prototype.compile = function() {
 		throw new CompilationError(this.errors);
 	}
 
+	this.programTree = programTree.tree;
+
 	this.parseVariablesDeclarationNodesForFunctions(programTree.tree);
 	this.parseVariablesDeclarationNodesForStructureDeclarations(programTree.tree);
 	this.findStructureDeclarations(programTree.tree);
@@ -88,8 +90,6 @@ ProgramRunner.prototype.compile = function() {
 	if (this.errors.length != 0) {
 		throw new CompilationError(this.errors);		
 	}
-
-	this.programTree = programTree.tree;
 	
 	this.state = "COMPILED";
 	
@@ -133,18 +133,18 @@ ProgramRunner.prototype.parseVariablesDeclarationNodesForStructureDeclarations =
 }
 
 ProgramRunner.prototype.parseVariablesDeclarationNodes = function(variablesDeclarationListNode) {
-		var newVariablesDeclarationListNode = new VariablesDeclarationListNode();
-		for (var j = 0; j < variablesDeclarationListNode.children.length; ++j) {
-			var currentVariablesDeclarationNode = variablesDeclarationListNode.children[j];
-			var identifierList = currentVariablesDeclarationNode.getIdentifierList();
-			for (var k = 0; k < identifierList.children.length; ++k) {
-				var newVariableDeclarationNode = new VariableDeclarationNode();
-				newVariableDeclarationNode.addChild(new VariableNameNode(undefined, undefined, identifierList.children[k].getText()));
-				newVariableDeclarationNode.addChild(currentVariablesDeclarationNode.getVariableType());
-				newVariablesDeclarationListNode.addChild(newVariableDeclarationNode);
-			}
+	var newVariablesDeclarationListNode = new VariablesDeclarationListNode();
+	for (var j = 0; j < variablesDeclarationListNode.children.length; ++j) {
+		var currentVariablesDeclarationNode = variablesDeclarationListNode.children[j];
+		var identifierList = currentVariablesDeclarationNode.getIdentifierList();
+		for (var k = 0; k < identifierList.children.length; ++k) {
+			var newVariableDeclarationNode = new VariableDeclarationNode();
+			newVariableDeclarationNode.addChild(new VariableNameNode(undefined, undefined, identifierList.children[k].getText()));
+			newVariableDeclarationNode.addChild(currentVariablesDeclarationNode.getVariableType());
+			newVariablesDeclarationListNode.addChild(newVariableDeclarationNode);
 		}
-		return newVariablesDeclarationListNode;
+	}
+	return newVariablesDeclarationListNode;
 }
 
 ProgramRunner.prototype.findStructureDeclarations = function(program) {
@@ -157,14 +157,19 @@ ProgramRunner.prototype.findStructureDeclarations = function(program) {
 			var currentVariableDeclarationNode = variablesDeclarationListNode.children[j];
 			var dataType = currentVariableDeclarationNode.getVariableType();
 			if (dataType instanceof StructureDataType) {
-				var structureDeclarationNode = structureDeclarationListNode.getStructureDeclarationByName(dataType.getStructureName());
-				if (structureDeclarationNode == undefined) {
-					throw new Error("Cannot find structure '" + dataType.getStructureName() + "' declaration.");
-				}
+				var structureDeclarationNode = this.findStructureDeclarationNode(dataType.getStructureName());
 				dataType.setStructureDeclarationNode(structureDeclarationNode);
 			}
 		}
 	}
+}
+
+ProgramRunner.prototype.findStructureDeclarationNode = function(structureName) {
+	var structureDeclarationNode = this.programTree.getStructureDeclarationList().getStructureDeclarationByName(structureName);
+	if (structureDeclarationNode == undefined) {
+		throw new Error("Cannot find structure '" + dataType.getStructureName() + "' declaration.");
+	}
+	return structureDeclarationNode;
 }
 // Fin à placer ailleurs
 

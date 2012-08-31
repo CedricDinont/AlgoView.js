@@ -27,7 +27,11 @@
 	addJsLibrary("program/NumberNode.js");
 	addJsLibrary("program/StructureElementNameNode.js");
 	addJsLibrary("program/StructureElementNode.js");
+	addJsLibrary("program/ArrayElementNode.js");
+	addJsLibrary("program/PointerDereferenceNode.js");
+	addJsLibrary("program/NullPointerNode.js");
 	addJsLibrary("program/AllocateNode.js");
+	addJsLibrary("program/FreeNode.js");
 	addJsLibrary("program/AssignStringNode.js");
 	addJsLibrary("program/AssignNode.js");
 	addJsLibrary("program/AssignExpressionNode.js");

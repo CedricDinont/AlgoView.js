@@ -6,8 +6,6 @@
  * @param size : the memory size in bytes
  * @author michael
  */
- 
-var NIL = undefined;
 
 var Memory = function(size) {
 	AbstractModel.call(this);	// AbstractModel inheritance
@@ -48,6 +46,11 @@ Memory.prototype.getUnit = function(address) {
 }
 
 Memory.prototype.isUsed = function(address) {
+	// Pour le pointeur NULL
+	if (address == 0) {
+		return true;
+	}
+	
 	var value = this.memoryValues[address];
 	
 	if (value == undefined) {

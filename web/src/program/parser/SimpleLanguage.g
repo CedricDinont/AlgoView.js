@@ -28,6 +28,7 @@ tokens {
 	STRUCT_DECLARATIONS;
 	VARIABLE_TYPE;
 	ASSIGNABLE_ELEMENT;
+	ARRAY_ELEMENT;
 	ASSIGN;
 	NUMBER;
 }
@@ -85,7 +86,7 @@ variable_type
 		| CHARACTER {var dataType = new CharacterDataType(); } 
 		| FLOAT  {var dataType = new FloatDataType(); } 
 		| STRUCT i=IDENTIFIER  {var dataType = new StructureDataType($i.getText()); } 
-	  ) (LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, dataType])
+	  ) (LB i_n=integer_number RB {var dataType = new ArrayDataType($variable_type, $i_n); })* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, dataType])
 	;
 
 subprogram_declaration
@@ -155,7 +156,12 @@ instruction
 	| assign_instruction NEWLINE -> assign_instruction
 //	| assign_string_instruction NEWLINE -> assign_string_instruction
 	| function_call NEWLINE -> function_call
+	| free_instruction NEWLINE -> free_instruction
 	| NEWLINE -> 
+	;
+
+free_instruction
+	: f=FREE expression -> ^(FREE<FreeNode>[$f] expression)
 	;
 
 return_instruction
@@ -200,6 +206,7 @@ assign_instruction
 assign_parameter
 	: expression 
 	| string
+	| a=ALLOCATE LP v_t=variable_type (COMMA expression)? RP -> ^(ALLOCATE<AllocateNode>[$a] $v_t expression*)
 	;
 
 /*
@@ -208,7 +215,11 @@ assign_string_instruction
 	;
 */
 assignable_element
-	: (i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<VariableNameNode>[undefined, $i.getText()])) ((POINT i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<StructureElementNode> $assignable_element {new StructureElementNameNode(undefined, undefined, $i.getText())}) ) | (LB expression RB))* 
+	: (i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<VariableNameNode>[undefined, $i.getText()])) 
+		(   (POINT i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<StructureElementNode> $assignable_element {new StructureElementNameNode(undefined, undefined, $i.getText())}) ) 
+		  | (DEREFERENCE i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<PointerDereferenceNode> $assignable_element {new StructureElementNameNode(undefined, undefined, $i.getText())}) ) 
+		  | (lb=LB expression RB) -> ^(ARRAY_ELEMENT<ArrayElementNode>[$lb] $assignable_element expression) 
+		)*
 	;
 
 expression_list
@@ -225,7 +236,7 @@ expression_operand
 	| float_number
     | boolean_value
      //  | character_value 
-	| NULL
+	| null
 	| assignable_element
 	| RANDOM LP! expression RP!
 	| LP expression RP -> expression
@@ -234,6 +245,10 @@ expression_operand
     | CONTENT LP! assignable_element RP!
     | not_expression
     | unary_minus_expression
+	;
+
+null
+	: n=NULL	-> ^(NULL<NullPointerNode>[$n])
 	;
 
 function_call

@@ -14,6 +14,7 @@ AssignNode.prototype.getExpression = function() {
 }
 
 AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	console.log("AssignNode", this.currentChild);
 	if (this.currentChild == 0) {
 		this.currentChild++;
 		nodeStack.push(this.getExpression());
@@ -33,6 +34,8 @@ AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		this.currentChild = 0;
 
 		// TODO: Gérer la conversion de type entre le résultat et le type de destination
+
+		console.log("Execute assign", this.getVariable(), this.getExpression());
 
 		memory.setValue(this.getVariable().getAddress(), this.getExpression().getValue());
 		nodeStack.pop();

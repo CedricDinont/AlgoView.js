@@ -10,6 +10,9 @@ var MainFrame = function(algoViewApp, layoutName) {
 	this.editors = new Array();
 	this.layouts = new Array();
 	
+	// TODO: A placer ailleurs
+	this.programChanged = true;
+	
 	this.showQuickReference = true;
 	this.quickReferencePanel;
 	

@@ -14,6 +14,14 @@ var PointerMemoryValue = function(value) {
 // prototype based inheritance
 PointerMemoryValue.prototype = new MemoryValue();
 
+PointerMemoryValue.prototype.isNil = function() {
+	if (this.value == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 PointerMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
 
 }
@@ -42,3 +50,5 @@ PointerMemoryValue.prototype.convertTo = function(type) {
 PointerMemoryValue.prototype.clone = function() { 	
 	return new PointerMemoryValue(this.value, this.state);
 } 
+
+var NIL = new PointerMemoryValue(0);

@@ -12,7 +12,7 @@
 	addJsLibrary("program/PointerDataType.js");
 	addJsLibrary("program/ArrayDataType.js");
 	addJsLibrary("program/StructureDataType.js");	
-		
+
 	addJsLibrary("execution/Memory.js");
 	addJsLibrary("execution/MemoryUnit.js");
 	addJsLibrary("execution/MemoryUnitHashTable.js");	

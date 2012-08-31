@@ -7,6 +7,8 @@
 var StructureDataType = function(structureName, structureDeclarationNode) {
 	this.name = structureName;									// name of the structure
 	this.structureDeclarationNode = structureDeclarationNode;	// instance of StructureDeclarationNode
+	
+	this.type = "STRUCTURE_DATA_TYPE";
 }
 
 // prototype based inheritance

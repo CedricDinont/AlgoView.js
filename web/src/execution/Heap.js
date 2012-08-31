@@ -6,8 +6,8 @@
  * @param endAddress : the heap end index in memory cells
  * @author michael
  */
-var Heap = function(memory, startAddress, endAddress){
-
+var Heap = function(memory, startAddress, endAddress) {
+	
 	MemoryUnitHashTable.call(this, memory);
 	
 	this.memory = memory;
@@ -24,8 +24,7 @@ Heap.prototype = new MemoryUnitHashTable();
 
 // methods
 
-
-Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress){
+Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress) {
 
 	nbelements = nbelements || 1;	// changes undefined to 1 if required
 	
@@ -34,54 +33,43 @@ Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress){
 	var dataEndAddress;
 	var noData = true;
 	var freeSpace;
+	var j;
 	
-	while( i <= maxAddress ){
-		
+	while (i <= maxAddress) {
 		j = i;
 		noData = true;
 		dataEndAddress = i + requiredSize;
 		freeSpace = 0;
 		
-		while( noData && j <= maxAddress && j <= dataEndAddress ){
-			
-			if( ! this.memory.isUsed(j) ){
+		while (noData && j <= maxAddress && j <= dataEndAddress) {
+			if (! this.memory.isUsed(j)) {
 				freeSpace++;
 				
-				if( freeSpace >= requiredSize){
+				if (freeSpace >= requiredSize) {
 					return i;
-				}				
-			}
-			else{
+				}
+			} else {
 				noData = false;
 				i = j;
-			}
-			
+			}	
 			j++;
 		} 
-
 		i++;
-		
 	}
 	
-
-	return NIL;
-
-		
+	return NIL;	
 }
 
 
 // returns the address of the allocated memory unit
 // NIL on error
-Heap.prototype.malloc = function(datatype, nbelements, maxAddress){	
-
-
+Heap.prototype.malloc = function(datatype, nbelements, maxAddress) {	
 	var address = this.findFreeArea(datatype, nbelements, maxAddress);
 	
-	if( address != NIL ){	// enough free memory in heap
+	if (address != NIL) {	// enough free memory in heap
 
 		// in the case of several elements, we allocate an array
-		if(nbelements != undefined){
-		
+		if (nbelements != undefined) {
 			datatype = new ArrayDataType( datatype, nbelements );	
 		}
 		
@@ -94,34 +82,42 @@ Heap.prototype.malloc = function(datatype, nbelements, maxAddress){
 	}
 	
 	return address;
-
 }	
 	
 	
-Heap.prototype.recomputeLastVariableAddress = function(){
-	
+Heap.prototype.recomputeLastVariableAddress = function() {
 	var lastVariableAddress = -Infinity;
 	
-	for(memoryUnitKey in this.memoryUnits){
-		
+	for(memoryUnitKey in this.memoryUnits) {
 		var variable = this.memoryUnits[memoryUnitKey];
 		var variableEndAddress = variable.getAddress() + variable.getDataType().getSize();
 		lastVariableAddress = Math.max( lastVariableAddress, variableEndAddress);
 	}
 	
 	this.lastVariableAddress = lastVariableAddress;
-	
 }
 
+Heap.prototype.findMemoryUnit = function(address) {
+	for(memoryUnitKey in this.memoryUnits) {
+		var memoryUnit = this.memoryUnits[memoryUnitKey];
+		var startAddress = memoryUnit.getAddress();
+		var endAddress = startAddress + memoryUnit.getDataType().getSize();
+		
+		if ((startAddress <= address) && (adress < endAddress)) {
+				return memoryUnit;
+		}
+	}
 	
-Heap.prototype.getLastVariableAddress = function(){
+	return undefined;
+}
+	
+Heap.prototype.getLastVariableAddress = function() {
 	return this.lastVariableAddress;
 }
 
 // returns true if the last variable address has been updated
-Heap.prototype.setLastVariableAddress = function(address){
-	
-	if( address > this.lastVariableAddress){
+Heap.prototype.setLastVariableAddress = function(address) {
+	if (address > this.lastVariableAddress) {
 		this.lastVariableAddress = address;
 		return true;
 	}
@@ -129,28 +125,23 @@ Heap.prototype.setLastVariableAddress = function(address){
 	return false;
 }
 	
-Heap.prototype.getStartAddress = function(){
+Heap.prototype.getStartAddress = function() {
 	return this.startAddress;
 }
 	
-Heap.prototype.getEndAddress = function(){
+Heap.prototype.getEndAddress = function() {
 	return this.endAddress;
 }
 	
 // used by the stack
-Heap.prototype.setEndAddress = function(endAddress){
+Heap.prototype.setEndAddress = function(endAddress) {
 	this.endAddress = endAddress;
 }
-	
 
-Heap.prototype.getValue = function(address){
+Heap.prototype.getValue = function(address) {
 	return this.memory.getValue(address);
 }
 
-Heap.prototype.getMemory = function(){
+Heap.prototype.getMemory = function() {
 	return this.memory;
 }
-
-
-	
-	
