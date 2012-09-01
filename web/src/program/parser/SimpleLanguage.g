@@ -32,6 +32,7 @@ tokens {
 	NUMBER;
 	ARRAY_DATA_TYPE;
 	ARRAY_VARIABLE_TYPE;
+	DO_WHILE;
 }
 
 @header {
@@ -283,11 +284,11 @@ expression_operand
      //  | character_value 
 	| null
 	| assignable_element
-	| RANDOM LP! expression RP!
+	| r=RANDOM LP! expression RP! -> ^(RANDOM<RandomNode>[$r] expression)
 	| LP expression RP -> expression
 	| function_call
-	| ADDRESS LP! assignable_element RP!
-    | CONTENT LP! assignable_element RP!
+	| a=ADDRESS LP assignable_element RP -> ^(ADDRESS<AddressNode>[$a] assignable_element)
+    | c=CONTENT LP assignable_element RP -> ^(ADDRESS<ContentNode>[$c] assignable_element)
     | not_expression
     | unary_minus_expression
 	;
