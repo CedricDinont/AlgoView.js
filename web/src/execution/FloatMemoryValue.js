@@ -17,6 +17,8 @@ var FloatMemoryValue = function(value) {
 	} else {
 		MemoryValue.call(this, undefined, MemoryState.UNDEFINED);
 	}
+	
+	this.type = MemoryValue.FLOAT;
 }
 
 // Prototype based inheritance
@@ -46,7 +48,7 @@ FloatMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 	var expressionValue = 0;
 	
 	var val1 = this.value;
-    var val2 = secondOperand.convertTo("Float").value;
+    var val2 = secondOperand.convertTo(MemoryValue.FLOAT).value;
 	
 	switch (operator) {
 		case "EQ":
@@ -73,21 +75,23 @@ FloatMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 
 FloatMemoryValue.prototype.convertTo = function(type) {
 	switch (type) {
-		case "Boolean":
+		case MemoryValue.BOOLEAN:
 			if (this.value == 0) {
 				return new BooleanMemoryValue(false);
 			} else {
 				return new BooleanMemoryValue(true);
 			}
 			break;
-		case "Integer":
+		case MemoryValue.INTEGER:
+			return new IntegerMemoryValue(parseInt(this.value));
 			break;
-		case "Character":
+		case MemoryValue.CHARACTER:
 			break;
-		case "Float":
+		case MemoryValue.FLOAT:
 			return this;
 			break;
-		case "Pointer":
+		case MemoryValue.POINTER:
+			return undefined;
 			break;
 	}
 }

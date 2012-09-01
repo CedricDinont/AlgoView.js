@@ -14,7 +14,6 @@ AssignNode.prototype.getExpression = function() {
 }
 
 AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
-	console.log("AssignNode", this.currentChild);
 	if (this.currentChild == 0) {
 		this.currentChild++;
 		nodeStack.push(this.getExpression());

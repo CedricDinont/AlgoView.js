@@ -18,6 +18,8 @@ var BooleanMemoryValue = function(value) {
 	} else {
 		MemoryValue.call(this, undefined, MemoryState.UNDEFINED);
 	}
+	
+	this.type = MemoryValue.BOOLEAN;
 }
 
 // Prototype based inheritance
@@ -33,21 +35,21 @@ BooleanMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 
 BooleanMemoryValue.prototype.convertTo = function(type) {
 	switch (type) {
-		case "Boolean":
+		case MemoryValue.BOOLEAN:
 			return this;
 			break;
-		case "Integer":
+		case MemoryValue.INTEGER:
 			if (this.value) {
 				return new IntegerMemoryValue(1);
 			} else {
 				return new IntegerMemoryValue(0);
             }
             break;
-        case "Character":
+        case MemoryValue.CHARACTER:
 			break;
-		case "Float":
+		case MemoryValue.FLOAT:
 			break;
-		case "Pointer":
+		case MemoryValue.POINTER:
 			break;
 	}
 }

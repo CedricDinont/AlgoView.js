@@ -29,9 +29,9 @@ AllocateNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		if (this.getSize() != undefined) {
 			size = this.getSize().getValue();
 			
-			var sizeAsInteger = size.convertTo("Integer");
+			var sizeAsInteger = size.convertTo(MemoryValue.INTEGER);
 			if (sizeAsInteger == undefined) {
-				throw new CannotConvertTo("integer");
+				throw new CannotConvertTo(MemoryValue.INTEGER);
 			} else {
 				size = sizeAsInteger;
 			}

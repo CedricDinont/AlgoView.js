@@ -9,6 +9,8 @@ var PointerMemoryValue = function(value) {
 	} else {
 		MemoryValue.call(this, undefined, MemoryState.UNDEFINED);
 	}
+	
+	this.type = MemoryValue.POINTER;
 }
 
 // prototype based inheritance
@@ -32,15 +34,15 @@ PointerMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 
 PointerMemoryValue.prototype.convertTo = function(type) {
 	switch (type) {
-		case "Boolean":
+		case MemoryValue.BOOLEAN:
 			break;
-		case "Integer":
+		case MemoryValue.INTEGER:
             break;
-        case "Character":
+        case MemoryValue.CHARACTER:
 			break;
-		case "Float":
+		case MemoryValue.FLOAT:
 			break;
-		case "Pointer":
+		case MemoryValue.POINTER:
 			return this;
 			break;
 	}

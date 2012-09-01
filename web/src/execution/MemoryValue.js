@@ -84,3 +84,8 @@ MemoryValue.prototype.clone = function() { 	// this method can be overridden if 
 	return new MemoryValue(this.value, this.state);
 } 
 
+MemoryValue.INTEGER = "INTEGER";
+MemoryValue.BOOLEAN = "BOOLEAN";
+MemoryValue.CHARACTER = "CHARACTER";
+MemoryValue.POINTER = "POINTER";
+MemoryValue.FLOAT = "FLOAT";

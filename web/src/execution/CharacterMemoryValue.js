@@ -18,6 +18,8 @@ var CharacterMemoryValue = function(value) {
 	} else {
 		MemoryValue.call(this, undefined, MemoryState.UNDEFINED);
 	}
+	
+	this.type = MemoryValue.CHARACTER;
 }
 
 // Prototype based inheritance
@@ -38,16 +40,16 @@ CharacterMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 
 CharacterMemoryValue.prototype.convertTo = function(type) {
 	switch (type) {
-		case "Boolean":
+		case MemoryValue.BOOLEAN:
 			break;
-		case "Integer":
+		case MemoryValue.INTEGER:
             break;
-        case "Character":
+        case MemoryValue.CHARACTER:
 			return this;
 			break;
-		case "Float":
+		case MemoryValue.FLOAT:
 			break;
-		case "Pointer":
+		case MemoryValue.POINTER:
 			break;
 	}
 }

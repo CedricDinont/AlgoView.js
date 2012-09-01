@@ -19,10 +19,10 @@ OrNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		this.currentChild++;
 	} else if (this.currentChild == 1) {
 		var leftOperandMemoryValue = this.getLeftOperand().getValue();
-		var leftOperandMemoryValueAsBoolean = leftOperandMemoryValue.convertTo("Boolean");
+		var leftOperandMemoryValueAsBoolean = leftOperandMemoryValue.convertTo(MemoryValue.BOOLEAN);
 		
 		if (leftOperandMemoryValueAsBoolean == undefined) {
-			throw new CannotConvertTo("boolean");
+			throw new CannotConvertTo(MemoryValue.BOOLEAN);
 		}
 		
 		if (leftOperandMemoryValueAsBoolean.getPrimitiveValue() == true) {
@@ -39,10 +39,10 @@ OrNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		nodeStack.pop();
 		
 		var rightOperandMemoryValue = this.getRightOperand().getValue();
-		var rightOperandMemoryValueAsBoolean = rightOperandMemoryValue.convertTo("Boolean");
+		var rightOperandMemoryValueAsBoolean = rightOperandMemoryValue.convertTo(MemoryValue.BOOLEAN);
 		
 		if (rightOperandMemoryValueAsBoolean == undefined) {
-			throw new CannotConvertTo("boolean");
+			throw new CannotConvertTo(MemoryValue.BOOLEAN);
 		}
 
 		var finalValue = rightOperandMemoryValueAsBoolean.getPrimitiveValue();

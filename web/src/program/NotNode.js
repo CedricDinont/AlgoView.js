@@ -18,10 +18,10 @@ NotNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		nodeStack.pop();
 		
 		var operandMemoryValue = this.getOperand().getValue();
-		var operandMemoryValueAsBoolean = operandMemoryValue.convertTo("Boolean");
+		var operandMemoryValueAsBoolean = operandMemoryValue.convertTo(MemoryValue.BOOLEAN);
 		
 		if (operandMemoryValueAsBoolean == undefined) {
-			throw new CannotConvertTo("boolean");
+			throw new CannotConvertTo(MemoryValue.BOOLEAN);
 		}
 		
 		this.setValue(new BooleanMemoryValue(! operandMemoryValueAsBoolean.getPrimitiveValue()));
