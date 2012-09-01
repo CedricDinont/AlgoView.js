@@ -136,7 +136,6 @@ var MainFrame = function(algoViewApp, layoutName) {
 																var message;
 																try {
 																	var excapedText = action.response.responseText;
-																	console.log(excapedText);
 																	var unescapedText = $j('<div/>').html(excapedText).text();
 																	message = JSON.parse(unescapedText);
 																	algoViewApp.executeCommand(message);

@@ -297,7 +297,7 @@ expression_operand
 	| LP expression RP -> expression
 	| function_call
 	| a=ADDRESS LP assignable_element RP -> ^(ADDRESS<AddressNode>[$a] assignable_element)
-    | c=CONTENT LP assignable_element RP -> ^(ADDRESS<ContentNode>[$c] assignable_element)
+    | c=CONTENT LP assignable_element RP -> ^(CONTENT<ContentNode>[$c] assignable_element)
     | not_expression
     | unary_minus_expression
 	;
