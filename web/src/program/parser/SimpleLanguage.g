@@ -31,12 +31,13 @@ tokens {
 	ASSIGN;
 	NUMBER;
 	ARRAY_DATA_TYPE;
+	ARRAY_VARIABLE_TYPE;
 }
 
 @header {
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
 		console.log("Fixing array data types in", variableTypeNode);
-	
+/*	
 		if (variableTypeNode == undefined) {
 			return;
 		}
@@ -52,6 +53,7 @@ tokens {
 			}
 			console.log(variableTypeNode.dataType);
 		}
+*/
 	}
 }
 
@@ -102,20 +104,20 @@ identifier_list
 	;
 
 variable_type
-	: (   i=INTEGER   -> ^(VARIABLE_TYPE<VariableTypeNode>[$i, new IntegerDataType()])
-		| pointer_variable_type -> pointer_variable_type
-		| b=BOOLEAN   -> ^(VARIABLE_TYPE<VariableTypeNode>[$b, new BooleanDataType()])
-		| c=CHARACTER -> ^(VARIABLE_TYPE<VariableTypeNode>[$c, new CharacterDataType()])
-		| f=FLOAT     -> ^(VARIABLE_TYPE<VariableTypeNode>[$f, new FloatDataType()])
-		| STRUCT id=IDENTIFIER  -> ^(VARIABLE_TYPE<VariableTypeNode>[$id, new StructureDataType($id.getText())])
-	  ) (
-			l=LB i_n=integer_number RB  -> ^(VARIABLE_TYPE<VariableTypeNode>[$l, new ArrayDataType()] $variable_type $i_n)
-		)* { fixArrayDataTypesInVariabeType($variable_type.tree.children[0]); }
+	: simple_variable_type (l=LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*) { fixArrayDataTypesInVariabeType($variable_type.tree.children[0]); }
+	;
+
+simple_variable_type
+	: i=INTEGER   -> ^(VARIABLE_TYPE<VariableTypeNode>[$i, new IntegerDataType()])
+	| pointer_variable_type -> pointer_variable_type
+	| b=BOOLEAN   -> ^(VARIABLE_TYPE<VariableTypeNode>[$b, new BooleanDataType()])
+	| c=CHARACTER -> ^(VARIABLE_TYPE<VariableTypeNode>[$c, new CharacterDataType()])
+	| f=FLOAT     -> ^(VARIABLE_TYPE<VariableTypeNode>[$f, new FloatDataType()])
+	| STRUCT id=IDENTIFIER  -> ^(VARIABLE_TYPE<VariableTypeNode>[$id, new StructureDataType($id.getText())])
 	;
 
 pointer_variable_type
 	: p=POINTER param=pointer_variable_type_param -> ^(VARIABLE_TYPE<VariableTypeNode>[$p, new PointerDataType($param.tree)])
-	// TODO: Fix pointer type
 	;
 	
 pointer_variable_type_param
