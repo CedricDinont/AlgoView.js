@@ -47,6 +47,14 @@ ArrayDataType.prototype.getElementsDataType = function() {
 	return this.elementsDataType;
 }	
 
+ArrayDataType.prototype.setElementsDataType = function(elementsDataType) {
+	this.elementsDataType = elementsDataType;
+}
+
+ArrayDataType.prototype.setLength = function(length) {
+	this.length = length;
+}
+
 ArrayDataType.prototype.getDimensions = function() { 
 	var nestedDimensions = 0;
 	

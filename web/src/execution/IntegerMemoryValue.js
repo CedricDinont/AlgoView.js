@@ -23,6 +23,10 @@ var IntegerMemoryValue = function(value) {
 // Prototype based inheritance
 IntegerMemoryValue.prototype = new MemoryValue();
 
+IntegerMemoryValue.prototype.opposite = function() {
+	return new IntegerMemoryValue(-this.getPrimitiveValue());
+}
+
 IntegerMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
 	var expressionValue = 0;
 	

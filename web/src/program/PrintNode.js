@@ -1,5 +1,7 @@
-var PrintNode = function(tokenType, token) {	
+var PrintNode = function(tokenType, token, newLine) {	
 	Node.call(this, tokenType, token); 
+
+	this.newLine = newLine;
 }
 
 // prototype based inheritance
@@ -28,6 +30,12 @@ PrintNode.prototype.execute = function(memory, nodeStack, programRunner) {
 			outputText = quotedText.substring(1, quotedText.length - 1);
 		} else {
 			outputText = parameter.getValue();
+		}
+		
+		// TODO: Protéger les caractères HTML : Attention au mode console
+		
+		if (this.newLine == true) {
+			outputText += "<br />";
 		}
 		
 		var event = new ProgramRunnerEvent(programRunner, "OUTPUT_TEXT", outputText);

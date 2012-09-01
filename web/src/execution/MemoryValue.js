@@ -43,7 +43,7 @@ MemoryValue.prototype.removePointer = function(memoryUnit) {
 MemoryValue.prototype.getPointers = function() {
 	return this.pointedBy;
 }
-	
+
 MemoryValue.prototype.toString = function() {
 	if (this.state == MemoryState.HAS_VALUE) {
 		return this.getStringValue();

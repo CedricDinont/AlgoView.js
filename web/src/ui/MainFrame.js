@@ -652,7 +652,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 	this.programChanged = function(event) {
 		switch (event.type) {
 			case "OUTPUT_TEXT":
-				$j('#outputPanel-body').append("<div>" + event.text + "</div>");
+				$j('#outputPanel-body').append("<span>" + event.text + "</span>");
 				Ext.getCmp('outputPanel').scrollBy(0, 50, false);
 				break;
 			case "DONE_STEP":

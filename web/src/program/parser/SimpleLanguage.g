@@ -15,8 +15,7 @@ tokens {
 	PROGRAM_MAIN_PART;
 	INSTRUCTION_LIST;
 	EXPRESSION_LIST;
-	PRINT_EXPRESSION;
-	PRINT_STRING;
+	PRINT;
 	VARIABLES_DECLARATION_LIST;
 	IDENTIFIER_LIST;
 	VARIABLES_DECLARATION;
@@ -31,6 +30,29 @@ tokens {
 	ARRAY_ELEMENT;
 	ASSIGN;
 	NUMBER;
+	ARRAY_DATA_TYPE;
+}
+
+@header {
+	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
+		console.log("Fixing array data types in", variableTypeNode);
+	
+		if (variableTypeNode == undefined) {
+			return;
+		}
+
+		console.log(variableTypeNode.dataType);
+		if (variableTypeNode.dataType instanceof ArrayDataType) {
+			variableTypeNode.dataType.setElementsDataType(variableTypeNode.children[0].dataType);
+			variableTypeNode.dataType.setLength(variableTypeNode.children[1]);
+			
+			if (variableTypeNode.children[0].dataType instanceof ArrayDataType) {
+				console.log("Recursive call");
+				fixArrayDataTypesInVariabeType(variableTypeNode.children[0]);
+			}
+			console.log(variableTypeNode.dataType);
+		}
+	}
 }
 
 program
@@ -80,13 +102,25 @@ identifier_list
 	;
 
 variable_type
-	: (INTEGER {var dataType = new IntegerDataType(); } 
-		| POINTER  {var dataType = new PointerDataType(); } 
-		| BOOLEAN  {var dataType = new BooleanDataType(); } 
-		| CHARACTER {var dataType = new CharacterDataType(); } 
-		| FLOAT  {var dataType = new FloatDataType(); } 
-		| STRUCT i=IDENTIFIER  {var dataType = new StructureDataType($i.getText()); } 
-	  ) (LB i_n=integer_number RB {var dataType = new ArrayDataType($variable_type, $i_n); })* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, dataType])
+	: (   i=INTEGER   -> ^(VARIABLE_TYPE<VariableTypeNode>[$i, new IntegerDataType()])
+		| pointer_variable_type -> pointer_variable_type
+		| b=BOOLEAN   -> ^(VARIABLE_TYPE<VariableTypeNode>[$b, new BooleanDataType()])
+		| c=CHARACTER -> ^(VARIABLE_TYPE<VariableTypeNode>[$c, new CharacterDataType()])
+		| f=FLOAT     -> ^(VARIABLE_TYPE<VariableTypeNode>[$f, new FloatDataType()])
+		| STRUCT id=IDENTIFIER  -> ^(VARIABLE_TYPE<VariableTypeNode>[$id, new StructureDataType($id.getText())])
+	  ) (
+			l=LB i_n=integer_number RB  -> ^(VARIABLE_TYPE<VariableTypeNode>[$l, new ArrayDataType()] $variable_type $i_n)
+		)* { fixArrayDataTypesInVariabeType($variable_type.tree.children[0]); }
+	;
+
+pointer_variable_type
+	: p=POINTER param=pointer_variable_type_param -> ^(VARIABLE_TYPE<VariableTypeNode>[$p, new PointerDataType($param.tree)])
+	// TODO: Fix pointer type
+	;
+	
+pointer_variable_type_param
+	: /* Nothing */ -> VARIABLE_TYPE<VariableTypeNode>[undefined, undefined]
+	| lt=LT v_t=variable_type GT -> ^(VARIABLE_TYPE<VariableTypeNode>[$lt, $v_t.tree])
 	;
 
 subprogram_declaration
@@ -173,8 +207,8 @@ error_instruction
 	;
 	
 print_instruction
-	:  p=PRINT LP param=print_instruction_param RP -> ^(PRINT_STRING<PrintNode>[$p] $param) 
-    /*  p=PRINT LP string RP -> ^(PRINT_STRING<PrintNode>[$p] string) */
+	:  p=PRINT LP param=print_instruction_param RP -> ^(PRINT<PrintNode>[$p, false] $param)
+	|  p=PRINTLN LP param=print_instruction_param RP -> ^(PRINT<PrintNode>[$p, true] $param)
 	;
 
 print_instruction_param
@@ -354,7 +388,6 @@ FOR: 'FOR';
 FROM: 'FROM';
 TO: 'TO';
 STEP: 'STEP';
-PRINTLN: 'PRINTLN';
 READ: 'READ';
 ADDRESS: 'ADDRESS';
 CONTENT: 'CONTENT';
@@ -377,6 +410,7 @@ ELSE: 'ELSE';
 FUNCTION: 'FUNCTION';
 PROCEDURE: 'PROCEDURE';
 PRINT: 'PRINT';
+PRINTLN: 'PRINTLN';
 ERROR: 'ERROR';
 RANDOM: 'RANDOM';
 RETURN: 'RETURN';

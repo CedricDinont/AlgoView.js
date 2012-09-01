@@ -39,13 +39,15 @@ ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) 
 			if (pointerMemoryValue.isNil()) {
 				throw new UseOfNilAsArray();
 			}
-			console.log("PointerMemoryValue", pointerMemoryValue);
 			arrayBaseAddress = pointerMemoryValue.getPrimitiveValue();
 			var heapMemoryUnit = memory.getHeap().findMemoryUnit(arrayBaseAddress);
 			console.log(heapMemoryUnit);
 			arrayDataType = heapMemoryUnit.getDataType();
 		} else if (parent.dataType instanceof ArrayDataType) {
-			// TODO: Traiter ce cas
+			arrayDataType = parent.getDataType();
+			arrayBaseAddress = this.getVariable().getAddress();
+		} else {
+			throw new NotAnArrayException();
 		}
 		
 		index = this.getIndexExpression().getValue().getPrimitiveValue();
