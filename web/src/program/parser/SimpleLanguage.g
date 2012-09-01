@@ -37,23 +37,22 @@ tokens {
 @header {
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
 		console.log("Fixing array data types in", variableTypeNode);
-/*	
+
 		if (variableTypeNode == undefined) {
 			return;
 		}
 
-		console.log(variableTypeNode.dataType);
+		console.log("Before", variableTypeNode.dataType);
 		if (variableTypeNode.dataType instanceof ArrayDataType) {
-			variableTypeNode.dataType.setElementsDataType(variableTypeNode.children[0].dataType);
-			variableTypeNode.dataType.setLength(variableTypeNode.children[1]);
-			
-			if (variableTypeNode.children[0].dataType instanceof ArrayDataType) {
-				console.log("Recursive call");
-				fixArrayDataTypesInVariabeType(variableTypeNode.children[0]);
+			variableTypeNode.dataType.setElementsDataType(variableTypeNode.children[0].dataType);			
+			for (var i = variableTypeNode.children.length - 1; i >= 1; --i) {
+				variableTypeNode.dataType.setLength(variableTypeNode.children[i]);
+				if (i != 1) {
+					variableTypeNode.dataType = new ArrayDataType(variableTypeNode.dataType, undefined);
+				}
 			}
-			console.log(variableTypeNode.dataType);
 		}
-*/
+		console.log("After", variableTypeNode.dataType);
 	}
 }
 
@@ -104,7 +103,11 @@ identifier_list
 	;
 
 variable_type
-	: simple_variable_type (l=LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*) { fixArrayDataTypesInVariabeType($variable_type.tree.children[0]); }
+	:	variable_type_to_be_fixed  { fixArrayDataTypesInVariabeType($variable_type_to_be_fixed.tree); } -> variable_type_to_be_fixed
+	;
+
+variable_type_to_be_fixed
+	: simple_variable_type (l=LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[$l, new ArrayDataType()] simple_variable_type integer_number*)
 	;
 
 simple_variable_type
