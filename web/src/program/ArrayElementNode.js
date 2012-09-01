@@ -30,8 +30,6 @@ ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) 
         var arrayDataType;
 		var parent = this.getVariable();
 		
-		console.log("Parent", parent);
-		
 		// 2 cas : on accède à un élément de tableau alloué dynamiquement ou statiquement
 		
 		if (parent.dataType instanceof PointerDataType) {
@@ -41,7 +39,6 @@ ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) 
 			}
 			arrayBaseAddress = pointerMemoryValue.getPrimitiveValue();
 			var heapMemoryUnit = memory.getHeap().findMemoryUnit(arrayBaseAddress);
-			console.log(heapMemoryUnit);
 			arrayDataType = heapMemoryUnit.getDataType();
 		} else if (parent.dataType instanceof ArrayDataType) {
 			arrayDataType = parent.getDataType();

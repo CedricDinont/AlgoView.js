@@ -259,7 +259,6 @@ var MainFrame = function(algoViewApp, layoutName) {
 						} 
 					],
 				}
-				
 			},
 			'-', {
 				id: 'runStopButton',
@@ -363,7 +362,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 	FLOAT\n\
 	CHARACTER\n\
 	POINTER\n\
-	POINTER<VARIABLE_TYPE>\n\
+	POINTER<VARIABLE_TYPE>  // Typed pointer\n\
 	STRUCT StructureName\n\
 \n\
 	/**\n\
@@ -430,9 +429,9 @@ var MainFrame = function(algoViewApp, layoutName) {
 	/**\n\
 	 * Dynamic memory allocation\n\
 	 **/\n\
-	pointer <- ALLOC(type)\n\
+	pointer <- ALLOC(type)  // Single element\n\
 \n\
-	pointer <- ALLOC(type, numberOfElements)\n\
+	pointer <- ALLOC(type, numberOfElements)  // Array\n\
 \n\
 	FREE(pointer)\n\
  \n";

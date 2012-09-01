@@ -93,6 +93,7 @@ IntegerMemoryValue.prototype.convertTo = function(type) {
 		case "Float":
 			break;
 		case "Pointer":
+			return undefined;
 			break;
 	}
 }

@@ -42,7 +42,7 @@ PROCEDURE main()\n\
 VAR\n\
 \n\
 BEGIN\n\
-	PRINT(\"Hello, world!\")\n\
+	PRINTLN(\"Hello, world!\")\n\
 END\n\
 ";
 

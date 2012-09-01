@@ -5,6 +5,14 @@ var OrNode = function(tokenType, token) {
 // Prototype based inheritance
 OrNode.prototype = new ExpressionNode();
 
+OrNode.prototype.getLeftOperand = function() {
+	return this.children[0];
+}
+
+OrNode.prototype.getRightOperand = function() {
+	return this.children[1];
+}
+
 OrNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	if (this.currentChild == 0) {
 		nodeStack.push(this.children[0]);

@@ -292,7 +292,7 @@ function_call
 not_expression
 	:	NOT expression_operand -> ^(NOT<NotNode> expression_operand)
 	;
-	
+
 unary_minus_expression
 	:	MINUS expression_operand -> ^(MINUS<UnaryMinusNode> expression_operand)
 	;
