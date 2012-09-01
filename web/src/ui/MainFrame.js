@@ -128,7 +128,6 @@ var MainFrame = function(algoViewApp, layoutName) {
 												handler: function() {
 													var form = this.up('form').getForm();
 													if (form.isValid()) {
-														console.log("Submitting");
 														form.submit({
 															url: 'local_files/load_local_program.php',
 															waitMsg: 'Loading your program...',
@@ -137,6 +136,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 																var message;
 																try {
 																	var excapedText = action.response.responseText;
+																	console.log(excapedText);
 																	var unescapedText = $j('<div/>').html(excapedText).text();
 																	message = JSON.parse(unescapedText);
 																	algoViewApp.executeCommand(message);
