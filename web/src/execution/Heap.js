@@ -63,7 +63,7 @@ Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress) {
 
 // returns the address of the allocated memory unit
 // NIL on error
-Heap.prototype.malloc = function(datatype, nbelements, maxAddress) {	
+Heap.prototype.malloc = function(datatype, nbelements, maxAddress) {
 	var address = this.findFreeArea(datatype, nbelements, maxAddress);
 	
 	if (address != NIL) {	// enough free memory in heap

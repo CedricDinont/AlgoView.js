@@ -3,9 +3,9 @@ grammar SimpleLanguage;
 options {
 	language=JavaScript;
 	output=AST;
-	k=2;
+//	k=2;
 	ASTLabelType=Node;
-//	backtrack=true;
+	backtrack=true;
 //	memoize=true;
 //   defaultErrorHandler=false;
 }
@@ -284,7 +284,7 @@ expression_operand
      //  | character_value 
 	| null
 	| assignable_element
-	| r=RANDOM LP! expression RP! -> ^(RANDOM<RandomNode>[$r] expression)
+	| r=RANDOM LP expression RP -> ^(RANDOM<RandomNode>[$r] expression)
 	| LP expression RP -> expression
 	| function_call
 	| a=ADDRESS LP assignable_element RP -> ^(ADDRESS<AddressNode>[$a] assignable_element)

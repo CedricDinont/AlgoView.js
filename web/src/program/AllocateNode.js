@@ -28,10 +28,16 @@ AllocateNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		var size = undefined;
 		if (this.getSize() != undefined) {
 			size = this.getSize().getValue();
+			
+			var sizeAsInteger = size.convertTo("Integer");
+			if (sizeAsInteger == undefined) {
+				throw new CannotConvertTo("integer");
+			} else {
+				size = sizeAsInteger;
+			}
 		}
 		
 		var dataTypeNode = this.getVariableTypeNode();
-		console.log(dataTypeNode);
 		var address = memory.malloc(dataTypeNode.dataType, size);
 		this.setValue(new PointerMemoryValue(address));
 		nodeStack.pop();

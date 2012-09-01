@@ -145,7 +145,7 @@ Memory.prototype.getSize = function() {
 Memory.prototype.malloc = function(datatype, nbelements) {	
 	return this.heap.malloc(datatype, nbelements, this.stack.getEndAddress());
 }
-	
+
 Memory.prototype.changed = function(force) {
 	if ((force) || (this.sendEvents && !this.inTransaction)) {
 		this.updateViews();	

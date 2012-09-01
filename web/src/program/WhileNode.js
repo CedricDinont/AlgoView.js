@@ -28,7 +28,7 @@ WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		this.currentChild++;
 	
 		var testMemoryValue = this.getCondition().getValue();
-		var testMemoryValueAsBoolean = testValue.convertTo("Boolean");
+		var testMemoryValueAsBoolean = testMemoryValue.convertTo("Boolean");
 		
 		if (testMemoryValueAsBoolean == undefined) {
 			throw new CannotConvertTo("boolean");
