@@ -17,6 +17,7 @@
 
 	addJsLibrary("program/StringNode.js");
 	addJsLibrary("program/ExpressionNode.js");
+	addJsLibrary("program/ConditionNode.js");
 	addJsLibrary("program/ArithmeticExpressionNode.js");
 	addJsLibrary("program/TestNode.js");
 	addJsLibrary("program/AndNode.js");

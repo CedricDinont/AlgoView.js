@@ -33,6 +33,7 @@ tokens {
 	ARRAY_DATA_TYPE;
 	ARRAY_VARIABLE_TYPE;
 	DO_WHILE;
+	CONDITION;
 }
 
 @header {
@@ -234,15 +235,23 @@ else_opt
 	;
 
 while_instruction
-	: w=WHILE LP e=expression RP DO NEWLINE i_l=instruction_list_opt END_WHILE -> ^(WHILE<WhileNode>[$w] $e $i_l)
+	: w=WHILE lp=LP e=expression RP DO NEWLINE i_l=instruction_list_opt END_WHILE 
+			-> ^(WHILE<WhileNode>[$w] ^(CONDITION<ConditionNode>[$lp] $e) $i_l)
 	;
 	
 do_while_instruction
-	:  d=DO NEWLINE i_l=instruction_list_opt WHILE LP e=expression RP -> ^(DO_WHILE<DoWhileNode>[$d] $e $i_l)
+	:  d=DO NEWLINE i_l=instruction_list_opt WHILE lp=LP e=expression RP 
+			-> ^(DO_WHILE<DoWhileNode>[$d] ^(CONDITION<ConditionNode>[$lp] $e) $i_l)
 	;
 
 for_instruction
-	: FOR assignable_element FROM expression TO expression (STEP expression)? DO NEWLINE instruction_list_opt END_FOR
+	: f=FOR a_e=assignable_element FROM begin_expr=expression TO end_expr=expression step=step_opt DO NEWLINE i_l=instruction_list_opt END_FOR
+			-> ^(FOR<ForNode>[$f] $a_e $begin_expr $end_expr $step $i_l)
+	;
+	
+step_opt
+	: /* Nothing */ -> NUMBER<NumberNode>[undefined, new IntegerMemoryValue(1)]
+	| STEP expression -> expression
 	;
 
 assign_instruction

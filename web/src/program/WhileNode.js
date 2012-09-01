@@ -25,7 +25,6 @@ WhileNode.prototype.cloneInstructions = function() {
 }
 
 WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
-	console.log("While", this.currentChild);
 	if ((this.currentChild == 0) || (this.currentChild == 2)) {
 		this.cloneCondition();
 		nodeStack.push(this.clonedCondition);
@@ -48,7 +47,7 @@ WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		}
 		
 		var testValueAsBoolean = testMemoryValueAsBoolean.getPrimitiveValue();
-		console.log("Test value", testValueAsBoolean);
+		//console.log("Test value", testValueAsBoolean);
 		if (testValueAsBoolean) {
 			this.cloneInstructions();
 			nodeStack.push(this.clonedInstructions);

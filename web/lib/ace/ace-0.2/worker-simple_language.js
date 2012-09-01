@@ -1570,6 +1570,7 @@ importScripts("../../../../program/DoWhileNode.js");
 
 importScripts("../../../../program/StringNode.js");
 importScripts("../../../../program/ExpressionNode.js");
+importScripts("../../../../program/ConditionNode.js");
 importScripts("../../../../program/ArithmeticExpressionNode.js");
 importScripts("../../../../program/TestNode.js");
 importScripts("../../../../program/AndNode.js");
