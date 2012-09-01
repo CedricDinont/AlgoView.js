@@ -99,6 +99,10 @@ AlgoViewApp.prototype.setShowQuickReference = function(value) {
 	this.mainFrame.setShowQuickReference(value);
 }
 
+AlgoViewApp.prototype.setSouthPanelHeight = function(height) {
+	this.mainFrame.setSouthPanelHeight(height);
+}
+
 AlgoViewApp.prototype.setMemoryUnitPosition = function(memoryAddress, x, y) {
 	var memoryGraphicalView = this.mainFrame.memoryGraphicalView;
 	if (memoryGraphicalView == undefined) {
@@ -182,6 +186,8 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 		case "algoview-set-memory-unit-position":
 			this.setMemoryUnitPosition(message.address, message.x, message.y);
 			break;
+		case "algoview-set-south-panel-height":
+			this.setSouthPanelHeight(message.height);
 		default:
 			console.log("Unknown command", message);
 			break;

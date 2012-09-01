@@ -72,6 +72,10 @@ var MainFrame = function(algoViewApp, layoutName) {
 			// Silently ignore if we have no parent.
 		}
 	}
+	
+	this.setSouthPanelHeight = function(height) {
+		Ext.getCmp("south").setHeight(height);
+	}
 
 	this.createToolbar = function() {
 		var toolbar = Ext.create('Ext.toolbar.Toolbar');

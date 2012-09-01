@@ -1,21 +1,34 @@
 var WhileNode = function(tokenType, token) {	
-	Node.call(this, tokenType, token); 
+	Node.call(this, tokenType, token);
+	
+	this.clonedCondition;
+	this.clonedInstructions;
 }
 
 // Prototype based inheritance
 WhileNode.prototype = new Node();
 
 WhileNode.prototype.getCondition = function() {
-		return this.children[0];
+	return this.children[0];
+}
+
+WhileNode.prototype.cloneCondition = function() {
+	this.clonedCondition = this.getCondition().clone();
 }
 
 WhileNode.prototype.getInstructions = function() {
-		return this.children[1];
+	return this.children[1];
+}
+
+WhileNode.prototype.cloneInstructions = function() {
+	this.clonedInstructions = this.getInstructions().clone();
 }
 
 WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	console.log("While", this.currentChild);
 	if ((this.currentChild == 0) || (this.currentChild == 2)) {
-		nodeStack.push(this.getCondition());
+		this.cloneCondition();
+		nodeStack.push(this.clonedCondition);
 		
 		if (this.currentChild == 0) {
 			this.currentChild++;
@@ -27,7 +40,7 @@ WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	} else if (this.currentChild == 1) {
 		this.currentChild++;
 	
-		var testMemoryValue = this.getCondition().getValue();
+		var testMemoryValue = this.clonedCondition.getValue();
 		var testMemoryValueAsBoolean = testMemoryValue.convertTo("Boolean");
 		
 		if (testMemoryValueAsBoolean == undefined) {
@@ -35,8 +48,10 @@ WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		}
 		
 		var testValueAsBoolean = testMemoryValueAsBoolean.getPrimitiveValue();
+		console.log("Test value", testValueAsBoolean);
 		if (testValueAsBoolean) {
-			nodeStack.push(this.getInstructions());
+			this.cloneInstructions();
+			nodeStack.push(this.clonedInstructions);
 		} else {
 			nodeStack.pop();
 		}

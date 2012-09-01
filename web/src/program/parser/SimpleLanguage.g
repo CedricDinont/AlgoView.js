@@ -37,7 +37,7 @@ tokens {
 
 @header {
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
-		console.log("Fixing", variableTypeNode);
+		// console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
 			return;
 		}
@@ -51,9 +51,9 @@ tokens {
 				}
 			}
 		} else {
-			console.log("Before", variableTypeNode);
+		//	console.log("Before", variableTypeNode);
 			variableTypeNode.dataType = variableTypeNode.children[0].dataType;
-			console.log("After", variableTypeNode);
+		//	console.log("After", variableTypeNode);
 		}
 	}
 }
@@ -234,7 +234,7 @@ else_opt
 	;
 
 while_instruction
-	: WHILE LP e=expression RP DO NEWLINE i_l=instruction_list_opt END_WHILE -> ^(WHILE<WhileNode> $e $i_l)
+	: w=WHILE LP e=expression RP DO NEWLINE i_l=instruction_list_opt END_WHILE -> ^(WHILE<WhileNode>[$w] $e $i_l)
 	;
 	
 do_while_instruction
