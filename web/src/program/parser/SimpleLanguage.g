@@ -238,7 +238,7 @@ while_instruction
 	;
 	
 do_while_instruction
-	:  DO NEWLINE i_l=instruction_list_opt WHILE LP e=expression RP -> ^(DO_WHILE<DoWhileNode> $e $i_l)
+	:  d=DO NEWLINE i_l=instruction_list_opt WHILE LP e=expression RP -> ^(DO_WHILE<DoWhileNode>[$d] $e $i_l)
 	;
 
 for_instruction
