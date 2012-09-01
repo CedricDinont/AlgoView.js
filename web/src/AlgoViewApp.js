@@ -181,6 +181,10 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			break
 		case "algoview-set-memory-unit-position":
 			this.setMemoryUnitPosition(message.address, message.x, message.y);
+			break;
+		default:
+			console.log("Unknown command", message);
+			break;
 	}
 }
 

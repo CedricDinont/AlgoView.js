@@ -210,7 +210,14 @@ var MemoryGraphicalView = function(containerId) {
 		
 		if (existingView) {
 			memoryUnitView = existingView;	// avoids regenerating a MemoryUnitView
-		} else if (x !=undefined && y != undefined) {
+		} else if (x != undefined && y != undefined) {
+			if (unit.viewX != undefined) {
+				x = unit.viewX;
+			}
+			if (unit.viewY != undefined) {
+				y = unit.viewY;
+			}
+			
 			memoryUnitView = new MemoryUnitView(this, unit, x, y);			
 			unitViewCreated = true;
 		}
@@ -266,16 +273,21 @@ var MemoryGraphicalView = function(containerId) {
 	};
 
 	// for debug and demos
-	this.setPosition = function(memory, address, x, y) {
+	this.setPosition = function(memory, address, x, y) {		
 		var unit = memory.getUnit(address);
 		
-		if (unit != undefined) {
-			var unitView = unit.getView();
-			
-			if (unitView  != undefined) {		
-				unitView.setX(x);
-				unitView.setY(y);
-			}		
+		if (unit == undefined) {
+			return;
+		}
+		
+		var unitView = unit.getView();
+		console.log(unitView);	
+		if (unitView  != undefined) {	
+			unitView.setX(x);
+			unitView.setY(y);
+		} else {
+			unit.viewX = x;
+			unit.viewY = y;
 		}
 	}
 	

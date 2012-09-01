@@ -11,8 +11,12 @@ var MemoryUnit = function(memory, address, dataType) {
 	this.address = address;
 	this.dataType = dataType;
 	this.parent = undefined;		
-	this.children = {};			// associative array "@" + address -> child memory unit
+	this.children = {};			// associative array "@" + address -> child memory uni
+	
+	// TODO: Check if this can be moved elsewhere
 	this.view = undefined;
+	this.viewX;  // Used when we send a command to set a unit view position and it hasnot been created yet
+	this.viewY;
 }
 
 MemoryUnit.prototype.matchKey = function(otherKey) {
