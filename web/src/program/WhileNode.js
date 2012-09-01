@@ -27,8 +27,14 @@ WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	} else if (this.currentChild == 1) {
 		this.currentChild++;
 	
-		var testValue = this.getCondition().getValue();
-		var testValueAsBoolean = testValue.convertTo("Boolean").getPrimitiveValue();
+		var testMemoryValue = this.getCondition().getValue();
+		var testMemoryValueAsBoolean = testValue.convertTo("Boolean");
+		
+		if (testMemoryValueAsBoolean == undefined) {
+			throw new CannotConvertTo("boolean");
+		}
+		
+		var testValueAsBoolean = testMemoryValueAsBoolean.getPrimitiveValue();
 		if (testValueAsBoolean) {
 			nodeStack.push(this.getInstructions());
 		} else {

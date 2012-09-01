@@ -191,6 +191,7 @@ instruction
 	| return_instruction NEWLINE -> return_instruction
 	| if_instruction NEWLINE -> if_instruction
 	| while_instruction NEWLINE -> while_instruction
+	| do_while_instruction NEWLINE -> do_while_instruction
 	| for_instruction NEWLINE -> for_instruction
 	| error_instruction NEWLINE -> error_instruction
 	| assign_instruction NEWLINE -> assign_instruction
@@ -233,6 +234,10 @@ else_opt
 
 while_instruction
 	: WHILE LP e=expression RP DO NEWLINE i_l=instruction_list_opt END_WHILE -> ^(WHILE<WhileNode> $e $i_l)
+	;
+	
+do_while_instruction
+	:  DO NEWLINE i_l=instruction_list_opt WHILE LP e=expression RP -> ^(DO_WHILE<DoWhileNode> $e $i_l)
 	;
 
 for_instruction
