@@ -91,6 +91,7 @@ IntegerMemoryValue.prototype.convertTo = function(type) {
 		case "Character":
 			break;
 		case "Float":
+			return new FloatMemoryValue(this.getPrimitiveValue());
 			break;
 		case "Pointer":
 			return undefined;

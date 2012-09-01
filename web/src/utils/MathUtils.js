@@ -22,7 +22,7 @@ var MathUtils = {
 	},
 	
 	parseBoolean: function(str) {
-		return /^TRUE$/.test(str); 
+		return /^TRUE$/i.test(str); 
 	},
 		
 };

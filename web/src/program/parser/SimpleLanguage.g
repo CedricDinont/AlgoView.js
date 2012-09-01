@@ -36,14 +36,12 @@ tokens {
 
 @header {
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
-		console.log("Fixing array data types in", variableTypeNode);
-
+		console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
 			return;
 		}
 
-		console.log("Before", variableTypeNode.dataType);
-		if (variableTypeNode.dataType instanceof ArrayDataType) {
+		if (variableTypeNode.children.length > 1) {
 			variableTypeNode.dataType.setElementsDataType(variableTypeNode.children[0].dataType);			
 			for (var i = variableTypeNode.children.length - 1; i >= 1; --i) {
 				variableTypeNode.dataType.setLength(variableTypeNode.children[i]);
@@ -51,8 +49,11 @@ tokens {
 					variableTypeNode.dataType = new ArrayDataType(variableTypeNode.dataType, undefined);
 				}
 			}
+		} else {
+			console.log("Before", variableTypeNode);
+			variableTypeNode.dataType = variableTypeNode.children[0].dataType;
+			console.log("After", variableTypeNode);
 		}
-		console.log("After", variableTypeNode.dataType);
 	}
 }
 
@@ -107,7 +108,7 @@ variable_type
 	;
 
 variable_type_to_be_fixed
-	: simple_variable_type (l=LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[$l, new ArrayDataType()] simple_variable_type integer_number*)
+	: s=simple_variable_type (LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*)
 	;
 
 simple_variable_type

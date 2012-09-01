@@ -72,7 +72,7 @@ ProgramRunner.prototype.compile = function() {
 		throw new CompilationError(this.errors);
 	}
 
-	console.log("Program tree", programTree.tree);
+	//console.log("Program tree", programTree.tree);
 	
 	if (! this.findMainFunction(programTree.tree)) {
 		$j('#outputPanel-body').html("<div class='error-message'>" + "ERROR: No main function defined." + "</div>");

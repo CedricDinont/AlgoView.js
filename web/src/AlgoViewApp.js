@@ -99,6 +99,14 @@ AlgoViewApp.prototype.setShowQuickReference = function(value) {
 	this.mainFrame.setShowQuickReference(value);
 }
 
+AlgoViewApp.prototype.setMemoryUnitPosition = function(memoryAddress, x, y) {
+	var memoryGraphicalView = this.mainFrame.memoryGraphicalView;
+	if (memoryGraphicalView == undefined) {
+		console.log("Cannot set memory unit position because the memory graphical view has not been instanciated.");
+	}
+	memoryGraphicalView.setPosition(this.programRunner.memory, memoryAddress, x, y);
+}
+
 AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 	switch (message.command) {
 		case "algoview-register":
@@ -171,6 +179,8 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 		case "algoview-set-show-quick-reference":
 			this.setShowQuickReference(message.value);
 			break
+		case "algoview-set-memory-unit-position":
+			this.setMemoryUnitPosition(message.address, message.x, message.y);
 	}
 }
 
