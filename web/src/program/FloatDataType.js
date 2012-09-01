@@ -22,7 +22,7 @@ var FloatDataType = function() {
 	// @Override(DataType)		
 	this.buildMemoryValue = function(value) {
 		return new FloatMemoryValue(value);
-	}	
+	}
 
 }
 

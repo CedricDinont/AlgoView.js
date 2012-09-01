@@ -23,20 +23,24 @@ AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	} else if (this.currentChild == 2) {
 		this.currentChild++;
 		if (this.getExpression().containsFunctionCall()) {
-			console.log("AssignNode contains function call.");
+			// console.log("AssignNode contains function call.");
 			return true;
 		} else {
-			console.log("AssignNode does not contain function call.");
+			// console.log("AssignNode does not contain function call.");
 			return false;
 		}
 	} else {
 		this.currentChild = 0;
+		
+		var expressionMemoryValue = this.getExpression().getValue();
+		var resultType = this.getVariable().memoryValue.type;
+		
+		var expressionMemoryValueAsResultType = expressionMemoryValue.convertTo(resultType);
+		if (expressionMemoryValueAsResultType == undefined) {
+			throw new CannotConvertTo(resultType);
+		}
 
-		// TODO: Gérer la conversion de type entre le résultat et le type de destination
-
-		console.log("Execute assign", this.getVariable(), this.getExpression());
-
-		memory.setValue(this.getVariable().getAddress(), this.getExpression().getValue());
+		memory.setValue(this.getVariable().getAddress(), expressionMemoryValueAsResultType);
 		nodeStack.pop();
 	}
 	return false;

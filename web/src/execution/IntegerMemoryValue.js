@@ -53,7 +53,7 @@ IntegerMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 	var expressionValue = 0;
 	
 	var val1 = this.value;
-    var val2 = secondOperand.convertTo("Integer").value;
+    var val2 = secondOperand.convertTo(MemoryValue.INTEGER).value;
 	
 	switch (operator) {
 		case "EQ":

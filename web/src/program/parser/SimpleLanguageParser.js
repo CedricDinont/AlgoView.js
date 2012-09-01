@@ -1,7 +1,7 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2012-09-01 20:18:37
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2012-09-01 21:32:39
 
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
-		console.log("Fixing", variableTypeNode);
+		// console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
 			return;
 		}
@@ -15,9 +15,9 @@
 				}
 			}
 		} else {
-			console.log("Before", variableTypeNode);
+		//	console.log("Before", variableTypeNode);
 			variableTypeNode.dataType = variableTypeNode.children[0].dataType;
-			console.log("After", variableTypeNode);
+		//	console.log("After", variableTypeNode);
 		}
 	}
 
