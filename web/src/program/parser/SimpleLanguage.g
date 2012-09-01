@@ -454,6 +454,8 @@ FLOAT_VALUE
 BOOLEAN_VALUE
 	: 'TRUE'
 	| 'FALSE'
+	| 'true'
+	| 'false'
 	;
 
 fragment LETTER

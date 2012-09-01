@@ -15,14 +15,38 @@ OrNode.prototype.getRightOperand = function() {
 
 OrNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	if (this.currentChild == 0) {
-		nodeStack.push(this.children[0]);
+		nodeStack.push(this.getLeftOperand());
 		this.currentChild++;
 	} else if (this.currentChild == 1) {
-		nodeStack.push(this.children[1]);
-		this.currentChild++;
+		var leftOperandMemoryValue = this.getLeftOperand().getValue();
+		var leftOperandMemoryValueAsBoolean = leftOperandMemoryValue.convertTo("Boolean");
+		
+		if (leftOperandMemoryValueAsBoolean == undefined) {
+			throw new CannotConvertTo("boolean");
+		}
+		
+		if (leftOperandMemoryValueAsBoolean.getPrimitiveValue() == true) {
+                // No need to continue with the right operand
+			this.currentChild = 0;			
+			nodeStack.pop();
+			this.setValue(new BooleanMemoryValue(true));
+		} else {
+			nodeStack.push(this.getRightOperand());
+			this.currentChild++;
+		}
 	} else {
 		this.currentChild = 0;
 		nodeStack.pop();
+		
+		var rightOperandMemoryValue = this.getRightOperand().getValue();
+		var rightOperandMemoryValueAsBoolean = rightOperandMemoryValue.convertTo("Boolean");
+		
+		if (rightOperandMemoryValueAsBoolean == undefined) {
+			throw new CannotConvertTo("boolean");
+		}
+
+		var finalValue = rightOperandMemoryValueAsBoolean.getPrimitiveValue();
+		this.setValue(new BooleanMemoryValue(finalValue));
 	}
 	
 	return false;
