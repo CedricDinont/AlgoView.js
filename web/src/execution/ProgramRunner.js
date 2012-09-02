@@ -101,7 +101,9 @@ ProgramRunner.prototype.compile = function() {
 // TODO: Suite à placer ailleurs
 ProgramRunner.prototype.findMainFunction = function(program) {
 	var functionList = program.getFunctionList();
+	console.log(functionList);
 	for (var i = 0; i < functionList.children.length; ++i) {
+		console.log(functionList.children[i].getName());
 		if (functionList.children[i].getName() == "main") {
 			program.setMainFunction(functionList.children[i]);
 			return true;
