@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2012-09-02 12:44:58
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2012-09-02 13:47:37
 
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
 		 console.log("Fixing", variableTypeNode);
@@ -123,7 +123,7 @@ org.antlr.lang.augmentObject(SimpleLanguageParser, {
     POINT: 71,
     DEREFERENCE: 72,
     CONTENT: 73,
-    RANDOM: 74,
+    RANDOM_INTEGER: 74,
     ADDRESS: 75,
     NULL: 76,
     NOT: 77,
@@ -222,7 +222,7 @@ var EOF= -1,
     POINT= 71,
     DEREFERENCE= 72,
     CONTENT= 73,
-    RANDOM= 74,
+    RANDOM_INTEGER= 74,
     ADDRESS= 75,
     NULL= 76,
     NOT= 77,
@@ -5545,7 +5545,7 @@ org.antlr.lang.augmentObject(SimpleLanguageParser.prototype, {
             case FLOAT_VALUE:
             case BOOLEAN_VALUE:
             case CONTENT:
-            case RANDOM:
+            case RANDOM_INTEGER:
             case ADDRESS:
             case NULL:
             case NOT:
@@ -6348,7 +6348,7 @@ org.antlr.lang.augmentObject(SimpleLanguageParser.prototype, {
         return;
     })(),
 
-    // SimpleLanguage.g:305:1: expression_operand : ( integer_number | float_number | boolean_value | null | function_call | assignable_element | r= RANDOM LP expression RP -> ^( RANDOM[$r] expression ) | LP assign_instruction RP -> assign_instruction | LP expression RP -> expression | a= ADDRESS LP assignable_element RP -> ^( ADDRESS[$a] assignable_element ) | c= CONTENT LP assignable_element RP -> ^( CONTENT[$c] assignable_element ) | not_expression | unary_minus_expression );
+    // SimpleLanguage.g:305:1: expression_operand : ( integer_number | float_number | boolean_value | null | function_call | assignable_element | r= RANDOM_INTEGER LP expression RP -> ^( RANDOM_INTEGER[$r, true] expression ) | LP assign_instruction RP -> assign_instruction | LP expression RP -> expression | a= ADDRESS LP assignable_element RP -> ^( ADDRESS[$a] assignable_element ) | c= CONTENT LP assignable_element RP -> ^( CONTENT[$c] assignable_element ) | not_expression | unary_minus_expression );
     // $ANTLR start "expression_operand"
     expression_operand: function() {
         var retval = new SimpleLanguageParser.expression_operand_return();
@@ -6397,15 +6397,15 @@ org.antlr.lang.augmentObject(SimpleLanguageParser.prototype, {
         var LP137_tree=null;
         var RP139_tree=null;
         var stream_CONTENT=new org.antlr.runtime.tree.RewriteRuleTokenStream(this.adaptor,"token CONTENT");
-        var stream_RANDOM=new org.antlr.runtime.tree.RewriteRuleTokenStream(this.adaptor,"token RANDOM");
         var stream_ADDRESS=new org.antlr.runtime.tree.RewriteRuleTokenStream(this.adaptor,"token ADDRESS");
+        var stream_RANDOM_INTEGER=new org.antlr.runtime.tree.RewriteRuleTokenStream(this.adaptor,"token RANDOM_INTEGER");
         var stream_RP=new org.antlr.runtime.tree.RewriteRuleTokenStream(this.adaptor,"token RP");
         var stream_LP=new org.antlr.runtime.tree.RewriteRuleTokenStream(this.adaptor,"token LP");
         var stream_assignable_element=new org.antlr.runtime.tree.RewriteRuleSubtreeStream(this.adaptor,"rule assignable_element");
         var stream_expression=new org.antlr.runtime.tree.RewriteRuleSubtreeStream(this.adaptor,"rule expression");
         var stream_assign_instruction=new org.antlr.runtime.tree.RewriteRuleSubtreeStream(this.adaptor,"rule assign_instruction");
         try {
-            // SimpleLanguage.g:306:2: ( integer_number | float_number | boolean_value | null | function_call | assignable_element | r= RANDOM LP expression RP -> ^( RANDOM[$r] expression ) | LP assign_instruction RP -> assign_instruction | LP expression RP -> expression | a= ADDRESS LP assignable_element RP -> ^( ADDRESS[$a] assignable_element ) | c= CONTENT LP assignable_element RP -> ^( CONTENT[$c] assignable_element ) | not_expression | unary_minus_expression )
+            // SimpleLanguage.g:306:2: ( integer_number | float_number | boolean_value | null | function_call | assignable_element | r= RANDOM_INTEGER LP expression RP -> ^( RANDOM_INTEGER[$r, true] expression ) | LP assign_instruction RP -> assign_instruction | LP expression RP -> expression | a= ADDRESS LP assignable_element RP -> ^( ADDRESS[$a] assignable_element ) | c= CONTENT LP assignable_element RP -> ^( CONTENT[$c] assignable_element ) | not_expression | unary_minus_expression )
             var alt30=13;
             alt30 = this.dfa30.predict(this.input);
             switch (alt30) {
@@ -6488,9 +6488,9 @@ org.antlr.lang.augmentObject(SimpleLanguageParser.prototype, {
 
                     break;
                 case 7 :
-                    // SimpleLanguage.g:313:4: r= RANDOM LP expression RP
-                    r=this.match(this.input,RANDOM,SimpleLanguageParser.FOLLOW_RANDOM_in_expression_operand2068); if (this.state.failed) return retval; 
-                    if ( this.state.backtracking===0 ) stream_RANDOM.add(r);
+                    // SimpleLanguage.g:313:4: r= RANDOM_INTEGER LP expression RP
+                    r=this.match(this.input,RANDOM_INTEGER,SimpleLanguageParser.FOLLOW_RANDOM_INTEGER_in_expression_operand2068); if (this.state.failed) return retval; 
+                    if ( this.state.backtracking===0 ) stream_RANDOM_INTEGER.add(r);
 
                     LP125=this.match(this.input,LP,SimpleLanguageParser.FOLLOW_LP_in_expression_operand2070); if (this.state.failed) return retval; 
                     if ( this.state.backtracking===0 ) stream_LP.add(LP125);
@@ -6507,7 +6507,7 @@ org.antlr.lang.augmentObject(SimpleLanguageParser.prototype, {
 
 
                     // AST REWRITE
-                    // elements: RANDOM, expression
+                    // elements: RANDOM_INTEGER, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6517,12 +6517,12 @@ org.antlr.lang.augmentObject(SimpleLanguageParser.prototype, {
                     var stream_retval=new org.antlr.runtime.tree.RewriteRuleSubtreeStream(this.adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = this.adaptor.nil();
-                    // 313:30: -> ^( RANDOM[$r] expression )
+                    // 313:38: -> ^( RANDOM_INTEGER[$r, true] expression )
                     {
-                        // SimpleLanguage.g:313:33: ^( RANDOM[$r] expression )
+                        // SimpleLanguage.g:313:41: ^( RANDOM_INTEGER[$r, true] expression )
                         {
                         var root_1 = this.adaptor.nil();
-                        root_1 = this.adaptor.becomeRoot(new RandomNode(RANDOM, r), root_1);
+                        root_1 = this.adaptor.becomeRoot(new RandomNode(RANDOM_INTEGER, r, true), root_1);
 
                         this.adaptor.addChild(root_1, stream_expression.nextTree());
 
@@ -9325,7 +9325,7 @@ SimpleLanguageParser.DFA30 = function(recognizer) {
 
 org.antlr.lang.extend(SimpleLanguageParser.DFA30, org.antlr.runtime.DFA, {
     getDescription: function() {
-        return "305:1: expression_operand : ( integer_number | float_number | boolean_value | null | function_call | assignable_element | r= RANDOM LP expression RP -> ^( RANDOM[$r] expression ) | LP assign_instruction RP -> assign_instruction | LP expression RP -> expression | a= ADDRESS LP assignable_element RP -> ^( ADDRESS[$a] assignable_element ) | c= CONTENT LP assignable_element RP -> ^( CONTENT[$c] assignable_element ) | not_expression | unary_minus_expression );";
+        return "305:1: expression_operand : ( integer_number | float_number | boolean_value | null | function_call | assignable_element | r= RANDOM_INTEGER LP expression RP -> ^( RANDOM_INTEGER[$r, true] expression ) | LP assign_instruction RP -> assign_instruction | LP expression RP -> expression | a= ADDRESS LP assignable_element RP -> ^( ADDRESS[$a] assignable_element ) | c= CONTENT LP assignable_element RP -> ^( CONTENT[$c] assignable_element ) | not_expression | unary_minus_expression );";
     },
     specialStateTransition: function(s, input) {
         var _s = s;
@@ -9394,7 +9394,7 @@ org.antlr.lang.extend(SimpleLanguageParser.DFA30, org.antlr.runtime.DFA, {
 
 // public class variables
 org.antlr.lang.augmentObject(SimpleLanguageParser, {
-    tokenNames: ["<invalid>", "<EOR>", "<DOWN>", "<UP>", "PROGRAM", "PROGRAM_MAIN_PART", "INSTRUCTION_LIST", "EXPRESSION_LIST", "PRINT", "VARIABLES_DECLARATION_LIST", "IDENTIFIER_LIST", "VARIABLES_DECLARATION", "FUNCTION_PARAMETERS_LIST", "FUNCTION_PARAMETER_DECLARATION", "STRUCT_DECLARATION", "FUNCTION_LIST", "FUNCTION_CALL", "STRUCT_DECLARATIONS", "VARIABLE_TYPE", "ASSIGNABLE_ELEMENT", "ARRAY_ELEMENT", "ASSIGN", "NUMBER", "ARRAY_DATA_TYPE", "ARRAY_VARIABLE_TYPE", "DO_WHILE", "CONDITION", "NEWLINE", "COMMENT", "LINE_COMMENT", "STRUCT", "IDENTIFIER", "VAR", "COLON", "COMMA", "LB", "RB", "INTEGER", "BOOLEAN", "CHARACTER", "FLOAT", "POINTER", "LT", "GT", "FUNCTION", "LP", "RP", "PROCEDURE", "INTEGER_VALUE", "FLOAT_VALUE", "BOOLEAN_VALUE", "BEGIN", "END", "FREE", "RETURN", "ERROR", "PRINTLN", "IF", "THEN", "END_IF", "ELSE", "WHILE", "DO", "END_WHILE", "FOR", "FROM", "TO", "END_FOR", "STEP", "AFFECT", "ALLOCATE", "POINT", "DEREFERENCE", "CONTENT", "RANDOM", "ADDRESS", "NULL", "NOT", "MINUS", "AND", "OR", "EQ", "NEQ", "LTE", "GTE", "PLUS", "MULT", "EXP", "DIV", "MODULO", "STRING", "REPEAT", "UNTIL", "READ", "WHITE_SPACE", "HEX_DIGIT", "DIGIT", "LETTER"],
+    tokenNames: ["<invalid>", "<EOR>", "<DOWN>", "<UP>", "PROGRAM", "PROGRAM_MAIN_PART", "INSTRUCTION_LIST", "EXPRESSION_LIST", "PRINT", "VARIABLES_DECLARATION_LIST", "IDENTIFIER_LIST", "VARIABLES_DECLARATION", "FUNCTION_PARAMETERS_LIST", "FUNCTION_PARAMETER_DECLARATION", "STRUCT_DECLARATION", "FUNCTION_LIST", "FUNCTION_CALL", "STRUCT_DECLARATIONS", "VARIABLE_TYPE", "ASSIGNABLE_ELEMENT", "ARRAY_ELEMENT", "ASSIGN", "NUMBER", "ARRAY_DATA_TYPE", "ARRAY_VARIABLE_TYPE", "DO_WHILE", "CONDITION", "NEWLINE", "COMMENT", "LINE_COMMENT", "STRUCT", "IDENTIFIER", "VAR", "COLON", "COMMA", "LB", "RB", "INTEGER", "BOOLEAN", "CHARACTER", "FLOAT", "POINTER", "LT", "GT", "FUNCTION", "LP", "RP", "PROCEDURE", "INTEGER_VALUE", "FLOAT_VALUE", "BOOLEAN_VALUE", "BEGIN", "END", "FREE", "RETURN", "ERROR", "PRINTLN", "IF", "THEN", "END_IF", "ELSE", "WHILE", "DO", "END_WHILE", "FOR", "FROM", "TO", "END_FOR", "STEP", "AFFECT", "ALLOCATE", "POINT", "DEREFERENCE", "CONTENT", "RANDOM_INTEGER", "ADDRESS", "NULL", "NOT", "MINUS", "AND", "OR", "EQ", "NEQ", "LTE", "GTE", "PLUS", "MULT", "EXP", "DIV", "MODULO", "STRING", "REPEAT", "UNTIL", "READ", "WHITE_SPACE", "HEX_DIGIT", "DIGIT", "LETTER"],
     FOLLOW_NEWLINE_in_program146: new org.antlr.runtime.BitSet([0x78000002, 0x00009000]),
     FOLLOW_struct_declaration_in_program150: new org.antlr.runtime.BitSet([0x78000002, 0x00009000]),
     FOLLOW_subprogram_declaration_in_program154: new org.antlr.runtime.BitSet([0x78000002, 0x00009000]),
@@ -9592,7 +9592,7 @@ org.antlr.lang.augmentObject(SimpleLanguageParser, {
     FOLLOW_null_in_expression_operand2051: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
     FOLLOW_function_call_in_expression_operand2056: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
     FOLLOW_assignable_element_in_expression_operand2061: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),
-    FOLLOW_RANDOM_in_expression_operand2068: new org.antlr.runtime.BitSet([0x00000000, 0x00002000]),
+    FOLLOW_RANDOM_INTEGER_in_expression_operand2068: new org.antlr.runtime.BitSet([0x00000000, 0x00002000]),
     FOLLOW_LP_in_expression_operand2070: new org.antlr.runtime.BitSet([0x80000000, 0x00072000,0x00007E00, 0x00000000]),
     FOLLOW_expression_in_expression_operand2072: new org.antlr.runtime.BitSet([0x00000000, 0x00004000]),
     FOLLOW_RP_in_expression_operand2074: new org.antlr.runtime.BitSet([0x00000002, 0x00000000]),

@@ -24,9 +24,11 @@ ProgramNode.prototype.setMainFunction = function(mainFunction) {
 ProgramNode.prototype.getFunction = function(functionName, numberOfParameters) {
 	var functionList = this.getFunctionList();
 	for (var i = 0; i < functionList.children.length; ++i) {
-		// TODO: Check number of parameters
 		if (functionList.children[i].getName() === functionName) {
-			return functionList.children[i];
+			var currentFunction = functionList.children[i];
+			if (currentFunction.getNumberOfParameters() == numberOfParameters) {
+				return currentFunction;
+			}
 		}
 	}
 	return undefined;

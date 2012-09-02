@@ -64,6 +64,10 @@
 	padding: 0px:
 }
 
+.memoryTableLimitOfFunctionCall {
+	border-top: 4px solid !important;
+	border-color: #99BCE8 !important;
+}
 .stackTableAddressColumn {
 	width: 50px;
 }

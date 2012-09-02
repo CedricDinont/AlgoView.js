@@ -23,10 +23,10 @@ AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	} else if (this.currentChild == 2) {
 		this.currentChild++;
 		if (this.getExpression().containsFunctionCall()) {
-			 console.log("AssignNode contains function call.");
+			// console.log("AssignNode contains function call.");
 			return true;
 		} else {
-			 console.log("AssignNode does not contain function call.");
+			// console.log("AssignNode does not contain function call.");
 			return false;
 		}
 	} else {
@@ -35,7 +35,7 @@ AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		var expressionMemoryValue = this.getExpression().getValue();
 		
 		var expressionDataType = this.getExpression().dataType;
-		console.log(expressionDataType, expressionMemoryValue);
+		// console.log(expressionDataType, expressionMemoryValue);
 		if (expressionDataType instanceof ArrayDataType) {
 			expressionMemoryValue = new PointerMemoryValue(this.getExpression().getAddress());
 		}

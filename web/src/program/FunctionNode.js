@@ -18,6 +18,10 @@ FunctionNode.prototype.getParameters = function() {
 	return this.children[1];
 }
 
+FunctionNode.prototype.getNumberOfParameters = function() {
+	return this.getParameters().children.length;
+}
+
 FunctionNode.prototype.getLocalVariableDeclarations = function() {
 	return this.children[2];
 }
@@ -54,18 +58,19 @@ FunctionNode.prototype.execute = function(memory, nodeStack, programRunner) {
 
 		this.createVariables(memory.getStack());
 	
+		/**
+		 * Setting parameters values
+		 * using assign nodes
+		 **/
 		if (this.parametersValues != undefined) {	
 			for (var i = 0; i < this.parametersValues.children.length; i++) {
 				var assignNode = new AssignNode(undefined, undefined);
-				console.log(assignNode);
-				console.log(this.getParameters().children[i].getVariableName());
 				var variable = this.getParameters().children[i];
 				var value = this.parametersValues.children[i];
-				console.log(variable, value);
+
 				assignNode.addChild(new VariableNameNode(undefined, undefined, variable.getVariableName()));
 				assignNode.addChild(value);
 				nodeStack.push(assignNode);
-			//	memory.getStack().setVariableValue(this.getParameters().children[i].getVariableName(), this.parametersValues.children[i].getValue());
 			}
 		}
 		

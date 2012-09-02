@@ -310,7 +310,7 @@ expression_operand
 	| null
 	| function_call
 	| assignable_element
-	| r=RANDOM LP expression RP -> ^(RANDOM<RandomNode>[$r] expression)
+	| r=RANDOM_INTEGER LP expression RP -> ^(RANDOM_INTEGER<RandomNode>[$r, true] expression)
 	| LP assign_instruction RP -> assign_instruction
 	| LP expression RP -> expression
 	| a=ADDRESS LP assignable_element RP -> ^(ADDRESS<AddressNode>[$a] assignable_element)
@@ -450,7 +450,7 @@ PROCEDURE: 'PROCEDURE';
 PRINT: 'PRINT';
 PRINTLN: 'PRINTLN';
 ERROR: 'ERROR';
-RANDOM: 'RANDOM';
+RANDOM_INTEGER: 'RANDOM_INTEGER';
 RETURN: 'RETURN';
 COLON: ':';
 COMMA: ',';

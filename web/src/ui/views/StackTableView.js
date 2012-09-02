@@ -48,6 +48,7 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 		var valueRowSpan = 1;		// valeurs judicieusement choisies pour forcer une initialisation au premier tour de boucle
 		var variableRowSpan = 1;
 		var functionCallRowSpan = 0;
+		var functionCallLimitClass;
 		
 		var dataType, enclosingDataType;		
 		var dataSize, enclosingDataSize;
@@ -58,6 +59,12 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 			stackTableHTML += "<tr>";		
 								
 			variableRowSpan--;
+			
+			if (numberOfVariablesInCurrentFunctionCall == 0) {
+				functionCallLimitClass = "memoryTableLimitOfFunctionCall";
+			} else {
+				functionCallLimitClass = "";
+			}
 				 
 			if (valueRowSpan > 1) {
 				stackTableHTML += "<td> " + i + " </td>";
@@ -82,8 +89,7 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 			dataSize = dataType.getSize();						
 			enclosingDataSize = enclosingDataType.getSize();
 
-			stackTableHTML += "<td>" + i + " </td>";
-
+			stackTableHTML += "<td class='" + functionCallLimitClass + "'>" + i + " </td>";
 
 			var valueBackgroundClassName = value.hasChanged() ? "changed" : "";		
 			
@@ -91,23 +97,19 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 			if (dataType instanceof PointerDataType) {
 				typeClassName = "address";
 				
-				if(  memory.getUnit( value ) == undefined  ){
+				if (memory.getUnit(value) == undefined) {
 					valueBackgroundClassName = "invalid";
 				}
-
-							
 				
 			} else {
 				typeClassName = "value";				
 			}
 
-				
-
 			if (valueRowSpan == 1) {
 				if (! showIntermediateCells) {
 					valueRowSpan = dataSize;
 				}
-				stackTableHTML += "<td rowspan= '" + valueRowSpan + "' class='" + typeClassName + " " + valueBackgroundClassName + "'> " + dataString + " </td>"; 						
+				stackTableHTML += "<td rowspan= '" + valueRowSpan + "' class='" + typeClassName + " " + valueBackgroundClassName + " " + functionCallLimitClass + "'> " + dataString + " </td>"; 						
 			}
 
 
@@ -117,13 +119,11 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 				if (! showIntermediateCells) {
 					variableRowSpan = enclosingDataSize;
 				}								
-				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + unitBackgroundClassName + "'> " + stack.getVariableName(i) + "</td>";
+				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + unitBackgroundClassName + " " + functionCallLimitClass + "'> " + stack.getVariableName(i) + "</td>";
 				accumulatedNumberOfVariables++;	
 
 			}
 			
-	
-
 			if (numberOfVariablesInCurrentFunctionCall == 0) {
 				currentFunctionCall--;		
 				if (currentFunctionCall >= 0) {
@@ -134,18 +134,10 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 					var endAddress = lastVariable.getAddress() + lastVariable.getSize();
 					functionCallRowSpan = endAddress - i;
 
-					
-					stackTableHTML += "<td rowspan= '" + functionCallRowSpan + "'>" + currentFunctionCall  + "</td>";	
-					
-					
+					stackTableHTML += "<td class='" + functionCallLimitClass + "' rowspan= '" + functionCallRowSpan + "'>" + currentFunctionCall  + "</td>";						
 				}
 			}				
-			
-		
-				
 			--numberOfVariablesInCurrentFunctionCall;
-
-
 
 		} // End for i
 		
