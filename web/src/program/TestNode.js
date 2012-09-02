@@ -21,6 +21,8 @@ TestNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	} else {
 		this.currentChild = 0;
 		
+		// TODO: Faire les conversions?
+		
 		var value1;
 		var value2;
 		var convertedValue1;
@@ -34,6 +36,8 @@ TestNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		convertedValue2 = value2;
 				
 		resultValue = convertedValue1.applyTest(this.operator, convertedValue2);
+		
+		// TODO: Convertir le résultat en booléen ? -> Non, ça doit être fait dans applyTest
 		
 		this.setValue(resultValue);
 		nodeStack.pop();

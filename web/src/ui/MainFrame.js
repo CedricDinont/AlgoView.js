@@ -689,7 +689,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 				Ext.getCmp('editor-1').popCurrentLine();
 				break;
 			case "EXCEPTION":
-				$j('#outputPanel-body').append("<hr /><div class='error-message'><div>Error during program execution.</div><div>" + event.exception + "</div></div>");
+				$j('#outputPanel-body').append("<hr /><div class='programRunnerErrorMessage'><div>Error during program execution.</div><div>" + event.exception + "</div></div>");
 				this.app.stopProgram(false);
 				break;
 		}

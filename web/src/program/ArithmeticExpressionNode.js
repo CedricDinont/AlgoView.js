@@ -21,6 +21,8 @@ ArithmeticExpressionNode.prototype.execute = function(memory, nodeStack, program
 	} else {
 		this.currentChild = 0;
 		
+		// TODO: Faire les conversions
+		
 		var value1;
 		var value2;
 		var convertedValue1;
@@ -29,7 +31,7 @@ ArithmeticExpressionNode.prototype.execute = function(memory, nodeStack, program
 		
 		value1 = this.children[0].getValue();
 		value2 = this.children[1].getValue();
-		
+
 		convertedValue1 = value1;
 		convertedValue2 = value2;
 		

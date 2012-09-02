@@ -165,3 +165,8 @@ table th {
 div.no-icon-menu a.x-menu-item, div.no-icon-menu a.x-menu-item-link {
     padding-left: 0;
 }
+
+.programRunnerErrorMessage {
+	color: red;
+	font-weight: bold;
+}

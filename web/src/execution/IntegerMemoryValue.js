@@ -53,6 +53,7 @@ IntegerMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 	var expressionValue = 0;
 	
 	var val1 = this.value;
+	// TODO: A modifier car si le second opérateur est un flottant par exemple, il ne faut pas convertir
     var val2 = secondOperand.convertTo(MemoryValue.INTEGER).value;
 	
 	switch (operator) {
