@@ -27,7 +27,7 @@ IfNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		var testValue = this.getCondition().getValue();
 		// TODO: Vérifier si la conversion s'est bien passée
 		var testValueAsBoolean = testValue.convertTo(MemoryValue.BOOLEAN).getPrimitiveValue();
-		console.log("Test value", testValue);
+		// console.log("Test value", testValue);
 		if (testValueAsBoolean) {
 			nodeStack.push(this.getThenInstructions());
 		} else {
