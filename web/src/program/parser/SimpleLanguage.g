@@ -38,7 +38,7 @@ tokens {
 
 @header {
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
-		 console.log("Fixing", variableTypeNode);
+		// console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
 			return;
 		}
@@ -56,9 +56,9 @@ tokens {
 				}
 			}
 		} else if (variableTypeNode.children.length == 1) { // On a un type de base ou une structure, mais on a ajouté un niveau ArrayDataType inutile
-			console.log("Before", variableTypeNode);
+			// console.log("Before", variableTypeNode);
 			variableTypeNode.dataType = variableTypeNode.children[0].dataType;
-			console.log("After", variableTypeNode);
+			// console.log("After", variableTypeNode);
 		}
 		/* Sinon, c'est un tableau dont les dimensions ne sont pas indiquées
 		 * on a déjà créé un PointerDataType pour le représenter

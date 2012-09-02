@@ -1,7 +1,7 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2012-09-02 19:19:27
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2012-09-02 21:49:39
 
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
-		 console.log("Fixing", variableTypeNode);
+		// console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
 			return;
 		}
@@ -19,9 +19,9 @@
 				}
 			}
 		} else if (variableTypeNode.children.length == 1) { // On a un type de base ou une structure, mais on a ajouté un niveau ArrayDataType inutile
-			console.log("Before", variableTypeNode);
+			// console.log("Before", variableTypeNode);
 			variableTypeNode.dataType = variableTypeNode.children[0].dataType;
-			console.log("After", variableTypeNode);
+			// console.log("After", variableTypeNode);
 		}
 		/* Sinon, c'est un tableau dont les dimensions ne sont pas indiquées
 		 * on a déjà créé un PointerDataType pour le représenter
