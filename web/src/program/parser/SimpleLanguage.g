@@ -67,7 +67,7 @@ tokens {
 }
 
 program
-	: NEWLINE* (struct_declaration | subprogram_declaration)* 
+	: NEWLINE* (struct_declaration | subprogram_declaration | COMMENT | LINE_COMMENT | NEWLINE)* 
 		-> ^(PROGRAM<ProgramNode> ^(STRUCT_DECLARATIONS<StructureDeclarationListNode> struct_declaration*) ^(FUNCTION_LIST<FunctionListNode> subprogram_declaration*))
 	;
 
