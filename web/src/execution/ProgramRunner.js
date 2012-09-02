@@ -56,6 +56,7 @@ ProgramRunner.prototype.getProgramTree = function() {
 ProgramRunner.prototype.reset = function() {
 	this.memory.reset();
 	this.nodeStack = new NodeStack();
+	this.stopOnException = false;
 }
 
 ProgramRunner.prototype.compile = function() {
@@ -73,7 +74,7 @@ ProgramRunner.prototype.compile = function() {
 		throw new CompilationError(this.errors);
 	}
 
-	console.log("Program tree", programTree.tree);
+	// console.log("Program tree", programTree.tree);
 	
 	if (! this.findMainFunction(programTree.tree)) {
 		$j('#outputPanel-body').html("<div class='error-message'>" + "ERROR: No main function defined." + "</div>");
@@ -193,8 +194,13 @@ ProgramRunner.prototype.start = function() {
 	}
 }
 
-ProgramRunner.prototype.stopProgram = function() {
+ProgramRunner.prototype.stopProgram = function(doReset) {
 	var currentNode;
+	
+	if (this.nodeStack.isEmpty()) {
+		console.log("Stack empty before stopping program.");
+		return;
+	}
 	
 	// On vide la pile
 	while (!this.nodeStack.isEmpty()) {
@@ -205,6 +211,10 @@ ProgramRunner.prototype.stopProgram = function() {
 	currentNode.setExecuted(false);
 	this.nodeStack.push(currentNode);
 	
+	if (doReset == false) {
+		this.stopOnException = true;
+	}
+	
 	// On l'exécute pour finir proprement l'exécution
 	this.memory.beginTransaction();
 	this.instructionCounter = 0;
@@ -213,7 +223,9 @@ ProgramRunner.prototype.stopProgram = function() {
 	});
 	this.memory.endTransaction();
 	
-	this.reset();
+	if (doReset == true) {
+		this.reset();
+	}
 }
 
 ProgramRunner.prototype.stepInFunctions = function() {
@@ -286,7 +298,8 @@ ProgramRunner.prototype.continueToNextBreakpoint = function() {
 		} else {
 			return false;
 		}
-	});	
+	});
+	console.log("After do step");
 	this.memory.endTransaction();
 	
 	this.stopAtBegin = oldStopAtBegin;
@@ -315,8 +328,28 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 			this.nodeStack.pop();
 			continue;
 		}
+		
+		var stopPoint = true;
+		
+		try {
+			stopPoint = currentNode.execute(this.memory, this.nodeStack, this);
+			
+			// Infinite loop detection in the Simple Language program
+			this.instructionCounter++;
+			if (this.instructionCounter == ProgramRunner.INFINITE_LOOP_DETECTION_INSTRUCTION_THRESHOLD) {
+				throw new InfiniteLoopException();
+			}
+		} catch (e) {
+			console.log("Exception during node execution", currentNode, currentNode.getFilePosition(), e);
+			//var instructionEvent = new ProgramRunnerEvent(this, "DONE_INSTRUCTION");
+            //instructionEvent.setFilePosition(currentNode.getFilePosition());
+            //this.notifyListeners(instructionEvent);
+			var exceptionEvent = new ProgramRunnerEvent(this, "EXCEPTION", undefined, e);
+            this.notifyListeners(exceptionEvent);
+			return;
+		}
 
-		if (currentNode.execute(this.memory, this.nodeStack, this)) {
+		if (stopPoint) {
 			// Attention, ne pas utiliser currentNode car il y a eu de nouveaux noeuds sur la pile depuis son exécution
 			var newCurrentNode = this.nodeStack.peek();	
             var event = new ProgramRunnerEvent(this, "DONE_INSTRUCTION");
@@ -328,12 +361,6 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 				var event = new ProgramRunnerEvent(this, "DONE_STEP");
 				event.setFilePosition(newCurrentNode.getFilePosition()); 
 				this.notifyListeners(event);
-			} else {
-                // Infinite loop detection in the Simple Language program
-                this.instructionCounter++;
-                if (this.instructionCounter == ProgramRunner.INFINITE_LOOP_DETECTION_INSTRUCTION_THRESHOLD) {
-                    throw new InfiniteLoopException();
-                }
 			}
 		}
 	}

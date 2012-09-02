@@ -273,7 +273,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 						algoViewApp.compileProgram();
 						algoViewApp.startProgram();
 					} else {
-						algoViewApp.stopProgram();
+						algoViewApp.stopProgram(true);
 					}
 				},
 			},{
@@ -675,7 +675,9 @@ var MainFrame = function(algoViewApp, layoutName) {
 				break;
 			case "STOPPED_PROGRAM":
 				this.leaveDebugMode();
-				Ext.getCmp('editor-1').initCurrentLines();
+				if (event.source.stopOnException === false) {
+					Ext.getCmp('editor-1').initCurrentLines();
+				}
 				Ext.getCmp('editor-1').editor.setReadOnly(false);
 				$j('#outputPanel-body').append("<hr /><div>Program terminated.</div>");
 				Ext.getCmp('outputPanel').scrollBy(0, 50, false);
@@ -685,6 +687,10 @@ var MainFrame = function(algoViewApp, layoutName) {
 				break;
 			case "EXITING_FUNCTION":
 				Ext.getCmp('editor-1').popCurrentLine();
+				break;
+			case "EXCEPTION":
+				$j('#outputPanel-body').append("<hr /><div class='error-message'><div>Error during program execution.</div><div>" + event.exception + "</div></div>");
+				this.app.stopProgram(false);
 				break;
 		}
 	}

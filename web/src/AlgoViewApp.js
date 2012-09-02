@@ -59,8 +59,8 @@ AlgoViewApp.prototype.startProgram = function() {
 	this.programRunner.start();
 }
 
-AlgoViewApp.prototype.stopProgram = function() {
-	this.programRunner.stopProgram();
+AlgoViewApp.prototype.stopProgram = function(doReset) {
+	this.programRunner.stopProgram(doReset);
 }
 
 AlgoViewApp.prototype.continueProgram = function() {
