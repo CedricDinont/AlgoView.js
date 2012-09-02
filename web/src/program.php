@@ -68,5 +68,7 @@
 	addJsLibrary("execution/BreakpointList.js");
 	addJsLibrary("execution/ProgramRunner.js");
 	addJsLibrary("execution/ProgramRunnerEvent.js");
+	
+	addJsLibrary("exceptions/ErrorInstructionException.js");
 
 ?>

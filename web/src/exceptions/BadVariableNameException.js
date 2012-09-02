@@ -5,18 +5,16 @@
  * @author michael
  */
 
-var BadVariableNameException = function(functionName, variableName){
+var BadVariableNameException = function(functionName, variableName) {
 	
 	Exception.call(this, functionName);
 	
 	this.variableName = variableName;
-
 }
 
 // prototype based inheritance
 BadVariableNameException.prototype = new Exception();
 
-
-BadVariableNameException.prototype.toString = function(){
+BadVariableNameException.prototype.toString = function() {
 	return this.functionNameStringPrefix() + "Unable to find the variable named: " + this.variableName;
 }

@@ -12,8 +12,9 @@ ReturnNode.prototype.getReturnExpression = function() {
 ReturnNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	if (this.currentChild == 0) {
 		this.currentChild++;
-		if (this.getReturnExpression() != undefined)
-		nodeStack.push(this.getReturnExpression());
+		if (this.getReturnExpression() != undefined) {
+			nodeStack.push(this.getReturnExpression());
+		}
 	} else {
 		this.currentChild = 0;
 		var currentStackNode;

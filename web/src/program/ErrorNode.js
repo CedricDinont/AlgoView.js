@@ -5,11 +5,15 @@ var ErrorNode = function(tokenType, token) {
 // Prototype based inheritance
 ErrorNode.prototype = new Node();
 
+ErrorNode.prototype.getMessage = function() {
+	return this.children[0];
+}
+
 ErrorNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	var message = this.getMessage();
 	
-	nodeStack.pop();
-	memory.endTransaction();
-	throw new Test();
+	console.log(message.getText());
+	JSUtils.throwException("ErrorInstructionException", "ErrorNode.execute", message.getText());
 	
 	return false;
 }

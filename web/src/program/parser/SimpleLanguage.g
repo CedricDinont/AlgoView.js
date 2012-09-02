@@ -222,7 +222,7 @@ return_instruction
 	;
 	
 error_instruction
-	: ERROR LP s=string RP -> ^(ERROR<ErrorNode> $s)
+	: e=ERROR LP s=string RP -> ^(ERROR<ErrorNode>[$e] $s)
 	;
 	
 print_instruction
