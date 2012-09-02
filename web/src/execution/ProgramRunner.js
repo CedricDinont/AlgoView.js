@@ -22,6 +22,7 @@ var ProgramRunner = function(program, memorySize) {
 	this.breakpoints = new BreakpointList();
 	
 	this.state = "STOPPED";
+	this.instructionCounter = 0;
 
 	org.antlr.runtime.BaseRecognizer.prototype.emitErrorMessage = function (msg) {
 		console.log(msg);
@@ -179,7 +180,8 @@ ProgramRunner.prototype.start = function() {
 	this.state = "RUNNING";
 	
 	if (this.startPaused) {
-		this.memory.beginTransaction();	
+		this.memory.beginTransaction();
+		this.instructionCounter = 0;
 		this.doStep(function() {
 			return true;
 		});
@@ -202,7 +204,8 @@ ProgramRunner.prototype.stopProgram = function() {
 	this.nodeStack.push(currentNode);
 	
 	// On l'exécute pour finir proprement l'exécution
-	this.memory.beginTransaction();	
+	this.memory.beginTransaction();
+	this.instructionCounter = 0;
 	this.doStep(function(currentNode) {
 		return true;
 	});
@@ -212,7 +215,8 @@ ProgramRunner.prototype.stopProgram = function() {
 }
 
 ProgramRunner.prototype.stepInFunctions = function() {
-	this.memory.beginTransaction();	
+	this.memory.beginTransaction();
+	this.instructionCounter = 0;
 	this.doStep(function(currentNode) {
 		// A chaque fois qu'on a la possibilité de s'arrêter, on s'arrête.
 		return true;
@@ -224,7 +228,8 @@ ProgramRunner.prototype.stepOverFunctions = function() {
 	var currentStackLevel = this.nodeStack.level();
 	var self = this;
 	
-	this.memory.beginTransaction();	
+	this.memory.beginTransaction();
+	this.instructionCounter = 0;
 	this.doStep(function(currentNode) {
 		if (self.nodeStack.level() > currentStackLevel) {
 			return false;
@@ -245,7 +250,8 @@ ProgramRunner.prototype.stepOutCurrentFunction = function() {
 		currentNodeStackLevel--;
 	}
 	
-	this.memory.beginTransaction();	
+	this.memory.beginTransaction();
+	this.instructionCounter = 0;
 	this.doStep(function(currentNode) {
 		// On stoppe quand on revient sur le noeud fonction précédemment trouvé
 		if (currentNode === currentFunctionNode) {
@@ -270,6 +276,7 @@ ProgramRunner.prototype.continueToNextBreakpoint = function() {
 	this.stopAtBegin = true;
 	
 	this.memory.beginTransaction();	
+	this.instructionCounter = 0;
 	this.doStep(function(currentNode) {
 		var currentFilePosition = self.nodeStack.peek().getFilePosition();
 		if (self.breakpoints.isBreakpoint(currentFilePosition)) {
@@ -278,7 +285,7 @@ ProgramRunner.prototype.continueToNextBreakpoint = function() {
 			return false;
 		}
 	});	
-	this.memory.endTransaction();	
+	this.memory.endTransaction();
 	
 	this.stopAtBegin = oldStopAtBegin;
 }
@@ -319,8 +326,15 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 				var event = new ProgramRunnerEvent(this, "DONE_STEP");
 				event.setFilePosition(newCurrentNode.getFilePosition()); 
 				this.notifyListeners(event);
+			} else {
+                // Infinite loop detection in the Simple Language program
+                this.instructionCounter++;
+                if (this.instructionCounter == ProgramRunner.INFINITE_LOOP_DETECTION_INSTRUCTION_THRESHOLD) {
+                    throw new InfiniteLoopException();
+                }
 			}
 		}
 	}
 }
 
+ProgramRunner.INFINITE_LOOP_DETECTION_INSTRUCTION_THRESHOLD = 10000;

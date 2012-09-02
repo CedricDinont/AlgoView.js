@@ -1603,6 +1603,7 @@ importScripts("../../../../program/StructureDeclarationListNode.js");
 importScripts("../../../../program/RandomNode.js");
 importScripts("../../../../program/ErrorNode.js");
 importScripts("../../../../program/AddressNode.js");
+importScripts("../../../../program/ContentNode.js");
 importScripts("../../../../program/DereferenceNode.js");
 importScripts("../../../../program/BeginNode.js");
 importScripts("../../../../program/EndNode.js");

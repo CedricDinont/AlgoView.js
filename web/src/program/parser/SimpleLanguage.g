@@ -38,11 +38,15 @@ tokens {
 
 @header {
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
-		// console.log("Fixing", variableTypeNode);
+		 console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
 			return;
 		}
 
+		/* Est-ce un tableau dont les dimensions sont indiquées ?
+		 * On le détermine en regardant le nombre d'enfants : 
+		 * si c'est le cas, les dimensions sont indiquées après le premier fils
+		 **/
 		if (variableTypeNode.children.length > 1) {
 			variableTypeNode.dataType.setElementsDataType(variableTypeNode.children[0].dataType);			
 			for (var i = variableTypeNode.children.length - 1; i >= 1; --i) {
@@ -51,11 +55,14 @@ tokens {
 					variableTypeNode.dataType = new ArrayDataType(variableTypeNode.dataType, undefined);
 				}
 			}
-		} else {
-		//	console.log("Before", variableTypeNode);
+		} else if (variableTypeNode.children.length == 1) { // On a un type de base ou une structure, mais on a ajouté un niveau ArrayDataType inutile
+			console.log("Before", variableTypeNode);
 			variableTypeNode.dataType = variableTypeNode.children[0].dataType;
-		//	console.log("After", variableTypeNode);
+			console.log("After", variableTypeNode);
 		}
+		/* Sinon, c'est un tableau dont les dimensions ne sont pas indiquées
+		 * on a déjà créé un PointerDataType pour le représenter
+		 */
 	}
 }
 
@@ -110,7 +117,10 @@ variable_type
 	;
 
 variable_type_to_be_fixed
-	: s=simple_variable_type (LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*)
+	: s=simple_variable_type 
+		(  (LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*)
+		 | (LB RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new PointerDataType(new VariableTypeNode(undefined, undefined))] )
+		)
 	;
 
 simple_variable_type
@@ -238,7 +248,7 @@ while_instruction
 	: w=WHILE lp=LP e=expression RP DO NEWLINE i_l=instruction_list_opt END_WHILE 
 			-> ^(WHILE<WhileNode>[$w] ^(CONDITION<ConditionNode>[$lp] $e) $i_l)
 	;
-	
+
 do_while_instruction
 	:  d=DO NEWLINE i_l=instruction_list_opt WHILE lp=LP e=expression RP 
 			-> ^(DO_WHILE<DoWhileNode>[$d] ^(CONDITION<ConditionNode>[$lp] $e) $i_l)
@@ -270,11 +280,16 @@ assign_string_instruction
 	;
 */
 assignable_element
-	: (i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<VariableNameNode>[undefined, $i.getText()])) 
+	: (identifier_or_content -> identifier_or_content)
 		(   (POINT i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<StructureElementNode> $assignable_element {new StructureElementNameNode(undefined, undefined, $i.getText())}) ) 
 		  | (DEREFERENCE i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<PointerDereferenceNode> $assignable_element {new StructureElementNameNode(undefined, undefined, $i.getText())}) ) 
 		  | (lb=LB expression RB) -> ^(ARRAY_ELEMENT<ArrayElementNode>[$lb] $assignable_element expression) 
 		)*
+	;
+
+identifier_or_content
+	: i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<VariableNameNode>[$i, $i.getText()]) 
+	| c=CONTENT LP assignable_element RP -> ^(ASSIGNABLE_ELEMENT<ContentNode>[$c] assignable_element)
 	;
 
 expression_list
@@ -286,16 +301,18 @@ expression_list_opt
 	| expression_list
 	;
 
+/* Attention, l'ordre est important */
 expression_operand
 	: integer_number
 	| float_number
     | boolean_value
      //  | character_value 
 	| null
+	| function_call
 	| assignable_element
 	| r=RANDOM LP expression RP -> ^(RANDOM<RandomNode>[$r] expression)
+	| LP assign_instruction RP -> assign_instruction
 	| LP expression RP -> expression
-	| function_call
 	| a=ADDRESS LP assignable_element RP -> ^(ADDRESS<AddressNode>[$a] assignable_element)
     | c=CONTENT LP assignable_element RP -> ^(CONTENT<ContentNode>[$c] assignable_element)
     | not_expression

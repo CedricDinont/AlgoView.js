@@ -50,6 +50,7 @@
 	addJsLibrary("program/RandomNode.js");
 	addJsLibrary("program/ErrorNode.js");
 	addJsLibrary("program/AddressNode.js");
+	addJsLibrary("program/ContentNode.js");
 	addJsLibrary("program/DereferenceNode.js");
 	addJsLibrary("program/BeginNode.js");
 	addJsLibrary("program/EndNode.js");

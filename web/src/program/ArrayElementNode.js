@@ -30,17 +30,39 @@ ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) 
         var arrayDataType;
 		var parent = this.getVariable();
 		
-		// 2 cas : on accède à un élément de tableau alloué dynamiquement ou statiquement
-		
+		/**
+		 *  3 cas : on accède à un élément de tableau 
+		 *		- alloué dynamiquement
+		 *		- statiquement
+		 *		- par une variable pointant vers un tableau alloué statiquement
+		 **/
 		if (parent.dataType instanceof PointerDataType) {
+			// Tableau accédé depuis un pointeur
+			// Peut être sur le tas ou sur la pile
 			var pointerMemoryValue = parent.getValue();
 			if (pointerMemoryValue.isNil()) {
 				throw new UseOfNilAsArray();
 			}
 			arrayBaseAddress = pointerMemoryValue.getPrimitiveValue();
+			
+			// Recherche sur le tas
 			var heapMemoryUnit = memory.getHeap().findMemoryUnit(arrayBaseAddress);
-			arrayDataType = heapMemoryUnit.getDataType();
+			if (heapMemoryUnit != undefined) {
+				// Le tableau est bien dans le tas
+				arrayDataType = heapMemoryUnit.getDataType();
+			} else {
+				// Recherche dans la pile
+				var stackMemoryUnit = memory.getStack().findMemoryUnit(arrayBaseAddress);
+				if (stackMemoryUnit != undefined) {
+					arrayDataType = stackMemoryUnit.getDataType();
+				} else {
+					// On n'a trouvé le tableau ni sur le tas ni sur la pile
+					throw new InvalidMemoryAddressException();
+				}
+			}
+
 		} else if (parent.dataType instanceof ArrayDataType) {
+			// Tableau alloué statiquement sur la pile
 			arrayDataType = parent.getDataType();
 			arrayBaseAddress = this.getVariable().getAddress();
 		} else {

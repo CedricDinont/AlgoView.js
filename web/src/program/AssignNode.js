@@ -1,9 +1,9 @@
 var AssignNode = function(tokenType, token) {	
-	Node.call(this, tokenType, token);
+	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
-AssignNode.prototype = new Node();
+AssignNode.prototype = new ExpressionNode();
 
 AssignNode.prototype.getVariable = function() {
 	return this.children[0];
@@ -33,6 +33,13 @@ AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		this.currentChild = 0;
 		
 		var expressionMemoryValue = this.getExpression().getValue();
+		
+		var expressionDataType = this.getExpression().dataType;
+		console.log(expressionDataType, expressionMemoryValue);
+		if (expressionDataType instanceof ArrayDataType) {
+			expressionMemoryValue = new PointerMemoryValue(this.getExpression().getAddress());
+		}
+		
 		var resultType = this.getVariable().memoryValue.type;
 		
 		var expressionMemoryValueAsResultType = expressionMemoryValue.convertTo(resultType);
@@ -41,6 +48,7 @@ AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		}
 
 		memory.setValue(this.getVariable().getAddress(), expressionMemoryValueAsResultType);
+		this.setValue(expressionMemoryValueAsResultType);
 		nodeStack.pop();
 	}
 	return false;

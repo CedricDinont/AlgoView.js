@@ -126,3 +126,17 @@ Stack.prototype.setVariableValue = function(name, memoryValue) {
 	variable.setValue(memoryValue);
 	this.memory.changed();		
 }
+
+Stack.prototype.findMemoryUnit = function(address) {
+	for (memoryUnitKey in this.memoryUnits) {
+		var memoryUnit = this.memoryUnits[memoryUnitKey];
+		var startAddress = memoryUnit.getAddress();
+		var endAddress = startAddress + memoryUnit.getDataType().getSize();
+		
+		if ((startAddress <= address) && (address < endAddress)) {
+				return memoryUnit;
+		}
+	}
+	
+	return undefined;
+}
