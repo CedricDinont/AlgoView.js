@@ -23,7 +23,8 @@ var JSUtils = {
 			var exceptionConstructor = eval(exceptionName);
 			var exceptionConstructorArguments = Array.prototype.slice.call(arguments, 1);	// on retire le premier argument
 			
-			var exception = new exceptionConstructor(exceptionConstructorArguments);
+			var exception = new exceptionConstructor();
+			exceptionConstructor.apply(exception, exceptionConstructorArguments);
 
 			var error = new Error(exceptionName);		
 			error.wrappedException = exception;
