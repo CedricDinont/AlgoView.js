@@ -11,7 +11,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 	this.layouts = new Array();
 	
 	// TODO: A placer ailleurs
-	this.programChanged = true;
+	this.programTextChanged = false;
 	
 	this.showQuickReference = true;
 	this.quickReferencePanel;
@@ -143,6 +143,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 																	console.log(newText);
 																	message = JSON.parse(newText);
 																	algoViewApp.executeCommand(message);
+																	self.setProgramTextChanged(false);
 																} catch (exception) {
 																	console.log(exception);
 																	// TODO: Faire une boite de dialogue d'erreur
@@ -700,6 +701,19 @@ var MainFrame = function(algoViewApp, layoutName) {
 		}
 	}
 	
+	this.setProgramTextChanged = function(value) {
+		this.programTextChanged = value;
+		this.updateProgramName();
+	}
+	
+	this.updateProgramName = function() {
+		if (this.programTextChanged) {
+			
+		} else {
+			
+		}
+	}
+	
 	this.createViewport();
 	this.setLayout(layoutName);
 	
@@ -715,6 +729,32 @@ var MainFrame = function(algoViewApp, layoutName) {
 		}
 		self.app.programRunner.breakpoints.setBreakpoints(newBreakpointsArray);
 	});
+	
+	Ext.getCmp('editor-1').editor.getSession().getDocument().on("change", function(e) {	
+		self.setProgramTextChanged(true);
+	});
+	
+	window.onbeforeunload = function(e) {
+		var message;
+				
+		if (self.programTextChanged == true) {
+			message = "Your Simple Language program changed since you last download it. You will lose your changes if you leave or reload this page.";
+		} else {
+			return;
+		}
+
+		if ( /Firefox[\/\s](\d+)/.test(navigator.userAgent) && new Number(RegExp.$1) >= 4) {
+			if (confirm(message + " Are you sure you want to leave?")) {
+				history.go();
+			} else {
+				window.setTimeout(function() {
+						window.stop();
+					}, 1);
+			}
+		} else {
+			return message;
+		}
+	}
 	
 	this.app.programRunner.addListener(this);
 }

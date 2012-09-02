@@ -20,6 +20,7 @@ var AlgoViewApp = function() {
 AlgoViewApp.prototype.loadText = function(text) {
 	this.mainFrame.editors[0].clearBreakpoints();
 	this.mainFrame.editors[0].getSession().getDocument().setValue(text);
+	this.mainFrame.setProgramTextChanged(false);
 	
 	//this.programRunner.program.text = text;
 }
@@ -252,7 +253,7 @@ function loadScript(relativePath) {
    var script = document.createElement('script');
    script.type= "text/javascript";
    script.src= scriptsLocation + relativePath;
-   body.appendChild(script);	
+   body.appendChild(script);
 }
 
 getUrlVars = function() {

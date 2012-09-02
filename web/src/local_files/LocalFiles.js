@@ -44,6 +44,9 @@ jQuery.download = function(url, data, method) {
 AlgoViewApp.prototype.downloadFile = function() {
 	var self = this;
 	
+	// On met ce flag à faux avant de lancer la requête sinon Firefox appelle window.onbeforeunload
+	this.mainFrame.setProgramTextChanged(false);
+	
 	$j.download("local_files/download_program.php", 
 		{
 			fileName: Ext.getCmp('editor-1').title, 

@@ -109,7 +109,7 @@ Ext.define('Ext.ux.aceeditor.Editor', {
 				
 				case "removeText":
 				case "removeLines":
-					// console.log(numberOfRows);
+					 console.log(delta, startRow, endRow, numberOfRows);
 					var i = 0;
 					while (i  < newBreakpoints.length) {
 						if ((newBreakpoints[i] >= startRow) && (newBreakpoints[i] <= endRow)) {
