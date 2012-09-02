@@ -135,12 +135,17 @@ var MainFrame = function(algoViewApp, layoutName) {
 																form.owner.up('window').close();
 																var message;
 																try {
-																	var excapedText = action.response.responseText;
-																	var unescapedText = $j('<div/>').html(excapedText).text();
-																	message = JSON.parse(unescapedText);
+																	var escapedText = action.response.responseText;
+																	console.log(escapedText);
+																	var unescapedText = $j('<div/>').html(escapedText).text();
+																	console.log(unescapedText);
+																	var newText = unescapedText.replace(/\\\\"/g, '\"');
+																	console.log(newText);
+																	message = JSON.parse(newText);
 																	algoViewApp.executeCommand(message);
 																} catch (exception) {
 																	console.log(exception);
+																	// TODO: Faire une boite de dialogue d'erreur
 																	return;
 																}
 															},
