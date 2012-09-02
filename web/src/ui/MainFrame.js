@@ -12,6 +12,8 @@ var MainFrame = function(algoViewApp, layoutName) {
 	
 	// TODO: A placer ailleurs
 	this.programTextChanged = false;
+	this.leaveWithoutConfirmation = getUrlVar("leaveWithoutConfirmation");
+	//console.log(this.leaveWithoutConfirmation);
 	
 	this.showQuickReference = true;
 	this.quickReferencePanel;
@@ -735,8 +737,13 @@ var MainFrame = function(algoViewApp, layoutName) {
 	});
 	
 	window.onbeforeunload = function(e) {
-		var message;
-				
+		var message = undefined;
+		
+		//console.log(self.leaveWithoutConfirmation);
+		if (self.leaveWithoutConfirmation == "true") {
+			return;
+		}
+		
 		if (self.programTextChanged == true) {
 			message = "Your Simple Language program changed since you last download it. You will lose your changes if you leave or reload this page.";
 		} else {
