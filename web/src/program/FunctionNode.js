@@ -56,10 +56,22 @@ FunctionNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	
 		if (this.parametersValues != undefined) {	
 			for (var i = 0; i < this.parametersValues.children.length; i++) {
-				memory.getStack().setVariableValue(this.getParameters().children[i].getVariableName(), this.parametersValues.children[i].getValue());
+				var assignNode = new AssignNode(undefined, undefined);
+				console.log(assignNode);
+				console.log(this.getParameters().children[i].getVariableName());
+				var variable = this.getParameters().children[i];
+				var value = this.parametersValues.children[i];
+				console.log(variable, value);
+				assignNode.addChild(new VariableNameNode(undefined, undefined, variable.getVariableName()));
+				assignNode.addChild(value);
+				nodeStack.push(assignNode);
+			//	memory.getStack().setVariableValue(this.getParameters().children[i].getVariableName(), this.parametersValues.children[i].getValue());
 			}
 		}
 		
+		return false;
+	} else if (this.currentChild == 1) {
+		this.currentChild++;
 		nodeStack.push(this.getBegin());
 		
 		if (programRunner.stopAtBegin) {
@@ -67,20 +79,20 @@ FunctionNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		} else {
 			return false;
 		}
-	} else if (this.currentChild == 1) {
+	} else if (this.currentChild == 2) {
 		this.currentChild++;
 	
 		nodeStack.push(this.getInstructions());	
-	} else if (this.currentChild == 2) {
-			this.currentChild++;
+	} else if (this.currentChild == 3) {
+		this.currentChild++;
 			
-			nodeStack.push(this.getEnd());
+		nodeStack.push(this.getEnd());
 			
-			if (this.returnExecuted === true) {
-				return false;
-			} else {
-				return true;
-			}
+		if (this.returnExecuted === true) {
+			return false;
+		} else {
+			return true;
+		}
 	} else {
 		this.currentChild = 0;
 		nodeStack.pop();

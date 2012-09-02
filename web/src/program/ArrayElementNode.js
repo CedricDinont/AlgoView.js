@@ -54,6 +54,7 @@ ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) 
 				// Recherche dans la pile
 				var stackMemoryUnit = memory.getStack().findMemoryUnit(arrayBaseAddress);
 				if (stackMemoryUnit != undefined) {
+					// Le tableau est bien dans la pile
 					arrayDataType = stackMemoryUnit.getDataType();
 				} else {
 					// On n'a trouvé le tableau ni sur le tas ni sur la pile
