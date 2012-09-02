@@ -89,12 +89,16 @@ Ext.define('Ext.ux.aceeditor.Editor', {
 			
 		//	console.log("newBreakpoints before", newBreakpoints);
 			
-			var startRow  = range.start.row;
+			var startRow = range.start.row;
 			var endRow  = range.end.row;
 			var numberOfRows = range.end.row - range.start.row;
 			
 			switch (delta.action) {
 				case "insertText":
+					// Si l'insertion se fait dans une ligne, on ne décale pas le breakpoint qui se trouve dessus
+					if (range.start.column != 0) {
+						startRow++;
+					}
 				case "insertLines":
 					for (var i = 0; i < newBreakpoints.length; ++i) {
 						if (newBreakpoints[i] >= startRow) {

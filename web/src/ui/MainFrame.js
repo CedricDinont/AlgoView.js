@@ -258,10 +258,10 @@ var MainFrame = function(algoViewApp, layoutName) {
 									<hr /><br />\
 									&copy; 2012 ISEN Computer Science Department<br />\
 									<br />\
-									Core developers:<br />\
+									Please contact core developers for comments, questions or bug reports:<br />\
 									<ul>\
-										<li>&nbsp;&nbsp;- <a href="mailto:cedric.dinont@isen.fr">Cédric Dinont</a></li>\
-										<li>&nbsp;&nbsp;- <a href="mailto:michael.soulignac@isen.fr">Michaël Soulignac</a></li>\
+										<li>&nbsp;&nbsp;- <a href="mailto:cedric.dinont@isen.fr">Cédric Dinont</a> (Simple Language compiler and interpreter, user interface)</li>\
+										<li>&nbsp;&nbsp;- <a href="mailto:michael.soulignac@isen.fr">Michaël Soulignac</a> (Memory model, memory views)</li>\
 									</ul>');
 							}
 						} 
