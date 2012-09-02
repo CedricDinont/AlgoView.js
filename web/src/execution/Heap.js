@@ -57,7 +57,7 @@ Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress) {
 		i++;
 	}
 	
-	return NIL;	
+	return NIL.getPrimitiveValue();	
 }
 
 

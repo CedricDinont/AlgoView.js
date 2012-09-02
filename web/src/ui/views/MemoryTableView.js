@@ -60,8 +60,8 @@ var MemoryTableView = function(containerId){
 				
 				var unit = memory.getUnit(i);
 				
-				
-				if( unit != undefined && value instanceof PointerMemoryValue &&  memory.getUnit( value ) == undefined  ){
+				// le pointeur NIL n'est pas invalide
+				if( unit != undefined && value instanceof PointerMemoryValue &&  value != NIL.getPrimitiveValue() && memory.getUnit( value ) == undefined  ){
 					className = "invalid";
 				}
 								

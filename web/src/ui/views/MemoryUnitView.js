@@ -175,6 +175,10 @@ MemoryUnitView.prototype.clear = function(){
 			this.linkedObjects[i].remove();
 		}
 		
+		if(this.nilLine != undefined){
+			this.nilLine.remove();
+		}
+		
 		// variable de la pile
 		if(this.memoryUnit instanceof Variable){
 			this.heapGraphicalView.stackUnitCounter--;
@@ -233,8 +237,9 @@ MemoryUnitView.prototype.update = function(){
 		
 		var memoryUnitValueString = this.getMemoryUnitValueString();	
 		
-		this.valueStringObject.attr( {"text" : memoryUnitValueString } );
 
+		this.validAddress = true;
+		
 		var fillOpacity = 0;
 		
 		if (this.memoryUnit.hasChanged()) {
@@ -245,20 +250,44 @@ MemoryUnitView.prototype.update = function(){
 		// special case of a POINTER
 		if( this.memoryUnit.getValue() instanceof PointerMemoryValue ){
 			
-			
-			if( this.memoryUnit.memory.getUnit( this.memoryUnit.getValue() ) == undefined ){
-				this.validAddress = false;
-				this.boxObject.attr( {fill:MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR } );
-				fillOpacity = MemoryUnitView.INVALID_ADDRESS_OPACITY;
+			// null pointer
+			if( this.memoryUnit.getValue()  == NIL.getPrimitiveValue() ){
+				memoryUnitValueString = MemoryUnitView.NIL_STRING;
+				var xstart = this.x;
+				var ystart = this.y + this.height;
+				var xend = this.x + this.width;
+				var yend = this.y;
+				
+				this.nilLine = this.ctx.path("M"+ xstart + " " + ystart + "L" + xend + " " + yend);
+				this.nilLine.xstart = xstart;
+				this.nilLine.ystart = ystart;
+				this.nilLine.xend = xend;
+				this.nilLine.yend = yend;
+				
+		
 			}
 			else{
 				
-				this.validAddress = true;
+				// remove null pointer representation if exists
+				if(this.nilLine != undefined){
+					this.nilLine.remove();
+				}				
+				
+				// invalid address
+				if( this.memoryUnit.memory.getUnit( this.memoryUnit.getValue() ) == undefined ){
+					this.validAddress = false;
+					this.boxObject.attr( {fill:MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR } );
+					fillOpacity = MemoryUnitView.INVALID_ADDRESS_OPACITY;
+				}
 			}
+
+			
+	
 
 
 		}
 		
+		this.valueStringObject.attr( {"text" : memoryUnitValueString } );		
 		this.boxObject.attr( {"fill-opacity": fillOpacity } );	
 	}
 	
@@ -443,23 +472,32 @@ MemoryUnitView.prototype.getAllObjects = function(){
 
 
 // static variables
-MemoryUnitView.COMPOSED_TYPE_PADDING = {x : 0, y : 25 }; // in px
 MemoryUnitView.UNINITIALIZED_UNIT_STRING = "?";
+MemoryUnitView.NIL_STRING = "";
+
+MemoryUnitView.COMPOSED_TYPE_PADDING = {x : 0, y : 25 }; // in px
+
+
 MemoryUnitView.TICK_HEIGHT_RATIO = 10;	// tick height = box height / tick height ratio
 MemoryUnitView.TICK_WIDTH = 1;			// in px
 MemoryUnitView.TICK_COLOR = "gray";	
+
 MemoryUnitView.FIELD_STROKE_COLOR = MemoryUnitView.TICK_COLOR;	
 MemoryUnitView.PIXELS_PER_BYTE = 10;
 MemoryUnitView.BOX_HEIGHT = 25;
 MemoryUnitView.BOX_BORDER_RADIUS = 1;	// in px
 MemoryUnitView.NODE_LINE_WIDTH = 1;	// in px
+
 MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR = "black";
 MemoryUnitView.VARIABLE_NAME_STROKE_COLOR = MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR;		
 MemoryUnitView.UNACCESSIBLE_NODE_STROKE_COLOR = "red";	
-MemoryUnitView.INVALID_ADDRESS_OPACITY = 0.2;
-MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR = "red";
-MemoryUnitView.CHANGED_OPACITY = 0.2;
+
 MemoryUnitView.NODE_CHANGED_FILL_COLOR = "rgb(0, 90, 255)";
+MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR = "red";
+
+MemoryUnitView.CHANGED_OPACITY = 0.2;
+MemoryUnitView.INVALID_ADDRESS_OPACITY = 0.2;
+
 MemoryUnitView.TICK_ATTRIBUTES = {stroke: MemoryUnitView.TICK_COLOR};
 MemoryUnitView.BOX_ATTRIBUTES = {fill: MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR, stroke: MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR, "fill-opacity": 0, "stroke-width": MemoryUnitView.NODE_LINE_WIDTH, cursor: "move"};
 MemoryUnitView.INTERNAL_BOX_ATTRIBUTES = {fill: MemoryUnitView.NODE_INVALID_ADDRESS_FILL_COLOR, stroke: MemoryUnitView.FIELD_STROKE_COLOR, "fill-opacity": 0, "stroke-width": MemoryUnitView.NODE_LINE_WIDTH, cursor: "move"};
@@ -469,6 +507,7 @@ MemoryUnitView.ADDRESS_SECONDARY_TEXT_ATTRIBUTES = {font: "12px Fontin-Sans, Ari
 MemoryUnitView.FIELD_TEXT_ATTRIBUTES = {font: "12px Fontin-Sans, Arial", fill: MemoryUnitView.FIELD_STROKE_COLOR, "text-anchor": "middle"};		
 MemoryUnitView.VARIABLE_NAME_TEXT_ATTRIBUTES = {font: "12px Fontin-Sans, Arial", fill: MemoryUnitView.VARIABLE_NAME_STROKE_COLOR, "text-anchor": "end"};		
 MemoryUnitView.VALUE_TEXT_ATTRIBUTES = {font: "14px Fontin-Sans, Arial", fill: MemoryUnitView.ACCESSIBLE_NODE_STROKE_COLOR, "text-anchor": "middle"};	
+
 MemoryUnitView.ADDRESS_TEXT_BIAS = {x:0, y:-10};
 MemoryUnitView.FIELD_NAME_TEXT_BIAS = {x:10, y:-10};
 MemoryUnitView.VARIABLE_NAME_TEXT_BIAS = {x:-5};

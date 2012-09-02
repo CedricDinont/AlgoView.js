@@ -245,6 +245,15 @@ var MemoryGraphicalView = function(containerId) {
 		for (var i = 0; i < linkedObjects.length; i++) {
 			storeCurrentCoordinates(linkedObjects[i]);	
 		}
+		
+		// particular case for NIL pointers
+		if( memoryUnitView.nilLine != undefined){
+			memoryUnitView.nilLine.oxstart = memoryUnitView.nilLine.xstart;
+			memoryUnitView.nilLine.oystart = memoryUnitView.nilLine.ystart;
+			memoryUnitView.nilLine.oxend = memoryUnitView.nilLine.xend;
+			memoryUnitView.nilLine.oyend = memoryUnitView.nilLine.yend;
+		}
+				
     };
 	
 	var translateObject = function(raphaelObject, dx, dy) {
@@ -257,6 +266,9 @@ var MemoryGraphicalView = function(containerId) {
 		var memoryUnitBoxObject = memoryUnitView.getBoxObject();	
 	
 		translateObject(memoryUnitBoxObject, dx, dy);
+		
+        memoryUnitView.x = memoryUnitBoxObject.attr("x");
+        memoryUnitView.y = memoryUnitBoxObject.attr("y");			
 
 		// updating linked objects
 		var linkedObjects = memoryUnitView.getLinkedObjects();
@@ -267,6 +279,18 @@ var MemoryGraphicalView = function(containerId) {
 		// undating edges
 		for (var linkViewKey in this.linkViews) {
 			this.linkViews[linkViewKey].update();
+		}
+		
+		// particular case for NIL pointers
+		if( memoryUnitView.nilLine != undefined){		
+			memoryUnitView.nilLine.xstart = memoryUnitView.nilLine.oxstart + dx;
+			memoryUnitView.nilLine.ystart = memoryUnitView.nilLine.oystart + dy;
+			
+			memoryUnitView.nilLine.xend = memoryUnitView.nilLine.oxend + dx;		
+			memoryUnitView.nilLine.yend = memoryUnitView.nilLine.oyend + dy;
+
+							
+			memoryUnitView.nilLine.attr({path: "M"+ memoryUnitView.nilLine.xstart + " " + memoryUnitView.nilLine.ystart + "L" + memoryUnitView.nilLine.xend + " " + memoryUnitView.nilLine.yend});
 		}
 		
 		//this.ctx.safari();

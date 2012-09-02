@@ -89,7 +89,8 @@ var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells,
 						if (dataType instanceof PointerDataType) {
 							typeClassName = "address";
 							
-							if( memory.getUnit( value ) == undefined  ){
+							// le pointeur NIL n'est pas invalide
+							if( value != NIL.getPrimitiveValue() && memory.getUnit( value ) == undefined  ){
 								backgroundClassName = "invalid";
 							}
 											
