@@ -34,7 +34,7 @@ fakeMemoryInit = function(memory) {
 	addValueInHeap(new PointerDataType(), 18); 	
 	addValueInHeap(new PointerDataType(), 100); 	
 
-	addArrayInHeap(new PointerDataType(), 8, 6, 10);
+	addArrayInHeap(new PointerDataType(), 8, 6, 0);
 			
 	_memory.endTransaction();	
 

@@ -175,9 +175,6 @@ MemoryUnitView.prototype.clear = function(){
 			this.linkedObjects[i].remove();
 		}
 		
-		if(this.nilLine != undefined){
-			this.nilLine.remove();
-		}
 		
 		// variable de la pile
 		if(this.memoryUnit instanceof Variable){
@@ -257,12 +254,22 @@ MemoryUnitView.prototype.update = function(){
 				var ystart = this.y + this.height;
 				var xend = this.x + this.width;
 				var yend = this.y;
+				var pathString = "M"+ xstart + " " + ystart + "L" + xend + " " + yend;
 				
-				this.nilLine = this.ctx.path("M"+ xstart + " " + ystart + "L" + xend + " " + yend);
+				if( this.nilLine == undefined ){
+					this.nilLine = this.ctx.path( pathString );
+					this.linkedObjects.push( this.nilLine );
+				}
+				else{
+					this.nilLine.attr({path: pathString});
+				}
+				
 				this.nilLine.xstart = xstart;
 				this.nilLine.ystart = ystart;
 				this.nilLine.xend = xend;
 				this.nilLine.yend = yend;
+				
+				
 				
 		
 			}
@@ -271,6 +278,7 @@ MemoryUnitView.prototype.update = function(){
 				// remove null pointer representation if exists
 				if(this.nilLine != undefined){
 					this.nilLine.remove();
+					this.nilLine = undefined;
 				}				
 				
 				// invalid address
@@ -336,7 +344,7 @@ MemoryUnitView.prototype.build2DArrayFields = function(nbRows, nbCols){
 						
 			var fieldView = new MemoryUnitView(this.heapGraphicalView, cellUnit, this.x + graphicalOffset , this.y + this.padding.y + currentRow * MemoryUnitView.BOX_HEIGHT, currentCol, true, hideLocationLabel);
 			
-			this.linkedObjects.addAll( fieldView.getAllObjects() );	
+			//this.linkedObjects.addAll( fieldView.getAllObjects() );	
 			
 			currentCol++;
 						
@@ -355,8 +363,11 @@ MemoryUnitView.prototype.build2DArrayFields = function(nbRows, nbCols){
 		
 	}
 	
-	return 42;
 	
+}
+
+MemoryUnitView.prototype.getChildViews = function(){
+	return this.childViews;
 }
 
 MemoryUnitView.prototype.buildFields = function(){
@@ -399,7 +410,7 @@ MemoryUnitView.prototype.buildFields = function(){
 			
 			i++;
 			
-			this.linkedObjects.addAll( fieldView.getAllObjects() );	
+			//this.linkedObjects.addAll( fieldView.getAllObjects() );	
 			this.childViews.push( fieldView );
 			
 		}

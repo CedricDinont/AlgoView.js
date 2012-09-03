@@ -1,5 +1,5 @@
 /**
- * class LinkView : spline-based representation of a link between two memory units
+ * class LinkView : path-based representation of a link between two memory units
  * This view uses the Raphael library (it aggregates a Raphael Object)
  * @param ctx : "drawing context" (Raphael instance)
  * @param sourceUnitView1 : a view on the source memory unit
