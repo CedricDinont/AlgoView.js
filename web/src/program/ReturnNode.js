@@ -19,11 +19,12 @@ ReturnNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		this.currentChild = 0;
 		var currentStackNode;
 		while ((currentStackNode = nodeStack.peek()).type != "FUNCTION_NODE") {
-			// console.log("Popping", currentStackNode);
+			console.log("Popping", currentStackNode);
 			currentStackNode.currentChild = 0;
 			nodeStack.pop();
 		}
 		var functionNode = nodeStack.peek();
+		console.log("Next node after return", functionNode);
 		functionNode.returnExecuted = true;
 		functionNode.setValue(this.getReturnExpression().getValue());
 	}

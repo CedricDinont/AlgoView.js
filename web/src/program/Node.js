@@ -39,16 +39,13 @@ Node.prototype.execute = function(memory, nodeStack, programRunner) {
 	return false;
 }
 
+// TODO: Faire un clone ad hoc qui ne recopie pas tout l'arbre
 Node.prototype.clone = function() {
-	//return owl.deepCopy(this);
-	//return JSON.parse(JSON.stringify(this));
 	var newNode = jQuery.extend(true, {}, this);
 
 	for (var i = 0; i < this.children.length; i++) {
 		newNode.children[i] = this.children[i].clone();
 	}
-	
-	//console.log(this, newNode);
 
 	return newNode;
 }

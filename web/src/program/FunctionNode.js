@@ -117,6 +117,12 @@ FunctionNode.prototype.execute = function(memory, nodeStack, programRunner) {
 		
 		var event = new ProgramRunnerEvent(programRunner, "EXITING_FUNCTION");
 		programRunner.notifyListeners(event);
+		
+		if (programRunner.stopAtEnd) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	return false;

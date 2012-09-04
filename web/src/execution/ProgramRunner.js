@@ -23,7 +23,7 @@ var ProgramRunner = function(program, memorySize) {
 	
 	this.state = "STOPPED";
 	this.instructionCounter = 0;
-
+	
 	org.antlr.runtime.BaseRecognizer.prototype.emitErrorMessage = function (msg) {
 		console.log(msg);
 		$j('#outputPanel-body').html("<div class='error-message'>" + msg + "</div>");
@@ -228,35 +228,58 @@ ProgramRunner.prototype.stopProgram = function(doReset) {
 	}
 }
 
-ProgramRunner.prototype.stepInFunctions = function() {
-	this.memory.beginTransaction();
-	this.instructionCounter = 0;
+ProgramRunner.prototype.stepInFunctions = function(alreadyInMemorytransaction) {
+	if (! alreadyInMemorytransaction) {
+		this.memory.beginTransaction();
+		this.instructionCounter = 0;
+	}
+	
 	this.doStep(function(currentNode) {
-		// A chaque fois qu'on a la possibilité de s'arrêter, on s'arrête.
+		// A chaque fois qu'on a la possibilité de s'arrêter, on s'arrête
 		return true;
 	});
-	this.memory.endTransaction();	
+	
+	if (! alreadyInMemorytransaction) {
+		this.memory.endTransaction();
+	}
 }
 
 ProgramRunner.prototype.stepOverFunctions = function() {
-	var currentStackLevel = this.nodeStack.level();
+	var stackLevelBeforeStepOver = this.nodeStack.level();
 	var self = this;
+	var lineBeforeStepOver = this.nodeStack.peek().getFilePosition();
+	var currentLine = lineBeforeStepOver;
 	
 	this.memory.beginTransaction();
 	this.instructionCounter = 0;
-	this.doStep(function(currentNode) {
-		if (self.nodeStack.level() > currentStackLevel) {
-			return false;
-		} else {
-			return true;
+
+	console.log(currentLine, lineBeforeStepOver);
+
+	while (currentLine === lineBeforeStepOver) {
+		this.stepInFunctions(true);
+		
+		var enteredFunction = false;
+		var currentLevel = this.nodeStack.level() - 1;
+		while (currentLevel >= stackLevelBeforeStepOver) {
+			if (this.nodeStack.getItem(currentLevel).type == "FUNCTION_NODE") {
+				enteredFunction = true;
+			}
+			--currentLevel;
 		}
-	});	
-	this.memory.endTransaction();
+		
+		if (enteredFunction) {
+			this.stepOutCurrentFunction(true);
+		}
+		if (this.nodeStack.level() == 0) {
+			break;
+		}
+		currentLine = this.nodeStack.peek().getFilePosition();
+	}
 	
-	// Faire attention aux noeuds assign : ne pas rester sur la même ligne de code
+	this.memory.endTransaction();
 }
 
-ProgramRunner.prototype.stepOutCurrentFunction = function() {
+ProgramRunner.prototype.stepOutCurrentFunction = function(alreadyInMemorytransaction) {
 	// Recherche du noeud correspondant à la fonction dans laquelle on se trouve
 	var currentNodeStackLevel = this.nodeStack.level();
 	var currentFunctionNode;
@@ -264,23 +287,38 @@ ProgramRunner.prototype.stepOutCurrentFunction = function() {
 		currentNodeStackLevel--;
 	}
 	
-	this.memory.beginTransaction();
-	this.instructionCounter = 0;
+//	var currentFunctionCallerNode = this.nodeStack.getItem(currentNodeStackLevel - 2);
+//	console.log("Function caller", currentFunctionCallerNode);
+	
+	this.stopAtEnd = true;
+	
+	if (! alreadyInMemorytransaction) {
+		this.memory.beginTransaction();
+		this.instructionCounter = 0;
+	}
 	this.doStep(function(currentNode) {
 		// On stoppe quand on revient sur le noeud fonction précédemment trouvé
-		if (currentNode === currentFunctionNode) {
+		console.log(currentNode, currentFunctionNode);
+		if (currentNode == currentFunctionNode) {
+			console.log("true");
 			return true;
 		} else {
+			console.log("false");
 			return false;
 		}
 	});
 	
+	this.stopAtEnd = false;
+	
 	// On est maintenant sur le noeud end de la fonction
-	// On continue encore une fois pour revenir dans la fonction appelante
+	// On continue encore une fois (ou deux?) pour revenir dans la fonction appelante
 	this.doStep(function(currentNode) {
 		return true;
 	});
-	this.memory.endTransaction();	
+
+	if (! alreadyInMemorytransaction) {
+		this.memory.endTransaction();	
+	}
 }
 
 ProgramRunner.prototype.continueToNextBreakpoint = function() {
@@ -299,7 +337,6 @@ ProgramRunner.prototype.continueToNextBreakpoint = function() {
 			return false;
 		}
 	});
-	console.log("After do step");
 	this.memory.endTransaction();
 	
 	this.stopAtBegin = oldStopAtBegin;
