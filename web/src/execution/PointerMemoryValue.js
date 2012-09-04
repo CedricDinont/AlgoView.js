@@ -25,22 +25,59 @@ PointerMemoryValue.prototype.isNil = function() {
 }
 
 PointerMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
-
+	JSUtils.throwException("CannotApplyArithmeticOperatorException", "PointerMemoryValue.applyArithmeticOperator");
 }
 
 PointerMemoryValue.prototype.applyTest = function(operator, secondOperand) {
-
+	var expressionValue = 0;
+	
+	if (! (secondOperand instanceof PointerMemoryValue)) {
+		JSUtils.throwException("CannotConvertMemoryValueException", "PointerMemoryValue.applyTest");
+	}
+	
+	var val1 = this.value;
+	var val2 = secondOperand.value;
+	
+	switch (operator) {
+		case "EQ":
+			expressionValue = (val1 == val2);
+			break;
+		case "NEQ":
+			expressionValue = (val1 != val2);
+			break;
+		case "LT":
+			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			break;
+		case "LTE":
+			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			break;
+		case "GT":
+			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			break;
+		case "GTE":
+			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			break;
+	}
+	return new BooleanMemoryValue(expressionValue);
 }
 
 PointerMemoryValue.prototype.convertTo = function(type) {
 	switch (type) {
 		case MemoryValue.BOOLEAN:
+			if (this.isNil()) {
+				return new BooleanMemoryValue(false);
+			} else {
+				return new BooleanMemoryValue(true);
+			}
 			break;
 		case MemoryValue.INTEGER:
+			return undefined;
             break;
         case MemoryValue.CHARACTER:
+			return undefined;
 			break;
 		case MemoryValue.FLOAT:
+			return undefined;
 			break;
 		case MemoryValue.POINTER:
 			return this;
