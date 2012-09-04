@@ -287,9 +287,6 @@ ProgramRunner.prototype.stepOutCurrentFunction = function(alreadyInMemorytransac
 		currentNodeStackLevel--;
 	}
 	
-//	var currentFunctionCallerNode = this.nodeStack.getItem(currentNodeStackLevel - 2);
-//	console.log("Function caller", currentFunctionCallerNode);
-	
 	this.stopAtEnd = true;
 	
 	if (! alreadyInMemorytransaction) {
@@ -298,12 +295,9 @@ ProgramRunner.prototype.stepOutCurrentFunction = function(alreadyInMemorytransac
 	}
 	this.doStep(function(currentNode) {
 		// On stoppe quand on revient sur le noeud fonction précédemment trouvé
-		console.log(currentNode, currentFunctionNode);
 		if (currentNode == currentFunctionNode) {
-			console.log("true");
 			return true;
 		} else {
-			console.log("false");
 			return false;
 		}
 	});
@@ -311,7 +305,7 @@ ProgramRunner.prototype.stepOutCurrentFunction = function(alreadyInMemorytransac
 	this.stopAtEnd = false;
 	
 	// On est maintenant sur le noeud end de la fonction
-	// On continue encore une fois (ou deux?) pour revenir dans la fonction appelante
+	// On continue encore une fois pour revenir dans la fonction appelante
 	this.doStep(function(currentNode) {
 		return true;
 	});
