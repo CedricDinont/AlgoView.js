@@ -1,3 +1,7 @@
+
+
+	
+
 PROCEDURE main()
 VAR
 	testQueue : POINTER
@@ -16,7 +20,10 @@ BEGIN
 	printTestStatus( enqueue(NULL, p) = false )	
 	
 	PRINT("Tries to dequeue in the NULL queue. Expected address: NULL. Test status : ")
-	printTestStatus( dequeue(NULL) = NULL)		
+	printTestStatus( dequeue(NULL) = NULL)	
+	
+	PRINT("Tries to delete the NULL queue. Expected boolean: false. Test status : ")
+	printTestStatus( deleteQueue(NULL) = false)			
 	
 	testQueue <- newQueue()	
 	
@@ -177,7 +184,12 @@ FUNCTION deleteQueue(queue: POINTER<STRUCT Queue>) : BOOLEAN
 VAR
 	currentElement, nextElement : POINTER<STRUCT QueueElement>
 BEGIN
-	currentElement <- queue->rear
+
+	IF(queue = NULL) THEN
+		RETURN FALSE
+	END_IF
+	
+	currentElement <- queue->front
 	
 	WHILE(currentElement != NULL) DO
 		nextElement <- currentElement->next
