@@ -745,7 +745,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		}
 		
 		if (self.programTextChanged == true) {
-			message = "Your Simple Language program changed since you last download it. You will lose your changes if you leave or reload this page.";
+			message = "Your Simple Language program changed since you last downloaded it. You will lose your changes if you leave or reload this page.";
 		} else {
 			return;
 		}
