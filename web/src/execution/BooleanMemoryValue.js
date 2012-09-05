@@ -30,7 +30,32 @@ BooleanMemoryValue.prototype.applyArithmeticOperator = function(operator, second
 }
 
 BooleanMemoryValue.prototype.applyTest = function(operator, secondOperand) {
-
+	var expressionValue = 0;
+	
+	var val1 = this.value;
+    var val2 = secondOperand.convertTo(MemoryValue.BOOLEAN).value;
+	
+	switch (operator) {
+		case "EQ":
+			expressionValue = (val1 == val2);
+			break;
+		case "NEQ":
+			expressionValue = (val1 != val2);
+			break;
+		case "LT":
+			expressionValue = (val1 < val2);
+			break;
+		case "LTE":
+			expressionValue = (val1 <= val2);
+			break;
+		case "GT":
+			expressionValue = (val1 > val2);
+			break;
+		case "GTE":
+			expressionValue = (val1 >= val2);
+			break;
+	}
+	return new BooleanMemoryValue(expressionValue);
 }
 
 BooleanMemoryValue.prototype.convertTo = function(type) {

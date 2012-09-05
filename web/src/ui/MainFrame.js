@@ -739,7 +739,6 @@ var MainFrame = function(algoViewApp, layoutName) {
 	window.onbeforeunload = function(e) {
 		var message = undefined;
 		
-		//console.log(self.leaveWithoutConfirmation);
 		if (self.leaveWithoutConfirmation == "true") {
 			return;
 		}
