@@ -1,14 +1,9 @@
-
-
-	
-
 PROCEDURE main()
 VAR
 	testQueue : POINTER
 	p, r, q : POINTER<INTEGER>
 BEGIN
 	
-
 	p <- ALLOC(INTEGER)	 
 	q <- ALLOC(INTEGER)
 	r <- ALLOC(INTEGER)
@@ -54,27 +49,23 @@ BEGIN
 	PRINT("Dequeues a POINTER from testQueue. Expected address: ")
 	PRINT( p )
 	PRINT(". Test status : ")	
-	printTestStatus( dequeue(testQueue) = p)
-	
+	printTestStatus( dequeue(testQueue) = p )
 	
 	PRINT("Dequeues a POINTER from testQueue. Expected address: ")
 	PRINT( q )
 	PRINT(". Test status : ")	
-	printTestStatus( dequeue(testQueue) = q)
+	printTestStatus( dequeue(testQueue) = q )
 	
 	PRINT("Dequeues a POINTER from testQueue. Expected address: ")
 	PRINT( r )
 	PRINT(". Test status : ")	
-	printTestStatus( dequeue(testQueue) = r)
+	printTestStatus( dequeue(testQueue) = r )
 	
-	PRINT("Dequeues a POINTER from testQueue. Expected address: NULL. Test status : ")	
-	printTestStatus( dequeue(testQueue) = NULL)		
+	PRINT("Tries to dequeue a POINTER from testQueue. Expected address: NULL. Test status : ")	
+	printTestStatus( dequeue(testQueue) = NULL )		
 
-
-
-	// deletes the queue
 	PRINT("Deletes testQueue. Expected boolean: true. Test status : ")	
-	printTestStatus( deleteQueue(testQueue) = true)	
+	printTestStatus( deleteQueue(testQueue) = true )	
 	
 	// only integers pointed by p,q,r should remain in the stack here
 	
@@ -94,10 +85,11 @@ STRUCT QueueElement
 	value: POINTER	// non-typed POINTER
 	next: POINTER<STRUCT QueueElement>
 
-
+	
+// creates an empty queue
 FUNCTION newQueue() : POINTER<STRUCT Queue>
 VAR
-	queue : POINTER
+	queue : POINTER<STRUCT Queue>
 BEGIN
 	queue <- ALLOC(STRUCT Queue)
 	queue->front <- NULL
@@ -105,10 +97,10 @@ BEGIN
 	RETURN queue
 END
 
-// allocates and initialize a QueueElement
+// allocates and initializes a QueueElement
 FUNCTION newQueueElement(value: POINTER, next: POINTER<STRUCT QueueElement>) : POINTER
 VAR
-	newElement: POINTER
+	newElement: POINTER<STRUCT QueueElement>
 BEGIN
 	newElement <- ALLOC(STRUCT QueueElement)
 	newElement->value <- value
@@ -123,6 +115,7 @@ VAR
 	newRear: POINTER<STRUCT QueueElement>
 	oldRear: POINTER<STRUCT QueueElement>
 BEGIN
+	// error case : NULL queue
 	IF(queue = NULL) THEN
 		RETURN FALSE
 	END_IF
@@ -131,7 +124,7 @@ BEGIN
 	
 	IF( queue->rear != NULL) THEN
 		queue->rear->next <- newRear
-	ELSE // empty queue
+	ELSE // empty queue : front update
 		queue->front <- newRear
 	END_IF
 	
@@ -140,13 +133,13 @@ BEGIN
 	RETURN TRUE
 END
 
-// Dequeues the POINTER at the front of queue. Returns UNDEFINED on error.
+// Dequeues the POINTER at the front of queue. Returns NULL on error.
 FUNCTION dequeue(queue: POINTER<STRUCT Queue>) : POINTER 
 VAR
 	oldFront: POINTER<STRUCT QueueElement>
 	oldFrontValue: POINTER
 BEGIN
-	// invalid or empty queue
+	// error cases : NULL or empty queue
 	IF(queue = NULL OR queue->front = NULL) THEN
 		RETURN FALSE
 	END_IF
@@ -171,11 +164,7 @@ END
 // Returns TRUE if queue is empty, FALSE otherwise (or on error)
 FUNCTION isQueueEmpty(queue: POINTER<STRUCT Queue>) : BOOLEAN
 BEGIN
-	IF(queue = NULL OR queue->front != NULL) THEN
-		RETURN FALSE
-	END_IF
-	
-	RETURN TRUE
+	RETURN (queue != NULL AND queue->front = NULL)
 END
 
 
@@ -202,6 +191,7 @@ BEGIN
 	RETURN TRUE
 END
 
+// Prints PASSED if the value obtained is equal to the expected value, FAILED otherwise
 PROCEDURE printTestStatus(valueAsExpected : BOOLEAN)
 BEGIN
 	IF(valueAsExpected) THEN
