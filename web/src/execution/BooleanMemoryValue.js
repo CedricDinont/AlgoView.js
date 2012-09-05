@@ -26,7 +26,7 @@ var BooleanMemoryValue = function(value) {
 BooleanMemoryValue.prototype = new MemoryValue();
 
 BooleanMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
-
+	JSUtils.throwException("CannotApplyArithmeticOperatorException", "BooleanMemoryValue.applyArithmeticOperator");
 }
 
 BooleanMemoryValue.prototype.applyTest = function(operator, secondOperand) {
