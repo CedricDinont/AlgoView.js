@@ -43,16 +43,16 @@ BooleanMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 			expressionValue = (val1 != val2);
 			break;
 		case "LT":
-			expressionValue = (val1 < val2);
+			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
 			break;
 		case "LTE":
-			expressionValue = (val1 <= val2);
+			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
 			break;
 		case "GT":
-			expressionValue = (val1 > val2);
+			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
 			break;
 		case "GTE":
-			expressionValue = (val1 >= val2);
+			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
 			break;
 	}
 	return new BooleanMemoryValue(expressionValue);
