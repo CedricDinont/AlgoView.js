@@ -141,7 +141,7 @@ VAR
 BEGIN
 	// error cases : NULL or empty queue
 	IF(queue = NULL OR queue->front = NULL) THEN
-		RETURN FALSE
+		RETURN NULL
 	END_IF
 	
 	oldFront <- queue->front

@@ -133,7 +133,7 @@ VAR
 BEGIN
 	// error cases : NULL or empty stack
 	IF(stack = NULL OR stack->top = NULL) THEN
-		RETURN FALSE
+		RETURN NULL
 	END_IF
 	
 	oldTop <- stack->top
