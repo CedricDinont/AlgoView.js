@@ -69,13 +69,13 @@ BEGIN
 	PRINT("Deletes testStack. Expected boolean: true. Test status : ")	
 	printTestStatus( deleteStack(testStack) = true )	
 	
-	// only integers pointed by p,q,r should remain in the stack here
+	// only integers pointed by p,q,r should remain in the heap here
 	
 	FREE(p)
 	FREE(q)	
 	FREE(r)	
 	
-	// nothing should remain in the stack here
+	// nothing should remain in the heap here
 END
 
 // Linked Stack of POINTER
