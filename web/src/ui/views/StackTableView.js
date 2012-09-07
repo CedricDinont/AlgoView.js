@@ -127,7 +127,7 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 			
 			if (numberOfVariablesInCurrentFunctionCall == 0) {
 				currentFunctionCall--;		
-				if (currentFunctionCall >= 0) {
+				if (currentFunctionCall >= 0 && numberOfVariablesInCurrentFunctionCall > 0) {
 					numberOfVariablesInCurrentFunctionCall = stack.numberOfVariablesByFunction[currentFunctionCall];
 
 					
