@@ -37,5 +37,6 @@
 	addJsLibrary("exceptions/EmptyStackException.js");	
 	addJsLibrary("exceptions/StackOverflowException.js");
 	addJsLibrary("exceptions/BadVariableNameException.js");	
-
+	addJsLibrary("exceptions/CannotApplyTestOperatorException.js");
+	
 ?>

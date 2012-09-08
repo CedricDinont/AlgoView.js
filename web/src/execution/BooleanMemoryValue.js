@@ -10,7 +10,7 @@ var BooleanMemoryValue = function(value) {
 	var expectedType = "boolean";
 	
 	if (value != undefined && typeOfValue != expectedType) {
-		throw new IllegalArgumentException("[BooleanMemoryValue constructor] Expected " + expectedType + ", found " + typeOfValue);
+		JSUtils.throwException("IllegalArgumentException"); // "Expected " + expectedType + ", found " + typeOfValue);
 	}
 
 	if (value != undefined) {
@@ -26,7 +26,7 @@ var BooleanMemoryValue = function(value) {
 BooleanMemoryValue.prototype = new MemoryValue();
 
 BooleanMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
-	JSUtils.throwException("CannotApplyArithmeticOperatorException", "BooleanMemoryValue.applyArithmeticOperator");
+	JSUtils.throwException("CannotApplyArithmeticOperatorException", operator);
 }
 
 BooleanMemoryValue.prototype.applyTest = function(operator, secondOperand) {
@@ -43,16 +43,16 @@ BooleanMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 			expressionValue = (val1 != val2);
 			break;
 		case "LT":
-			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", "<");
 			break;
 		case "LTE":
-			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", "<=");
 			break;
 		case "GT":
-			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", ">");
 			break;
 		case "GTE":
-			JSUtils.throwException("CannotApplyTestOperatorException", "BooleanMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", ">=");
 			break;
 	}
 	return new BooleanMemoryValue(expressionValue);

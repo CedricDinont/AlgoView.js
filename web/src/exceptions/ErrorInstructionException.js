@@ -1,6 +1,5 @@
-var ErrorInstructionException = function(functionName, message) {
-	
-	Exception.call(this, functionName);
+var ErrorInstructionException = function(message) {
+	Exception.call(this);
 	
 	this.message = message;
 }

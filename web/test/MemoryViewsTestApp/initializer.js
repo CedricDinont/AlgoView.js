@@ -173,7 +173,6 @@ pushNestedStructure = function() {
 pushRandomBoolean = function() {
 	var booleanInt = MathUtils.randomNumber(0, 1);
 
-	
 	pushVariable(new BooleanDataType(), new BooleanMemoryValue(booleanInt == 0));
 }
 

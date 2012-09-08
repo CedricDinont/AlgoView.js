@@ -1,22 +1,18 @@
 /**
  * class InvalidAddressException : raised when the user tries to access to an invalid address
- * @param functionName : the name of the function that raised the exception  
  * @param address : the invalid address
  * @author michael
  */
 
-var InvalidAddressException = function(functionName, address){
-	
-	Exception.call(this, functionName);
+var InvalidAddressException = function(address) {
+	Exception.call(this);
 	
 	this.address = address;
-
 }
 
 // prototype based inheritance
 InvalidAddressException.prototype = new Exception();
 
-
-InvalidAddressException.prototype.toString = function(){
-	return this.functionNameStringPrefix() + "Invalid address : " + this.address;
+InvalidAddressException.prototype.toString = function() {
+	return "Trying to access an invalid address in memory: " + this.address;
 }

@@ -102,9 +102,7 @@ ProgramRunner.prototype.compile = function() {
 // TODO: Suite à placer ailleurs
 ProgramRunner.prototype.findMainFunction = function(program) {
 	var functionList = program.getFunctionList();
-	console.log(functionList);
 	for (var i = 0; i < functionList.children.length; ++i) {
-		console.log(functionList.children[i].getName());
 		if (functionList.children[i].getName() == "main") {
 			program.setMainFunction(functionList.children[i]);
 			return true;
@@ -255,8 +253,14 @@ ProgramRunner.prototype.stepOverFunctions = function() {
 
 	console.log(currentLine, lineBeforeStepOver);
 
-	while (currentLine === lineBeforeStepOver) {
+	console.log("Stack before step over");
+	this.nodeStack.print();
+
+	while (currentLine == lineBeforeStepOver) {
 		this.stepInFunctions(true);
+		
+		console.log("Stack after step in");
+		this.nodeStack.print();
 		
 		var enteredFunction = false;
 		var currentLevel = this.nodeStack.level() - 1;

@@ -1,17 +1,11 @@
 /**
  * class Exception
- * @param functionName : the name of the function that raised the exception
  * @author michael
  */
-var Exception = function(functionName){
-	
-	this.functionName = functionName;
-
-
+var Exception = function() {
 }
 
-Exception.prototype.functionNameStringPrefix = function(){
-	return "[" + this.functionName + "()] "
+Exception.prototype.toString = function() {
+	return "Exception";
 }
-
 

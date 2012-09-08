@@ -24,10 +24,10 @@ Memory.prototype = new AbstractModel();
 // the internalAccess allows to read a part of a memory value or unallocated areas
 Memory.prototype.getValue = function(address, internalAccess) {
 	if (!internalAccess && !this.isUsed(address)) {
-		JSUtils.throwException("UnallocatedSegmentException", "Memory.getValue", address);			
+		JSUtils.throwException("UnallocatedSegmentException", address);			
 	}
 	else if (!internalAccess && this.getUnit(address) == undefined) {
-		JSUtils.throwException("PartOfPrimitiveTypeException", "Memory.getValue", address);		
+		JSUtils.throwException("PartOfPrimitiveTypeException", address);		
 	}		
 		
 	return this.memoryValues[address];
@@ -54,7 +54,7 @@ Memory.prototype.isUsed = function(address) {
 	var value = this.memoryValues[address];
 	
 	if (value == undefined) {
-		JSUtils.throwException("InvalidAddressException", "Memory.getValue", address);
+		JSUtils.throwException("InvalidAddressException", address);
 	}
 	
 	return (value.getState() != MemoryState.UNUSED);
@@ -68,17 +68,17 @@ Memory.prototype.setValue = function(address, originalValue, dataSize) { // data
 		
 	if (dataSize != undefined) {// memory allocation context
 		if (this.isUsed(address)) {
-			JSUtils.throwException("AlreadyAllocatedSegmentException", "Memory.setValue", address);			
+			JSUtils.throwException("AlreadyAllocatedSegmentException", address);			
 		}
 	} else {
 		if (!this.isUsed(address)) {
-			JSUtils.throwException("UnallocatedSegmentException", "Memory.setValue", address);						
+			JSUtils.throwException("UnallocatedSegmentException", address);						
 		} else {			
 			memoryUnit = this.getUnit(address);
 			
 			// accès interdit à l'intérieur d'un type de base
 			if (memoryUnit == undefined) {
-				JSUtils.throwException("PartOfPrimitiveTypeException", "Memory.setValue", address);				
+				JSUtils.throwException("PartOfPrimitiveTypeException", address);				
 			} else { // type composé (tableau, structure) 
 				dataType = memoryUnit.getDataType();
 				
@@ -120,12 +120,11 @@ Memory.prototype.setValue = function(address, originalValue, dataSize) { // data
 		
 		var pointeeAddress = memoryUnit.getPrimitiveValue();
 		
-		if( pointeeAddress != undefined ) {  // valid address && this.getUnit(pointeeAddress) != undefined 
-			
-			var pointeeValue = this.getValue( pointeeAddress, true );	
+		if (pointeeAddress != undefined) {  // valid address && this.getUnit(pointeeAddress) != undefined 
+			var pointeeValue = this.getValue(pointeeAddress, true);
 			
 			if (pointeeValue != undefined) {  // valid value
-				pointeeValue.addPointer( memoryUnit );
+				pointeeValue.addPointer(memoryUnit);
 			}
 		}
 	}				
@@ -134,7 +133,6 @@ Memory.prototype.setValue = function(address, originalValue, dataSize) { // data
 	this.empty = false;	
 	
 	value.setChanged(true);
-	
 	this.changed();
 }	
 	
@@ -171,7 +169,7 @@ Memory.prototype.free = function(address) { // prototype provisoire
 	var unit = this.getUnit(address);
 
 	if(unit == undefined){	// free region !
-		JSUtils.throwException("DoubleFreeException", "Memory.free", address);		
+		JSUtils.throwException("DoubleFreeException", address);		
 	}
 	
 	if (unit.isComposedDataType()) {

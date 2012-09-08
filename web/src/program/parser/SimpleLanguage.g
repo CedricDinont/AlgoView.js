@@ -67,7 +67,7 @@ tokens {
 }
 
 program
-	: NEWLINE* (struct_declaration | subprogram_declaration | COMMENT | LINE_COMMENT | NEWLINE)* 
+	: NEWLINE* (struct_declaration | subprogram_declaration | comment)* 
 		-> ^(PROGRAM<ProgramNode> ^(STRUCT_DECLARATIONS<StructureDeclarationListNode> struct_declaration*) ^(FUNCTION_LIST<FunctionListNode> subprogram_declaration*))
 	;
 
@@ -80,6 +80,12 @@ program
 //    myRecoverMethodForMyRule();
 //	alert(re);
 }*/
+
+comment
+	: NEWLINE
+	| COMMENT
+	| LINE_COMMENT
+	;
 
 struct_declaration
 	: STRUCT i=IDENTIFIER NEWLINE v_d_l=variables_declaration_list_opt -> ^(STRUCT_DECLARATION<StructureDeclarationNode> {new StructureNameNode(undefined, undefined, $i.getText())} $v_d_l)
@@ -105,7 +111,7 @@ variables_declaration_list
 
 variables_declaration
 	: i_l=identifier_list COLON v_t=variable_type NEWLINE -> ^(VARIABLES_DECLARATION<VariablesDeclarationNode> $i_l $v_t)
-	| NEWLINE -> 
+	| comment -> 
 	;
 
 identifier_list

@@ -25,14 +25,14 @@ PointerMemoryValue.prototype.isNil = function() {
 }
 
 PointerMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
-	JSUtils.throwException("CannotApplyArithmeticOperatorException", "PointerMemoryValue.applyArithmeticOperator");
+	JSUtils.throwException("CannotApplyArithmeticOperatorException");
 }
 
 PointerMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 	var expressionValue = 0;
 	
 	if (! (secondOperand instanceof PointerMemoryValue)) {
-		JSUtils.throwException("CannotConvertMemoryValueException", "PointerMemoryValue.applyTest");
+		JSUtils.throwException("CannotConvertMemoryValueException");
 	}
 	
 	var val1 = this.value;
@@ -46,16 +46,16 @@ PointerMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 			expressionValue = (val1 != val2);
 			break;
 		case "LT":
-			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", "<");
 			break;
 		case "LTE":
-			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", "<=");
 			break;
 		case "GT":
-			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", ">");
 			break;
 		case "GTE":
-			JSUtils.throwException("CannotApplyTestOperatorException", "PointerMemoryValue.applyTest");
+			JSUtils.throwException("CannotApplyTestOperatorException", ">=");
 			break;
 	}
 	return new BooleanMemoryValue(expressionValue);
@@ -64,11 +64,7 @@ PointerMemoryValue.prototype.applyTest = function(operator, secondOperand) {
 PointerMemoryValue.prototype.convertTo = function(type) {
 	switch (type) {
 		case MemoryValue.BOOLEAN:
-			if (this.isNil()) {
-				return new BooleanMemoryValue(false);
-			} else {
-				return new BooleanMemoryValue(true);
-			}
+			return undefined;
 			break;
 		case MemoryValue.INTEGER:
 			return undefined;

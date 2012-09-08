@@ -18,7 +18,7 @@ Array.prototype.addAll = function(other) {
 var JSUtils = {
 	
 	throwException : function() {
-		if (arguments.length > 1) {
+		if (arguments.length >= 1) {
 			var exceptionName = arguments[0];
 			var exceptionConstructor = eval(exceptionName);
 			var exceptionConstructorArguments = Array.prototype.slice.call(arguments, 1);	// on retire le premier argument

@@ -13,7 +13,7 @@ ErrorNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	var message = this.getMessage();
 	
 	console.log(message.getText());
-	JSUtils.throwException("ErrorInstructionException", "ErrorNode.execute", message.getText());
+	JSUtils.throwException("ErrorInstructionException", message.getText());
 	
 	return false;
 }
