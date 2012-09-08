@@ -189,6 +189,10 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			break;
 		case "algoview-set-south-panel-height":
 			this.setSouthPanelHeight(message.height);
+			break;
+		case "algoview-give-focus-to-parent":
+			parent.focus();
+			break;
 		default:
 			console.log("Unknown command", message);
 			break;

@@ -122,26 +122,25 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 				}								
 				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + unitBackgroundClassName + " " + functionCallLimitClass + "'> " + stack.getVariableName(i) + "</td>";
 				accumulatedNumberOfVariables++;	
-
-			}
 			
-			if (numberOfVariablesInCurrentFunctionCall == 0) {
-				while ((currentFunctionCall >= 0) && (numberOfVariablesInCurrentFunctionCall == 0)) {
-					currentFunctionCall--;
-					numberOfVariablesInCurrentFunctionCall = stack.numberOfVariablesByFunction[currentFunctionCall];
-				}
+				if (numberOfVariablesInCurrentFunctionCall == 0) {
+					while ((currentFunctionCall >= 0) && (numberOfVariablesInCurrentFunctionCall == 0)) {
+						currentFunctionCall--;
+						numberOfVariablesInCurrentFunctionCall = stack.numberOfVariablesByFunction[currentFunctionCall];
+					}
 				
-				if (currentFunctionCall >= 0) {
-					if (numberOfVariablesInCurrentFunctionCall > 0) {
-						var lastVariable = stack.variables[ stack.variables.length - accumulatedNumberOfVariables - numberOfVariablesInCurrentFunctionCall ];
-						var endAddress = lastVariable.getAddress() + lastVariable.getSize();
-						functionCallRowSpan = endAddress - i;
-						stackTableHTML += "<td class='" + functionCallLimitClass + "' rowspan= '" + functionCallRowSpan + "'>" + currentFunctionCall  + "</td>";
+					if (currentFunctionCall >= 0) {
+						if (numberOfVariablesInCurrentFunctionCall > 0) {
+							var lastVariable = stack.variables[ stack.variables.length - accumulatedNumberOfVariables - numberOfVariablesInCurrentFunctionCall ];
+							var endAddress = lastVariable.getAddress() + lastVariable.getSize();
+							functionCallRowSpan = endAddress - i;
+							stackTableHTML += "<td class='" + functionCallLimitClass + "' rowspan= '" + functionCallRowSpan + "'>" + currentFunctionCall  + "</td>";
+						}
 					}
 				}
-			}
-			if (numberOfVariablesInCurrentFunctionCall != 0) {
-				--numberOfVariablesInCurrentFunctionCall;
+				if (numberOfVariablesInCurrentFunctionCall > 0) {
+					--numberOfVariablesInCurrentFunctionCall;
+				}
 			}
 
 		} // End for i
