@@ -1,0 +1,29 @@
+
+Vue *******************************
+
+Bugs:
+
+- traits en gras séparant les appels de fonction 
+- adresses : elles ne sont plus en bleu dans les vues "table"
+
+A ajouter :
+- faire en sorte que l'on puisse agrandir la zone de dessin centrale par drag & drop d'éléments
+- mettre des scroll bar dans la zone de dessin centrale
+
+
+
+
+Interpréteur **********************
+
+On ne peut pas (mais on devrait) :
+- imbriquer 2 WHILE (mais on peut mettre un DO..WHILE dans un WHILE)
+- placer 1 WHILE juste après BEGIN (si on intercale un commentaire, ça marche)
+	--> même problème que le cas précédent ?
+- mettre des commentaires en début de ligne dans la partie VAR (mais on peut en mettre après une déclaration de variable)
+
+
+On peut (mais on ne devrait pas):
+- Mettre deux END de suite
+	--> il n'y a pas d'erreur de compilation, mais la fonction correspondante est ignorée et considérée comme inexistante à l'exécution
+	
+	
