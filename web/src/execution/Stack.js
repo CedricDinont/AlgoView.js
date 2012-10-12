@@ -26,7 +26,7 @@ Stack.prototype.pop = function() {	// throws EmptyStackException
 		JSUtils.throwException("EmptyStackException");				
 	}
 	
-	this.decrementNumberOfVariablesForCurrentFunction();
+	this.numberOfVariablesByFunction[this.numberOfVariablesByFunction.length - 1]--;
 	
 	var address = variable.getAddress();	
 	var unit = this.getUnit(address);
@@ -64,8 +64,8 @@ Stack.prototype.incrementNumberOfVariablesForCurrentFunction = function() {
 	this.numberOfVariablesByFunction[this.numberOfVariablesByFunction.length - 1]++;
 }
 
-Stack.prototype.decrementNumberOfVariablesForCurrentFunction = function() {
-	this.numberOfVariablesByFunction[this.numberOfVariablesByFunction.length - 1]--;
+Stack.prototype.popFunctionCall = function() {
+	
 	if (this.getNumberOfVariablesForCurrentFunction() == 0) {
 		this.numberOfVariablesByFunction.splice(this.numberOfVariablesByFunction.length - 1);
 	}

@@ -144,16 +144,21 @@ FunctionNode.prototype.createVariables = function(stack) {
 }
 
 FunctionNode.prototype.destroyVariables = function(stack) {
+
+	var localVariablesList = this.getLocalVariableDeclarations();
+	for (var currentVariable = 0; currentVariable < localVariablesList.children.length; currentVariable++) {
+		stack.pop();
+	}
+
 	var parameterList = this.getParameters();
 	if (parameterList.children != undefined) {
 		for (var currentParameter = 0; currentParameter < parameterList.children.length; currentParameter++) {
 			stack.pop();
 		}
 	}
-	var localVariablesList = this.getLocalVariableDeclarations();
-	for (var currentVariable = 0; currentVariable < localVariablesList.children.length; currentVariable++) {
-		stack.pop();
-	}
+	
+	stack.popFunctionCall();
+
 }
 
 FunctionNode.prototype.setParametersValues = function(parametersValues) {
