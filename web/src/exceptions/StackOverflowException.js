@@ -2,8 +2,8 @@
  * class StackOverflowException extends Exception: raised when the user tries to pop a variable in a full stack
  * @author michael
  */
-var StackOverflowException = function(){
-	Exception.call(this, functionName);
+var StackOverflowException = function() {
+	Exception.call(this);
 }
 
 // prototype based inheritance
