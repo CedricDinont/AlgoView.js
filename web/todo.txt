@@ -18,8 +18,7 @@ A ajouter :
 Interpréteur **********************
 
 On ne peut pas (mais on devrait) :
-- imbriquer 2 WHILE (mais on peut mettre un DO..WHILE dans un WHILE)
-- placer 1 WHILE juste après BEGIN (si on intercale un commentaire, ça marche)
+- placer 1 WHILE juste après un début de bloc (BEGIN, IF, WHILE...) ; si on intercale une ligne vide, ça marche
 	--> même problème que le cas précédent ?
 - mettre des commentaires en début de ligne dans la partie VAR (mais on peut en mettre après une déclaration de variable)
 - accéder à la valeur de s.t[i] où s est une structure et t un tableau
@@ -27,7 +26,16 @@ On ne peut pas (mais on devrait) :
 
 
 On peut (mais on ne devrait pas):
+- utiliser des variables non initialisées
 - Mettre deux END de suite
 	--> il n'y a pas d'erreur de compilation, mais la fonction correspondante est ignorée et considérée comme inexistante à l'exécution
+	
+Comportements bizarres (et perturbants!) :
+- arrêt sur des lignes alors qu'il n'y a aucun point d'arrêt, parfois plusieurs fois dans un programme (l'appui sur continue permet de poursuivre l'exécution sans erreur)
+    --> exemple : programme illustrant les tests unitaires dans les slides de méthodo d'algo
+    
+Erreurs pas claires:
+- utilisation d'une structure non définie (l'interpréteur lance une exception inexistante, i.e. non implémentée)
+- boucles infinies (idem)
 	
 	
