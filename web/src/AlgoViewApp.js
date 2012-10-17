@@ -146,6 +146,7 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			this.startProgram();
 			break;
 		case "algoview-set-breakpoint":
+			console.log("breakpoint " + message.line);
 			this.setBreakpoint(message.line - 1);
 			break;
 		case "algoview-step-over":
