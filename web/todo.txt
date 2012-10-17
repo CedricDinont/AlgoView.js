@@ -23,6 +23,8 @@ On ne peut pas (mais on devrait) :
 - mettre des commentaires en début de ligne dans la partie VAR (mais on peut en mettre après une déclaration de variable)
 - accéder à la valeur de s.t[i] où s est une structure et t un tableau
 - faire l'affectation c <- 'a' où c est un CHARACTER (+ revoir la coloration syntaxique)
+- placer des breakpoints dans le contrôle externe
+- quand on met set-start-pause à vrai dans un contrôle externe, on ne peut pas appuyer sur continue dans l'interface
 
 
 On peut (mais on ne devrait pas):
@@ -32,7 +34,9 @@ On peut (mais on ne devrait pas):
 	
 Comportements bizarres (et perturbants!) :
 - arrêt sur des lignes alors qu'il n'y a aucun point d'arrêt, parfois plusieurs fois dans un programme (l'appui sur continue permet de poursuivre l'exécution sans erreur)
-    --> exemple : programme illustrant les tests unitaires dans les slides de méthodo d'algo
+    --> problème identifié : boucles infinies provoquant l'envoi d'une exception InfiniteLoop inexistante
+    
+
     
 Erreurs pas claires:
 - utilisation d'une structure non définie (l'interpréteur lance une exception inexistante, i.e. non implémentée)
