@@ -46,7 +46,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		editorsContainer: 'west',
 		graphicalViewContainer: 'center',
 		tableViewsContainer: 'east',
-		tableHeapView: true,
+		tableHeapView: false,
 	};
 	
 	
