@@ -41,5 +41,25 @@ Comportements bizarres (et perturbants!) :
 Erreurs pas claires:
 - utilisation d'une structure non définie (l'interpréteur lance une exception inexistante, i.e. non implémentée)
 - boucles infinies (idem)
-	
-	
+
+
+- pb d'inférence des types des arguments d'une fonction dans le cas d'un argument type tableau à taille fixée
+
+PROCEDURE foo(t:INTEGER[3][3])
+BEGIN
+	PRINTLN("foo")
+END
+
+PROCEDURE bar(t:INTEGER[][])
+BEGIN
+	PRINTLN("bar")
+END
+
+PROCEDURE main()
+VAR
+	t:INTEGER[3][3]
+BEGIN
+	bar(t)
+	foo(t)
+END
+
