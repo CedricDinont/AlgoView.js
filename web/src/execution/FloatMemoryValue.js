@@ -40,6 +40,9 @@ FloatMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOp
 		case "/":
 		 	expressionValue = this.value / secondOperand.value;
 			break;
+		case "MODULO":
+		 	expressionValue = this.value % secondOperand.value;
+			break;
 	}
 	return new FloatMemoryValue(expressionValue);
 }

@@ -92,6 +92,10 @@ AlgoViewApp.prototype.setStartPaused = function(value) {
 	this.programRunner.setStartPaused(value);
 }
 
+AlgoViewApp.prototype.setInfiniteLoopDetectionThreshold = function(value) {
+	this.programRunner.setInfiniteLoopDetectionThreshold(value);
+}
+
 AlgoViewApp.prototype.setLayout = function(layoutName) {
 	this.mainFrame.setLayout(layoutName);
 }
@@ -193,6 +197,9 @@ AlgoViewApp.prototype.executeCommand = function(message, remoteWindow) {
 			break;
 		case "algoview-give-focus-to-parent":
 			parent.focus();
+			break;
+		case "algoview-set-infinite-loop-detection-threshold":
+			this.setInfiniteLoopDetectionThreshold(message.value);
 			break;
 		default:
 			console.log("Unknown command", message);

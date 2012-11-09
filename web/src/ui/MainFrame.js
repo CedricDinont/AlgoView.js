@@ -42,6 +42,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 		tableViewsContainer: 'east',
 		tableHeapView: false,
 	};
+	
 	this.layouts["graphical-view-stack-table-view"] = {
 		editorsContainer: 'west',
 		graphicalViewContainer: 'center',

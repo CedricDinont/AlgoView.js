@@ -45,6 +45,9 @@ IntegerMemoryValue.prototype.applyArithmeticOperator = function(operator, second
 		case "/":
 		 	expressionValue = this.value / secondOperand.value;
 			break;
+		case "MODULO":
+		 	expressionValue = this.value % secondOperand.value;
+			break;
 	}
 	return new IntegerMemoryValue(expressionValue);
 }
