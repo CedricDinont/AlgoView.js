@@ -24,6 +24,7 @@ On ne peut pas (mais on devrait) :
 - accéder à la valeur de s.t[i] où s est une structure et t un tableau
 - faire l'affectation c <- 'a' où c est un CHARACTER (+ revoir la coloration syntaxique)
 - placer des breakpoints dans le contrôle externe
+     --> Ca marche : il faut ilitialise le texte du programme avant de placer les breakpoints
 - quand on met set-start-pause à vrai dans un contrôle externe, on ne peut pas appuyer sur continue dans l'interface
 
 
