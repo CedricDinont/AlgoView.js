@@ -401,4 +401,4 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 	}
 }
 
-ProgramRunner.INFINITE_LOOP_DETECTION_INSTRUCTION_THRESHOLD = 10000;
+ProgramRunner.INFINITE_LOOP_DETECTION_INSTRUCTION_THRESHOLD = 1000000;
