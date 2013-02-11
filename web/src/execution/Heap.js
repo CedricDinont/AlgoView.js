@@ -27,34 +27,38 @@ Heap.prototype = new MemoryUnitHashTable();
 Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress) {
 
 	nbelements = nbelements || 1;	// changes undefined to 1 if required
-	
-	var i = this.startAddress;
-	var requiredSize = datatype.getSize() * nbelements;
-	var dataEndAddress;
-	var noData = true;
-	var freeSpace;
-	var j;
-	
-	while (i <= maxAddress) {
-		j = i;
-		noData = true;
-		dataEndAddress = i + requiredSize;
-		freeSpace = 0;
+
+	if(nbelements > 0 ){
+
+		var i = this.startAddress;
+		var requiredSize = datatype.getSize() * nbelements;
+		var dataEndAddress;
+		var noData = true;
+		var freeSpace;
+		var j;
 		
-		while (noData && j <= maxAddress && j <= dataEndAddress) {
-			if (! this.memory.isUsed(j)) {
-				freeSpace++;
-				
-				if (freeSpace >= requiredSize) {
-					return i;
-				}
-			} else {
-				noData = false;
-				i = j;
-			}	
-			j++;
-		} 
-		i++;
+		while (i <= maxAddress) {
+			j = i;
+			noData = true;
+			dataEndAddress = i + requiredSize;
+			freeSpace = 0;
+			
+			while (noData && j <= maxAddress && j <= dataEndAddress) {
+				if (! this.memory.isUsed(j)) {
+					freeSpace++;
+					
+					if (freeSpace >= requiredSize) {
+						return i;
+					}
+				} else {
+					noData = false;
+					i = j;
+				}	
+				j++;
+			} 
+			i++;
+		}
+	
 	}
 	
 	return NIL.getPrimitiveValue();	
@@ -64,9 +68,10 @@ Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress) {
 // returns the address of the allocated memory unit
 // NIL on error
 Heap.prototype.malloc = function(datatype, nbelements, maxAddress) {
+	
 	var address = this.findFreeArea(datatype, nbelements, maxAddress);
 	
-	if (address != NIL) {	// enough free memory in heap
+	if (address != NIL.getPrimitiveValue() ) {	// enough free memory in heap
 
 		// in the case of several elements, we allocate an array
 		if (nbelements != undefined) {
