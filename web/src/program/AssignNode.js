@@ -1,9 +1,10 @@
-var AssignNode = function(tokenType, token) {	
+function AssignNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 AssignNode.prototype = new ExpressionNode();
+AssignNode.prototype.constructor = AssignNode;
 
 AssignNode.prototype.getVariable = function() {
 	return this.children[0];

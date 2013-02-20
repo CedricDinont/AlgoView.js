@@ -1,4 +1,4 @@
-var AssignableNode = function(tokenType, token) {	
+function AssignableNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token); 
 
 	this.address;
@@ -7,6 +7,7 @@ var AssignableNode = function(tokenType, token) {
 
 // prototype based inheritance
 AssignableNode.prototype = new ExpressionNode();
+AssignableNode.prototype.constructor = AssignableNode;
 
 AssignableNode.prototype.getAddress = function() {
 	return this.address;

@@ -1,9 +1,10 @@
-var AndNode = function(tokenType, token) {	
+function AndNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 AndNode.prototype = new ExpressionNode();
+AndNode.prototype.constructor = AndNode;
 
 AndNode.prototype.getLeftOperand = function() {
 	return this.children[0];

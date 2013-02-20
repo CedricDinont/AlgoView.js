@@ -2,6 +2,7 @@
 
 	addJsLibrary("utils/MathUtils.js");
 	addJsLibrary("utils/JSUtils.js");
+	addJsLibrary("utils/AlgoUtils.js");
 	addJsLibrary("model/AbstractModel.js");
 
 	addJsLibrary("program/DataType.js");

@@ -1,9 +1,10 @@
-var AddressNode = function(tokenType, token) {	
+function AddressNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 AddressNode.prototype = new ExpressionNode();
+AddressNode.prototype.constructor = AddressNode;
 
 AddressNode.prototype.getVariable = function() {
 	return this.children[0];

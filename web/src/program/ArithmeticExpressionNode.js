@@ -1,4 +1,4 @@
-var ArithmeticExpressionNode = function(tokenType, token) {	
+function ArithmeticExpressionNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 	
 	this.operator;
@@ -6,6 +6,7 @@ var ArithmeticExpressionNode = function(tokenType, token) {
 
 // Prototype based inheritance
 ArithmeticExpressionNode.prototype = new ExpressionNode();
+ArithmeticExpressionNode.prototype.constructor = ArithmeticExpressionNode;
 
 ArithmeticExpressionNode.prototype.setOperator = function(operator) {
 		this.operator = operator;

@@ -1,9 +1,10 @@
-var ArrayElementNode = function(tokenType, token) {	
+function ArrayElementNode(tokenType, token) {	
 	AssignableNode.call(this, tokenType, token);	
 }
 
 // prototype based inheritance
 ArrayElementNode.prototype = new AssignableNode();
+ArrayElementNode.prototype.constructor = ArrayElementNode;
 
 ArrayElementNode.prototype.getVariable = function() {
 	return this.children[0];

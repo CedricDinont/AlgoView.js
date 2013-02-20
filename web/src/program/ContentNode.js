@@ -1,9 +1,10 @@
-var ContentNode = function(tokenType, token) {	
+function ContentNode(tokenType, token) {	
 	AssignableNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 ContentNode.prototype = new AssignableNode();
+ContentNode.prototype.constructor = ContentNode;
 
 ContentNode.prototype.getVariable = function() {
 	return this.children[0];

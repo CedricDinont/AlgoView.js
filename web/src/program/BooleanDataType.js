@@ -2,7 +2,7 @@
  * interface BooleanDataType implements DataType: describes the primitive type BOOLEAN
  * @author Cédric
  **/
-var BooleanDataType = function() {
+function BooleanDataType() {
 
 	// @Override(DataType)
 	this.getName = function() { 
@@ -28,3 +28,4 @@ var BooleanDataType = function() {
 
 // Prototype based inheritance
 BooleanDataType.prototype = new DataType();
+BooleanDataType.prototype.constructor = BooleanDataType;

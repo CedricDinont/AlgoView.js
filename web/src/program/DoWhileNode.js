@@ -1,4 +1,4 @@
-var DoWhileNode = function(tokenType, token) {	
+function DoWhileNode(tokenType, token) {	
 	Node.call(this, tokenType, token);
 	
 	this.clonedCondition;
@@ -7,6 +7,7 @@ var DoWhileNode = function(tokenType, token) {
 
 // Prototype based inheritance
 DoWhileNode.prototype = new Node();
+DoWhileNode.prototype.constructor = DoWhileNode;
 
 DoWhileNode.prototype.getCondition = function() {
 	return this.children[0];

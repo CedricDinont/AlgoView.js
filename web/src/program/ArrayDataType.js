@@ -4,13 +4,14 @@
  */
  
 
-var ArrayDataType = function(elementsDataType, length) {
+function ArrayDataType(elementsDataType, length) {
 	this.elementsDataType = elementsDataType;		// instance of DataType
 	this.length = length;							// nb of elements
 }
 
 // prototype based inheritance
 ArrayDataType.prototype = new DataType();
+ArrayDataType.prototype.constructor = ArrayDataType;
 
 // @Override(DataType)
 ArrayDataType.prototype.getName = function() {

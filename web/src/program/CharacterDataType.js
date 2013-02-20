@@ -5,7 +5,7 @@
  
 
   
-var CharacterDataType = function(){
+function CharacterDataType(){
 
 	// @Override(DataType)	
 	this.getName = function(){ 
@@ -31,3 +31,4 @@ var CharacterDataType = function(){
 
 // prototype based inheritance
 CharacterDataType.prototype = new DataType();
+CharacterDataType.prototype.constructor = CharacterDataType;

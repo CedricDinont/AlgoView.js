@@ -1,9 +1,10 @@
-var ConditionNode = function(tokenType, token) {	
+function ConditionNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 ConditionNode.prototype = new ExpressionNode();
+ConditionNode.prototype.constructor = ConditionNode;
 
 ConditionNode.prototype.getExpression = function() {
 	return this.children[0];

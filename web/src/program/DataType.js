@@ -2,7 +2,7 @@
  * interface DataType : describes a data type
  * @author michael
  **/
-var DataType = function() {
+function DataType() {
 
 }
 
