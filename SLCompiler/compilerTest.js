@@ -9,11 +9,17 @@ buildProgramTree = function(fileName) {
 	$.ajax({
    		type: "GET",
 		url: "samples/" + fileName + ".sl",
-		error: this.loadErrorHandler,
+		error: function(){ loadErrorHandler(fileName) },
 		success: compileProgram,
 		dataType: "text",
 	});
 }
+
+
+loadErrorHandler = function(fileName){
+		$('#compilerOutput').html( "Unable to load file : " + fileName + ".js");	
+}
+
 
 compileProgram = function(programText) {
 
@@ -40,9 +46,11 @@ compileProgram = function(programText) {
 
 }
 
+// buildProgramTree takes a program name without extension
+// the corresponding file is supposed to be in the /samples folder and to have the extension .sl
 
-buildProgramTree("if");
-
+buildProgramTree("if");		
+//buildProgramTree("linkedlist");
 
 
 
