@@ -1,0 +1,3 @@
+function Program() {
+	this.text;
+}
