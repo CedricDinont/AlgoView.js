@@ -9,3 +9,7 @@ Exception.prototype.toString = function() {
 	return "Exception";
 }
 
+Error.prototype.getWrappedException = function(){
+		return this.wrappedException;
+}
+
