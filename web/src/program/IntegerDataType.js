@@ -2,7 +2,7 @@
  * Interface IntegerDataType implements DataType: describes the primitive type INTEGER
  * @author Michaël
  **/
-var IntegerDataType = function() {
+function IntegerDataType() {
 
 	// @Override(DataType)
 	this.getName = function() { 
@@ -28,3 +28,4 @@ var IntegerDataType = function() {
 
 // Prototype based inheritance
 IntegerDataType.prototype = new DataType();
+IntegerDataType.prototype.constructor = IntegerDataType;

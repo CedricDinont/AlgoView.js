@@ -2,3 +2,7 @@ DataType
 	ArrayDataType
 	BooleanDataType
 	CharacterDataType
+	FloatDataType
+	IntegerDataType
+	PointerDataType
+	StructureDataType

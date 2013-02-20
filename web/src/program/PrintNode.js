@@ -1,4 +1,4 @@
-var PrintNode = function(tokenType, token, newLine) {	
+function PrintNode(tokenType, token, newLine) {	
 	Node.call(this, tokenType, token); 
 
 	this.newLine = newLine;
@@ -6,6 +6,7 @@ var PrintNode = function(tokenType, token, newLine) {
 
 // prototype based inheritance
 PrintNode.prototype = new Node();
+PrintNode.prototype.constructor = PrintNode;
 
 PrintNode.prototype.getMessage = function()  {
 	var quotedText = this.getParameter().getText();

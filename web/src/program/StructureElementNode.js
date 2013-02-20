@@ -4,6 +4,7 @@ var StructureElementNode = function(tokenType, token) {
 
 // prototype based inheritance
 StructureElementNode.prototype = new AssignableNode();
+StructureElementNode.prototype.constructor = StructureElementNode;
 
 StructureElementNode.prototype.getVariable = function() {
 	return this.children[0];
@@ -30,8 +31,6 @@ StructureElementNode.prototype.execute = function(memory, nodeStack, programRunn
 		this.setAddress(structBaseAddress + offset);
 		this.setValue(memory.getValue(this.getAddress()));
 
-		// TODO: A revoir car cela ne compile pas
-		//this.setDataType(structureDeclarationNode.getFieldByName(this.getField().getName()).getVariableType().getDataType());
 	}
 	return false;
 }

@@ -1,9 +1,10 @@
-var IfNode = function(tokenType, token) {	
+function IfNode(tokenType, token) {	
 	Node.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 IfNode.prototype = new Node();
+IfNode.prototype.constructor = IfNode;
 
 IfNode.prototype.getCondition = function() {
 		return this.children[0];

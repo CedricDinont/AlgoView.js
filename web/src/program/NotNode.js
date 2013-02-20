@@ -1,9 +1,10 @@
-var NotNode = function(tokenType, token) {	
+function NotNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 NotNode.prototype = new ExpressionNode();
+NotNode.prototype.constructor = NotNode;
 
 NotNode.prototype.getOperand = function() {
 	return this.children[0];

@@ -1,4 +1,4 @@
-var TestNode = function(tokenType, token) {	
+function TestNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 	
 	this.operator;
@@ -6,6 +6,7 @@ var TestNode = function(tokenType, token) {
 
 // Prototype based inheritance
 TestNode.prototype = new ExpressionNode();
+TestNode.prototype.constructor = TestNode;
 
 TestNode.prototype.setOperator = function(operator) {
 		this.operator = operator;

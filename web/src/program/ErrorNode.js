@@ -1,9 +1,10 @@
-var ErrorNode = function(tokenType, token) {	
+function ErrorNode(tokenType, token) {	
 	Node.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 ErrorNode.prototype = new Node();
+ErrorNode.prototype.constructor = ErrorNode;
 
 ErrorNode.prototype.getMessage = function() {
 	return this.children[0];

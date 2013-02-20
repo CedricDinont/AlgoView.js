@@ -5,7 +5,7 @@
  
 
   
-var PointerDataType = function(){
+function PointerDataType(){
 
 	// @Override(DataType)	
 	this.getName = function(){ 
@@ -31,3 +31,4 @@ var PointerDataType = function(){
 
 // prototype based inheritance
 PointerDataType.prototype = new DataType();
+PointerDataType.prototype.constructor = PointerDataType;

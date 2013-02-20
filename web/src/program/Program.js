@@ -1,3 +1,3 @@
-var Program = function() {
+function Program() {
 	this.text;
 }

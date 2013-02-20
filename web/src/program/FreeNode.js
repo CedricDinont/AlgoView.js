@@ -1,9 +1,10 @@
-var FreeNode = function(tokenType, token) {	
+function FreeNode(tokenType, token) {	
 	Node.call(this, tokenType, token);	
 }
 
 // prototype based inheritance
 FreeNode.prototype = new Node();
+FreeNode.prototype.constructor = FreeNode;
 
 FreeNode.prototype.getExpression = function() {
 	return this.children[0];

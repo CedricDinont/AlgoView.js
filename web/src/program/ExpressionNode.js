@@ -1,4 +1,4 @@
-var ExpressionNode = function(tokenType, token) {	
+function ExpressionNode(tokenType, token) {	
 	Node.call(this, tokenType, token); 
 
 	this.memoryValue;
@@ -6,6 +6,7 @@ var ExpressionNode = function(tokenType, token) {
 
 // Prototype based inheritance
 ExpressionNode.prototype = new Node();
+ExpressionNode.prototype.constructor = ExpressionNode;
 
 ExpressionNode.prototype.getValue = function() {
 	return this.memoryValue;

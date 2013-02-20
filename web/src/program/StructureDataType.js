@@ -4,7 +4,7 @@
  */
  
 
-var StructureDataType = function(structureName, structureDeclarationNode) {
+function StructureDataType(structureName, structureDeclarationNode) {
 	this.name = structureName;									// name of the structure
 	this.structureDeclarationNode = structureDeclarationNode;	// instance of StructureDeclarationNode
 	
@@ -13,6 +13,7 @@ var StructureDataType = function(structureName, structureDeclarationNode) {
 
 // prototype based inheritance
 StructureDataType.prototype = new DataType();
+StructureDataType.prototype.constructor = StructureDataType;
 
 StructureDataType.prototype.getStructureName = function() { 
 	return this.name;	

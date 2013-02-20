@@ -1,9 +1,10 @@
-var ReturnNode = function(tokenType, token) {	
+function ReturnNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 ReturnNode.prototype = new ExpressionNode();
+ReturnNode.prototype.constructor = ReturnNode;
 
 ReturnNode.prototype.getReturnExpression = function() {
 	return this.children[0];

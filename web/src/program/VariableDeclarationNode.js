@@ -4,13 +4,14 @@
  * @param token : the associated token
  * @author michael
  */
-var VariableDeclarationNode = function(tokenType, token){
+function VariableDeclarationNode(tokenType, token){
 
 	Node.call(this, tokenType, token);
 }
 
 // prototype based inheritance
 VariableDeclarationNode.prototype = new Node();
+VariableDeclarationNode.prototype.constructor = VariableDeclarationNode;
 
 // static variables
 VariableDeclarationNode.VARIABLE_NAME_CHILD_INDEX = 0;

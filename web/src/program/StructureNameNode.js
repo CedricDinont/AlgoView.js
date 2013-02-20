@@ -7,7 +7,7 @@
  */
  
 
-var StructureNameNode = function(tokenType, token, name) {	
+function StructureNameNode(tokenType, token, name) {	
 
 	Node.call(this, tokenType, token);	
 	this.name = name;
@@ -16,6 +16,7 @@ var StructureNameNode = function(tokenType, token, name) {
 
 // prototype based inheritance
 StructureNameNode.prototype = new Node();
+StructureNameNode.prototype.constructor = StructureNameNode;
 
 // methods
 StructureNameNode.prototype.getName = function() {

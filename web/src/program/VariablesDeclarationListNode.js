@@ -1,9 +1,11 @@
-var VariablesDeclarationListNode = function(tokenType, token) {	
+function VariablesDeclarationListNode(tokenType, token) {	
 	Node.call(this, tokenType, token); 
 }
 
 // prototype based inheritance
 VariablesDeclarationListNode.prototype = new Node();
+VariablesDeclarationListNode.prototype.constructor = VariablesDeclarationListNode;
+
 
 // specific methods
 VariablesDeclarationListNode.prototype.getChildByName = function(childName){

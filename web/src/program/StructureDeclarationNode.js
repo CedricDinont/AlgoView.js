@@ -2,13 +2,14 @@
  * class StructureDeclarationNode extends Node
  * @author michael
  */
-var StructureDeclarationNode = function(tokenType, token){
+function StructureDeclarationNode(tokenType, token){
 
 	Node.call(this, tokenType, token);
 }
 
 // prototype based inheritance
 StructureDeclarationNode.prototype = new Node();
+StructureDeclarationNode.prototype.constructor = StructureDeclarationNode;
 
 // static variables
 StructureDeclarationNode.STRUCTURE_NAME_CHILD_INDEX = 0;

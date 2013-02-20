@@ -1,4 +1,4 @@
-var ForNode = function(tokenType, token) {	
+function ForNode(tokenType, token) {	
 	Node.call(this, tokenType, token);
 	
 	this.clonedVariable;
@@ -10,6 +10,8 @@ var ForNode = function(tokenType, token) {
 
 // Prototype based inheritance
 ForNode.prototype = new Node();
+ForNode.prototype.constructor = ForNode;
+
 
 ForNode.prototype.getVariable = function() {
 	return this.children[0];

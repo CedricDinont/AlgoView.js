@@ -1,9 +1,10 @@
-var UnaryMinusNode = function(tokenType, token) {	
+function UnaryMinusNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 UnaryMinusNode.prototype = new ExpressionNode();
+UnaryMinusNode.prototype.constructor = UnaryMinusNode;
 
 UnaryMinusNode.prototype.getExpression = function() {
 	return this.children[0];

@@ -1,4 +1,4 @@
-var FunctionCallNode = function(tokenType, token) {	
+function FunctionCallNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 	
 	this.functionNode;
@@ -8,6 +8,7 @@ var FunctionCallNode = function(tokenType, token) {
 
 // Prototype based inheritance
 FunctionCallNode.prototype = new ExpressionNode();
+FunctionCallNode.prototype.constructor = FunctionCallNode;
 
 FunctionCallNode.prototype.getFunctionName = function() {
 	return this.children[0].getName();

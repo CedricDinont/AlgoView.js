@@ -1,9 +1,10 @@
-var PointerDereferenceNode = function(tokenType, token) {	
+function PointerDereferenceNode(tokenType, token) {	
 	AssignableNode.call(this, tokenType, token);	
 }
 
 // prototype based inheritance
 PointerDereferenceNode.prototype = new AssignableNode();
+PointerDereferenceNode.prototype.constructor = PointerDereferenceNode;
 
 PointerDereferenceNode.prototype.getVariable = function() {
 	return this.children[0];

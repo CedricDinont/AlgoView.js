@@ -1,4 +1,4 @@
-var FunctionNameNode = function(tokenType, token, name) {	
+function FunctionNameNode(tokenType, token, name) {	
 	Node.call(this, tokenType, token);
 	
 	this.name = name;
@@ -6,6 +6,7 @@ var FunctionNameNode = function(tokenType, token, name) {
 
 // Prototype based inheritance
 FunctionNameNode.prototype = new Node();
+FunctionNameNode.prototype.constructor = FunctionNameNode;
 
 FunctionNameNode.prototype.getName = function() {
 	return this.name;

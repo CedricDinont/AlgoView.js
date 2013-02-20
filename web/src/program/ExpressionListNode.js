@@ -1,9 +1,10 @@
-var ExpressionListNode = function(tokenType, token, name) {	
+function ExpressionListNode(tokenType, token, name) {	
 	Node.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 ExpressionListNode.prototype = new Node();
+ExpressionListNode.prototype.constructor = ExpressionListNode;
 
 ExpressionListNode.prototype.execute = function(memory, nodeStack, programRunner) {
 	if (this.currentChild < this.children.length) {

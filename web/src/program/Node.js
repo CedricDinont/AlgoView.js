@@ -4,7 +4,7 @@
  * @param childNodes (optionnal) : Node... or Node[] : a variable number of child nodes
  * @author michael
  */
-var Node = function(tokenType, token) {
+function Node(tokenType, token) {
 
 	if (token === undefined) {
 		token = new org.antlr.runtime.CommonToken(42);

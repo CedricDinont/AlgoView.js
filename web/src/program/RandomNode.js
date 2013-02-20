@@ -1,4 +1,4 @@
-var RandomNode = function(tokenType, token, produceIntegers) {	
+function RandomNode(tokenType, token, produceIntegers) {	
 	ExpressionNode.call(this, tokenType, token);
 	
 	this.produceIntegers = produceIntegers;
@@ -6,6 +6,7 @@ var RandomNode = function(tokenType, token, produceIntegers) {
 
 // Prototype based inheritance
 RandomNode.prototype = new ExpressionNode();
+RandomNode.prototype.constructor = RandomNode;
 
 RandomNode.prototype.getLimitExpression = function() {
 	return this.children[0];

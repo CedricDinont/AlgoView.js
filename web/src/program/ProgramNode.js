@@ -1,9 +1,10 @@
-var ProgramNode = function(tokenType, token) {	
+function ProgramNode(tokenType, token) {	
 	Node.call(this, tokenType, token); 
 }
 
 // prototype based inheritance
 ProgramNode.prototype = new Node();
+ProgramNode.prototype.constructor = ProgramNode;
 
 ProgramNode.prototype.getStructureDeclarationList = function() {
 	return this.children[0];

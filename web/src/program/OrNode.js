@@ -1,9 +1,10 @@
-var OrNode = function(tokenType, token) {	
+function OrNode(tokenType, token) {	
 	ExpressionNode.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 OrNode.prototype = new ExpressionNode();
+OrNode.prototype.constructor = OrNode;
 
 OrNode.prototype.getLeftOperand = function() {
 	return this.children[0];

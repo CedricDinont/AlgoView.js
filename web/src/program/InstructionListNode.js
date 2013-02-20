@@ -1,9 +1,10 @@
-var InstructionListNode = function(tokenType, token) {	
+function InstructionListNode(tokenType, token) {	
 	Node.call(this, tokenType, token);
 }
 
 // Prototype based inheritance
 InstructionListNode.prototype = new Node();
+InstructionListNode.prototype.constructor = InstructionListNode;
 
 InstructionListNode.prototype.execute = function(memory, nodeStack, programRunner) {
 

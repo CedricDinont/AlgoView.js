@@ -6,7 +6,7 @@
  * @author michael
  */
  
-var VariableNameNode = function(tokenType, token, name) {	
+function VariableNameNode(tokenType, token, name) {	
 
 	AssignableNode.call(this, tokenType, token);	
 
@@ -15,6 +15,7 @@ var VariableNameNode = function(tokenType, token, name) {
 
 // prototype based inheritance
 VariableNameNode.prototype = new AssignableNode();
+VariableNameNode.prototype.constructor = VariableNameNode;
 
 // methods
 VariableNameNode.prototype.getName = function() {

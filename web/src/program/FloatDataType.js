@@ -2,7 +2,7 @@
  * Interface FloatDataType implements DataType: describes the primitive type FLOAT
  * @author Cédric
  **/
-var FloatDataType = function() {
+function FloatDataType() {
 
 	// @Override(DataType)
 	this.getName = function() { 
@@ -28,3 +28,4 @@ var FloatDataType = function() {
 
 // Prototype based inheritance
 FloatDataType.prototype = new DataType();
+FloatDataType.prototype.constructor = FloatDataType;
