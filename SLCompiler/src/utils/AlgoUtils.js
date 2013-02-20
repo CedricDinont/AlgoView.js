@@ -1,37 +1,13 @@
 var AlgoUtils = {
 	
-	//tree = algoViewApp.programRunner.getProgramTree();
-	countNodesInTree : function(tree){
-	
-		return this.countNodesInTreeRec(1, tree);
-	},
-
-	countNodesInTreeRec : function(nbVisited, node){
-	
-		node.visited = true;
-		
-		var nbChildren = node.getChildCount();
-		
-		for(var i=0; i<nbChildren; i++){
-			
-			var child = node.getChild(i);
-			
-			if( !child.visited ){
-				nbVisited = this.countNodesInTreeRec( nbVisited + 1, child );
-			}
-			
-		}
-		
-		return nbVisited;
-	}	
-	,
-	printTreeByLevel : function(tree){
+	getTreeLevelsString : function(tree){
 	
 			var queue = [];
+			var levels = [];
 			
 			queue.push( tree );
 			tree.visited = true;
-			tree.level = 1;
+			tree.level = 0;
 			
 			while( queue.length > 0 ){
 
@@ -41,8 +17,11 @@ var AlgoUtils = {
 				
 				var nbChildren = node.getChildCount();
 				
-
-				console.log( node.level + " - " + node.constructor.name);
+				if ( levels[ node.level ] == undefined ){
+					levels[ node.level ] = node.level + " - ";
+				}
+				
+				levels[ node.level ] += node.constructor.name + " ";
 
 	
 				
@@ -62,6 +41,15 @@ var AlgoUtils = {
 			
 			
 			}
+			
+			var levelsStringRepresentation = "";
+			
+			for(var i=0; i<levels.length; i++){
+					levelsStringRepresentation += levels[i];
+					levelsStringRepresentation += "\n";
+			}
+			
+			return levelsStringRepresentation;
 		
 	}
 	

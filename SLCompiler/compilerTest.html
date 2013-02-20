@@ -7,9 +7,25 @@
 	</head>
 
 	<body>
+		
+		Source code :<br/>
+		<span id="programCode"> 	</span>	
+		
+		</span>
+		
+		<br/><br/>
+		
+		Compiler output :<br/>
+		<span id="compilerOutput"> 	</span>		
+		
+		<script src='./lib/jquery/jquery-1.7.2.min.js' type='text/javascript' charset='utf-8'></script>		
 		<script src='./lib/antlr-javascript-runtime-3.1/antlr3-all-patched.js' type='text/javascript' charset='utf-8'></script>		
+		
+		<script src='./src/utils/MathUtils.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/utils/JSUtils.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/utils/AlgoUtils.js' type='text/javascript' charset='utf-8'></script>		
+		<script src='./src/utils/AlgoUtils.js' type='text/javascript' charset='utf-8'></script>	
+		
+		<!-- data types -->	
 		<script src='./src/model/AbstractModel.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/DataType.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/BooleanDataType.js' type='text/javascript' charset='utf-8'></script>
@@ -19,12 +35,8 @@
 		<script src='./src/program/PointerDataType.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/ArrayDataType.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/StructureDataType.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/Memory.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/MemoryUnit.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/MemoryUnitHashTable.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/Heap.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/Stack.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/Variable.js' type='text/javascript' charset='utf-8'></script>
+		
+		<!-- memory values -->
 		<script src='./src/execution/MemoryState.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/execution/MemoryValue.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/execution/BooleanMemoryValue.js' type='text/javascript' charset='utf-8'></script>
@@ -32,7 +44,9 @@
 		<script src='./src/execution/FloatMemoryValue.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/execution/CharacterMemoryValue.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/execution/PointerMemoryValue.js' type='text/javascript' charset='utf-8'></script>
+		
 		<script src='./src/exceptions/Exception.js' type='text/javascript' charset='utf-8'></script>
+		<script src='./src/exceptions/CompilationError.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/exceptions/InvalidAddressException.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/exceptions/PartOfPrimitiveTypeException.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/exceptions/AlreadyAllocatedSegmentException.js' type='text/javascript' charset='utf-8'></script>
@@ -42,8 +56,8 @@
 		<script src='./src/exceptions/StackOverflowException.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/exceptions/BadVariableNameException.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/exceptions/CannotApplyTestOperatorException.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./lib/jquery/jquery-1.7.2.min.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./lib/deepCopy/deepCopy.js' type='text/javascript' charset='utf-8'></script>
+		
+		<!-- program nodes -->
 		<script src='./src/program/Program.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/FileLocation.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/Node.js' type='text/javascript' charset='utf-8'></script>
@@ -99,11 +113,7 @@
 		<script src='./src/program/StructureNameNode.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/VariablesDeclarationListNode.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/VariablesDeclarationNode.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/NodeStack.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/Breakpoint.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/BreakpointList.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/execution/ProgramRunner.js' type='text/javascript' charset='utf-8'></script>
-		<script src='./src/execution/ProgramRunnerEvent.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/exceptions/ErrorInstructionException.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/parser/SimpleLanguageLexer.js' type='text/javascript' charset='utf-8'></script>
 		<script src='./src/program/parser/SimpleLanguageParser.js' type='text/javascript' charset='utf-8'></script>
