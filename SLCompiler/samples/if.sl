@@ -1,6 +1,7 @@
 PROCEDURE main()
 VAR
 	i : INTEGER
+	toto : STRUCT a
 BEGIN
 	i <- 0
 	IF (i = 0) THEN
