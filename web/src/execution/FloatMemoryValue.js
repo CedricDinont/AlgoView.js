@@ -104,3 +104,8 @@ FloatMemoryValue.prototype.clone = function() {
 	return new FloatMemoryValue(this.value, this.state);
 } 
 
+FloatMemoryValue.prototype.opposite = function() {
+	return new FloatMemoryValue(-this.getPrimitiveValue());
+}
+
+
