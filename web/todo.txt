@@ -63,13 +63,3 @@ BEGIN
 	foo(t)
 END
 
-- arithmétique sur les pointeurs dans l'opérateur CONTENT
-PROCEDURE main()
-VAR
-	array:POINTER<INTEGER>
-BEGIN
-	array <- ALLOC(INTEGER,5)
-	CONTENT(array) <- 0
-	CONTENT(array+1)<-1
-	PRINTLN("Hello, world!")
-END
