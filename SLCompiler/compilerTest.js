@@ -49,7 +49,7 @@ compileProgram = function(programText) {
 // the corresponding file is supposed to be in the /samples folder and to have the extension .sl
 
 buildProgramTree("if");		
-//buildProgramTree("linkedlist");
+//buildProgramTree("linkedList");
 
 
 
