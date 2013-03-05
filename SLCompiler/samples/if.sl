@@ -1,6 +1,6 @@
 PROCEDURE main()
 VAR
-	i : INTEGERM
+	i : INTEGER
 BEGIN
 	i <- 0
 	IF (i = 0) THEN
