@@ -17,13 +17,15 @@ A ajouter :
 
 Interpréteur **********************
 
+- Utiliser systématiquement la fonction throwException et ne pas faire de new
+- Il y a des new alors que la classe n'existe pas 
+
 On ne peut pas (mais on devrait) :
-- placer 1 WHILE juste après un début de bloc (BEGIN, IF, WHILE...) ; si on intercale une ligne vide, ça marche
+** placer 1 WHILE juste après un début de bloc (BEGIN, IF, WHILE...) ; si on intercale une ligne vide, ça marche
 	--> même problème que le cas précédent ?
 - mettre des commentaires en début de ligne dans la partie VAR (mais on peut en mettre après une déclaration de variable)
-- accéder à la valeur de s.t[i] où s est une structure et t un tableau
+** accéder à la valeur de s.t[i] où s est une structure et t un tableau
 - faire l'affectation c <- 'a' où c est un CHARACTER (+ revoir la coloration syntaxique)
-     --> Ca marche : il faut ilitialise le texte du programme avant de placer les breakpoints
 - quand on met set-start-pause à vrai dans un contrôle externe, on ne peut pas appuyer sur continue dans l'interface
 
 
@@ -33,15 +35,12 @@ On peut (mais on ne devrait pas):
 	--> il n'y a pas d'erreur de compilation, mais la fonction correspondante est ignorée et considérée comme inexistante à l'exécution
 	
 Comportements bizarres (et perturbants!) :
-- arrêt sur des lignes alors qu'il n'y a aucun point d'arrêt, parfois plusieurs fois dans un programme (l'appui sur continue permet de poursuivre l'exécution sans erreur)
-    --> problème identifié : boucles infinies provoquant l'envoi d'une exception InfiniteLoop inexistante
-    
 
+- conversions implicites : a + b renvoie systématiquement le type de a
     
 Erreurs pas claires:
-- utilisation d'une structure non définie (l'interpréteur lance une exception inexistante, i.e. non implémentée)
-- boucles infinies (idem)
-
+** utilisation d'une structure non définie (l'interpréteur lance une exception inexistante, i.e. non implémentée) -> devrait ne pas compiler
+** boucles infinies -> envoi de l'exception à revoir
 
 - pb d'inférence des types des arguments d'une fonction dans le cas d'un argument type tableau à taille fixée
 
