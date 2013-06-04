@@ -42,10 +42,13 @@ Erreurs pas claires:
 ** utilisation d'une structure non définie (l'interpréteur lance une exception inexistante, i.e. non implémentée) -> devrait ne pas compiler
 	
 ** boucles infinies -> envoi de l'exception à revoir
---> MSO : Normallement corrigé : Exception crée et JSUtils.throwException() utilisée ; à vérifier dans les tests unitaires
+	--> MSO 04/06/13 : A priori corrigé : InfiniteLoopException ajoutée et JSUtils.throwException() utilisée ; à vérifier dans les tests unitaires
 
 - pb d'inférence des types des arguments d'une fonction dans le cas d'un argument type tableau à taille fixée
-
+	--> MSO 04/06/13 : A priori corrigé : UndeclaredException ajoutée et JSUtils.throwException() utilisée ; à vérifier dans les tests unitaires
+	--> Nouvelle exception à la fois utilisée pour les structures, les variables, et les fonctions (classe Stack modifiée pour les variables, voir pour le reste)
+	--> A tester
+	
 PROCEDURE foo(t:INTEGER[3][3])
 BEGIN
 	PRINTLN("foo")
