@@ -1,0 +1,173 @@
+.error-message {
+	color: red;
+	font-weight: bold;
+	text-align: center;
+	width: 200px;
+}
+
+#loading-mask {
+	background-color: white;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 20000;
+}
+    
+#loading {
+	height: auto;
+	position: absolute;
+	left: 45%;
+	top: 40%;
+	padding: 2px;
+	z-index: 20001;
+}
+
+#loading .loading-indicator {
+	background: white;
+	color: blue;
+	font: bold 13px Helvetica, Arial, sans-serif;
+	height: auto;
+	margin: 0;
+	padding: 0px;
+}
+
+#loading-message {
+	text-align: center;
+}
+
+.changed {
+	background-color: rgba(0, 90, 255, 0.2); /*#D7EFFF;*/  /* #D7FFFB; */
+}
+
+.invalid {
+	background-color: rgba(255, 0, 0, 0.2);
+}
+
+
+
+.value {
+	color: black; /* #15498B; */
+	font-style: normal;
+	border-color: inherit;	
+}
+
+.address {
+	color: blue;
+	font-style: italic;
+	border-color: inherit;	
+}
+
+.flattenMemoryView {
+	border: 2px black solid;
+	border-collapse: collapse;
+	padding: 0px:
+}
+
+.memoryTableLimitOfFunctionCall {
+	border-top: 4px solid !important;
+	border-color: #99BCE8 !important;
+}
+.stackTableAddressColumn {
+	width: 50px;
+}
+
+.stackTableValueColumn {
+	width: 70px;
+}
+
+.stackTableVariableColumn {
+	width: 80px;
+}
+
+.stackTableFunctionCallColumn {
+	width: 50px;
+}
+
+.heapTableAddressColumn {
+	width: 50px;
+}
+
+.heapTableValueColumn {
+	width: 70px;
+}
+
+.flattenMemoryTable {
+	table-layout:fixed;
+}
+
+.flattenMemoryTable td, .flattenMemoryTable th {
+	text-align: center;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 2px;
+	padding-right: 2px;
+	border: 2px solid;
+	border-color: #99BCE8;
+	color: black; /* #15498B; */
+	overflow: hidden;
+}
+
+table th {
+	font-weight: bold;
+}
+
+.ace_keyword {
+	font-weight: bold;
+}
+
+.ace_gutter-cell.ace_breakpoint { 
+    border-radius: 20px 20px 20px 20px; 
+    box-shadow: 0px 0px 1px 1px red inset; 
+} 
+
+.current_line {
+	background-color: white;
+}
+
+.waiting_line {
+	background-color: grey;
+}
+
+.function-call-indicator {
+	background: white; 
+	color: blue; 
+	font-family: sans-serif; 
+	font-size: 10px; 
+    border-radius: 10px 10px 10px 10px; 
+    box-shadow: 0px 0px 1px 1px blue inset; 
+	padding: 2px;
+	margin-right: 3px;
+}
+
+.current-call {
+	color: green;
+    box-shadow: 0px 0px 1px 1px green inset; 
+}
+
+#stackHTMLTable {
+	
+}
+
+.flattenMemoryTable {
+	border: 2px solid;
+	border-color: #99BCE8;
+}
+
+#algoview-version {
+	display: block;
+	position: absolute;
+	bottom: 98%;
+	right: 98%;
+	z-index: 10;
+}
+
+div.no-icon-menu a.x-menu-item, div.no-icon-menu a.x-menu-item-link {
+    padding-left: 0;
+}
+
+.programRunnerErrorMessage {
+	color: red;
+	font-weight: bold;
+}
