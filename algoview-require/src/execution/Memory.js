@@ -8,8 +8,8 @@
  */
 
   define("Memory",
-["AbstractModel", "MemoryValue", "Stack", "Heap"], 
-function(AbstractModel, MemoryValue, Stack, Heap) {
+["MemoryState", "Variable", "AbstractModel", "MemoryValue", "Stack", "Heap"], 
+function(MemoryState, Variable, AbstractModel, MemoryValue, Stack, Heap) {
 
 
 var Memory = function(size) {

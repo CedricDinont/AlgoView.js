@@ -2,7 +2,7 @@
 // All Files with their dependences are listed here
 
 requirejs.config({
-    //baseUrl: 'js',
+    baseUrl: '../../src',
     paths: {
         // Folders aliases
         lib: '../lib',
@@ -80,17 +80,30 @@ requirejs.config({
         EmptyStackException: "exceptions/EmptyStackException",
         Exception: "exceptions/Exception",
         InvalidAddressException: "exceptions/InvalidAddressException",
+        InfiniteLoopException: "exceptions/InfiniteLoopException",
         StackOverflowException: "exceptions/StackOverflowException",
+        UndeclaredItemException: "exceptions/UndeclaredItemException",
         
         // Compiler execution aliases
         BooleanMemoryValue: "execution/BooleanMemoryValue",
         PointerMemoryValue: "execution/PointerMemoryValue",
         FloatMemoryValue: "execution/FloatMemoryValue",
+        Memory: "execution/Memory",
         MemoryState: "execution/MemoryState",
         CharacterMemoryValue: "execution/CharacterMemoryValue",
         IntegerMemoryValue: "execution/IntegerMemoryValue",
         MemoryValue: "execution/MemoryValue",
         ProgramRunner: "execution/ProgramRunner",
+        ProgramRunnerEvent: "execution/ProgramRunnerEvent",
+        NodeStack: "execution/NodeStack",
+        BreakpointList: "execution/BreakpointList",
+        Stack: "execution/Stack",
+        Heap: "execution/Heap",
+        MemoryUnit: "execution/MemoryUnit",
+        MemoryUnitHashTable: "execution/MemoryUnitHashTable",
+        Variable: "execution/Variable",
+        AbstractModel: "model/AbstractModel",
+        
         
         // Compiler program aliases
         IntegerDataType: "program/IntegerDataType",
@@ -165,7 +178,6 @@ requirejs.config({
         Assignable: "notImplementedYet/Assignable",
         TryToAccessIncorrectArrayElementException: "notImplementedYet/TryToAccessIncorrectArrayElementException",
         FunctionRequiresReturnValue: "notImplementedYet/FunctionRequiresReturnValue",
-        ProgramRunnerEvent: "notImplementedYet/ProgramRunnerEvent",
         NotAnArrayException: "notImplementedYet/NotAnArrayException",
         FunctionNotImplemented: "notImplementedYet/FunctionNotImplemented",
         
@@ -188,8 +200,6 @@ requirejs.config({
     }
 });
 
-require(['jquery', 'bootstrap', 'SimpleGraph', 'ViewHandler', 'ProgramRunner', 'AlgoUtils'],
-function($, bootstrap, SimpleGraph, ViewHandler, ProgramRunner, AlgoUtils) {
-    
-    
-});
+
+require(['jquery', "GraphCreator", 'SimpleGraph', 'ViewHandler', 'Program', 'ProgramRunner', 'AlgoUtils'],
+        function($, GraphCreator, SimpleGraph, ViewHandler, Program, ProgramRunner, AlgoUtils) {

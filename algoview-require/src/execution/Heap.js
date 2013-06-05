@@ -8,8 +8,8 @@
  */
  
  define("Heap",
-["ArrayDataType", "MemoryUnitHashTable", "MemoryUnit"], 
-function(ArrayDataType, MemoryUnitHashTable, MemoryUnit) { 
+["ArrayDataType", "MemoryUnitHashTable", "MemoryUnit", "PointerMemoryValue"], 
+function(ArrayDataType, MemoryUnitHashTable, MemoryUnit, PointerMemoryValue) { 
 	 
 var Heap = function(memory, startAddress, endAddress) {
 	
@@ -66,7 +66,7 @@ Heap.prototype.findFreeArea = function(datatype, nbelements, maxAddress) {
 	
 	}
 	
-	return NIL.getPrimitiveValue();	
+	return PointerMemoryValue.NIL.getPrimitiveValue();	
 }
 
 
@@ -76,7 +76,7 @@ Heap.prototype.malloc = function(datatype, nbelements, maxAddress) {
 	
 	var address = this.findFreeArea(datatype, nbelements, maxAddress);
 	
-	if (address != NIL.getPrimitiveValue() ) {	// enough free memory in heap
+	if (address != PointerMemoryValue.NIL.getPrimitiveValue() ) {	// enough free memory in heap
 
 		// in the case of several elements, we allocate an array
 		if (nbelements != undefined) {

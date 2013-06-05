@@ -8,8 +8,8 @@
  */
  
  define("MemoryUnit",
-["MemoryState", "PointerDataType", "ArrayDataType", "StructureDataType", "BooleanDataType"],
-function(MemoryState, PointerDataType, ArrayDataType, StructureDataType, BooleanDataType) {
+["Variable", "MemoryState", "PointerDataType", "ArrayDataType", "StructureDataType", "BooleanDataType"],
+function(Variable, MemoryState, PointerDataType, ArrayDataType, StructureDataType, BooleanDataType) {
 	 
 var MemoryUnit = function(memory, address, dataType) {
 	this.memory = memory;

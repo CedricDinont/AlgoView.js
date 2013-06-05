@@ -92,7 +92,7 @@ FxAAOw==" width="32" height="32" />
 			include "algoview.php";
 
 			// Le paramètre sert à savoir si on génère des paramètres dans les URl pour empêcher le cache du navigateur de fonctionner
-			generateScriptNodes(true);
+			generateScriptNodes(false);
 		?>
 	</body>
 </html>

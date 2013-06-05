@@ -1,3 +1,7 @@
+define("ExternalController",
+[0],
+function() {
+
 var ExternalController = function(algoViewApp) {
 	this.algoViewApp = algoViewApp;
 
@@ -7,4 +11,8 @@ var ExternalController = function(algoViewApp) {
 ExternalController.prototype.registerAction = function(actionName, action) {
 	this.registeredActions[actionName] = action;
 }
+
+return ExternalController;
+
+});
 

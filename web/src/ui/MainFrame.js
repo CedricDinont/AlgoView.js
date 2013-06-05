@@ -12,8 +12,7 @@ var MainFrame = function(algoViewApp, layoutName) {
 	
 	// TODO: A placer ailleurs
 	this.programTextChanged = false;
-	this.leaveWithoutConfirmation = getUrlVar("leaveWithoutConfirmation");
-	//console.log(this.leaveWithoutConfirmation);
+	this.leaveWithoutConfirmation = JSUtils.getUrlVar("leaveWithoutConfirmation");
 	
 	this.showQuickReference = true;
 	this.quickReferencePanel;

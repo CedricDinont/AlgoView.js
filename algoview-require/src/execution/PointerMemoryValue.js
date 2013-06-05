@@ -92,7 +92,7 @@ PointerMemoryValue.prototype.clone = function() {
 	return new PointerMemoryValue(this.value, this.state);
 } 
 
-var NIL = new PointerMemoryValue(0);
+PointerMemoryValue.NIL = new PointerMemoryValue(0);
 
 
 return PointerMemoryValue;

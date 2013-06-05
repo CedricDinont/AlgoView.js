@@ -1,53 +1,37 @@
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1/GPL 2.0/LGPL 2.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is Ajax.org Code Editor (ACE).
- *
- * The Initial Developer of the Original Code is
- * Ajax.org B.V.
- * Portions created by the Initial Developer are Copyright (C) 2010
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *      Fabian Jakobs <fabian AT ajax DOT org>
- *
- * Alternatively, the contents of this file may be used under the terms of
- * either the GNU General Public License Version 2 or later (the "GPL"), or
- * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
- * in which case the provisions of the GPL or the LGPL are applicable instead
- * of those above. If you wish to allow use of your version of this file only
- * under the terms of either the GPL or the LGPL, and not to allow others to
- * use your version of this file under the terms of the MPL, indicate your
- * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
- * the provisions above, a recipient may use your version of this file under
- * the terms of any one of the MPL, the GPL or the LGPL.
- *
- * ***** END LICENSE BLOCK ***** */
-
 /**
  * Define a module along with a payload
  * @param module a name for the payload
  * @param payload a function to call with (require, exports, module) params
  */
 
+// Modifié par MSO
+// Problème : Ace redéfinit les méthodes require() et define() de require.js
+// Les redéfinitions ne se comportent pas de la même manière, en particulier, require() de ace permet d'associer n'importe quoi au chargement, alors que celui de require.js attend une callback
+// Solution : 
+// (1) on encapsule le code de ace dans un module requirejs
+// (2) on remplace l'objet global manipulé par ace (typiquement window) par un objet vide "ace" 
+// -> uniquement cet objet est altéré, et renvoyé par le module
+
+
+define("ace",
+[0],
+function() {
+
+	
+	var ace = {};
+	
 (function() {
 
 var ACE_NAMESPACE = "";
 
-var global = (function() {
+
+var global = ace; /*(function() {  // MSO : c'est ici qu'on remplace window par ace
     return this;
-})();
+})();*/
+
+
+
+
 
 var _define = function(module, deps, payload) {
     if (typeof module !== 'string') {
@@ -151,7 +135,7 @@ var lookup = function(parentId, moduleName) {
 };
 
 function exportAce(ns) {
-
+/* // retiré par MSO : permet de ne pas polluer le scope global avec les fonctions require et define de ace
     if (typeof requirejs !== "undefined") {
 
         var define = global.define;
@@ -168,7 +152,7 @@ function exportAce(ns) {
         global.define.packaged = true;
 
         return;
-    }
+    }*/
 
     var require = function(module, callback) {
         return _require("", module, callback);
@@ -193,10 +177,12 @@ function exportAce(ns) {
     root.require = require;
 }
 
-exportAce(ACE_NAMESPACE);
+ exportAce(ACE_NAMESPACE); //retiré par MSO (devient inutile avec l'objet ace)
 
 })();
 
+
+with(ace){  // MSO : évite d'écrire ace.define / ace.require partout
 /**
  * class Ace
  *
@@ -204,6 +190,7 @@ exportAce(ACE_NAMESPACE);
  *
  *
  **/
+
 
 define('ace/ace', ['require', 'exports', 'module' , 'ace/lib/fixoldbrowsers', 'ace/lib/dom', 'ace/lib/event', 'ace/editor', 'ace/edit_session', 'ace/undomanager', 'ace/virtual_renderer', 'ace/multi_select', 'ace/worker/worker_client', 'ace/keyboard/hash_handler', 'ace/keyboard/state_handler', 'ace/placeholder', 'ace/config', 'ace/theme/textmate'], function(require, exports, module) {
 
@@ -15017,13 +15004,10 @@ var dom = require("../lib/dom");
 dom.importCssString(exports.cssText, exports.cssClass);
 });
 ;
-            (function() {
-                window.require(["ace/ace"], function(a) {
-                    a.config.init();
-                    if (!window.ace)
-                        window.ace = {};
-                    for (var key in a) if (a.hasOwnProperty(key))
-                        ace[key] = a[key];
-                });
-            })();
+
+}
+
         
+return ace;
+
+});

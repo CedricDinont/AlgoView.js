@@ -12,7 +12,7 @@ requirejs.config({
         program: 'program',
         
         // Lib aliases
-        jquery: '../lib/jquery/jquery-1.9.0.min',
+        jQuery: '../lib/jquery/jquery-1.9.0.min',
         antlr: '../lib/antlr-javascript-runtime-3.1/antlr3-all-patched',
         bootstrap: '../lib/bootstrap/bootstrap.min',
         
@@ -187,8 +187,8 @@ requirejs.config({
         AlgoUtils: "utils/AlgoUtils",
     },
     shim: {
-        'jquery': {
-            exports: 'jquery'
+        'jQuery': {
+            exports: 'jQuery'
         },
         'antlr': {
             exports: 'antlr'
@@ -201,7 +201,7 @@ requirejs.config({
 });
 
 
-require(['jquery', "GraphCreator", 'SimpleGraph', 'ViewHandler', 'Program', 'ProgramRunner', 'AlgoUtils'],
+require(['jQuery', "GraphCreator", 'SimpleGraph', 'ViewHandler', 'Program', 'ProgramRunner', 'AlgoUtils'],
         function($, GraphCreator, SimpleGraph, ViewHandler, Program, ProgramRunner, AlgoUtils) {
 
 
