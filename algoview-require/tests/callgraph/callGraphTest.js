@@ -285,8 +285,8 @@ require(['jQuery', "GraphCreator", 'SimpleGraph', 'ViewHandler', 'Program', 'Pro
                 }
 
                 var g = newGraphFromTree(tree);
-                var vh = createNewModel(g).addView("graphical").addView("text");
-                vh.refreshViews();
+                var vh = createNewModel(g).addView("graphical", "graphicalView").addView("text", "textView");  // MSO : ajouté les ids des containers
+                vh.refreshViews(); 
             }
             function displayFunctionCallGraph(tree)
             {
@@ -297,7 +297,7 @@ require(['jQuery', "GraphCreator", 'SimpleGraph', 'ViewHandler', 'Program', 'Pro
                     $('#functionGraphButton').addClass('active');
                 }
                 var g = newFunctionCallGraphFromTree(tree);
-                var vh = createNewModel(g).addView("graphical").addView("text");
+                var vh = createNewModel(g).addView("graphical", "graphicalView").addView("text", "textView");  // MSO : ajouté les ids des containers
                 vh.refreshViews();
             }
 

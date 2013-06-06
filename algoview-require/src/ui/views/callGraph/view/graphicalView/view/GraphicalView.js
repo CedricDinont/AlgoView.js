@@ -1,9 +1,11 @@
+// MSO : ajouté containerId
+
 define("GraphicalView",
 ["AbstractView", "GraphCreationEvent", "WindowWidthChangeEvent"],
 function(AbstractView, GraphCreationEvent, WindowWidthChangeEvent) {
 
-GraphicalView = function() {
-    AbstractView.call(this);
+GraphicalView = function(containerId, svgId) {
+    AbstractView.call(this, containerId);
 };
 
 GraphicalView.prototype = new AbstractView();
@@ -22,7 +24,8 @@ GraphicalView.prototype.refresh = function(event) {
 
 
 GraphicalView.prototype.clear = function() {
-    $('#graphicalView').append('<svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>');
+    $j("#" + this.containerId).append('<svg id="' + this.containerId + '-svg" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>');
+    
 };
 
 GraphicalView.prototype.displayGraph = function(model) {
@@ -32,8 +35,13 @@ GraphicalView.prototype.displayGraph = function(model) {
 };
 
 GraphicalView.prototype.addGraphToDOM = function(htmlGraph) {
-    $('#graphicalView svg').remove();
-    $('#graphicalView').append('<svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1">'+ htmlGraph +'</svg>');
+	// MSO : ajouté la convention : id du svg = id du container + "-svg"
+	
+    $j("#" + this.containerId + " svg").remove();
+    $j("#" + this.containerId).append('<svg id="' + this.containerId + '-svg"  xmlns="http://www.w3.org/2000/svg" version="1.1">'+ htmlGraph +'</svg>');
+    
+    $j("#" + this.containerId + "-svg").height( $j("#" + this.containerId).height()  );
+    $j("#" + this.containerId + "-svg").width( $j("#" + this.containerId).width()  );
 };
 
 return GraphicalView;

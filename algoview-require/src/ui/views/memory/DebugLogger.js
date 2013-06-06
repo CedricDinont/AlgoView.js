@@ -9,9 +9,9 @@
 function() {
 
 
-	var DebugLogger = function() {
+	var DebugLogger = function(debug) {
 
-		this.debug = false;
+		this.debug = debug || false;
 		
 		this.log = function() {
 			if (this.debug) {

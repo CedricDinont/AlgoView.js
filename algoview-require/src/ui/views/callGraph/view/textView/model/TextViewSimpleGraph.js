@@ -2,9 +2,9 @@ define("TextViewSimpleGraph",
 ["SimpleGraph", "TextView", "TextViewListenerHandler", "OpenNodeEvent", "CloseNodeEvent", "InvalidStatusException"],
 function(SimpleGraph, TextView, TextViewListenerHandler, OpenNodeEvent, CloseNodeEvent, InvalidStatusException){
 
-    TextViewSimpleGraph = function(directed, view) {
+    TextViewSimpleGraph = function(directed, containerId) {  // MSO : retiré argument view (inutilisé)
         SimpleGraph.call(this, directed);
-        this.view = new TextView();
+        this.view = new TextView(containerId);
         this.listenerHandler = new TextViewListenerHandler(this);
     };
 
@@ -92,12 +92,12 @@ function(SimpleGraph, TextView, TextViewListenerHandler, OpenNodeEvent, CloseNod
      */
     TextViewSimpleGraph.prototype.createAllNodesHtml = function() {
 
-        var htmlGraph = $('<div>');
+        var htmlGraph = $j('<div>');
         htmlGraph.attr('id', 'graph');
         var nodes = Object.keys(this.nodes);
         var nbNodes = nodes.length;
         if (nbNodes > 0) {
-            var nodesUl = $('<ul>');
+            var nodesUl = $j('<ul>');
             for (var i = 0; i < nbNodes; i++) {
                 var currentNode = this.nodes[nodes[i]];
                 currentNode.status = 'closed';
@@ -128,7 +128,7 @@ function(SimpleGraph, TextView, TextViewListenerHandler, OpenNodeEvent, CloseNod
         var edges = Object.keys(node.edges);
         var nbEdges = edges.length;
         if (nbEdges > 0) {
-            edgesUl = $('<ul>').attr('class', 'node-edges-' + nodeId);
+            edgesUl = $j('<ul>').attr('class', 'node-edges-' + nodeId);
             for (var j = 0; j < nbEdges; j++) {
                 var currentEdge = node.edges[edges[j]];
                 var htmlCurrentEdge = this.createEdge(edges[j], currentEdge);
@@ -148,19 +148,19 @@ function(SimpleGraph, TextView, TextViewListenerHandler, OpenNodeEvent, CloseNod
      * @return string of the html representation of the node
      */
     TextViewSimpleGraph.prototype.createNode = function(node) {
-        var nodeLi = $('<li>').html('Node id : ' + node.getId())
+        var nodeLi = $j('<li>').html('Node id : ' + node.getId())
                 .attr('id', "node-" + node.getId());
         nodeLi.attr('class', 'closed');
         var nbEdges = Object.keys(node.edges).length;
         if(nbEdges === 1){
-            nodeLi.append($('<span>').html('(' + nbEdges + ' neighbor)').attr('class', 'node-neighbors'));
+            nodeLi.append($j('<span>').html('(' + nbEdges + ' neighbor)').attr('class', 'node-neighbors'));
         } else {
-            nodeLi.append($('<span>').html('(' + nbEdges + ' neighbors)').attr('class', 'node-neighbors'));
+            nodeLi.append($j('<span>').html('(' + nbEdges + ' neighbors)').attr('class', 'node-neighbors'));
         }
         if (node.getValue() !== undefined) {
-            nodeLi.append($('<span>').html(node.getValue()).attr('class', 'node-value'));
+            nodeLi.append($j('<span>').html(node.getValue()).attr('class', 'node-value'));
         } else {
-            nodeLi.append($('<span>').html("Empty node").attr('class', 'node-value'));
+            nodeLi.append($j('<span>').html("Empty node").attr('class', 'node-value'));
         }
 
         return nodeLi;
@@ -175,10 +175,10 @@ function(SimpleGraph, TextView, TextViewListenerHandler, OpenNodeEvent, CloseNod
     TextViewSimpleGraph.prototype.createEdge = function(id, edge) {
         var nodeSourceId = this.getSourceId(id);
         var nodeDestId = this.getDestId(id);
-        var li = $('<li>').append($('<a>').html("Edge : " + nodeSourceId + "->" + nodeDestId)
+        var li = $j('<li>').append($('<a>').html("Edge : " + nodeSourceId + "->" + nodeDestId)
                 .attr('href', "#node-" + nodeDestId))
                 .attr('id', 'edge-' + nodeSourceId + "-" + nodeDestId);
-        li.after($('<br>'));
+        li.after($j('<br>'));
         return li;
     };
 

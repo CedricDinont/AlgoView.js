@@ -5,15 +5,18 @@
  */
 
   define("ProgramTreeView",
-[ "DebugLogger", "ProgramRunnerListener" ],
-function(DebugLogger, ProgramRunnerListener) {
+[ "DebugLogger", "ProgramRunnerListener", "SimpleGraph", "GraphCreator", "ViewHandler" ],
+function(DebugLogger, ProgramRunnerListener, SimpleGraph, GraphCreator, ViewHandler) {
 
 	var ProgramTreeView = function(containerId, programRunner) {
 		
-		ProgramRunnerListener.call(this); 			// ProgramRunnerListener implementation
-		DebugLogger.call(this);  					// DebugLogger inheritance
+		var debugMode = true;
 		
-		console.log(programRunner);
+		ProgramRunnerListener.call(this); 			// ProgramRunnerListener implementation
+		DebugLogger.call(this, debugMode);  					// DebugLogger inheritance
+		
+		this.programRunner = programRunner;
+		this.containerId = containerId;
 		
 		programRunner.addListener(this);
 	}
@@ -24,9 +27,25 @@ function(DebugLogger, ProgramRunnerListener) {
 	ProgramTreeView.prototype.programChanged = function(programRunnerEvent){
 		
 		if(programRunnerEvent.type == "COMPILED_PROGRAM"){
-
+			
+			this.log("Program recompiled");
+			
+			var tree = this.programRunner.getProgramTree();
+			
+			var g = this.newGraphFromTree(tree);
+			var vh = new ViewHandler(g);
+			vh.addView("graphical", this.containerId)
+			vh.refreshViews();
+                			
 		}
 	}
+	
+	ProgramTreeView.prototype.newGraphFromTree = function(tree) {
+		var g = new SimpleGraph(true);
+		var gc = new GraphCreator(g, tree);
+		gc.programTreeToSimpleGraph();
+		return g;
+	};
 	
 	
 	

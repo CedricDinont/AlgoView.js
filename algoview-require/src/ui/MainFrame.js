@@ -658,8 +658,8 @@ var MainFrame = function(algoViewApp, layoutName) {
 		//this.viewport.suspendLayout = false;
 		
 		this.viewport.doLayout();
-		//this.createProgramTreeContainer();
-		 this.createGraphicalMemoryViewContainer(); //MSO provisoire, à remettre quand des onglets auront été ajoutés
+		this.createProgramTreeContainer();
+		// this.createGraphicalMemoryViewContainer(); //MSO provisoire, à remettre quand des onglets auront été ajoutés
 		this.createTableViewsContainer();
 		
 		this.viewport.doLayout();

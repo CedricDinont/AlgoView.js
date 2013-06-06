@@ -2,45 +2,46 @@ define("GraphicalViewListenerHandler",
 [0],
 function() {
 
-GraphicalViewListenerHandler = function(model) {
+GraphicalViewListenerHandler = function(model, svgId) { // MSO : ajouté svgId
     this.model = model;
+    this.svgId = svgId;
 };
 
-
+/* // MSO : retiré : sera géré par Ext.js
 GraphicalViewListenerHandler.prototype.OnWindowSizeChange = function(e) {
-    var width = $(window).width();
+    var width = $j(window).width();
     if(Math.abs(width - e.data.self.model.getWindowWidth()) > 50){
            e.data.self.model.setWindowWidth(width); 
     }
-};
+};*/
 
 GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 
-	var g = $(e.target).parent();
+	var g = $j(e.target).parent();
 	g = g[0];
 
-	if(g.nodeName == "g" && $(g).attr('class') == "groupnode") { //Select a node
+	if(g.nodeName == "g" && $j(g).attr('class') == "groupnode") { //Select a node
 	    var clicking = true;
 
 	    Xpage = e.pageX;
 	    Ypage = e.pageY;
-	    $('rect',$(g)).attr('fill', "#d4e1f2");
+	    $j('rect',$j(g)).attr('fill', "#d4e1f2");
 
-	    var srcNodes = $(g).parent("#svg")[0];
-	    srcNodes = $(srcNodes).children("g[data-src="+$(g).attr('data-id')+"]:not([data-dest="+$(g).attr('data-id')+"])");
+	    var srcNodes = $j(g).parent(this.svgId)[0];
+	    srcNodes = $j(srcNodes).children("g[data-src="+$j(g).attr('data-id')+"]:not([data-dest="+$j(g).attr('data-id')+"])");
 
-	    var destNodes = $(g).parent("#svg")[0];
-	    destNodes = $(destNodes).children("g[data-dest="+$(g).attr('data-id')+"]:not([data-src="+$(g).attr('data-id')+"])");
+	    var destNodes = $j(g).parent(this.svgId)[0];
+	    destNodes = $j(destNodes).children("g[data-dest="+$j(g).attr('data-id')+"]:not([data-src="+$j(g).attr('data-id')+"])");
 
-	    var srcDestNodes = $(g).parent("#svg")[0];
-	    srcDestNodes = $(srcDestNodes).children("g[data-dest="+$(g).attr('data-id')+"][data-src="+$(g).attr('data-id')+"]");
+	    var srcDestNodes = $j(g).parent(this.svgId)[0];
+	    srcDestNodes = $j(srcDestNodes).children("g[data-dest="+$j(g).attr('data-id')+"][data-src="+$j(g).attr('data-id')+"]");
 
-		$(document).on('mouseup',function(){
+		$j(document).on('mouseup',function(){
 		    clicking = false;
-		    $('rect',$(g)).attr('fill', "#FFF");
+		    $j('rect',$j(g)).attr('fill', "#FFF");
 		});
 
-		$(document).on('mousemove', '#svg',function(ev){
+		$j(document).on('mousemove', this.svgId,function(ev){
 		    var deltaX = 0.0;
 		    var deltaY = 0.0;
 
@@ -53,17 +54,17 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 
 		    // Mouse click + moving logic here
 		   
-		    deltaX = ePageX-Xpage + parseFloat($("rect",$(g)).attr("x"));
-		    deltaY = ePageY-Ypage + parseFloat($("rect",$(g)).attr("y"));
+		    deltaX = ePageX-Xpage + parseFloat($j("rect",$j(g)).attr("x"));
+		    deltaY = ePageY-Ypage + parseFloat($j("rect",$j(g)).attr("y"));
 
-		    $("rect",$(g)).attr("x",deltaX);
-		    $("rect",$(g)).attr("y",deltaY);
+		    $j("rect",$j(g)).attr("x",deltaX);
+		    $j("rect",$j(g)).attr("y",deltaY);
 
-		    deltaX = ePageX-Xpage + parseFloat($("text",$(g)).attr("x"));
-		    deltaY = ePageY-Ypage + parseFloat($("text",$(g)).attr("y"));
+		    deltaX = ePageX-Xpage + parseFloat($j("text",$j(g)).attr("x"));
+		    deltaY = ePageY-Ypage + parseFloat($j("text",$j(g)).attr("y"));
 
-		    $("text",$(g)).attr("x",deltaX);
-		    $("text",$(g)).attr("y",deltaY);
+		    $j("text",$j(g)).attr("x",deltaX);
+		    $j("text",$j(g)).attr("y",deltaY);
 
 		    Xpage = ePageX;
 		    Ypage = ePageY;
@@ -73,8 +74,8 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    for (var i = srcNodes.length - 1; i >= 0; i--) {
 		    	x0 = deltaX;
 		    	y0 = deltaY+(e.data.self.model.defaultValues.nodeHeight/2);
-		    	x1 = $("line",srcNodes[i]).attr("x2");
-		    	y1 = $("line",srcNodes[i]).attr("y2");
+		    	x1 = $j("line",srcNodes[i]).attr("x2");
+		    	y1 = $j("line",srcNodes[i]).attr("y2");
 
 		    	a =-(y0-y1);
 		    	b =(x0-x1);
@@ -85,15 +86,15 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    	    angle = Math.PI/2 - Math.atan2(a,b);
 		    	}
 
-		    	$("line",$(srcNodes[i])).attr("x1",x0);
-		    	$("line",$(srcNodes[i])).attr("y1",y0);
-		    	$("path",$(srcNodes[i])).attr("d","m"+ x1 +"," + y1 + " l10,-10 l-20,0 z")
+		    	$j("line",$j(srcNodes[i])).attr("x1",x0);
+		    	$j("line",$j(srcNodes[i])).attr("y1",y0);
+		    	$j("path",$j(srcNodes[i])).attr("d","m"+ x1 +"," + y1 + " l10,-10 l-20,0 z")
 		    	           .attr("transform","rotate("+ angle*180/Math.PI +", "+ parseInt(x1) +", "+ parseInt(y1) +")")
 		    	           ;
 		    };
 		    for (var i = destNodes.length - 1; i >= 0; i--) {
-		    	x0 = $("line",$(destNodes[i])).attr("x1");
-		    	y0 = $("line",$(destNodes[i])).attr("y1");
+		    	x0 = $j("line",$j(destNodes[i])).attr("x1");
+		    	y0 = $j("line",$j(destNodes[i])).attr("y1");
 		    	x1 = deltaX;
 		    	y1 = deltaY-(e.data.self.model.defaultValues.nodeHeight/2);
 
@@ -106,16 +107,16 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    	    angle = Math.PI/2 - Math.atan2(a,b);
 		    	}
 
-		    	$("line",$(destNodes[i])).attr("x2",x1);
-		    	$("line",$(destNodes[i])).attr("y2",y1);
-		    	$("path",$(destNodes[i])).attr("d","m"+ x1 +"," + y1 + " l10,-10 l-20,0 z")
+		    	$j("line",$j(destNodes[i])).attr("x2",x1);
+		    	$j("line",$j(destNodes[i])).attr("y2",y1);
+		    	$j("path",$j(destNodes[i])).attr("d","m"+ x1 +"," + y1 + " l10,-10 l-20,0 z")
 		    	           .attr("transform","rotate("+ angle*180/Math.PI +", "+ parseInt(x1) +", "+ parseInt(y1) +")")
 		    	           ;
 		    };
 
 		    for (var i = srcDestNodes.length - 1; i >= 0; i--) {
 
-		    	var de = $("path.line",$(srcDestNodes[i])).attr("d");
+		    	var de = $j("path.line",$j(srcDestNodes[i])).attr("d");
 		    	de = de.split(' ');
 
 		    	var offsetx = e.data.self.model.defaultValues.offsetx;
@@ -128,7 +129,7 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    	x1 = deltaX;
 		    	y1 = deltaY;
 
-		    	$("path.line",$(srcDestNodes[i])).attr("d",de[0]+" "+x0+" "+parseFloat(y0+5)+" "+de[3]+" "+parseFloat(parseFloat(x0)-parseFloat(offsetx))+" "+parseFloat(parseFloat(y0)+parseFloat(offsety))+" "+de[6]+" "+parseFloat(parseFloat(x1)-parseFloat(offsetx))+" "+parseFloat(parseFloat(y1)-parseFloat(offsety))+" "+de[9]+" "+x1+" "+parseFloat(y1-5));
+		    	$j("path.line",$j(srcDestNodes[i])).attr("d",de[0]+" "+x0+" "+parseFloat(y0+5)+" "+de[3]+" "+parseFloat(parseFloat(x0)-parseFloat(offsetx))+" "+parseFloat(parseFloat(y0)+parseFloat(offsety))+" "+de[6]+" "+parseFloat(parseFloat(x1)-parseFloat(offsetx))+" "+parseFloat(parseFloat(y1)-parseFloat(offsety))+" "+de[9]+" "+x1+" "+parseFloat(y1-5));
 
 		    	a =(offsetx);
 		    	b =-(offsety);
@@ -140,7 +141,7 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    	    angle = Math.PI/2 - Math.atan2(a,b)- Math.PI/14;
 		    	}
 
-		    	$("path.arrow",$(srcDestNodes[i])).attr("d","m"+ x1+" "+parseFloat(y1-5)+ " l10,-10 l-20,0 z")
+		    	$j("path.arrow",$j(srcDestNodes[i])).attr("d","m"+ x1+" "+parseFloat(y1-5)+ " l10,-10 l-20,0 z")
 								    	           .attr("transform","rotate("+ angle*180/Math.PI +", "+ parseInt(x1) +", "+ parseInt(y1-5) +")")
 								    	           ;
 		    };

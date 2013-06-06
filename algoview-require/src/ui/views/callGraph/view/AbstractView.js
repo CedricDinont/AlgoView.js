@@ -1,8 +1,12 @@
+// MSO : ajouté containerId
+
 define("AbstractView",
 [0],
 function(){
 
-function AbstractView(){
+function AbstractView(containerId){
+	
+	this.containerId = containerId;
 
 }
 

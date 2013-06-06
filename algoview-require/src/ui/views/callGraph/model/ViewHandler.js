@@ -22,7 +22,7 @@ function(TextView, TextViewSimpleGraph, GraphicalView, GraphicalViewSimpleGraph,
      * @param string view type
      *
      */
-    ViewHandler.prototype.addView = function(viewType){
+    ViewHandler.prototype.addView = function(viewType, containerId){  // MSO : ajouté containerId
             if (viewType === undefined) {
                 throw new InvalidViewTypeException(viewType);
             }
@@ -30,8 +30,8 @@ function(TextView, TextViewSimpleGraph, GraphicalView, GraphicalViewSimpleGraph,
                 throw new InvalidViewTypeException(viewType);
             }
 
-            var newView = {'model': new this.viewTypes[viewType].model(this.graph.isDirected()),
-                            'view' : new this.viewTypes[viewType].view()
+            var newView = {'model': new this.viewTypes[viewType].model(this.graph.isDirected(), containerId), // MSO : ajouté containerId
+                            'view' : new this.viewTypes[viewType].view(containerId) // MSO : à revoir : il y a DEJA une vue dans model
             };
             newView.model.addReferenceSimpleGraph(this.graph);
             this.views.push(newView);

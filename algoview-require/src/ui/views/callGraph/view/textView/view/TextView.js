@@ -2,8 +2,8 @@ define("TextView",
 ["AbstractView", "GraphCreationEvent", "OpenNodeEvent", "CloseNodeEvent"],
 function(AbstractView, GraphCreationEvent, OpenNodeEvent, CloseNodeEvent){
 
-TextView = function() {
-    AbstractView.call(this);
+TextView = function(containerId) {  // MSO : ajouté containerId
+    AbstractView.call(this, containerId);
 //
 //    if (specifications === undefined) {
 //        throw new UndefinedSpecificationException();
@@ -41,7 +41,7 @@ TextView.prototype.refresh = function(event) {
 };
 
 TextView.prototype.clear = function() {
-    $('#textView').html('<h4>Text View</h4>');
+    $j("#" + this.containerId).html('<h4>Text View</h4>');
 };
 
 TextView.prototype.displayGraph = function(model) {
@@ -53,18 +53,18 @@ TextView.prototype.displayGraph = function(model) {
 };
 
 TextView.prototype.addGraphToDOM = function(htmlGraph) {
-    $('#textView').append(htmlGraph);
+    $j("#" + this.containerId).append(htmlGraph);
 };
 
 
 TextView.prototype.displayNodeEdges = function(nodeDOM, edgesHtml) {
-    $(nodeDOM).attr('class', 'open').append(edgesHtml);
+    $j(nodeDOM).attr('class', 'open').append(edgesHtml);
 };
 
 
 TextView.prototype.hideNodeEdges = function(nodeId, nodeDOM) {
-    $('.node-edges-' + nodeId).remove();
-    $(nodeDOM).attr('class', 'closed');
+    $j('.node-edges-' + nodeId).remove();
+    $j(nodeDOM).attr('class', 'closed');
 };
 
 return TextView;
