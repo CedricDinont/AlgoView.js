@@ -2,14 +2,8 @@
 // All Files with their dependences are listed here
 
 requirejs.config({
-    //baseUrl: '.',
+
     paths: {
-        /* Folders aliases
-        lib: '../lib',
-        model: 'model',
-        graph: 'ui/views/callGraph/model/graph',
-        utils: 'utils',
-        program: 'program',*/
         
         // Lib aliases
         jQuery: '../lib/jquery/jquery-1.9.0.min',
@@ -106,7 +100,7 @@ requirejs.config({
         MemoryGraphicalView: "ui/views/memory/MemoryGraphicalView",
         StackTableView: "ui/views/memory/StackTableView",
         HeapTableView: "ui/views/memory/HeapTableView",
-        
+        ProgramTreeView: "ui/views/callGraph/ProgramTreeView",
         
         // Compiler execution aliases
         BooleanMemoryValue: "execution/BooleanMemoryValue",

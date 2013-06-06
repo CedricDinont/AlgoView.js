@@ -1,6 +1,6 @@
 define("MainFrame",
-["Ext", "JSUtils", "MemoryGraphicalView", "StackTableView", "HeapTableView", "ExtUxAceEditor", "ExtUxAceEditorPanel"],
-function(Ext, JSUtils, MemoryGraphicalView, StackTableView, HeapTableView) {
+["Ext", "JSUtils", "MemoryGraphicalView", "StackTableView", "HeapTableView", "ProgramTreeView", "ExtUxAceEditor", "ExtUxAceEditorPanel"],
+function(Ext, JSUtils, MemoryGraphicalView, StackTableView, HeapTableView, ProgramTreeView) {
 
 var MainFrame = function(algoViewApp, layoutName) {
 	this.app = algoViewApp;
@@ -509,6 +509,10 @@ var MainFrame = function(algoViewApp, layoutName) {
 		this.app.programRunner.memory.addView(this.memoryGraphicalView);	
 	}
 	
+	this.createProgramTreeView = function(programRunner) {		
+        this.programTreeView = new ProgramTreeView("programTreeContainer-body", programRunner);
+	}	
+	
 	this.createTableViewsContainer = function() {
 		var parent = this.layout.tableViewsContainer;
 		if (parent == undefined) {
@@ -528,6 +532,27 @@ var MainFrame = function(algoViewApp, layoutName) {
 		this.createStackTableView();
 		this.createHeapTableView();
 	}
+	
+	this.createProgramTreeContainer = function() {
+		var parent = this.layout.graphicalViewContainer; // MSO à modifier à terme
+		if (parent == undefined) {
+			return;
+		}
+		
+		var panel = Ext.create("Ext.panel.Panel", {
+			id: 'programTreeContainer',
+			listeners: {
+				resize: function() { // MSO : voir ce que l'on fait ici
+					/*if (self.memoryGraphicalView != undefined) {
+						self.memoryGraphicalView.updateDimension();
+					}*/
+				}
+			}
+		});
+		Ext.getCmp(parent).add(panel);
+		
+		this.createProgramTreeView(self.app.getProgramRunner());
+	}	
 
 	this.createGraphicalMemoryViewContainer = function() {
 		var parent = this.layout.graphicalViewContainer;
@@ -633,7 +658,8 @@ var MainFrame = function(algoViewApp, layoutName) {
 		//this.viewport.suspendLayout = false;
 		
 		this.viewport.doLayout();
-		this.createGraphicalMemoryViewContainer();
+		this.createProgramTreeContainer();
+		// this.createGraphicalMemoryViewContainer(); MSO provisoire, à remettre quand des onglets auront été ajoutés
 		this.createTableViewsContainer();
 		
 		this.viewport.doLayout();

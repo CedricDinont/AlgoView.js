@@ -22,6 +22,10 @@ var AlgoViewApp = function() {
 	}
 }
 
+AlgoViewApp.prototype.getProgramRunner = function() {
+	return this.programRunner;
+}
+
 AlgoViewApp.prototype.loadText = function(text) {
 	this.mainFrame.editors[0].clearBreakpoints();
 	this.mainFrame.editors[0].getSession().getDocument().setValue(text);
