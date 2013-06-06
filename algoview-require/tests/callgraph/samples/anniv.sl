@@ -1,0 +1,25 @@
+FUNCTION Bon():INTEGER
+VAR
+BEGIN
+Anniversaire()
+RETURN 22
+END
+
+FUNCTION uncalled():INTEGER
+VAR
+BEGIN
+RETURN 22
+END
+
+FUNCTION Anniversaire():INTEGER
+VAR
+BEGIN
+RETURN 22
+END
+
+PROCEDURE main()
+VAR
+BEGIN
+Bon()
+Anniversaire()
+END
