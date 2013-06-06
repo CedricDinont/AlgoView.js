@@ -94,6 +94,7 @@ requirejs.config({
         ExtUxAceEditorPanel : "ui/editor/Panel",
         
         // Memory Views
+        DebugLogger : "ui/views/memory/DebugLogger",
         View: "ui/views/memory/View",
         LinkView: "ui/views/memory/LinkView",
         MemoryUnitView: "ui/views/memory/MemoryUnitView",
@@ -113,6 +114,7 @@ requirejs.config({
         MemoryValue: "execution/MemoryValue",
         ProgramRunner: "execution/ProgramRunner",
         ProgramRunnerEvent: "execution/ProgramRunnerEvent",
+        ProgramRunnerListener: "execution/ProgramRunnerListener",
         NodeStack: "execution/NodeStack",
         BreakpointList: "execution/BreakpointList",
         Stack: "execution/Stack",

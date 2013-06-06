@@ -126,6 +126,9 @@ var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells,
 	
 }
 
+// Prototype based inheritance
+HeapTableView.prototype = new View();
+
     return HeapTableView;
 
 });

@@ -355,6 +355,8 @@ MemoryGraphicalView.NEW_UNIT_DY = 20;
 MemoryGraphicalView.STACK_UNIT_MIN_X = 50;   
 MemoryGraphicalView.HEAP_UNIT_MIN_X = 400;
 
+// Prototype based inheritance
+MemoryGraphicalView.prototype = new View();
 
 return MemoryGraphicalView;
 

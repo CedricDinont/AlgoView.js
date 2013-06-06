@@ -159,5 +159,8 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 
 }
 
+// Prototype based inheritance
+StackTableView.prototype = new View();
+
 	return StackTableView;
 });

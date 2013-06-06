@@ -1,30 +1,27 @@
 /**
- * interface View
+ * abstract class View extends DebugLogger
  * defines the methods of a view
  * @author michael
  */
  
  define("View",
-[0], 
-function() {
+["DebugLogger"], 
+function(DebugLogger) {
 
+	var View = function() {
 
-var View = function() {
-
-	this.debug = false;
-	
-	this.log = function() {
-		if (this.debug) {
-			console.log.apply(console, arguments);
+		DebugLogger.call(this);		
+		
+		
+		this.update = function(model) {
+			
+			 // Abstract - should be overridden
 		}
+
 	}
 
-	 // Should be overridden
-	this.update = function(model) {
-	}
-
-}
-
-return View;
+	View.prototype = new DebugLogger();
+	
+	return View;
 
 });

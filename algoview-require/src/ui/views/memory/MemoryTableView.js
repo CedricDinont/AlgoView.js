@@ -94,5 +94,8 @@ var MemoryTableView = function(containerId){
 	}
 }
 
+// Prototype based inheritance
+MemoryTableView.prototype = new View();
+
 	return MemoryTableView;
 });
