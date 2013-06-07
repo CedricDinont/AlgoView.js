@@ -1,6 +1,6 @@
 define("FunctionNode",
-["ExpressionNode", "ProgramRunnerEvent", "AssignNode", "VariableNameNode", "MemoryValue", "FunctionRequiresReturnValue"],
-function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, MemoryValue, FunctionRequiresReturnValue){
+["ExpressionNode", "ProgramRunnerEvent", "AssignNode", "VariableNameNode", "MemoryValue", "FunctionRequiresReturnValue", "MemoryState"],
+function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, MemoryValue, FunctionRequiresReturnValue, MemoryState){
 
 	function FunctionNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
