@@ -15,8 +15,9 @@ GraphicalViewSimpleGraph = function(directed, containerId) {  // MSO : ajouté c
         "nodeHeight": "60",
         "heightNodeAndEdge": "110",
         "offsetx": "80",
-        "offsety": "80"
-
+        "offsety": "80",
+        "marginX": 50,		// MSO : ajouté marges
+		"marginY": 50,
     }
     this.windowWidth = $j("#" + this.defaultValues['contener']).width();
     this.windowHeight = $j("#" + this.defaultValues['contener']).height();
@@ -127,17 +128,28 @@ GraphicalViewSimpleGraph.prototype.createGraphHtml = function() {
     var nodesGraphicalView = this.browseGraph()[0];
     var edgesGraphicalView = this.browseGraph()[1];
 
-    var maxWidth = this.windowWidth;
-    var maxHeight = this.windowHeight;
+	var marginX = this.defaultValues['marginX']; // ajouté par MSO
+	var marginY = this.defaultValues['marginY']; // ajouté par MSO
+	
+    var nodeWidth = this.defaultValues["nodeWidth"];	// variable locale ajoutée par MSO
+    var heightNodeAndEdge = this.defaultValues["heightNodeAndEdge"];   // variable locale ajoutée par MSO
+    	
+    var maxWidth = this.windowWidth - 2 * marginX;		// marges ajoutées par MSO
+    
+    var maxHeight = this.windowHeight;  // MSO : jamais utilisé ??
     var nbSiblersCurrentDepth;
     
     var graphHtml = $j('<div>');
     
+
+    
     for (var i = 0; i < nodesGraphicalView.length; i++) {
         nbSiblersCurrentDepth = nodesGraphicalView[i].length;
         for (var e = 0; e < nbSiblersCurrentDepth; e++) {
-            nodesGraphicalView[i][e].setPositionX(((maxWidth / nbSiblersCurrentDepth) * e) + ((maxWidth / nbSiblersCurrentDepth) / 2) - (this.defaultValues["nodeWidth"] / 2));
-            nodesGraphicalView[i][e].setPositionY((i + 1) * this.defaultValues["heightNodeAndEdge"]);
+			
+			// MSO : ajouté marges et nodeWidth
+            nodesGraphicalView[i][e].setPositionX(marginX + ((maxWidth / nbSiblersCurrentDepth) * e) + ((maxWidth / nbSiblersCurrentDepth) / 2) - (nodeWidth / 2));
+            nodesGraphicalView[i][e].setPositionY(marginY + i * heightNodeAndEdge);
 
             graphHtml.append(this.createRectHtml(nodesGraphicalView[i][e]));
         }
@@ -244,7 +256,7 @@ GraphicalViewSimpleGraph.prototype.createArrowHtml = function(groupSrc, groupDes
         y0 = parseInt(parseInt(svgRectSrc.attr('y'))+parseInt(this.defaultValues['nodeHeight']/2)+5);
         x1 = parseInt(svgRectDest.attr('x'));
         y1 = parseInt(parseInt(svgRectDest.attr('y'))+parseInt(this.defaultValues['nodeHeight']/2)-5);
-
+/* MSO : inutilisé ?
         path = document.createElementNS("http://www.w3.org/2000/svg","path");
         path = $j(path);
         var offsetx = this.defaultValues.offsetx;
@@ -254,7 +266,7 @@ GraphicalViewSimpleGraph.prototype.createArrowHtml = function(groupSrc, groupDes
                .attr("stroke","#000")
                .attr("class","line")
                .attr("fill","transparent");
-        g.append(path);
+        g.append(path);*/
 
         if(directed == true) {
 
