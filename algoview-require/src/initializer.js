@@ -228,7 +228,7 @@ var algoViewApp;
 var $j;
 
 
-require(["Ext", 'jQuery', "AlgoViewApp", "aceinit"],
+require(["ExtInit", 'jQuery', "AlgoViewApp", "aceinit"],
         function(Ext, $, AlgoViewApp, ace) {
 			
 				
