@@ -3,8 +3,8 @@
  * @author michael
  */
 define("JSUtils",
-["Exception", "AlreadyAllocatedSegmentException", "Exception", "BadVariableNameException", "IllegalArgumentException", "CannotApplyTestOperatorException", "InvalidAddressException", "CompilationError", "PartOfPrimitiveTypeException", "DoubleFreeException", "StackOverflowException", "EmptyStackException", "UnallocatedSegmentException", "ErrorInstructionException", "InfiniteLoopException", "UndeclaredItemException"],
-function(Exception, AlreadyAllocatedSegmentException, Exception, BadVariableNameException, IllegalArgumentException, CannotApplyTestOperatorException, InvalidAddressException, CompilationError, PartOfPrimitiveTypeException, DoubleFreeException, StackOverflowException, EmptyStackException, UnallocatedSegmentException, ErrorInstructionException, InfiniteLoopException, UndeclaredItemException) {
+[],
+function() {
 	var JSUtils = {
 		
 		throwException : function() {
