@@ -4,8 +4,8 @@
 	 * @author Michaël, Cédric
 	 */
 define("FloatMemoryValue",
-["IllegalArgumentException", "MemoryValue", "IntegerMemoryValue"],
-function(IllegalArgumentException, MemoryValue, IntegerMemoryValue) { 
+["IllegalArgumentException", "MemoryValue", "IntegerMemoryValue", "MemoryState"],
+function(IllegalArgumentException, MemoryValue, IntegerMemoryValue, MemoryState) { 
 	var FloatMemoryValue = function(value) {
 	
 		var typeOfValue = (typeof value);

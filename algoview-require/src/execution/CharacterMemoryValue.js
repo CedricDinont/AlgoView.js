@@ -4,8 +4,8 @@
  * @author Michaël, Cédric
  **/
 define("CharacterMemoryValue",
-["IllegalArgumentException", "MemoryValue"],
-function(IllegalArgumentException, MemoryValue) { 
+["IllegalArgumentException", "MemoryValue", "MemoryState"],
+function(IllegalArgumentException, MemoryValue, MemoryState) { 
 	var CharacterMemoryValue = function(value) {
 	
 		var typeOfValue = (typeof value);
