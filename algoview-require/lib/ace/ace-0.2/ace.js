@@ -14,7 +14,7 @@
 
 
 define("ace",
-[0],
+[],
 function() {
 
 	
