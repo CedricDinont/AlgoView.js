@@ -4,7 +4,7 @@
  */
 
 define("Exception",
-        [0],
+        [],
         function() {
             var Exception = function() {
             };

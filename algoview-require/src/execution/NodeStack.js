@@ -1,5 +1,5 @@
 define("NodeStack",
-[0],
+[],
 function() {
 	
 var NodeStack = function() {

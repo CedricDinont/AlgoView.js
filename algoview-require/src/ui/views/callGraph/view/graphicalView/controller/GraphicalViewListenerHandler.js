@@ -1,5 +1,5 @@
 define("GraphicalViewListenerHandler",
-[0],
+[],
 function() {
 
 GraphicalViewListenerHandler = function(model, svgId) { // MSO : ajouté svgId

@@ -1,7 +1,7 @@
 // MSO : ajouté containerId
 
 define("AbstractView",
-[0],
+[],
 function(){
 
 function AbstractView(containerId){

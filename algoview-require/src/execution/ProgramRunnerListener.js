@@ -5,7 +5,7 @@
  */
 
 define("ProgramRunnerListener",
-[0],
+[],
 function() {
 	
 	ProgramRunnerListener = function() {

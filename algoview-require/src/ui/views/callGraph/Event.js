@@ -1,5 +1,5 @@
 define("Event",
-[0],
+[],
 function(){
 
     function Event(model){

@@ -4,7 +4,7 @@
  */
  
 define("MathUtils",
-[0],
+[],
 function(){
 	var MathUtils = {
 		

@@ -4,7 +4,7 @@
  * @author michael
  */
 define("AbstractModel",
-[0],
+[],
 function() {
 	var AbstractModel = function() {	
 		this.views = [];

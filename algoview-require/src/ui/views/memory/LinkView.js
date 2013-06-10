@@ -8,7 +8,7 @@
  */
  
  define("LinkView",
-[0],
+[],
 function() {
 
 var LinkView = function(ctx, sourceUnit, destUnit){

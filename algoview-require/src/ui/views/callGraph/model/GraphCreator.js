@@ -1,5 +1,5 @@
 define("GraphCreator",
-[0],
+[],
 function(){
     GraphCreator = function(simpleGraph, programTree){
         this.graph = simpleGraph;

@@ -1,5 +1,5 @@
 define("AbstractNodeIterator",
-[0],
+[],
 function() {
     var AbstractNodeIterator = function (){}
 

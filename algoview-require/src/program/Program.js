@@ -1,5 +1,5 @@
 define("Program",
-[0],
+[],
 function(){
 	function Program(text) {
 		this.text = text;

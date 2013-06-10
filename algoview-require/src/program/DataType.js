@@ -1,5 +1,5 @@
 define("DataType",
-[0],
+[],
 function() {
 	/**
 	 * interface DataType : describes a data type

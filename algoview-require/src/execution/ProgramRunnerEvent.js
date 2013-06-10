@@ -1,5 +1,5 @@
 define("ProgramRunnerEvent",
-[0],
+[],
 function() {
 	
 ProgramRunnerEvent = function(source, type, text, exception) {

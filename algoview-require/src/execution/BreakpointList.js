@@ -1,5 +1,5 @@
 define("BreakpointList",
-[0],
+[],
 function() {
 	
 var BreakpointList = function() {

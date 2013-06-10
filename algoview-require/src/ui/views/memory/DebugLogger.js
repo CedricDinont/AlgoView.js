@@ -5,7 +5,7 @@
  */
  
  define("DebugLogger",
-[0], 
+[], 
 function() {
 
 

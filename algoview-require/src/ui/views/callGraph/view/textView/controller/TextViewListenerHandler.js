@@ -1,5 +1,5 @@
 define("TextViewListenerHandler",
-[0],
+[],
 function(){
     TextViewListenerHandler = function(model) {
         this.model = model;

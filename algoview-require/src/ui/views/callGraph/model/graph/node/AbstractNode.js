@@ -1,5 +1,5 @@
 define("AbstractNode",
-[0],
+[],
 function() {
     var AbstractNode = function() {};
 

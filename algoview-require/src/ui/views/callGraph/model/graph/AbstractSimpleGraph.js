@@ -1,5 +1,5 @@
 define("AbstractSimpleGraph",
-[0],
+[],
 function() {
     function AbstractSimpleGraph(directed){
 

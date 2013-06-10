@@ -1,5 +1,5 @@
 define("SimpleGraphException",
-[0],
+[],
 function(){
 
 function Exception(message){

@@ -1,5 +1,5 @@
 define("ExternalController",
-[0],
+[],
 function() {
 
 var ExternalController = function(algoViewApp) {
