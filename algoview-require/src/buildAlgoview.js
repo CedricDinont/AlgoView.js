@@ -13,7 +13,7 @@
     // il faut faire un appel explicite à require(["monmodule"],function(monModule){})
     findNestedDependencies: true,
     // pour un résultat plus blanc que blanc
-    optimize: "uglify2"
+    optimize: "none"
 })
 // howto:
 // sudo npm install -g requirejs
