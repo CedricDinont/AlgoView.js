@@ -1,13 +1,13 @@
 Ext.Loader.setConfig({
 	enabled: true,
 	paths: {
-		'Ext.ux.aceeditor': './ux/aceeditor'
+		//'Ext.ux.aceeditor': './ux/aceeditor'
 	}
 });
 
-Ext.require(['*']);
+//Ext.require(['*']);
 
-Ext.require([ 'Ext.ux.aceeditor.Panel' ]);
+//Ext.require([ 'Ext.ux.aceeditor.Panel' ]);
 
 var algoViewApp;
 var $j;
