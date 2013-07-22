@@ -10,7 +10,7 @@ function(Node) {
 	ExpressionListNode.prototype = new Node();
 	ExpressionListNode.prototype.constructor = ExpressionListNode;
 
-	ExpressionListNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	ExpressionListNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild < this.children.length) {
 			nodeStack.push(this.children[this.currentChild]);
 			this.currentChild++;

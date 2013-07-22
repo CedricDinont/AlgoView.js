@@ -1,6 +1,7 @@
 define("PrintNode",
-["Node", "ProgramRunnerEvent"],
-function(Node, ProgramRunnerEvent){
+["Node", "ProgramRunnerEvent", "StringNode"],
+function(Node, ProgramRunnerEvent, StringNode) {
+	
 	function PrintNode(tokenType, token, newLine) {	
 		Node.call(this, tokenType, token); 
 
@@ -20,20 +21,21 @@ function(Node, ProgramRunnerEvent){
 		return this.children[0];
 	}
 
-	PrintNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			nodeStack.push(this.getParameter());
-			this.currentChild++;
+	PrintNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild == 0) {
+			nodeContext.parameterContext = this.getParameter().createContext();
+			nodeStack.push(this.getParameter(), nodeContext.parameterContext);
+			nodeContext.currentChild++;
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			
 			var parameter = this.getParameter();
 			var outputText;
-			if (parameter.type && parameter.type == "STRING") {
+			if (parameter instanceof StringNode) {
 				var quotedText = parameter.getText();
 				outputText = quotedText.substring(1, quotedText.length - 1);
 			} else {
-				outputText = parameter.getValue();
+				outputText = nodeContext.parameterContext.getValue();
 			}
 			
 			// TODO: Protéger les caractères HTML : Attention au mode console
@@ -49,5 +51,6 @@ function(Node, ProgramRunnerEvent){
 		
 		return false;
 	}
-return PrintNode;
+	
+	return PrintNode;
 });

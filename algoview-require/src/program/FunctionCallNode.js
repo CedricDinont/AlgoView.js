@@ -1,13 +1,11 @@
 define("FunctionCallNode",
 ["ExpressionNode", "FunctionNotImplemented"],
-function(ExpressionNode, FunctionNotImplemented){
+function(ExpressionNode, FunctionNotImplemented) {
 	//ExpressionNode FunctionNotImplemented
 	function FunctionCallNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 		
 		this.functionNode;
-		
-		this.type = "FUNCTION_CALL";
 	}
 
 	// Prototype based inheritance
@@ -30,34 +28,35 @@ function(ExpressionNode, FunctionNotImplemented){
 		return true;
 	}
 
-	FunctionCallNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	FunctionCallNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 	//	console.log("Executing function call");
 
-		if (this.currentChild == 0) {
-			this.currentChild++;
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
 			nodeStack.push(this.getParameters());
-		} else if (this.currentChild == 1) {
-			this.currentChild++;
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
 
 			var functionNode = programRunner.getProgramTree().getFunction(this.getFunctionName(), this.getNumberOfParameters());
 			if (functionNode === undefined) {
 				throw new FunctionNotImplemented(getFunctionName(), this.getNumberOfParameters());
 	        }
-			this.functionNode = functionNode.clone();
+			//this.functionNode = functionNode.clone();
 			
 		//	console.log("Model", functionNode.currentChild, functionNode.getInstructions().currentChild);
 		//	console.log("Clone", this.functionNode.currentChild, this.functionNode.getInstructions().currentChild);
 			
-			this.functionNode.setParametersValues(this.getParameters());
+			nodeContext.setParametersValues(this.getParameters());
 			nodeStack.push(this.functionNode);
 		} else {
 			this.currentChild = 0;
-			this.setValue(this.functionNode.getValue());
+			nodeContext.setValue(nodeContext.getValue());
 			nodeStack.pop();
 		}
 		
 	//	nodeStack.print();
 		return false;
 	}
-return FunctionCallNode;
+	
+	return FunctionCallNode;
 });

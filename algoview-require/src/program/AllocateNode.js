@@ -18,17 +18,17 @@ function(ExpressionNode, PointerMemoryValue, MemoryValue, CannotConvertTo) {
 		return this.children[1];
 	}
 
-	AllocateNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			++this.currentChild;
+	AllocateNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild == 0) {
+			++nodeContext.currentChild;
 			nodeStack.push(this.getVariableTypeNode());
-		} else if (this.currentChild == 1) {
-			++this.currentChild;
+		} else if (nodeContext.currentChild == 1) {
+			++nodeContext.currentChild;
 			if (this.getSize() != undefined) {
 				nodeStack.push(this.getSize());
 			}
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			
 			var size = undefined;
 			if (this.getSize() != undefined) {
@@ -44,11 +44,12 @@ function(ExpressionNode, PointerMemoryValue, MemoryValue, CannotConvertTo) {
 			
 			var dataTypeNode = this.getVariableTypeNode();
 			var address = memory.malloc(dataTypeNode.dataType, size);
-			this.setValue(new PointerMemoryValue(address));
+			nodeContext.setValue(new PointerMemoryValue(address));
 			nodeStack.pop();
 		}
 		
 		return false;
 	}
-return AllocateNode;
+	
+	return AllocateNode;
 });

@@ -14,7 +14,7 @@ function(Node, JSUtils) {
 		return this.children[0];
 	}
 
-	ErrorNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	ErrorNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		var message = this.getMessage();
 		
 		//console.log(message.getText());

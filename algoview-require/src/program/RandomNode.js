@@ -16,7 +16,7 @@ function(ExpressionNode, CannotConvertTo, IntegerMemoryValue){
 		return this.children[0];
 	}
 
-	RandomNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	RandomNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			this.currentChild++;
 			nodeStack.push(this.getLimitExpression());

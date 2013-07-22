@@ -13,18 +13,20 @@ function(ExpressionNode) {
 		return this.children[0];
 	}
 
-	ConditionNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getExpression());
+	ConditionNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.expressionContext = this.getExpression().createContext();
+			nodeStack.push(this.getExpression(), nodeContext.expressionContext);
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			
-			this.setValue(this.getExpression().getValue());
+			nodeContext.setValue(nodeContext.expressionContext.getValue());
 		}
 
 		return false;
 	}
-return ConditionNode;
+	
+	return ConditionNode;
 });

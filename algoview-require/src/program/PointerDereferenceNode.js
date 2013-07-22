@@ -19,7 +19,7 @@ function(AssignableNode){
 		return this.children[1];
 	}
 
-	PointerDereferenceNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	PointerDereferenceNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			this.currentChild++;
 			nodeStack.push(this.getVariable());

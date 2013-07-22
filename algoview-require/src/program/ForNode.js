@@ -53,7 +53,7 @@ function(MemoryValue, Node, ArithmeticExpressionNode, AssignNode, TestNode, Inva
 	}
 
 
-	ForNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	ForNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		// console.log("ForNode", this.currentChild);
 		if (this.currentChild == 0) {
 			// Affectation de la valeur initiale à la variable de boucle

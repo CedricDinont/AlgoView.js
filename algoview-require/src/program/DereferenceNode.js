@@ -9,7 +9,7 @@ function(ExpressionNode) {
 	DereferenceNode.prototype = new ExpressionNode();
 	DereferenceNode.prototype.constructor = DereferenceNode;
 
-	DereferenceNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	DereferenceNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		nodeStack.pop();
 		return false;
 	}

@@ -10,7 +10,7 @@ function(PointerMemoryValue, ExpressionNode){
 	NullPointerNode.prototype = new ExpressionNode();
 	NullPointerNode.prototype.constructor = NullPointerNode;
 
-	NullPointerNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	NullPointerNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		this.setValue(PointerMemoryValue.NIL);
 		nodeStack.pop();
 		return false;

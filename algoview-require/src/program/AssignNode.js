@@ -1,6 +1,6 @@
 define("AssignNode",
-["ExpressionNode", "PointerMemoryValue", "CannotConvertTo", "ArrayDataType"],
-function(ExpressionNode, PointerMemoryValue,CannotConvertTo, ArrayDataType) {
+["ExpressionNode", "PointerMemoryValue", "CannotConvertTo", "ArrayDataType", "ExpressionNodeContext"],
+function(ExpressionNode, PointerMemoryValue, CannotConvertTo, ArrayDataType, ExpressionNodeContext) {
 
 	function AssignNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
@@ -13,20 +13,34 @@ function(ExpressionNode, PointerMemoryValue,CannotConvertTo, ArrayDataType) {
 	AssignNode.prototype.getVariable = function() {
 		return this.children[0];
 	}
+	
+	AssignNode.prototype.getVariableContext = function(nodeContext) {
+		return nodeContext.children[1];
+	}
 
 	AssignNode.prototype.getExpression = function() {
 		return this.children[1];
 	}
+	
+	AssignNode.prototype.getExpressionContext = function(nodeContext) {
+		return nodeContext.children[0];
+	}
 
-	AssignNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getExpression());
-		} else if (this.currentChild == 1) {
-			this.currentChild++;
-			nodeStack.push(this.getVariable());
-		} else if (this.currentChild == 2) {
-			this.currentChild++;
+	AssignNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			var expressionNode = this.getExpression();
+			var expressionNodeContext  = expressionNode.createContext();
+			nodeContext.addChild(expressionNodeContext);
+			nodeStack.push(expressionNode, expressionNodeContext);
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
+			var variableNode = this.getVariable();
+			var variableNodeContext = variableNode.createContext();
+			nodeContext.addChild(variableNodeContext);
+			nodeStack.push(variableNode, variableNodeContext);
+		} else if (nodeContext.currentChild == 2) {
+			nodeContext.currentChild++;
 			if (this.getExpression().containsFunctionCall()) {
 				// console.log("AssignNode contains function call.");
 				return true;
@@ -35,28 +49,29 @@ function(ExpressionNode, PointerMemoryValue,CannotConvertTo, ArrayDataType) {
 				return false;
 			}
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			
-			var expressionMemoryValue = this.getExpression().getValue();
+			var expressionMemoryValue = this.getExpressionContext(nodeContext).getValue();
 			
-			var expressionDataType = this.getExpression().dataType;
+			var expressionDataType = this.getExpressionContext(nodeContext).dataType;
 			// console.log(expressionDataType, expressionMemoryValue);
 			if (expressionDataType instanceof ArrayDataType) {
-				expressionMemoryValue = new PointerMemoryValue(this.getExpression().getAddress());
+				expressionMemoryValue = new PointerMemoryValue(this.getExpressionContext(nodeContext).getAddress());
 			}
 			
-			var resultType = this.getVariable().memoryValue.type;
+			var resultType = this.getVariableContext(nodeContext).memoryValue.type;
 			
 			var expressionMemoryValueAsResultType = expressionMemoryValue.convertTo(resultType);
 			if (expressionMemoryValueAsResultType == undefined) {
 				throw new CannotConvertTo(resultType);
 			}
 
-			memory.setValue(this.getVariable().getAddress(), expressionMemoryValueAsResultType);
-			this.setValue(expressionMemoryValueAsResultType);
+			memory.setValue(this.getVariableContext(nodeContext).getAddress(), expressionMemoryValueAsResultType);
+			nodeContext.setValue(expressionMemoryValueAsResultType);
 			nodeStack.pop();
 		}
 		return false;
 	}
-return AssignNode;
+	
+	return AssignNode;
 });

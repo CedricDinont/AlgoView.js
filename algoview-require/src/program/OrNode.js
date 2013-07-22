@@ -18,7 +18,7 @@ function(MemoryValue, ExpressionNode, CannotConvertTo, BooleanMemoryValue){
 		return this.children[1];
 	}
 
-	OrNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	OrNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			nodeStack.push(this.getLeftOperand());
 			this.currentChild++;

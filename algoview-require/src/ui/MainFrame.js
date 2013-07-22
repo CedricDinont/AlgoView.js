@@ -1,6 +1,6 @@
 define("MainFrame",
-["Ext", "JSUtils", "MemoryGraphicalView", "StackTableView", "HeapTableView", "ProgramTreeView", "ExtUxAceEditor", "ExtUxAceEditorPanel"],
-function(Ext, JSUtils, MemoryGraphicalView, StackTableView, HeapTableView, ProgramTreeView) {
+["Ext", "JSUtils", "MemoryGraphicalView", "StackTableView", "HeapTableView", "ProgramTreeView", "ExtUxAceEditor", "ExtUxAceEditorPanel", "Exception"],
+function(Ext, JSUtils, MemoryGraphicalView, StackTableView, HeapTableView, ProgramTreeView, Exception) {
 
 var MainFrame = function(algoViewApp, layoutName) {
 	this.app = algoViewApp;
@@ -736,7 +736,13 @@ var MainFrame = function(algoViewApp, layoutName) {
 				Ext.getCmp('editor-1').popCurrentLine();
 				break;
 			case "EXCEPTION":
-				$j('#outputPanel-body').append("<hr /><div class='programRunnerErrorMessage'><div>Error during program execution.</div><div>" + event.exception.wrappedException.toString() + "</div></div>");
+				var message;
+				if (event.exception instanceof Exception) {
+					message = event.exception.wrappedException.toString();
+				} else {
+					message = event.exception;
+				}
+				$j('#outputPanel-body').append("<hr /><div class='programRunnerErrorMessage'><div>Error during program execution.</div><div>" + message + "</div></div>");
 				this.app.stopProgram(false);
 				break;
 		}

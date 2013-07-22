@@ -22,7 +22,7 @@ function(MemoryValue, Node){
 			return this.children[2];
 	}
 
-	IfNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	IfNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			this.currentChild++;
 			nodeStack.push(this.getCondition());

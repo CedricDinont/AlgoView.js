@@ -1,7 +1,7 @@
 define("GraphCreator",
 [],
 function(){
-    GraphCreator = function(simpleGraph, programTree){
+    GraphCreator = function(simpleGraph, programTree) {
         this.graph = simpleGraph;
         this.tree = programTree;
         this.allFunctionNodeName = this.createFunctionNodeList(this.getFunctionListNode(programTree));
@@ -52,6 +52,7 @@ function(){
      */
     GraphCreator.prototype.createFunctionNodeList = function(functionListNode) {
         var allFunctionNodeName = {};
+        /*  Commenté pour passer la minification TODO : A revoir
         for (var i = 0; i < functionListNode.children.length; i++) {
             if (functionListNode.children[i].constructor.name === "FunctionNode" && functionListNode.children[i].getName() === "main") {
                 allFunctionNodeName[functionListNode.children[i].getName()] = {nodeId: (1), functionNode: functionListNode.children[i]};
@@ -61,7 +62,7 @@ function(){
             if (functionListNode.children[i].constructor.name === "FunctionNode" && functionListNode.children[i].getName() !== "main") {
                 allFunctionNodeName[functionListNode.children[i].getName()] = {nodeId: (i + 2), functionNode: functionListNode.children[i]};
             }
-        }
+        } */
         return allFunctionNodeName;
     };
 

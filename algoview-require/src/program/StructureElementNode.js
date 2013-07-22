@@ -18,7 +18,7 @@ function(AssignableNode){
 		return this.children[1];
 	}
 	
-	StructureElementNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	StructureElementNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			this.currentChild++;
 			nodeStack.push(this.getVariable());

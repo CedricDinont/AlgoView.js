@@ -17,7 +17,7 @@ function(AssignableNode, PointerDataType, ArrayDataType, NotAnArrayException, Tr
 		return this.children[1];
 	}
 
-	ArrayElementNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	ArrayElementNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			this.currentChild++;
 			nodeStack.push(this.getVariable());

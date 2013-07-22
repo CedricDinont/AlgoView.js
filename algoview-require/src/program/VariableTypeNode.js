@@ -23,12 +23,12 @@ define("VariableTypeNode",
 		return this.dataType;
 	}
 	
-	VariableTypeNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	VariableTypeNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		var dataType = this.getDataType();
 		
 		//console.log("Executing variable type node", this);
 		
-		if (dataType.type == "STRUCTURE_DATA_TYPE") {
+		if (dataType instanceof StructureDataType) {
 			var structureDeclarationNode = programRunner.findStructureDeclarationNode(dataType.getStructureName());
 			dataType.setStructureDeclarationNode(structureDeclarationNode);
 		}
@@ -36,5 +36,6 @@ define("VariableTypeNode",
 		nodeStack.pop();
 		return false;
 	}
+	
 	return VariableTypeNode;
 });

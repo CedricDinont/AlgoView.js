@@ -1,7 +1,7 @@
 define("ReturnNode",
 ["ExpressionNode"],
-function(ExpressionNode){
-	//ExpressionNode
+function(ExpressionNode) {
+
 	function ReturnNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 	}
@@ -14,26 +14,27 @@ function(ExpressionNode){
 		return this.children[0];
 	}
 
-	ReturnNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
+	ReturnNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
 			if (this.getReturnExpression() != undefined) {
 				nodeStack.push(this.getReturnExpression());
 			}
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			var currentStackNode;
-			while ((currentStackNode = nodeStack.peek()).type != "FUNCTION_NODE") {
-				currentStackNode.currentChild = 0;
+			while (!((currentStackNode = nodeStack.peek()).programNode instanceof FunctionNode)) {
+				currentStackNode.contextNode.currentChild = 0;
 				nodeStack.pop();
 			}
-			var functionNode = nodeStack.peek();
-			functionNode.returnExecuted = true;
+			var functionNodeStackElement = nodeStack.peek();
+			functionNodeStackElement.contextNode.returnExecuted = true;
 			if (this.getReturnExpression() != undefined) {
-				functionNode.setValue(this.getReturnExpression().getValue());
+				functionNodeStackElement.contextNode.setValue(nodeContext.getReturnExpressionValue());
 			}
 		}
 		return false;
 	}
-return ReturnNode;
+	
+	return ReturnNode;
 });

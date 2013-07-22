@@ -1,6 +1,7 @@
 define("AddressNode",
 ["ExpressionNode", "PointerMemoryValue"],
 function(ExpressionNode, PointerMemoryValue) {
+	
 	function AddressNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 	}
@@ -13,18 +14,18 @@ function(ExpressionNode, PointerMemoryValue) {
 		return this.children[0];
 	}
 
-	AddressNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getVariable());
+	AddressNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.variableContext = this.getVariable().createContext();
+			nodeStack.push(this.getVariable(), nodeContext.variableContext);
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
-			this.setValue(new PointerMemoryValue(this.getVariable().getAddress()));
+			nodeContext.setValue(new PointerMemoryValue(nodeContext.variableContext.getAddress()));
 		}
 		return false;
 	}
-
 
 	return AddressNode;
 });

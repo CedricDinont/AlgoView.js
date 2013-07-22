@@ -28,7 +28,7 @@ function(Node, CannotConvertTo, MemoryValue) {
 		this.clonedInstructions = this.getInstructions().clone();
 	}
 
-	DoWhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	DoWhileNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			this.currentChild++;
 			this.cloneInstructions();

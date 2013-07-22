@@ -1,6 +1,6 @@
 define("ProgramNode",
-["Node", "ProgramRunnerEvent"],
-function(Node, ProgramRunnerEvent){
+["Node", "ProgramRunnerEvent", "FunctionNodeContext"],
+function(Node, ProgramRunnerEvent, FunctionNodeContext) {
 	//Node, ProgramRunnerEvent
 	function ProgramNode(tokenType, token) {	
 		Node.call(this, tokenType, token); 
@@ -39,14 +39,14 @@ function(Node, ProgramRunnerEvent){
 		return undefined;
 	}
 
-	ProgramNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getMainFunction());
+	ProgramNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeStack.push(this.getMainFunction(), new FunctionNodeContext());
 	        programRunner.notifyListeners(new ProgramRunnerEvent(programRunner, "STARTED_PROGRAM"));
 	        return false;
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			programRunner.state = "STOPPED";
 	        programRunner.notifyListeners(new ProgramRunnerEvent(programRunner, "STOPPED_PROGRAM"));

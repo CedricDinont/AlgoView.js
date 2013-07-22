@@ -9,9 +9,10 @@ function(Node) {
 	EndNode.prototype = new Node();
 	EndNode.prototype.constructor = EndNode;
 
-	EndNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	EndNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		nodeStack.pop();
 		return false;
 	}
-return EndNode;
+	
+	return EndNode;
 });

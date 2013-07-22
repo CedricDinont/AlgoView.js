@@ -14,7 +14,7 @@ function(ExpressionNode){
 		return this.children[0];
 	}
 	
-	UnaryMinusNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	UnaryMinusNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			nodeStack.push(this.getExpression());
 			this.currentChild++;

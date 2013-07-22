@@ -1,14 +1,9 @@
 define("FunctionNode",
 ["ExpressionNode", "ProgramRunnerEvent", "AssignNode", "VariableNameNode", "MemoryValue", "FunctionRequiresReturnValue", "MemoryState"],
-function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, MemoryValue, FunctionRequiresReturnValue, MemoryState){
+function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, MemoryValue, FunctionRequiresReturnValue, MemoryState) {
 
 	function FunctionNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
-		
-		this.parametersValues;
-		this.returnExecuted = false;
-		
-		this.type = "FUNCTION_NODE";
 	}
 
 	// Prototype based inheritance
@@ -51,12 +46,12 @@ function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, Memor
 		return this.children[6];
 	}
 
-	FunctionNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	FunctionNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 	//	console.log("Execute function node", this);
 	//	nodeStack.print();
 		
-		if (this.currentChild == 0) {
-			this.currentChild++;
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
 
 			var event = new ProgramRunnerEvent(programRunner, "ENTERING_FUNCTION");
 			programRunner.notifyListeners(event);
@@ -80,8 +75,8 @@ function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, Memor
 			}
 			
 			return false;
-		} else if (this.currentChild == 1) {
-			this.currentChild++;
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
 			nodeStack.push(this.getBegin());
 			
 			if (programRunner.stopAtBegin) {
@@ -89,31 +84,31 @@ function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, Memor
 			} else {
 				return false;
 			}
-		} else if (this.currentChild == 2) {
-			this.currentChild++;
+		} else if (nodeContext.currentChild == 2) {
+			nodeContext.currentChild++;
 		
 			nodeStack.push(this.getInstructions());	
-		} else if (this.currentChild == 3) {
-			this.currentChild++;
+		} else if (nodeContext.currentChild == 3) {
+			nodeContext.currentChild++;
 				
 			nodeStack.push(this.getEnd());
 				
-			if (this.returnExecuted === true) {
+			if (nodeContext.returnExecuted === true) {
 				return false;
 			} else {
 				return true;
 			}
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			
 			var returnType = this.getReturnType();
 			if (returnType == undefined) {
 				// We are a procedure: no return value
-				this.setValue(new MemoryValue(undefined, MemoryState.UNDEFINED));
+				nodeContext.setValue(new MemoryValue(undefined, MemoryState.UNDEFINED));
 			} else {
 				// We are a function: check if a return node has set our value
-				if (this.getValue() == undefined) {
+				if (nodeContext.getValue() == undefined) {
 					throw new FunctionRequiresReturnValue(this.getName());
 				}
 			}
@@ -149,7 +144,6 @@ function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, Memor
 	}
 
 	FunctionNode.prototype.destroyVariables = function(stack) {
-
 		var localVariablesList = this.getLocalVariableDeclarations();
 		for (var currentVariable = 0; currentVariable < localVariablesList.children.length; currentVariable++) {
 			stack.pop();
@@ -163,12 +157,11 @@ function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, Memor
 		}
 		
 		stack.popFunctionCall();
-
 	}
 
 	FunctionNode.prototype.setParametersValues = function(parametersValues) {
 		this.parametersValues = parametersValues;
 	}
 
-return FunctionNode;
+	return FunctionNode;
 });

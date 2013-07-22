@@ -14,7 +14,7 @@ function(ExpressionNode, CannotConvertTo, BooleanMemoryValue){
 		return this.children[0];
 	}
 
-	NotNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	NotNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			nodeStack.push(this.getOperand());
 			this.currentChild++;

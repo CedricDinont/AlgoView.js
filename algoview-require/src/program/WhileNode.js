@@ -1,11 +1,8 @@
 define("WhileNode",
 ["MemoryValue", "Node", "CannotConvertTo"],
-function(MemoryValue, Node, CannotConvertTo){
+function(MemoryValue, Node, CannotConvertTo) {
 		var WhileNode = function(tokenType, token) {	
 		Node.call(this, tokenType, token);
-		
-		this.clonedCondition;
-		this.clonedInstructions;
 	}
 	
 	// Prototype based inheritance
@@ -15,34 +12,26 @@ function(MemoryValue, Node, CannotConvertTo){
 		return this.children[0];
 	}
 	
-	WhileNode.prototype.cloneCondition = function() {
-		this.clonedCondition = this.getCondition().clone();
-	}
-	
 	WhileNode.prototype.getInstructions = function() {
 		return this.children[1];
 	}
 	
-	WhileNode.prototype.cloneInstructions = function() {
-		this.clonedInstructions = this.getInstructions().clone();
-	}
-	
-	WhileNode.prototype.execute = function(memory, nodeStack, programRunner) {
-		if ((this.currentChild == 0) || (this.currentChild == 2)) {
-			this.cloneCondition();
-			nodeStack.push(this.clonedCondition);
+	WhileNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if ((nodeContext.currentChild == 0) || (nodeContext.currentChild == 2)) {
+			nodeContext.conditionContext = this.getCondition().createContext();
+			nodeStack.push(this.getCondition(), nodeContext.conditionContext);
 			
-			if (this.currentChild == 0) {
-				this.currentChild++;
+			if (nodeContext.currentChild == 0) {
+				nodeContext.currentChild++;
 				return false;
 			} else {
-				this.currentChild--;
+				nodeContext.currentChild--;
 				return true;
 			}
-		} else if (this.currentChild == 1) {
-			this.currentChild++;
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
 		
-			var testMemoryValue = this.clonedCondition.getValue();
+			var testMemoryValue = nodeContext.conditionContext.getValue();
 			var testMemoryValueAsBoolean = testMemoryValue.convertTo(MemoryValue.BOOLEAN);
 			
 			if (testMemoryValueAsBoolean == undefined) {
@@ -52,8 +41,7 @@ function(MemoryValue, Node, CannotConvertTo){
 			var testValueAsBoolean = testMemoryValueAsBoolean.getPrimitiveValue();
 			//console.log("Test value", testValueAsBoolean);
 			if (testValueAsBoolean) {
-				this.cloneInstructions();
-				nodeStack.push(this.clonedInstructions);
+				nodeStack.push(this.getInstructions());
 			} else {
 				nodeStack.pop();
 			}
@@ -61,5 +49,6 @@ function(MemoryValue, Node, CannotConvertTo){
 		
 		return false;
 	}
+	
 	return WhileNode;
 });

@@ -12,7 +12,7 @@ function() {
 
 	}
 
-	ProgramRunnerListener.prototype.programChanged = function(programRunnerEvent){
+	ProgramRunnerListener.prototype.programChanged = function(programRunnerEvent) {
 		// should be overridden
 	}
 

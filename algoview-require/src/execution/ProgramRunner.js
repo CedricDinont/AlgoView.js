@@ -1,7 +1,14 @@
   define("ProgramRunner",
-["Program", "JSUtils", "CompilationError", "SimpleLanguageLexer", "SimpleLanguageParser", "VariablesDeclarationListNode", "VariableDeclarationNode", "VariableNameNode", "StructureDataType", "Memory", "NodeStack", "ProgramRunnerEvent", "BreakpointList"],
-function(Program, JSUtils, CompilationError, SimpleLanguageLexer, SimpleLanguageParser, VariablesDeclarationListNode, VariableDeclarationNode, VariableNameNode, StructureDataType, Memory, NodeStack, ProgramRunnerEvent, BreakpointList) {
-
+["Program", "JSUtils", "CompilationError", "SimpleLanguageLexer", 
+"SimpleLanguageParser", "VariablesDeclarationListNode", 
+"VariableDeclarationNode", "VariableNameNode", "StructureDataType", 
+"Memory", "NodeStack", "ProgramRunnerEvent", "BreakpointList", 
+"NodeContext", "NodeStackElement", "FunctionNode"],
+function(Program, JSUtils, CompilationError, SimpleLanguageLexer, 
+SimpleLanguageParser, VariablesDeclarationListNode, 
+VariableDeclarationNode, VariableNameNode, StructureDataType, 
+Memory, NodeStack, ProgramRunnerEvent, BreakpointList, 
+NodeContext, NodeStackElement, FunctionNode) {
 
 var ProgramRunner = function(program, memorySize) {
 	this.program = program;
@@ -31,7 +38,9 @@ var ProgramRunner = function(program, memorySize) {
 	this.instructionCounter = 0;
 	
 	org.antlr.runtime.BaseRecognizer.prototype.emitErrorMessage = function (msg) {
-		console.log(msg);
+		if (DEBUG) {
+			console.log(msg);
+		}
 		//$j('#outputPanel-body').html("<div class='error-message'>" + msg + "</div>"); A REMETTRE
 		algoViewApp.programRunner.errors.push(msg);
 	};
@@ -186,7 +195,7 @@ ProgramRunner.prototype.findStructureDeclarationNode = function(structureName) {
 // Fin à placer ailleurs
 
 ProgramRunner.prototype.start = function() {
-	this.nodeStack.push(this.programTree);
+	this.nodeStack.push(this.programTree, new NodeContext());
 	
 	this.state = "RUNNING";
 	
@@ -212,12 +221,12 @@ ProgramRunner.prototype.stopProgram = function(doReset) {
 	
 	// On vide la pile
 	while (!this.nodeStack.isEmpty()) {
-		currentNode = this.nodeStack.pop();
+		currentStackElement = this.nodeStack.pop();
 	}
 	
 	// On remet le noeud program sur la pile
-	currentNode.setExecuted(false);
-	this.nodeStack.push(currentNode);
+	currentStackElement.contextNode.setExecuted(false);
+	this.nodeStack.push(currentStackElement.programNode, currentStackElement.contextNode);
 	
 	if (doReset == false) {
 		this.stopOnException = true;
@@ -255,27 +264,29 @@ ProgramRunner.prototype.stepInFunctions = function(alreadyInMemorytransaction) {
 ProgramRunner.prototype.stepOverFunctions = function() {
 	var stackLevelBeforeStepOver = this.nodeStack.level();
 	var self = this;
-	var lineBeforeStepOver = this.nodeStack.peek().getFilePosition();
+	var lineBeforeStepOver = this.nodeStack.peek().programNode.getFilePosition();
 	var currentLine = lineBeforeStepOver;
 	
 	this.memory.beginTransaction();
 	this.instructionCounter = 0;
 
-	console.log(currentLine, lineBeforeStepOver);
-
-	console.log("Stack before step over");
-	this.nodeStack.print();
+	if (DEBUG) {
+		console.log("Stack before step over");
+		this.nodeStack.print();
+	}
 
 	while (currentLine == lineBeforeStepOver) {
 		this.stepInFunctions(true);
-		
-		console.log("Stack after step in");
-		this.nodeStack.print();
+
+		if (DEBUG) {
+			console.log("Stack after step in");
+			this.nodeStack.print();
+		}
 		
 		var enteredFunction = false;
 		var currentLevel = this.nodeStack.level() - 1;
 		while (currentLevel >= stackLevelBeforeStepOver) {
-			if (this.nodeStack.getItem(currentLevel).type == "FUNCTION_NODE") {
+			if (this.nodeStack.getItem(currentLevel).programNode instanceof FunctionNode) {
 				enteredFunction = true;
 			}
 			--currentLevel;
@@ -287,7 +298,7 @@ ProgramRunner.prototype.stepOverFunctions = function() {
 		if (this.nodeStack.level() == 0) {
 			break;
 		}
-		currentLine = this.nodeStack.peek().getFilePosition();
+		currentLine = this.nodeStack.peek().programNode.getFilePosition();
 	}
 	
 	this.memory.endTransaction();
@@ -297,7 +308,7 @@ ProgramRunner.prototype.stepOutCurrentFunction = function(alreadyInMemorytransac
 	// Recherche du noeud correspondant à la fonction dans laquelle on se trouve
 	var currentNodeStackLevel = this.nodeStack.level();
 	var currentFunctionNode;
-	while ((currentFunctionNode = this.nodeStack.getItem(currentNodeStackLevel - 1)).type != "FUNCTION_NODE") {
+	while (!((currentFunctionNode = this.nodeStack.getItem(currentNodeStackLevel - 1)).programNode instanceof FunctionNode)) {
 		currentNodeStackLevel--;
 	}
 	
@@ -338,7 +349,7 @@ ProgramRunner.prototype.continueToNextBreakpoint = function() {
 	this.memory.beginTransaction();	
 	this.instructionCounter = 0;
 	this.doStep(function(currentNode) {
-		var currentFilePosition = self.nodeStack.peek().getFilePosition();
+		var currentFilePosition = self.nodeStack.peek().programNode.getFilePosition();
 		if (self.breakpoints.isBreakpoint(currentFilePosition)) {
 			return true;
 		} else {
@@ -367,9 +378,15 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 	 * Si on stoppe, on crée un événement DONE_STEP.
 	 */ 
 	while ((! stop) && (! this.nodeStack.isEmpty())) {
-		var currentNode = this.nodeStack.peek();
+		var currentNodeStackElement = this.nodeStack.peek();
+		var currentNode = currentNodeStackElement.programNode;
+		var currentNodeContext = currentNodeStackElement.contextNode;
 
-		if (currentNode.isExecuted()) {
+		if (DEBUG) {
+			console.log(currentNodeStackElement);
+		}
+		
+		if (currentNodeContext.isExecuted()) {
 			this.nodeStack.pop();
 			continue;
 		}
@@ -377,7 +394,7 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 		var stopPoint = true;
 		
 		try {
-			stopPoint = currentNode.execute(this.memory, this.nodeStack, this);
+			stopPoint = currentNode.execute(currentNodeContext, this.memory, this.nodeStack, this);
 			
 			// Infinite loop detection in the Simple Language program
 			this.instructionCounter++;
@@ -385,7 +402,7 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 				JSUtils.throwException("InfiniteLoopException");	
 			}
 		} catch (e) {
-			console.log("Exception during node execution", currentNode, currentNode.getFilePosition(), e);
+			console.log("Exception during node execution", currentNode, currentNode.getFilePosition(), currentNodeContext, e, e.stack);
 			//var instructionEvent = new ProgramRunnerEvent(this, "DONE_INSTRUCTION");
             //instructionEvent.setFilePosition(currentNode.getFilePosition());
             //this.notifyListeners(instructionEvent);
@@ -397,7 +414,8 @@ ProgramRunner.prototype.doStep = function(stopChecker) {
 
 		if (stopPoint) {
 			// Attention, ne pas utiliser currentNode car il y a eu de nouveaux noeuds sur la pile depuis son exécution
-			var newCurrentNode = this.nodeStack.peek();	
+			var newCurrentNodeStackElement = this.nodeStack.peek();
+			var newCurrentNode = newCurrentNodeStackElement.programNode;
             var event = new ProgramRunnerEvent(this, "DONE_INSTRUCTION");
             event.setFilePosition(newCurrentNode.getFilePosition());
             this.notifyListeners(event);

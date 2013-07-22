@@ -8,7 +8,7 @@
  */
 define("VariableNameNode",
 ["AssignableNode"],
-function(AssignableNode){ 
+function(AssignableNode) { 
 	function VariableNameNode(tokenType, token, name) {	
 	
 		AssignableNode.call(this, tokenType, token);	
@@ -29,15 +29,15 @@ function(AssignableNode){
 		this.name = name;
 	}
 	
-	VariableNameNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	VariableNameNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		var variableName = this.getName();
 		var variable = memory.getStack().findVariable(variableName);
 	
-		this.setAddress(variable.getAddress());
-		this.setDataType(variable.getDataType());
+		nodeContext.setAddress(variable.getAddress());
+		nodeContext.setDataType(variable.getDataType());
 	
 		var value = variable.getValue();
-		this.setValue(value);
+		nodeContext.setValue(value);
 	
 		nodeStack.pop();
 	

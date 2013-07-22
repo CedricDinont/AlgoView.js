@@ -1,29 +1,21 @@
 define("ExpressionNode",
-["Node"],
-function(Node) {
+["Node", "ExpressionNodeContext"],
+function(Node, ExpressionNodeContext) {
 	function ExpressionNode(tokenType, token) {	
 		Node.call(this, tokenType, token); 
-
-		this.memoryValue;
 	}
 
 	// Prototype based inheritance
 	ExpressionNode.prototype = new Node();
 	ExpressionNode.prototype.constructor = ExpressionNode;
 
-	ExpressionNode.prototype.getValue = function() {
-		return this.memoryValue;
-	}
-
-	ExpressionNode.prototype.setValue = function(memoryValue) {
-		this.memoryValue = memoryValue;
-	}
-
 	ExpressionNode.prototype.containsFunctionCall = function() {
+		var FunctionCallNode = (FunctionCallNode == undefined) ? require("FunctionCallNode") : FunctionCallNode;
+		
 		for (var i in this.children) {
 			var currentChild = this.children[i];
 			
-			if (currentChild.type == "FUNCTION_CALL") {
+			if (currentChild instanceof FunctionCallNode) {
 				return true;
 			}
 
@@ -35,5 +27,10 @@ function(Node) {
 		}
 		return false;
 	}
-return ExpressionNode;
+	
+	ExpressionNode.prototype.createContext = function() {
+		return new ExpressionNodeContext();
+	}
+	
+	return ExpressionNode;
 });

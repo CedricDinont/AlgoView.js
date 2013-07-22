@@ -116,6 +116,11 @@ requirejs.config({
         ProgramRunnerEvent: "execution/ProgramRunnerEvent",
         ProgramRunnerListener: "execution/ProgramRunnerListener",
         NodeStack: "execution/NodeStack",
+        NodeStackElement: 'execution/NodeStackElement',
+        NodeContext: 'execution/NodeContext',
+        ExpressionNodeContext: 'execution/ExpressionNodeContext',
+        FunctionNodeContext: 'execution/FunctionNodeContext',
+        AssignableNodeContext: 'execution/AssignableNodeContext',
         BreakpointList: "execution/BreakpointList",
         Stack: "execution/Stack",
         Heap: "execution/Heap",
@@ -230,12 +235,11 @@ var $j;
 
 require(["ExtInit", 'jQuery', "AlgoViewApp", "aceinit"],
         function(Ext, $, AlgoViewApp, ace) {
-			
-				
-
-                    
-	console.log("AlgoView classes successfully loaded.");
-	console.log("Initializing GUI...");
+     
+    if (DEBUG) {
+		console.log("AlgoView classes successfully loaded.");
+		console.log("Initializing GUI...");
+	}
 
 	$j = jQuery.noConflict();
 	
@@ -268,11 +272,7 @@ require(["ExtInit", 'jQuery', "AlgoViewApp", "aceinit"],
 		regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
 		return regex.test(jQuery(elem)[attr.method](attr.property));
 	} 
-               
-            
-			
- 
-    
+
 });
 
 

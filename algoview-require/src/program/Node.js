@@ -6,8 +6,8 @@
  */
 
 define("Node",
-['antlr'],
-function(){
+['antlr', "NodeContext"],
+function(antlr, NodeContext) {
 	function Node(tokenType, token) {
 
 		if (token === undefined) {
@@ -15,9 +15,7 @@ function(){
 		}
 
 		org.antlr.runtime.tree.CommonTree.call(this, token); 
-
-		this.currentChild = 0;
-		this.executed = false;
+		
 		this.children = new Array();
 	}
 
@@ -37,21 +35,15 @@ function(){
 		return this.executed;
 	}
 
-	Node.prototype.execute = function(memory, nodeStack, programRunner) {
+	Node.prototype.createContext = function() {
+		return new NodeContext();
+	}
+
+	Node.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		console.log('Executing ', this);
 		nodeStack.pop();
 		return false;
 	}
 
-	// TODO: Faire un clone ad hoc qui ne recopie pas tout l'arbre
-	Node.prototype.clone = function() {
-		var newNode = jQuery.extend(true, {}, this);
-
-		for (var i = 0; i < this.children.length; i++) {
-			newNode.children[i] = this.children[i].clone();
-		}
-
-		return newNode;
-	}
-return Node;
+	return Node;
 });

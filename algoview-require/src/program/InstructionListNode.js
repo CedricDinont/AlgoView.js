@@ -1,6 +1,6 @@
 define("InstructionListNode",
-["Node"],
-function(Node){
+["Node", "NodeContext"],
+function(Node, NodeContext) {
 	//Node
 	function InstructionListNode(tokenType, token) {	
 		Node.call(this, tokenType, token);
@@ -10,25 +10,26 @@ function(Node){
 	InstructionListNode.prototype = new Node();
 	InstructionListNode.prototype.constructor = InstructionListNode;
 
-	InstructionListNode.prototype.execute = function(memory, nodeStack, programRunner) {
-
-		if (this.currentChild > 0) {
+	InstructionListNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
+		if (nodeContext.currentChild > 0) {
 			if (programRunner.stopAfterInstructionExecution
-					&& this.children[this.currentChild - 1].isExecuted()) {
-				--this.currentChild;
+					&& nodeContext.children[nodeContext.currentChild - 1].isExecuted()) {
+				--nodeContext.currentChild;
 			}
 		}
 
-		if (this.currentChild < this.children.length) {
-			nodeStack.push(this.children[this.currentChild]);
-			++this.currentChild;
+		if (nodeContext.currentChild < this.children.length) {
+			var newNodeContext = this.children[nodeContext.currentChild].createContext();
+			nodeContext.addChild(newNodeContext);
+			nodeStack.push(this.children[nodeContext.currentChild], newNodeContext);
+			++nodeContext.currentChild;
 			return true;
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			return false;
 		}
-		
 	}
-return InstructionListNode;
+	
+	return InstructionListNode;
 });

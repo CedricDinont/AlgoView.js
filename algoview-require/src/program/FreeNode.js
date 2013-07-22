@@ -14,7 +14,7 @@ function(Node){
 		return this.children[0];
 	}
 
-	FreeNode.prototype.execute = function(memory, nodeStack, programRunner) {
+	FreeNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (this.currentChild == 0) {
 			this.currentChild++;
 			nodeStack.push(this.getExpression());

@@ -13,10 +13,25 @@
     // il faut faire un appel explicite à require(["monmodule"],function(monModule){})
     findNestedDependencies: true,
     // pour un résultat plus blanc que blanc
-    optimize: "none"
+    optimize: "uglify2",
+    uglify2: {
+        output: {
+         //   beautify: true,
+            comments: function() {
+				return false;
+			}
+        },
+        compress: {
+            global_defs: {
+                DEBUG: false
+            }
+        },
+        warnings: true,
+        mangle: true,
+    },
 })
 // howto:
 // sudo npm install -g requirejs
-// r.js buildAlgoviewjs
+// r.js -o buildAlgoview.js
 // nécessite l'installation de nodejs
 // l'exécutable recherché par r.js s'appelle node - faire éventuellement un lien symbolique /usr/bin/node sur /usr/bin/nodejs
