@@ -21,18 +21,20 @@ function(ExpressionNode, PointerMemoryValue, MemoryValue, CannotConvertTo) {
 	AllocateNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (nodeContext.currentChild == 0) {
 			++nodeContext.currentChild;
-			nodeStack.push(this.getVariableTypeNode());
+			nodeContext.variableTypeNodeContext = this.getVariableTypeNode().createContext();
+			nodeStack.push(this.getVariableTypeNode(), nodeContext.variableTypeNodeContext);
 		} else if (nodeContext.currentChild == 1) {
 			++nodeContext.currentChild;
 			if (this.getSize() != undefined) {
-				nodeStack.push(this.getSize());
+				nodeContext.sizeContext = this.getSize().createContext();
+				nodeStack.push(this.getSize(), nodeContext.sizeContext);
 			}
 		} else {
 			nodeContext.currentChild = 0;
 			
 			var size = undefined;
 			if (this.getSize() != undefined) {
-				size = this.getSize().getValue();
+				size = nodeContext.sizeContext.getValue();
 				
 				var sizeAsInteger = size.convertTo(MemoryValue.INTEGER);
 				if (sizeAsInteger == undefined) {

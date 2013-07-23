@@ -3,11 +3,11 @@ grammar SimpleLanguage;
 options {
 	language=JavaScript;
 	output=AST;
-//	k=2;
 	ASTLabelType=Node;
+	k=2;
 	backtrack=true;
 //	memoize=true;
-//   defaultErrorHandler=false;
+//  defaultErrorHandler=false;
 }
 
 tokens {
@@ -36,7 +36,196 @@ tokens {
 	CONDITION;
 }
 
+@lexer::header {
+
+define("SimpleLanguageLexer",
+['antlr'],
+function() ____BEGIN____
+
+}
+
 @header {
+
+define("SimpleLanguageParser",
+[  "MathUtils",
+    "WhileNode",
+    "StructureDataType",
+    "CharacterDataType",
+    "FloatDataType",
+    "IntegerDataType",
+    "BooleanDataType",
+    "ArrayDataType",
+    "PointerDataType",
+ "SimpleLanguageLexer",
+ "InvalidAddressException",
+"ErrorInstructionException",
+"DoubleFreeException",
+"BadVariableNameException",
+"IllegalArgumentException",
+"PartOfPrimitiveTypeException",
+"Exception",
+"AlreadyAllocatedSegmentException",
+"StackOverflowException",
+"CompilationError",
+"UnallocatedSegmentException",
+"CannotApplyTestOperatorException",
+"EmptyStackException",
+    
+    
+    
+ "BooleanMemoryValue",
+ "CharacterMemoryValue",
+ "FloatMemoryValue",
+ "IntegerMemoryValue",
+ "MemoryState",
+ "MemoryValue",
+ "PointerMemoryValue",
+ "ProgramRunner",
+ 
+    
+    
+    
+
+    "AssignExpressionNode",
+	"AssignStringNode",
+	"BeginNode",
+	"DoWhileNode",
+	"EndNode",
+	"ErrorNode",
+	"ExpressionListNode",
+	"ExpressionNode",
+		"AddressNode",
+		"AllocateNode",
+		"AndNode",
+		"ArithmeticExpressionNode",
+		"AssignableNode",
+			"ArrayElementNode",
+			"ContentNode",
+			"PointerDereferenceNode",
+			"StructureElementNameNode",
+			"StructureElementNode",
+			"VariableNameNode",
+		"AssignNode",
+		"ConditionNode",
+		"DereferenceNode",
+		"FunctionCallNode",
+		"FunctionNode",
+		"NotNode",
+		"NullPointerNode",
+		"NumberNode",
+		"OrNode",
+		"RandomNode",
+		"ReturnNode",
+		"TestNode",
+		"UnaryMinusNode",	
+    "ForNode",
+	"FreeNode",
+	"FunctionListNode",
+	"FunctionNameNode",
+	"FunctionParameterDeclarationNode",
+	"FunctionParametersListNode",
+	"IdentifierListNode",
+	"IfNode",
+	"InstructionListNode",
+	"PrintNode",
+	"ProgramNode",
+	"StringNode",
+	"StructureDeclarationListNode",
+	"StructureDeclarationNode",
+	"StructureNameNode",
+	"VariableDeclarationNode",
+	"VariablesDeclarationListNode",
+	"VariablesDeclarationNode",
+	"VariableTypeNode",
+    "antlr"],
+function(MathUtils,
+WhileNode,
+StructureDataType,
+CharacterDataType,
+FloatDataType,
+IntegerDataType,
+BooleanDataType,
+ArrayDataType,
+PointerDataType,
+ SimpleLanguageLexer,
+InvalidAddressException,
+ErrorInstructionException,
+DoubleFreeException,
+BadVariableNameException,
+IllegalArgumentException,
+PartOfPrimitiveTypeException,
+Exception,
+AlreadyAllocatedSegmentException,
+StackOverflowException,
+CompilationError,
+UnallocatedSegmentException,
+CannotApplyTestOperatorException,
+EmptyStackException,
+        
+        
+        
+ BooleanMemoryValue,
+ CharacterMemoryValue,
+ FloatMemoryValue,
+ IntegerMemoryValue,
+ MemoryState,
+ MemoryValue,
+ PointerMemoryValue,
+ ProgramCompiler,
+        
+        
+	AssignExpressionNode,
+	AssignStringNode,
+	BeginNode,
+	DoWhileNode,
+	EndNode,
+	ErrorNode,
+	ExpressionListNode,
+	ExpressionNode,
+		AddressNode,
+		AllocateNode,
+		AndNode,
+		ArithmeticExpressionNode,
+		AssignableNode,
+			ArrayElementNode,
+			ContentNode,
+			PointerDereferenceNode,
+			StructureElementNameNode,
+			StructureElementNode,
+			VariableNameNode,
+		AssignNode,
+		ConditionNode,
+		DereferenceNode,
+		FunctionCallNode,
+		FunctionNode,
+		NotNode,
+		NullPointerNode,
+		NumberNode,
+		OrNode,
+		RandomNode,
+		ReturnNode,
+		TestNode,
+		UnaryMinusNode,
+	ForNode,
+	FreeNode,
+	FunctionListNode,
+	FunctionNameNode,
+	FunctionParameterDeclarationNode,
+	FunctionParametersListNode,
+	IdentifierListNode,
+	IfNode,
+	InstructionListNode,
+	PrintNode,
+	ProgramNode,
+	StringNode,
+	StructureDeclarationListNode,
+	StructureDeclarationNode,
+	StructureNameNode,
+	VariableDeclarationNode,
+	VariablesDeclarationListNode,
+	VariablesDeclarationNode,
+	VariableTypeNode) ____BEGIN____
+	
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
 		// console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
@@ -67,7 +256,7 @@ tokens {
 }
 
 program
-	: NEWLINE* (struct_declaration | subprogram_declaration | comment)* 
+	: (struct_declaration | subprogram_declaration | comment)* 
 		-> ^(PROGRAM<ProgramNode> ^(STRUCT_DECLARATIONS<StructureDeclarationListNode> struct_declaration*) ^(FUNCTION_LIST<FunctionListNode> subprogram_declaration*))
 	;
 
@@ -82,8 +271,7 @@ program
 }*/
 
 comment
-	: NEWLINE
-	| COMMENT
+	: COMMENT
 	| LINE_COMMENT
 	;
 
@@ -111,7 +299,6 @@ variables_declaration_list
 
 variables_declaration
 	: i_l=identifier_list COLON v_t=variable_type NEWLINE -> ^(VARIABLES_DECLARATION<VariablesDeclarationNode> $i_l $v_t)
-	| comment -> 
 	;
 
 identifier_list
@@ -124,9 +311,11 @@ variable_type
 
 variable_type_to_be_fixed
 	: s=simple_variable_type 
-		(  (LB integer_number RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*)
-		 | (LB RB)* -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new PointerDataType(new VariableTypeNode(undefined, undefined))] )
-		)
+		(LB (
+				(integer_number RB) -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*)
+				| RB-> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new PointerDataType(new VariableTypeNode(undefined, undefined))] )
+			)
+		)*
 	;
 
 simple_variable_type
@@ -187,6 +376,10 @@ boolean_value
 	: b=BOOLEAN_VALUE -> NUMBER<NumberNode>[$b, new BooleanMemoryValue(MathUtils.parseBoolean($b.getText()))]
 	;
 	
+character_value
+	: APOSTROPH CHARACTER_VALUE APOSTROPH
+	;
+	
 instruction_list
 	: instruction+ -> ^(INSTRUCTION_LIST<InstructionListNode> instruction*)
 	;
@@ -213,10 +406,8 @@ instruction
 	| for_instruction NEWLINE -> for_instruction
 	| error_instruction NEWLINE -> error_instruction
 	| assign_instruction NEWLINE -> assign_instruction
-//	| assign_string_instruction NEWLINE -> assign_string_instruction
 	| function_call NEWLINE -> function_call
 	| free_instruction NEWLINE -> free_instruction
-	| NEWLINE -> 
 	;
 
 free_instruction
@@ -280,11 +471,6 @@ assign_parameter
 	| a=ALLOCATE LP v_t=variable_type (COMMA expression)? RP -> ^(ALLOCATE<AllocateNode>[$a] $v_t expression*)
 	;
 
-/*
-assign_string_instruction
-	: assignable_element AFFECT string
-	;
-*/
 assignable_element
 	: (identifier_or_content -> identifier_or_content)
 		(   (POINT i=IDENTIFIER -> ^(ASSIGNABLE_ELEMENT<StructureElementNode> $assignable_element {new StructureElementNameNode(undefined, undefined, $i.getText())}) ) 
@@ -312,17 +498,26 @@ expression_operand
 	: integer_number
 	| float_number
     | boolean_value
-     //  | character_value 
+    | character_value 
 	| null
 	| function_call
-	| assignable_element
 	| r=RANDOM_INTEGER LP expression RP -> ^(RANDOM_INTEGER<RandomNode>[$r, true] expression)
-	| LP assign_instruction RP -> assign_instruction
+	| ambiguous_expression_operand
+//	| assignable_element
+//	| LP ((assign_instruction RP) -> assign_instruction | (expression RP) -> expression) 
 	| LP expression RP -> expression
 	| a=ADDRESS LP assignable_element RP -> ^(ADDRESS<AddressNode>[$a] assignable_element)
-    | c=CONTENT LP assignable_element RP -> ^(CONTENT<ContentNode>[$c] assignable_element)
     | not_expression
     | unary_minus_expression
+	;
+	
+ambiguous_expression_operand 
+	: a_e=assignable_element ambiguous_expression_operand2
+	;
+	
+ambiguous_expression_operand2
+	: (AFFECT)=> assign_instruction
+	| 
 	;
 
 null
@@ -345,6 +540,13 @@ expression
     :   and_expression
     ;
     
+/*
+assign_expression
+	:   assignable_element (AFFECT and_expression)*
+	| and_expression
+    ;
+*/
+  
 and_expression
 	:	or_expression (AND<AndNode>^ or_expression)*
 	;
@@ -467,6 +669,7 @@ RP: ')';
 POINT: '.';
 DEREFERENCE: '->';
 AFFECT:	'<-';
+APOSTROPH: '\'';
 
 //TRUE: 'TRUE';
 //FALSE: 'FALSE';
@@ -485,6 +688,10 @@ fragment HEX_DIGIT
 
 fragment DIGIT
 	: '0'..'9'
+	;
+	
+CHARACTER_VALUE
+	:	.
 	;
 
 INTEGER_VALUE
