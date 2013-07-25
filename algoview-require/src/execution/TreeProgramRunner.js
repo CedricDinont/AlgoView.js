@@ -1,12 +1,8 @@
 define("TreeProgramRunner",
-["ProgramRunner", "JSUtils", "CompilationError", "SimpleLanguageLexer", 
-"SimpleLanguageParser", "VariablesDeclarationListNode", 
-"VariableDeclarationNode", "VariableNameNode", "StructureDataType", 
+["ProgramRunner", "JSUtils", 
 "Memory", "NodeStack", "ProgramRunnerEvent", "BreakpointList", 
 "NodeContext", "NodeStackElement", "FunctionNode"],
-function(ProgramRunner, JSUtils, CompilationError, SimpleLanguageLexer, 
-SimpleLanguageParser, VariablesDeclarationListNode, 
-VariableDeclarationNode, VariableNameNode, StructureDataType, 
+function(ProgramRunner, JSUtils, 
 Memory, NodeStack, ProgramRunnerEvent, BreakpointList, 
 NodeContext, NodeStackElement, FunctionNode) {
 
@@ -35,6 +31,8 @@ NodeContext, NodeStackElement, FunctionNode) {
 	}
 
 	TreeProgramRunner.prototype.start = function() {
+		this.reset();	
+		
 		this.programTree = this.program.programTree;
 		
 		this.nodeStack.push(this.programTree, new NodeContext());
@@ -274,6 +272,6 @@ NodeContext, NodeStackElement, FunctionNode) {
 
 	TreeProgramRunner.INFINITE_LOOP_DETECTION_INSTRUCTION_THRESHOLD = 1000000;
 
-	return ProgramRunner;
+	return TreeProgramRunner;
 });
 

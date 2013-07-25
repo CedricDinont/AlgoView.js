@@ -37,6 +37,10 @@ function(BreakpointList, Memory) {
 	ProgramRunner.prototype.setProgram = function(program) {
 		this.program = program;
 	}
+	
+	ProgramRunner.prototype.start = function() {
+		// Needs to be overriden
+	}
 
 	return ProgramRunner;
 });
