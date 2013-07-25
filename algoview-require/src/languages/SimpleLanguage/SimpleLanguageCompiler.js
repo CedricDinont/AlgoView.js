@@ -1,10 +1,10 @@
 define("SimpleLanguageCompiler",
 ["Compiler", "FunctionNotImplemented", "SimpleLanguageLexer", 
 "SimpleLanguageParser", "CompilationError",  "VariablesDeclarationListNode", 
-"VariableDeclarationNode", "VariableNameNode", "StructureDataType"],
+"VariableDeclarationNode", "VariableNameNode", "StructureDataType", "jQuery"],
 function(Compiler, FunctionNotImplemented, SimpleLanguageLexer,
 SimpleLanguageParser, CompilationError, VariablesDeclarationListNode, 
-VariableDeclarationNode, VariableNameNode, StructureDataType) {
+VariableDeclarationNode, VariableNameNode, StructureDataType, $j) {
 
 	function SimpleLanguageCompiler () {
 		

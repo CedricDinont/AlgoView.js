@@ -9,23 +9,23 @@ requirejs.config({
         jQuery: '../lib/jquery/jquery-1.9.0.min',
         antlr: '../lib/antlr-javascript-runtime-3.1/antlr3-all-patched',
         bootstrap: '../lib/bootstrap/bootstrap.min',
-		ace : "../lib/ace/ace-0.2/ace",
-		aceAlgoviewTheme : "../lib/ace/ace-0.2/theme-algoview",
-		aceSimpleLanguageMode : "../lib/ace/ace-0.2/mode-simple_language",
-		Ext : "../lib/extjs/extjs-4.1.0/ext-all",     
-        raphael : "../lib/raphael/raphael-2.1",  
+		ace: "../lib/ace/ace-0.2/ace",
+		aceAlgoviewTheme: "../lib/ace/ace-0.2/theme-algoview",
+		aceSimpleLanguageMode: "../lib/ace/ace-0.2/mode-simple_language",
+		Ext: "../lib/extjs/extjs-4.1.0/ext-all",     
+        raphael: "../lib/raphael/raphael-2.1",  
         
         // AlgoView GUI
         AlgoViewApp: "AlgoViewApp",
         ExternalController: "external_control/ExternalController",
-        ExtInit : "ui/init/ExtInit",     
-        aceinit : "ui/init/aceinit",     
+        ExtInit: "ui/init/ExtInit",     
+        aceinit: "ui/init/aceinit",     
         MainFrame: "ui/MainFrame",
-        ExtUxAceEditor : "ui/editor/Editor",
-        ExtUxAceEditorPanel : "ui/editor/Panel",
+        ExtUxAceEditor: "ui/editor/Editor",
+        ExtUxAceEditorPanel: "ui/editor/Panel",
         
         // Memory Views
-        DebugLogger : "ui/views/memory/DebugLogger",
+        DebugLogger: "ui/views/memory/DebugLogger",
         View: "ui/views/memory/View",
         LinkView: "ui/views/memory/LinkView",
         MemoryUnitView: "ui/views/memory/MemoryUnitView",
@@ -235,55 +235,26 @@ requirejs.config({
     }
 });
 
-
-var algoViewApp;
-var $j;
-
-
-require(["ExtInit", 'jQuery', "AlgoViewApp", "aceinit", "SimpleLanguageModule"],
-        function(Ext, $, AlgoViewApp, ace, LanguageModule) {
+require(["ExtInit", "aceinit", "AlgoViewApp", "SimpleLanguageModule", "jQuery"],
+	function(Ext, ace, AlgoViewApp, LanguageModule, jQuery) {
      
-    if (DEBUG) {
-		console.log("AlgoView classes successfully loaded.");
-		console.log("Initializing GUI...");
-	}
-
-	$j = jQuery.noConflict();
-	
-	algoViewApp = new AlgoViewApp(new LanguageModule());
-	algoViewApp.loadProgramTemplate();
-
-	var hideMask = function () {
-		try {
-			Ext.get('loading').remove();
-			Ext.fly('loading-mask').animate({
-				opacity: 0,
-				remove: true,
-			});
-		} catch (e) {
-			console.log("Cannot remove loading mask", e);
+		if (DEBUG) {
+			console.log("AlgoView classes successfully loaded.");
+			console.log("Initializing GUI...");
 		}
-	};
+		
+		var algoViewApp = new AlgoViewApp(new LanguageModule());
 
-	Ext.defer(hideMask, 250);
-
-
-	jQuery.expr[':'].regex = function(elem, index, match) {
-		var matchParams = match[3].split(','),
-		validLabels = /^(data|css):/,
-		attr = {
-			method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
-			property: matchParams.shift().replace(validLabels,'')
-		},
-		regexFlags = 'ig',
-		regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
-		return regex.test(jQuery(elem)[attr.method](attr.property));
-	} 
-
+	/*	jQuery.expr[':'].regex = function(elem, index, match) {
+			var matchParams = match[3].split(','),
+			validLabels = /^(data|css):/,
+			attr = {
+				method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
+				property: matchParams.shift().replace(validLabels,'')
+			},
+			regexFlags = 'ig',
+			regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
+			return regex.test(jQuery(elem)[attr.method](attr.property));
+		}
+	*/
 });
-
-
-
-
-
-

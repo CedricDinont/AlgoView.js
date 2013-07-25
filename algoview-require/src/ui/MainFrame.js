@@ -1,9 +1,10 @@
 define("MainFrame",
 ["Ext", "JSUtils", "MemoryGraphicalView", "StackTableView", 
 "HeapTableView", "ProgramTreeView", "ExtUxAceEditor", 
-"ExtUxAceEditorPanel", "Exception"],
+"ExtUxAceEditorPanel", "Exception", "jQuery"],
 function(Ext, JSUtils, MemoryGraphicalView, StackTableView, 
-HeapTableView, ProgramTreeView, Exception) {
+HeapTableView, ProgramTreeView, ExtUxAceEditor, 
+ExtUxAceEditorPanel, Exception, $j) {
 
 	var MainFrame = function(algoViewApp, layoutName) {
 		this.app = algoViewApp;
@@ -157,7 +158,7 @@ HeapTableView, ProgramTreeView, Exception) {
 																		var newText = unescapedText.replace(/\\\\"/g, '\"');
 																		console.log(newText);
 																		message = JSON.parse(newText);
-																		algoViewApp.executeCommand(message);
+																		self.app.executeCommand(message);
 																		self.setProgramTextChanged(false);
 																	} catch (exception) {
 																		console.log(exception);
@@ -237,7 +238,7 @@ HeapTableView, ProgramTreeView, Exception) {
 							}, {
 								text: 'Download program',
 								handler: function() {
-									algoViewApp.downloadFile();
+									self.app.downloadFile();
 								}
 							}
 						]
@@ -290,11 +291,11 @@ HeapTableView, ProgramTreeView, Exception) {
 					tooltip: '',
 					handler: function() {
 						if (this.text === "Run") {
-							// algoViewApp.programRunner.program.text = mainFrameRef.editors[0].editor.getSession().getDocument().getValue();
-							algoViewApp.compileProgram();
-							algoViewApp.startProgram();
+							// self.app.programRunner.program.text = mainFrameRef.editors[0].editor.getSession().getDocument().getValue();
+							self.app.compileProgram();
+							self.app.startProgram();
 						} else {
-							algoViewApp.stopProgram(true);
+							self.app.stopProgram(true);
 						}
 					},
 				},{
@@ -303,7 +304,7 @@ HeapTableView, ProgramTreeView, Exception) {
 					disabled: true,
 					tooltip: '<b>Continue execution</b><br/>until next beakpoint or end of program',
 					handler: function() {
-						algoViewApp.continueProgram();
+						self.app.continueProgram();
 					}
 				},{
 					id: 'stepOverButton',
@@ -311,7 +312,7 @@ HeapTableView, ProgramTreeView, Exception) {
 					tooltip: '',
 					disabled: true,
 					handler: function() {
-						algoViewApp.stepOverProgram();
+						self.app.stepOverProgram();
 					},
 
 				},{
@@ -320,7 +321,7 @@ HeapTableView, ProgramTreeView, Exception) {
 					tooltip: '',
 					disabled: true,
 					handler: function() {
-						algoViewApp.stepInProgram();
+						self.app.stepInProgram();
 					}
 				},{
 					id: 'stepOutButton',
@@ -328,7 +329,7 @@ HeapTableView, ProgramTreeView, Exception) {
 					tooltip: '',
 					disabled: true,
 					handler: function() {
-						algoViewApp.stepOutProgram();
+						self.app.stepOutProgram();
 					}
 				}
 			);
@@ -730,9 +731,23 @@ HeapTableView, ProgramTreeView, Exception) {
 				return message;
 			}
 		}
+
+		this.hideMask = function () {
+			try {
+				Ext.get('loading').remove();
+				Ext.fly('loading-mask').animate({
+					opacity: 0,
+					remove: true,
+				});
+			} catch (e) {
+				console.log("Cannot remove loading mask", e);
+			}
+		}
 		
 		this.app.programRunner.addListener(this);
+		
+		Ext.defer(this.hideMask, 250);
 	}
-
+	
 	return MainFrame;
 });
