@@ -132,6 +132,7 @@ requirejs.config({
         
         // Compiler program aliases
         Compiler: 'languages/common/Compiler',
+        CompilerEvent: 'languages/common/CompilerEvent',
         ProgramRunner: 'languages/common/ProgramRunner',
         LanguageModule: 'languages/common/LanguageModule',
         SimpleLanguageCompiler: 'languages/SimpleLanguage/SimpleLanguageCompiler',

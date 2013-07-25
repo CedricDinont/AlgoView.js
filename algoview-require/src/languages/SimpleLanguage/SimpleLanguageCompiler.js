@@ -1,10 +1,12 @@
 define("SimpleLanguageCompiler",
 ["Compiler", "FunctionNotImplemented", "SimpleLanguageLexer", 
 "SimpleLanguageParser", "CompilationError",  "VariablesDeclarationListNode", 
-"VariableDeclarationNode", "VariableNameNode", "StructureDataType", "jQuery"],
+"VariableDeclarationNode", "VariableNameNode", "StructureDataType", "jQuery",
+"CompilerEvent"],
 function(Compiler, FunctionNotImplemented, SimpleLanguageLexer,
 SimpleLanguageParser, CompilationError, VariablesDeclarationListNode, 
-VariableDeclarationNode, VariableNameNode, StructureDataType, $j) {
+VariableDeclarationNode, VariableNameNode, StructureDataType, $j,
+CompilerEvent) {
 
 	function SimpleLanguageCompiler () {
 		
@@ -26,7 +28,9 @@ VariableDeclarationNode, VariableNameNode, StructureDataType, $j) {
 	
 	SimpleLanguageCompiler.prototype.compile = function(program) {
 		this.errors = new Array();
-		$j('#outputPanel-body').html(""); //A REMETTRE
+		
+		this.notifyListeners(new CompilerEvent(this, "STARTED_COMPILATION"));
+		
 		var cstream = new org.antlr.runtime.ANTLRStringStream(program.text + "\n");
 		var lexer = new SimpleLanguageLexer(cstream);
 		var tstream = new org.antlr.runtime.CommonTokenStream(lexer);
@@ -57,7 +61,7 @@ VariableDeclarationNode, VariableNameNode, StructureDataType, $j) {
 			throw new CompilationError(this.errors);		
 		}
 		
-		var event = new ProgramRunnerEvent(this, "COMPILED_PROGRAM"); 
+		var event = new CompilerEvent(this, "COMPILED_PROGRAM"); 
 		this.notifyListeners(event);
 
 		program.programTree = programTree.tree;

@@ -270,5 +270,3 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 
 	return AlgoViewApp;
 });
-
-

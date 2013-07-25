@@ -291,9 +291,12 @@ ExtUxAceEditorPanel, Exception, $j) {
 					tooltip: '',
 					handler: function() {
 						if (this.text === "Run") {
-							// self.app.programRunner.program.text = mainFrameRef.editors[0].editor.getSession().getDocument().getValue();
-							self.app.compileProgram();
-							self.app.startProgram();
+							try {
+								self.app.compileProgram();
+								self.app.startProgram();
+							} catch (e) {
+								// Silently ignore CompilationError exception
+							}
 						} else {
 							self.app.stopProgram(true);
 						}
@@ -640,9 +643,6 @@ ExtUxAceEditorPanel, Exception, $j) {
 					Ext.getCmp('editor-1').editor.setReadOnly(true);
 					Ext.getCmp('editor-1').initCurrentLines();
 					break;
-				case "COMPILED_PROGRAM":
-					$j('#outputPanel-body').html("<div>Compiled without error.</div>");
-					break;
 				case "STOPPED_PROGRAM":
 					this.leaveDebugMode();
 					if (event.source.stopOnException === false) {
@@ -667,6 +667,17 @@ ExtUxAceEditorPanel, Exception, $j) {
 					}
 					$j('#outputPanel-body').append("<hr /><div class='programRunnerErrorMessage'><div>Error during program execution.</div><div>" + message + "</div></div>");
 					this.app.stopProgram(false);
+					break;
+			}
+		}
+		
+		this.onCompilerEvent = function(event) {
+			switch (event.type) {
+				case "STARTED_COMPILATION":
+					$j('#outputPanel-body').html("");
+					break;
+				case "COMPILED_PROGRAM":
+					$j('#outputPanel-body').html("<div>Compiled without error.</div>");
 					break;
 			}
 		}
@@ -745,6 +756,7 @@ ExtUxAceEditorPanel, Exception, $j) {
 		}
 		
 		this.app.programRunner.addListener(this);
+		this.app.compiler.addListener(this);
 		
 		Ext.defer(this.hideMask, 250);
 	}
