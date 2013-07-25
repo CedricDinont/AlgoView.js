@@ -6,8 +6,7 @@ define("JSUtils",
 [],
 function() {
 	var JSUtils = {
-		
-		throwException : function() {
+		throwException: function() {
 			if (arguments.length >= 1) {
 				var exceptionName = arguments[0];
 				var exceptionConstructor = eval(exceptionName);
@@ -22,12 +21,12 @@ function() {
 			}
 		},
 		
-		getUrlVars : function() {
+		getUrlVars: function() {
 			var vars = [], hash;
 			var args = window.location.href.slice(window.location.href.indexOf('?') + 1);
 			var index = args.indexOf('#');
 			if (index != -1) {
-			args = args.slice(0, index);
+				args = args.slice(0, index);
 			}
 			var hashes = args.split('&');
 			for(var i = 0; i < hashes.length; i++)
@@ -39,12 +38,10 @@ function() {
 			return vars;
 		},
 		  
-		getUrlVar : function(name) {
+		getUrlVar: function(name) {
 			return this.getUrlVars()[name];
-		}			
-		
+		}
 	};
-	
 	
 	return JSUtils;
 });

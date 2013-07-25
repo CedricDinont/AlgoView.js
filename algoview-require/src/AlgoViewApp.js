@@ -1,12 +1,24 @@
 define("AlgoViewApp",
-["Program", "ProgramRunner", "JSUtils", "ExternalController", "MainFrame"],
-function(Program, ProgramRunner, JSUtils, ExternalController, MainFrame) {
+["Program", "SimpleLanguageProgramRunner", "JSUtils", "ExternalController", "MainFrame", "SimpleLanguageCompiler", "Memory", "ProgramRunner", "TreeProgramRunner", "Compiler"],
+function(Program, SimpleLanguageProgramRunner, JSUtils, ExternalController, MainFrame, SimpleLanguageCompiler, Memory, ProgramRunner, TreeProgramRunner, Compiler) {
 
 
 var AlgoViewApp = function() {
 	this.program = new Program();
 	
-	this.programRunner = new ProgramRunner(this.program, JSUtils.getUrlVar("memorySize"));
+	this.compiler = new SimpleLanguageCompiler();
+	
+	var memorySize = JSUtils.getUrlVar("memorySize");
+	if ((memorySize == undefined) || (memorySize <= 0)) {
+		memorySize = 255;
+	}
+	if (memorySize > 10000) {
+		memorySize = 10000;
+	}
+	
+	this.memory = new Memory(memorySize);
+	
+	this.programRunner = new TreeProgramRunner(this.memory);
 	
 	this.mainFrame = new MainFrame(this); 
 	this.externalController = new ExternalController(this);
@@ -30,8 +42,6 @@ AlgoViewApp.prototype.loadText = function(text) {
 	this.mainFrame.editors[0].clearBreakpoints();
 	this.mainFrame.editors[0].getSession().getDocument().setValue(text);
 	this.mainFrame.setProgramTextChanged(false);
-	
-	//this.programRunner.program.text = text;
 }
 
 AlgoViewApp.prototype.loadProgramTemplate = function() {
@@ -61,11 +71,12 @@ END\n\
 }
 
 AlgoViewApp.prototype.compileProgram = function() {
-	this.programRunner.program.text = this.mainFrame.editors[0].editor.getSession().getDocument().getValue();
-	this.programRunner.compile();
+	this.program.text = this.mainFrame.editors[0].editor.getSession().getDocument().getValue();
+	this.compiler.compile(this.program);
 }
 
 AlgoViewApp.prototype.startProgram = function() {
+	this.programRunner.setProgram(this.program);
 	this.programRunner.start();
 }
 

@@ -1,7 +1,6 @@
 define("FunctionCallNode",
-["ExpressionNode", "FunctionNotImplemented"],
-function(ExpressionNode, FunctionNotImplemented) {
-	//ExpressionNode FunctionNotImplemented
+["ExpressionNode"],
+function(ExpressionNode) {
 	function FunctionCallNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 		
@@ -27,25 +26,21 @@ function(ExpressionNode, FunctionNotImplemented) {
 	FunctionCallNode.prototype.containsFunctionCall = function() {
 		return true;
 	}
+	
+	FunctionCallNode.prototype.getFunctionNode = function() {
+		return this.functionNode;
+	}
+	
+	FunctionCallNode.prototype.setFunctionNode = function(functionNode) {
+		this.functionNode = functionNode;
+	}
 
 	FunctionCallNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-	//	console.log("Executing function call");
-
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
 			nodeStack.push(this.getParameters());
 		} else if (nodeContext.currentChild == 1) {
 			nodeContext.currentChild++;
-
-			var functionNode = programRunner.getProgramTree().getFunction(this.getFunctionName(), this.getNumberOfParameters());
-			if (functionNode === undefined) {
-				throw new FunctionNotImplemented(getFunctionName(), this.getNumberOfParameters());
-	        }
-			//this.functionNode = functionNode.clone();
-			
-		//	console.log("Model", functionNode.currentChild, functionNode.getInstructions().currentChild);
-		//	console.log("Clone", this.functionNode.currentChild, this.functionNode.getInstructions().currentChild);
-			
 			nodeContext.setParametersValues(this.getParameters());
 			nodeStack.push(this.functionNode);
 		} else {
@@ -54,7 +49,6 @@ function(ExpressionNode, FunctionNotImplemented) {
 			nodeStack.pop();
 		}
 		
-	//	nodeStack.print();
 		return false;
 	}
 	

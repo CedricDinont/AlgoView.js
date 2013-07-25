@@ -1,16 +1,17 @@
 define("Program",
 [],
-function(){
+function() {
 	function Program(text) {
 		this.text = text;
 	}
 
-	Program.prototype.getText = function(){
+	Program.prototype.getText = function() {
 			return this.text;
 	}
 
-	Program.prototype.setText = function(text){
+	Program.prototype.setText = function(text) {
 			this.text = text;
 	}
-return Program;
+	
+	return Program;
 });

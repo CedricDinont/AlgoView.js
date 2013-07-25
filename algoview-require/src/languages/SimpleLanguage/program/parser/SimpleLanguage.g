@@ -4,7 +4,7 @@ options {
 	language=JavaScript;
 	output=AST;
 	ASTLabelType=Node;
-	k=2;
+//	k=2;
 	backtrack=true;
 //	memoize=true;
 //  defaultErrorHandler=false;
@@ -256,7 +256,7 @@ EmptyStackException,
 }
 
 program
-	: (struct_declaration | subprogram_declaration | comment)* 
+	: (struct_declaration | subprogram_declaration | NEWLINE)+
 		-> ^(PROGRAM<ProgramNode> ^(STRUCT_DECLARATIONS<StructureDeclarationListNode> struct_declaration*) ^(FUNCTION_LIST<FunctionListNode> subprogram_declaration*))
 	;
 
@@ -269,11 +269,6 @@ program
 //    myRecoverMethodForMyRule();
 //	alert(re);
 }*/
-
-comment
-	: COMMENT
-	| LINE_COMMENT
-	;
 
 struct_declaration
 	: STRUCT i=IDENTIFIER NEWLINE v_d_l=variables_declaration_list_opt -> ^(STRUCT_DECLARATION<StructureDeclarationNode> {new StructureNameNode(undefined, undefined, $i.getText())} $v_d_l)
@@ -376,10 +371,11 @@ boolean_value
 	: b=BOOLEAN_VALUE -> NUMBER<NumberNode>[$b, new BooleanMemoryValue(MathUtils.parseBoolean($b.getText()))]
 	;
 	
+/*
 character_value
 	: APOSTROPH CHARACTER_VALUE APOSTROPH
 	;
-	
+*/
 instruction_list
 	: instruction+ -> ^(INSTRUCTION_LIST<InstructionListNode> instruction*)
 	;
@@ -498,19 +494,19 @@ expression_operand
 	: integer_number
 	| float_number
     | boolean_value
-    | character_value 
+ //   | character_value 
 	| null
 	| function_call
 	| r=RANDOM_INTEGER LP expression RP -> ^(RANDOM_INTEGER<RandomNode>[$r, true] expression)
-	| ambiguous_expression_operand
-//	| assignable_element
+//	| ambiguous_expression_operand
+	| assignable_element
 //	| LP ((assign_instruction RP) -> assign_instruction | (expression RP) -> expression) 
 	| LP expression RP -> expression
 	| a=ADDRESS LP assignable_element RP -> ^(ADDRESS<AddressNode>[$a] assignable_element)
     | not_expression
     | unary_minus_expression
 	;
-	
+/*	
 ambiguous_expression_operand 
 	: a_e=assignable_element ambiguous_expression_operand2
 	;
@@ -519,7 +515,7 @@ ambiguous_expression_operand2
 	: (AFFECT)=> assign_instruction
 	| 
 	;
-
+*/
 null
 	: n=NULL	-> ^(NULL<NullPointerNode>[$n])
 	;
@@ -690,10 +686,6 @@ fragment DIGIT
 	: '0'..'9'
 	;
 	
-CHARACTER_VALUE
-	:	.
-	;
-
 INTEGER_VALUE
 	: DIGIT+
 	;
@@ -732,3 +724,7 @@ STRING
 	: '"' (.*) '"' 
 	;
 
+CHARACTER_VALUE
+	:	.
+	;
+	
