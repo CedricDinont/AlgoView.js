@@ -59,7 +59,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 
 	AlgoViewApp.prototype.compileProgram = function() {
 		this.program.text = this.mainFrame.editors[0].editor.getSession().getDocument().getValue();
-		this.compiler.compile(this.program);
+		return this.compiler.compile(this.program);
 	}
 
 	AlgoViewApp.prototype.startProgram = function() {

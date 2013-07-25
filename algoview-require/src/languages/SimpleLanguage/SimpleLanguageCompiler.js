@@ -1,11 +1,11 @@
 define("SimpleLanguageCompiler",
 ["Compiler", "FunctionNotImplemented", "SimpleLanguageLexer", 
 "SimpleLanguageParser", "CompilationError",  "VariablesDeclarationListNode", 
-"VariableDeclarationNode", "VariableNameNode", "StructureDataType", "jQuery",
+"VariableDeclarationNode", "VariableNameNode", "StructureDataType",
 "CompilerEvent"],
 function(Compiler, FunctionNotImplemented, SimpleLanguageLexer,
 SimpleLanguageParser, CompilationError, VariablesDeclarationListNode, 
-VariableDeclarationNode, VariableNameNode, StructureDataType, $j,
+VariableDeclarationNode, VariableNameNode, StructureDataType,
 CompilerEvent) {
 
 	function SimpleLanguageCompiler () {
@@ -17,7 +17,6 @@ CompilerEvent) {
 			if (DEBUG) {
 				console.log(msg);
 			}
-			$j('#outputPanel-body').html("<div class='error-message'>" + msg + "</div>"); //A REMETTRE
 			self.errors.push(msg);
 		};
 	}
@@ -38,7 +37,8 @@ CompilerEvent) {
 		var programTree = parser.program();
 
 		if (this.errors.length != 0) {
-			throw new CompilationError(this.errors);
+			this.sendCompilationErrorEvent();
+			return false;
 		}
 
 		if (DEBUG) {
@@ -46,10 +46,9 @@ CompilerEvent) {
 		}
 		
 		if (! this.findMainFunction(programTree.tree)) {
-			$j('#outputPanel-body').html("<div class='programRunnerErrorMessage'>" + "ERROR: No main function defined." + "</div>");
-			this.programTree = undefined;
 			this.errors.push("ERROR: No main function defined.");
-			throw new CompilationError(this.errors);
+			this.sendCompilationErrorEvent();
+			return false;
 		}
 
 		this.parseVariablesDeclarationNodesForFunctions(programTree.tree);
@@ -58,13 +57,20 @@ CompilerEvent) {
 		this.findFunctionDefinitionForFunctionCalls(programTree.tree);
 
 		if (this.errors.length != 0) {
-			throw new CompilationError(this.errors);		
+			this.sendCompilationErrorEvent();
+			return false;	
 		}
 		
-		var event = new CompilerEvent(this, "COMPILED_PROGRAM"); 
-		this.notifyListeners(event);
+		this.notifyListeners(new CompilerEvent(this, "COMPILED_PROGRAM"));
 
 		program.programTree = programTree.tree;
+		return true;
+	}
+
+	SimpleLanguageCompiler.prototype.sendCompilationErrorEvent = function() {
+		var event = new CompilerEvent(this, "COMPILATION_ERROR");
+		event.errors = this.errors;
+		this.notifyListeners(event);
 	}
 
 	SimpleLanguageCompiler.prototype.findMainFunction = function(program) {

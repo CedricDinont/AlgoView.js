@@ -291,11 +291,10 @@ ExtUxAceEditorPanel, Exception, $j) {
 					tooltip: '',
 					handler: function() {
 						if (this.text === "Run") {
-							try {
-								self.app.compileProgram();
-								self.app.startProgram();
-							} catch (e) {
-								// Silently ignore CompilationError exception
+							var compilationResult = self.app.compileProgram();
+							console.log(compilationResult);
+							if (compilationResult == true) {
+								self.app.startProgram();	
 							}
 						} else {
 							self.app.stopProgram(true);
@@ -678,6 +677,12 @@ ExtUxAceEditorPanel, Exception, $j) {
 					break;
 				case "COMPILED_PROGRAM":
 					$j('#outputPanel-body').html("<div>Compiled without error.</div>");
+					break;
+				case "COMPILATION_ERROR":
+					$j('#outputPanel-body').html("");
+					for (var message in event.errors) {
+						$j('#outputPanel-body').append("<div class='error-message'>" + message + "</div>");
+					}
 					break;
 			}
 		}
