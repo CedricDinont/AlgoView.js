@@ -1,8 +1,8 @@
 define("ProgramRunner",
 ["BreakpointList", "Memory"],
 function(BreakpointList, Memory) {
-	function ProgramRunner(memory) {
-		this.memory = memory;
+	function ProgramRunner() {
+		this.memory;
 		
 		this.program;
 		
@@ -38,8 +38,36 @@ function(BreakpointList, Memory) {
 		this.program = program;
 	}
 	
+	ProgramRunner.prototype.setMemory = function(memory) {
+		this.memory = memory;
+	}
+	
+	/**
+	 * Abstract functions
+	 */
+	
 	ProgramRunner.prototype.start = function() {
-		// Needs to be overriden
+		// Needs to be overridden
+	}
+	
+	ProgramRunner.prototype.stopProgram = function(doReset) {
+		// Needs to be overridden
+	}
+	
+	ProgramRunner.prototype.stepOverFunctions = function() {
+		// Needs to be overridden
+	}
+	
+	ProgramRunner.prototype.stepInFunctions = function() {
+		// Needs to be overridden
+	}
+	
+	ProgramRunner.prototype.stepOutCurrentFunction = function() {
+		// Needs to be overridden
+	}
+	
+	ProgramRunner.prototype.continueToNextBreakpoint = function() {
+		// Needs to be overridden
 	}
 
 	return ProgramRunner;

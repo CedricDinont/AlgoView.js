@@ -7,21 +7,18 @@
 ["ace", "aceSimpleLanguageMode", "aceAlgoviewTheme"],
 function(ace) {
 
-	with(ace){
-
+	with(ace) {
 		require(["ace/ace"], function(aceace) {
-			
-		// on recopie les propriétés de ace/ace dans l'objet de notre module ace
-		// car cela est le fonctionnement normal de ace (normalement, cela est fait dans window.ace)
-		for (var key in aceace){
-			if (aceace.hasOwnProperty(key)){
-				ace[key] = aceace[key];     
-			}              
-		}
-		
+			// on recopie les propriétés de ace/ace dans l'objet de notre module ace
+			// car cela est le fonctionnement normal de ace (normalement, cela est fait dans window.ace)
+			for (var key in aceace) {
+				if (aceace.hasOwnProperty(key)) {
+					ace[key] = aceace[key];     
+				}              
+			}
 		}); 
 	}
+	
 	return ace;
-
 });
 

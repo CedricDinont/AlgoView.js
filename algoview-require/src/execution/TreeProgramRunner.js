@@ -6,8 +6,8 @@ function(ProgramRunner, JSUtils,
 Memory, NodeStack, ProgramRunnerEvent, BreakpointList, 
 NodeContext, NodeStackElement, FunctionNode) {
 
-	var TreeProgramRunner = function(memory) {
-		ProgramRunner.call(this, memory);
+	var TreeProgramRunner = function() {
+		ProgramRunner.call(this);
 		
 		this.nodeStack = new NodeStack(); 
 
@@ -30,6 +30,8 @@ NodeContext, NodeStackElement, FunctionNode) {
 		this.stopOnException = false;
 	}
 
+
+	// @Override
 	TreeProgramRunner.prototype.start = function() {
 		this.reset();	
 		
@@ -51,6 +53,7 @@ NodeContext, NodeStackElement, FunctionNode) {
 		}
 	}
 
+	// @Override
 	TreeProgramRunner.prototype.stopProgram = function(doReset) {
 		var currentNode;
 		
@@ -85,8 +88,8 @@ NodeContext, NodeStackElement, FunctionNode) {
 		}
 	}
 
-	TreeProgramRunner.prototype.stepInFunctions = function(alreadyInMemorytransaction) {
-		if (! alreadyInMemorytransaction) {
+	TreeProgramRunner.prototype.stepInFunctions = function(alreadyInMemoryTransaction) {
+		if (! alreadyInMemoryTransaction) {
 			this.memory.beginTransaction();
 			this.instructionCounter = 0;
 		}
@@ -96,7 +99,7 @@ NodeContext, NodeStackElement, FunctionNode) {
 			return true;
 		});
 		
-		if (! alreadyInMemorytransaction) {
+		if (! alreadyInMemoryTransaction) {
 			this.memory.endTransaction();
 		}
 	}
@@ -144,7 +147,7 @@ NodeContext, NodeStackElement, FunctionNode) {
 		this.memory.endTransaction();
 	}
 
-	TreeProgramRunner.prototype.stepOutCurrentFunction = function(alreadyInMemorytransaction) {
+	TreeProgramRunner.prototype.stepOutCurrentFunction = function(alreadyInMemoryTransaction) {
 		// Recherche du noeud correspondant à la fonction dans laquelle on se trouve
 		var currentNodeStackLevel = this.nodeStack.level();
 		var currentFunctionNode;
@@ -154,7 +157,7 @@ NodeContext, NodeStackElement, FunctionNode) {
 		
 		this.stopAtEnd = true;
 		
-		if (! alreadyInMemorytransaction) {
+		if (! alreadyInMemoryTransaction) {
 			this.memory.beginTransaction();
 			this.instructionCounter = 0;
 		}
@@ -175,7 +178,7 @@ NodeContext, NodeStackElement, FunctionNode) {
 			return true;
 		});
 
-		if (! alreadyInMemorytransaction) {
+		if (! alreadyInMemoryTransaction) {
 			this.memory.endTransaction();	
 		}
 	}

@@ -1,6 +1,6 @@
 // Initializes Ext.js
 
- define("ExtInit",
+define("ExtInit",
 ["Ext"],
 function(Ext) {
 
@@ -12,6 +12,5 @@ function(Ext) {
 	});
 
 	return Ext;
-
+	
 });
-

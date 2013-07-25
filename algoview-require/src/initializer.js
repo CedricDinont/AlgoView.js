@@ -133,8 +133,12 @@ requirejs.config({
         // Compiler program aliases
         Compiler: 'languages/common/Compiler',
         ProgramRunner: 'languages/common/ProgramRunner',
+        LanguageModule: 'languages/common/LanguageModule',
         SimpleLanguageCompiler: 'languages/SimpleLanguage/SimpleLanguageCompiler',
         SimpleLanguageProgramRunner: 'languages/SimpleLanguage/SimpleLanguageProgramRunner',
+        SimpleLanguageModule: 'languages/SimpleLanguage/SimpleLanguageModule',
+        SimpleLanguageQuickReference: 'languages/SimpleLanguage/SimpleLanguageQuickReference',
+        SimpleLanguageProgramTemplate: 'languages/SimpleLanguage/SimpleLanguageProgramTemplate',
         IntegerDataType: "languages/SimpleLanguage/program/IntegerDataType",
         DoWhileNode: "languages/SimpleLanguage/program/DoWhileNode",
         WhileNode: "languages/SimpleLanguage/program/WhileNode",
@@ -236,8 +240,8 @@ var algoViewApp;
 var $j;
 
 
-require(["ExtInit", 'jQuery', "AlgoViewApp", "aceinit"],
-        function(Ext, $, AlgoViewApp, ace) {
+require(["ExtInit", 'jQuery', "AlgoViewApp", "aceinit", "SimpleLanguageModule"],
+        function(Ext, $, AlgoViewApp, ace, LanguageModule) {
      
     if (DEBUG) {
 		console.log("AlgoView classes successfully loaded.");
@@ -246,7 +250,7 @@ require(["ExtInit", 'jQuery', "AlgoViewApp", "aceinit"],
 
 	$j = jQuery.noConflict();
 	
-	algoViewApp = new AlgoViewApp();
+	algoViewApp = new AlgoViewApp(new LanguageModule());
 	algoViewApp.loadProgramTemplate();
 
 	var hideMask = function () {

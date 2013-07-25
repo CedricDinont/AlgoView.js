@@ -1,15 +1,15 @@
 define("AlgoViewApp",
-["Program", "SimpleLanguageProgramRunner", "JSUtils", 
-"ExternalController", "MainFrame", "SimpleLanguageCompiler", 
-"Memory", "ProgramRunner", "SimpleLanguageProgramRunner", "Compiler"],
-function(Program, SimpleLanguageProgramRunner, JSUtils, 
-ExternalController, MainFrame, SimpleLanguageCompiler, 
-Memory, ProgramRunner, SimpleLanguageProgramRunner, Compiler) {
+["Program", "JSUtils", "ExternalController", "MainFrame", 
+"Memory", "ProgramRunner", "Compiler", "LanguageModule"],
+function(Program, JSUtils, ExternalController, MainFrame,  
+Memory, ProgramRunner, Compiler, LanguageModule) {
 
-	var AlgoViewApp = function() {
+	var AlgoViewApp = function(languageModule) {
+		this.languageModule = languageModule;
+		
 		this.program = new Program();
 		
-		this.compiler = new SimpleLanguageCompiler();
+		this.compiler = languageModule.compiler;
 		
 		var memorySize = JSUtils.getUrlVar("memorySize");
 		if ((memorySize == undefined) || (memorySize <= 0)) {
@@ -21,7 +21,8 @@ Memory, ProgramRunner, SimpleLanguageProgramRunner, Compiler) {
 		
 		this.memory = new Memory(memorySize);
 		
-		this.programRunner = new SimpleLanguageProgramRunner(this.memory);
+		this.programRunner = languageModule.programRunner;
+		this.programRunner.setMemory(this.memory);
 		
 		this.mainFrame = new MainFrame(this); 
 		this.externalController = new ExternalController(this);
@@ -48,29 +49,10 @@ Memory, ProgramRunner, SimpleLanguageProgramRunner, Compiler) {
 	}
 
 	AlgoViewApp.prototype.loadProgramTemplate = function() {
-		var template = "/**\n\
- * Structures\n\
- **/\n\
-\n\
-\n\
-/**\n\
- * Subprograms\n\
- **/\n\
-\n\
-\n\
-/**\n\
- * Entry point\n\
- **/\n\
-PROCEDURE main()\n\
-VAR\n\
-\n\
-BEGIN\n\
-	PRINTLN(\"Hello, world!\")\n\
-END\n\
-";
-
+		var template = this.languageModule.programTemplate.text;
+		
 		this.loadText(template);
-		this.setBreakpoint(17);
+		this.setBreakpoint(this.languageModule.programTemplate.breakpointLine);
 	}
 
 	AlgoViewApp.prototype.compileProgram = function() {
@@ -283,14 +265,6 @@ END\n\
 		var messageString = JSON.stringify(message);
 		window.postMessage(messageString, "*");
 	}
-
-	/*
-	function loadScript(relativePath) {
-	   var script = document.createElement('script');
-	   script.type= "text/javascript";
-	   script.src= scriptsLocation + relativePath;
-	   body.appendChild(script);
-	}*/
 
 	return AlgoViewApp;
 });

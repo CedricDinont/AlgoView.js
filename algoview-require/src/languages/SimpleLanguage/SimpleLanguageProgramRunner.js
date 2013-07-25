@@ -1,8 +1,8 @@
 define("SimpleLanguageProgramRunner",
 ["TreeProgramRunner"],
 function(TreeProgramRunner) {
-	function SimpleLanguageProgramRunner(memory) {
-		TreeProgramRunner.call(this, memory);
+	function SimpleLanguageProgramRunner() {
+		TreeProgramRunner.call(this);
 	}
 	
 	// Prototype based inheritance

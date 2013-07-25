@@ -9,88 +9,88 @@
  define("ExtUxAceEditorPanel",
 ["Ext", "ace"],
 function(Ext, ace) {
-	
-Ext.define('Ext.ux.aceeditor.Panel', {
-	extend: 'Ext.Panel',
-	alias: 'widget.AceEditor',
 
-	mixins: {
-		editor: 'Ext.ux.aceeditor.Editor'
-	},
+	Ext.define('Ext.ux.aceeditor.Panel', {
+		extend: 'Ext.Panel',
+		alias: 'widget.AceEditor',
 
-	layout: 'fit',
-	border: false,
+		mixins: {
+			editor: 'Ext.ux.aceeditor.Editor'
+		},
 
-	listeners: {
-		resize: function() {
-			//console.log("resize editor");
-			if (this.editor) {
-				this.editor.resize();
+		layout: 'fit',
+		border: false,
+
+		listeners: {
+			resize: function() {
+				//console.log("resize editor");
+				if (this.editor) {
+					this.editor.resize();
+				}
+			},
+
+			activate: function() {
+				if (this.editor) {
+					this.editor.focus();
+				}
 			}
 		},
 
-		activate: function() {
-			if (this.editor) {
-				this.editor.focus();
+		initComponent: function() {
+			var me = this,
+				items = {
+					xtype: 'component',
+					autoEl: 'pre'
+				};
+
+			me.addEvents(
+			 // @event change Fires after a change.
+			 // @param {Ext.ux.aceeditor.Editor} this
+
+			'change');
+
+			if (me.contentEl != null) {
+				me.sourceCode = Ext.get(me.contentEl).dom.innerHTML;
 			}
-		}
-	},
 
-	initComponent: function() {
-		var me = this,
-			items = {
-				xtype: 'component',
-				autoEl: 'pre'
-			};
+			Ext.apply(me, {
+				items: items
+			});
 
-		me.addEvents(
-		 // @event change Fires after a change.
-		 // @param {Ext.ux.aceeditor.Editor} this
+			me.callParent(arguments);
+		},
 
-		'change');
+		onRender: function() {
+			var me = this;
 
-		if (me.contentEl != null) {
-			me.sourceCode = Ext.get(me.contentEl).dom.innerHTML;
-		}
-
-		Ext.apply(me, {
-			items: items
-		});
-
-		me.callParent(arguments);
-	},
-
-	onRender: function() {
-		var me = this;
-
-		if (me.contentEl != null) {
-			me.sourceCode = Ext.get(me.contentEl).dom.innerHTML;
-		}
-
-		me.editorId = me.items.keys[0];
-		me.oldSourceCode = me.sourceCode;
-		me.callParent(arguments);
-
-		me.initEditor();
-
-		// init editor on afterlayout
-		me.on('afterlayout', function() {
-			if (me.url) {
-				Ext.Ajax.request({
-					url: me.url,
-					success: function(response) {
-						me.sourceCode = response.responseText;
-						//me.initEditor();
-					}
-				});
-			} else {
-			//	me.initEditor();
+			if (me.contentEl != null) {
+				me.sourceCode = Ext.get(me.contentEl).dom.innerHTML;
 			}
-		}, me, {
-			single: true
-		});
-	}
-});
+
+			me.editorId = me.items.keys[0];
+			me.oldSourceCode = me.sourceCode;
+			me.callParent(arguments);
+
+			me.initEditor();
+
+			// init editor on afterlayout
+			me.on('afterlayout', function() {
+				if (me.url) {
+					Ext.Ajax.request({
+						url: me.url,
+						success: function(response) {
+							me.sourceCode = response.responseText;
+							//me.initEditor();
+						}
+					});
+				} else {
+				//	me.initEditor();
+				}
+			}, me, {
+				single: true
+			});
+		}
+	});
 
 	return undefined;
 }); // end define
