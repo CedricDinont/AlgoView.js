@@ -1,21 +1,23 @@
 define("MainFrame",
 ["Ext", "JSUtils", "MemoryGraphicalView", "StackTableView", 
 "HeapTableView", "ProgramTreeView", "ExtUxAceEditor", 
-"ExtUxAceEditorPanel", "Exception", "jQuery"],
+"ExtUxAceEditorPanel", "Exception", "jQuery", "ToolBar"],
 function(Ext, JSUtils, MemoryGraphicalView, StackTableView, 
 HeapTableView, ProgramTreeView, ExtUxAceEditor, 
-ExtUxAceEditorPanel, Exception, $j) {
+ExtUxAceEditorPanel, Exception, $j, ToolBar) {
 
 	var MainFrame = function(algoViewApp, layoutName) {
 		this.app = algoViewApp;
 		this.viewport;
-		this.toolbar;
+		
+		this.toolBar = new ToolBar();
 		
 		this.heapTableView;
 		this.stackTableView;
 		this.memoryGraphicalView;
 
 		this.editors = new Array();
+
 		this.layouts = new Array();
 		
 		// TODO: A placer ailleurs
@@ -93,253 +95,7 @@ ExtUxAceEditorPanel, Exception, $j) {
 			Ext.getCmp("south").setHeight(height);
 		}
 
-		this.createToolbar = function() {
-			var toolbar = Ext.create('Ext.toolbar.Toolbar');
-			toolbar.suspendLayout = true;
-			toolbar.render('north-body');
-			
-			var mainFrameRef = this;
 
-			toolbar.add({
-					text: 'File',
-					menu:{
-						xtype: 'menu',
-						cls: 'no-icon-menu',
-						showSeparator: false,
-						items: [
-							{
-								text: 'Load local file...',
-								handler: function() {
-									Ext.create('Ext.Window', {
-										title: "Simple Language program load",
-										maskOnDisable: false,
-										modal: true,
-										renderTo: Ext.getBody(),
-										items: [{
-											xtype: 'form',
-											width: 500,
-											frame: true,
-											bodyPadding: '10 10 0',
-											defaults: {
-												anchor: '100%',
-												allowBlank: false,
-												msgTarget: 'side',
-												labelWidth: 50
-											},
-											items: [
-												{
-													xtype: 'filefield',
-													id: 'form-file',
-													size: 50,
-													emptyText: 'Please select a Simple Language program',
-													fieldLabel: 'Program',
-													name: 'program',
-													buttonText: 'Choose...',
-													allowBlank: false,
-												},
-											],
-											buttons: [
-												{
-													text: 'Load',
-													handler: function() {
-														var form = this.up('form').getForm();
-														if (form.isValid()) {
-															form.submit({
-																url: 'local_files/load_local_program.php',
-																waitMsg: 'Loading your program...',
-																success: function(form, action) {
-																	form.owner.up('window').close();
-																	var message;
-																	try {
-																		var escapedText = action.response.responseText;
-																		console.log(escapedText);
-																		var unescapedText = $j('<div/>').html(escapedText).text();
-																		console.log(unescapedText);
-																		var newText = unescapedText.replace(/\\\\"/g, '\"');
-																		console.log(newText);
-																		message = JSON.parse(newText);
-																		self.app.executeCommand(message);
-																		self.setProgramTextChanged(false);
-																	} catch (exception) {
-																		console.log(exception);
-																		// TODO: Faire une boite de dialogue d'erreur
-																		return;
-																	}
-																},
-																failure: function(form, action) {
-																	console.log("Failure", form, action);
-																	// TODO: Faire une boite de dialogue d'erreur
-																}
-															});
-														}
-													}
-												},{
-													text: 'Cancel',
-													handler: function() {
-														this.up('window').close();
-													}
-												}
-											]
-										}
-									]
-									}).show();
-								}
-							}, {
-								text: "Rename program...",
-								handler: function() {
-									Ext.create('Ext.Window', {
-										title: "Rename program",
-										maskOnDisable: false,
-										modal: true,
-										renderTo: Ext.getBody(),
-										items: [{
-											xtype: 'form',
-											width: 500,
-											frame: true,
-											bodyPadding: '10 10 0',
-											defaults: {
-												anchor: '100%',
-												allowBlank: false,
-												msgTarget: 'side',
-												labelWidth: 50
-											},
-											items: [
-												{
-													xtype: 'textfield',
-													id: 'form-program-name',
-													size: 50,
-													labelWidth: 120,
-													fieldLabel: 'New program name',
-													name: 'program-name',
-													value: Ext.getCmp('editor-1').title.substr(0, Ext.getCmp('editor-1').title.length - 3),
-													allowBlank: false,
-												},
-											],
-											buttons: [
-												{
-													text: 'Rename',
-													handler: function() {
-														var form = this.up('form').getForm();
-														if (form.isValid()) {
-															Ext.getCmp('editor-1').setTitle(Ext.getCmp("form-program-name").getValue() + ".sl");
-															this.up('window').close();
-														}
-													}
-												},{
-													text: 'Cancel',
-													handler: function() {
-														this.up('window').close();
-													}
-												}
-											]
-										}]
-									}).show();
-								}
-							}, {
-								text: 'Download program',
-								handler: function() {
-									self.app.downloadFile();
-								}
-							}
-						]
-					},
-				}, {
-					text: 'Help',
-					menu: {
-						xtype: 'menu',
-						cls: 'no-icon-menu',
-						showSeparator: false,
-						items: [
-							{
-								text: 'AlgoView manual',
-								handler: function() {
-									window.open("https://dev.isen.fr/dev/courses/ComputerScience/fr/slides.html?presentation=informatique/programmation/algo/simple_language/algoview");
-								}
-							},
-							{
-								text: 'Simple Language description',
-								handler: function() {
-									window.open("https://dev.isen.fr/dev/courses/ComputerScience/fr/slides.html?presentation=informatique/programmation/algo/simple_language");
-								}
-							},
-							{
-								text: 'Simple Language grammar',
-								handler: function() {
-									window.open("https://dev.isen.fr/dev/courses/ComputerScience/fr/slides.html?presentation=informatique/programmation/algo/simple_language/grammaire_simple_language");
-								}
-							}, '-',
-							{
-								text: 'About',
-								handler: function() {
-									Ext.Msg.alert('About', 'AlgoView.js 0.1 Beta<br />\
-										<hr /><br />\
-										&copy; 2012 ISEN Computer Science Department<br />\
-										<br />\
-										Please contact core developers for comments, questions or bug reports:<br />\
-										<ul>\
-											<li>&nbsp;&nbsp;- <a href="mailto:cedric.dinont@isen.fr">Cédric Dinont</a> (Simple Language compiler and interpreter, user interface)</li>\
-											<li>&nbsp;&nbsp;- <a href="mailto:michael.soulignac@isen.fr">Michaël Soulignac</a> (Memory model, memory views)</li>\
-										</ul>');
-								}
-							} 
-						],
-					}
-				},
-				'-', {
-					id: 'runStopButton',
-					text: 'Run',
-					tooltip: '',
-					handler: function() {
-						if (this.text === "Run") {
-							var compilationResult = self.app.compileProgram();
-							console.log(compilationResult);
-							if (compilationResult == true) {
-								self.app.startProgram();	
-							}
-						} else {
-							self.app.stopProgram(true);
-						}
-					},
-				},{
-					id: 'continueButton',
-					text: 'Continue',
-					disabled: true,
-					tooltip: '<b>Continue execution</b><br/>until next beakpoint or end of program',
-					handler: function() {
-						self.app.continueProgram();
-					}
-				},{
-					id: 'stepOverButton',
-					text: 'Step over',
-					tooltip: '',
-					disabled: true,
-					handler: function() {
-						self.app.stepOverProgram();
-					},
-
-				},{
-					id: 'stepInButton',
-					text: 'Step in',
-					tooltip: '',
-					disabled: true,
-					handler: function() {
-						self.app.stepInProgram();
-					}
-				},{
-					id: 'stepOutButton',
-					text: 'Step out',
-					tooltip: '',
-					disabled: true,
-					handler: function() {
-						self.app.stepOutProgram();
-					}
-				}
-			);
-
-			toolbar.suspendLayout = false;
-			toolbar.doLayout();
-			this.toolbar = toolbar;
-		}
 		
 		this.createEditor = function() {
 			var parent = this.layout.editorsContainer;
@@ -546,7 +302,7 @@ ExtUxAceEditorPanel, Exception, $j) {
 			
 			//this.viewport.suspendLayout = true;
 			
-			this.createToolbar();
+			this.toolBar.createToolbar();
 			this.createOutputPanel();
 			
 			if (this.layout.west !== false) {
@@ -593,23 +349,7 @@ ExtUxAceEditorPanel, Exception, $j) {
 			this.editors.push(extEditor); // Attention : editor n'est créé qu'à l'affichage du composant
 		}
 		
-		this.toggleDebugButtons = function() {
-			Ext.getCmp('continueButton').setDisabled(! Ext.getCmp('continueButton').disabled);
-			Ext.getCmp('stepOverButton').setDisabled(! Ext.getCmp('stepOverButton').disabled);
-			Ext.getCmp('stepInButton').setDisabled(! Ext.getCmp('stepInButton').disabled);
-			Ext.getCmp('stepOutButton').setDisabled(! Ext.getCmp('stepOutButton').disabled);
-		}
-		
-		this.goInDebugMode = function() {
-			this.toggleDebugButtons();
-			Ext.getCmp('runStopButton').setText("Stop");
-		}
-		
-		this.leaveDebugMode = function() {
-			this.toggleDebugButtons();
-			Ext.getCmp('runStopButton').setText("Run");
-		}
-		
+
 		this.setShowQuickReference = function(showQuickReference) {
 			if (showQuickReference != this.showQuickReference) {
 				this.showQuickReference = showQuickReference;
