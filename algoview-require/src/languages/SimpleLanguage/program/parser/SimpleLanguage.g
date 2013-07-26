@@ -227,7 +227,7 @@ EmptyStackException,
 	VariableTypeNode) ____BEGIN____
 	
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
-		// console.log("Fixing", variableTypeNode);
+	 console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
 			return;
 		}
@@ -310,7 +310,7 @@ variable_type_to_be_fixed
 				(integer_number RB) -> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new ArrayDataType()] simple_variable_type integer_number*)
 				| RB-> ^(VARIABLE_TYPE<VariableTypeNode>[undefined, new PointerDataType(new VariableTypeNode(undefined, undefined))] )
 			)
-		)*
+		)* -> simple_variable_type
 	;
 
 simple_variable_type
