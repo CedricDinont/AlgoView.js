@@ -1,6 +1,8 @@
 define("FunctionNode",
-["ExpressionNode", "ProgramRunnerEvent", "AssignNode", "VariableNameNode", "MemoryValue", "FunctionRequiresReturnValue", "MemoryState"],
-function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, MemoryValue, FunctionRequiresReturnValue, MemoryState) {
+["ExpressionNode", "ProgramRunnerEvent", "AssignNode", "VariableNameNode", 
+"MemoryValue", "FunctionRequiresReturnValue", "MemoryState", "FunctionNodeContext"],
+function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, 
+MemoryValue, FunctionRequiresReturnValue, MemoryState, FunctionNodeContext) {
 
 	function FunctionNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
@@ -62,11 +64,11 @@ function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, Memor
 			 * Setting parameters values
 			 * using assign nodes
 			 **/
-			if (this.parametersValues != undefined) {	
-				for (var i = 0; i < this.parametersValues.children.length; i++) {
+			if (nodeContext.parametersValues != undefined) {	
+				for (var i = 0; i < nodeContext.parametersValues.children.length; i++) {
 					var assignNode = new AssignNode(undefined, undefined);
 					var variable = this.getParameters().children[i];
-					var value = this.parametersValues.children[i];
+					var value = nodeContext.parametersValues.children[i];
 
 					assignNode.addChild(new VariableNameNode(undefined, undefined, variable.getVariableName()));
 					assignNode.addChild(value);
@@ -157,10 +159,6 @@ function(ExpressionNode, ProgramRunnerEvent, AssignNode, VariableNameNode, Memor
 		}
 		
 		stack.popFunctionCall();
-	}
-
-	FunctionNode.prototype.setParametersValues = function(parametersValues) {
-		this.parametersValues = parametersValues;
 	}
 
 	return FunctionNode;

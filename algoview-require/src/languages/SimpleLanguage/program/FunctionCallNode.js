@@ -1,6 +1,6 @@
 define("FunctionCallNode",
-["ExpressionNode"],
-function(ExpressionNode) {
+["ExpressionNode", "FunctionNodeContext", "ExpressionListNodeContext"],
+function(ExpressionNode, FunctionNodeContext, ExpressionListNodeContext) {
 	function FunctionCallNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 		
@@ -18,7 +18,7 @@ function(ExpressionNode) {
 	FunctionCallNode.prototype.getParameters = function() {
 		return this.children[1];
 	}
-
+	
 	FunctionCallNode.prototype.getNumberOfParameters = function() {
 		return this.children[1].children.length;
 	}
@@ -38,11 +38,13 @@ function(ExpressionNode) {
 	FunctionCallNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
-			nodeStack.push(this.getParameters());
+			nodeContext.parametersContext = new ExpressionListNodeContext();
+			nodeStack.push(this.getParameters(), nodeContext.parametersContext);
 		} else if (nodeContext.currentChild == 1) {
 			nodeContext.currentChild++;
-			nodeContext.setParametersValues(this.getParameters());
-			nodeStack.push(this.functionNode);
+			var functionNodeContext = new FunctionNodeContext();
+			functionNodeContext.setParametersValues(nodeContext.parametersContext);
+			nodeStack.push(this.functionNode, functionNodeContext);
 		} else {
 			this.currentChild = 0;
 			nodeContext.setValue(nodeContext.getValue());

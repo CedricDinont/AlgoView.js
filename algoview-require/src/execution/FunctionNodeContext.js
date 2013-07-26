@@ -11,6 +11,10 @@ function(ExpressionNodeContext) {
 	FunctionNodeContext.prototype = new ExpressionNodeContext();
 	FunctionNodeContext.prototype.constructor = FunctionNodeContext;
 
+	FunctionNodeContext.prototype.setParametersValues = function(parametersValues) {
+		this.parametersValues = parametersValues;
+	}
+
 	return FunctionNodeContext;
 });
 

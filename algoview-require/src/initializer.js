@@ -124,6 +124,7 @@ requirejs.config({
         NodeStackElement: 'execution/NodeStackElement',
         NodeContext: 'execution/NodeContext',
         ExpressionNodeContext: 'execution/ExpressionNodeContext',
+        ExpressionListNodeContext: 'execution/ExpressionListNodeContext',
         FunctionNodeContext: 'execution/FunctionNodeContext',
         AssignableNodeContext: 'execution/AssignableNodeContext',
         BreakpointList: "execution/BreakpointList",

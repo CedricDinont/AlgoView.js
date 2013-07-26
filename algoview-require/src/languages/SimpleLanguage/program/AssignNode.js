@@ -54,7 +54,7 @@ function(ExpressionNode, PointerMemoryValue, CannotConvertTo, ArrayDataType, Exp
 			var expressionMemoryValue = this.getExpressionContext(nodeContext).getValue();
 			
 			var expressionDataType = this.getExpressionContext(nodeContext).dataType;
-			// console.log(expressionDataType, expressionMemoryValue);
+			 console.log(expressionDataType, expressionMemoryValue);
 			if (expressionDataType instanceof ArrayDataType) {
 				expressionMemoryValue = new PointerMemoryValue(this.getExpressionContext(nodeContext).getAddress());
 			}

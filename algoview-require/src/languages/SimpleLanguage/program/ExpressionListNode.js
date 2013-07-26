@@ -1,7 +1,7 @@
 define("ExpressionListNode",
-["Node"],
-function(Node) {
-	//Node
+["Node", "NodeContext"],
+function(Node, NodeContext) {
+
 	function ExpressionListNode(tokenType, token, name) {	
 		Node.call(this, tokenType, token);
 	}
@@ -11,14 +11,18 @@ function(Node) {
 	ExpressionListNode.prototype.constructor = ExpressionListNode;
 
 	ExpressionListNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild < this.children.length) {
-			nodeStack.push(this.children[this.currentChild]);
-			this.currentChild++;
+		if (nodeContext.currentChild < this.children.length) {
+			var childContext = new NodeContext();
+			nodeContext.addChild(childContext);
+			nodeStack.push(this.children[nodeContext.currentChild], childContext);
+			nodeContext.currentChild++;
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 		}
 		return false;
 	}
-return ExpressionListNode;
+
+	return ExpressionListNode;
+
 });
