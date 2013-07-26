@@ -10,21 +10,33 @@
 ["MathUtils", "View", "MemoryUnitView", "LinkView", "PointerMemoryValue", "raphael"],
 function(MathUtils, View, MemoryUnitView, LinkView, PointerMemoryValue, Raphael) {
 	
-var MemoryGraphicalView = function(containerId) {
+	function MemoryGraphicalView(containerId) {
+		View.call(this);		// View implementation
+		
+		var containerElement = document.getElementById(containerId);
+		
+		this.maxY = undefined;
+		
+		this.linkViews = {}; // associative array "from-" + address -> linkView
+		
+		this.heapUnitCounter = 0;	// provisoire: sert au profiling
+		this.stackUnitCounter = 0;		
+		this.linkCounter = 0;
+		
+		// TODO: A revoir
+		//this.updateDimension();
+		this.width = 100;
+		this.height = 100;
+		this.ctx = Raphael(containerId, this.width, this.height);
+		
+		// TODO: A revoir
+		// this.initLayoutManager();
+	}
+	
+		// Prototype based inheritance
+	MemoryGraphicalView.prototype = new View();
 
-	View.call(this);		// View implementation
-	
-	var containerElement = document.getElementById(containerId);
-	
-	this.maxY = undefined;
-	
-	this.linkViews = {}; // associative array "from-" + address -> linkView
-	
-	this.heapUnitCounter = 0;	// provisoire: sert au profiling
-	this.stackUnitCounter = 0;		
-	this.linkCounter = 0;
-	
-	this.updateDimension = function() {
+	MemoryGraphicalView.prototype.updateDimension = function() {
 		this.width = containerElement.clientWidth;
 		this.height = containerElement.clientHeight;
 		if (this.ctx) {
@@ -32,20 +44,14 @@ var MemoryGraphicalView = function(containerId) {
 		}
 	}
 	
-	this.updateDimension();
-	
-	this.ctx = Raphael(containerId, this.width, this.height);
-	
-	this.initLayoutManager = function() {
+	MemoryGraphicalView.prototype.initLayoutManager = function() {
 		// sert au layout manager : coordonnées des prochaines unités construites
 		this.newStackUnitCoordinates = { x: MemoryGraphicalView.STACK_UNIT_MIN_X, y: MemoryGraphicalView.UNIT_BORDER_MARGIN};
 		this.newHeapUnitCoordinates = { x: MemoryGraphicalView.HEAP_UNIT_MIN_X, y: MemoryGraphicalView.UNIT_BORDER_MARGIN};	
 	}
 	
-	this.initLayoutManager();
-	
 	// @Override	
-	this.update = function(memory) {	
+	MemoryGraphicalView.prototype.update = function(memory) {	
 		var d1 = new Date();	
 		
 		this.updateDimension();
@@ -81,7 +87,7 @@ var MemoryGraphicalView = function(containerId) {
 		);		
 	}
 	
-	this.updateLinks = function(memory, segment, linkCounter) {
+	MemoryGraphicalView.prototype.updateLinks = function(memory, segment, linkCounter) {
 		// updating link views
 		for (var unitAddress in segment.memoryUnits) {
 			var unit = segment.memoryUnits[unitAddress];
@@ -108,7 +114,7 @@ var MemoryGraphicalView = function(containerId) {
 		return linkCounter;	
 	}
 	
-	this.increaseCoordinates = function(coordinates, view) {
+	MemoryGraphicalView.prototype.increaseCoordinates = function(coordinates, view) {
 		var newX = coordinates.x;
 		var newY = coordinates.y + view.height + MemoryGraphicalView.NEW_UNIT_DY;
 		
@@ -122,7 +128,7 @@ var MemoryGraphicalView = function(containerId) {
 		coordinates.y = newY;
 	}
 	
-	this.decreaseCoordinates = function(coordinates, view) {
+	MemoryGraphicalView.prototype.decreaseCoordinates = function(coordinates, view) {
 		coordinates.x = view.x;
 		coordinates.y = view.y; /*- view.height - MemoryGraphicalView.NEW_UNIT_DY;
 		
@@ -135,7 +141,7 @@ var MemoryGraphicalView = function(containerId) {
 		coordinates.y = newY;*/
 	}	
 	
-	this.updateUnits = function(memory, segment, unitCounter, coordinates) {
+	MemoryGraphicalView.prototype.updateUnits = function(memory, segment, unitCounter, coordinates) {
 		// updating unit views
 		// we consider only the allocated units
 		for (var unitAddressKey in segment.memoryUnits) {
@@ -162,7 +168,7 @@ var MemoryGraphicalView = function(containerId) {
 		return unitCounter;
 	}
 
-	this.removeLinkView = function(address) {
+	MemoryGraphicalView.prototype.removeLinkView = function(address) {
 		var linkViewKey = "from-" + address;
 		var linkView = this.linkViews[linkViewKey];
 		
@@ -172,7 +178,7 @@ var MemoryGraphicalView = function(containerId) {
 		}	
 	}
 
-	this.updateLinkView = function(memory, unit) {
+	MemoryGraphicalView.prototype.updateLinkView = function(memory, unit) {
 		var linkCreated = false;
 			
 		// special case of a POINTER
@@ -207,7 +213,7 @@ var MemoryGraphicalView = function(containerId) {
 	}
 
 	// renvoie true si une vue a été créée
-	this.updateMemoryUnitView = function(unit, x, y) {
+	MemoryGraphicalView.prototype.updateMemoryUnitView = function(unit, x, y) {
 		var existingView = unit.getView();
 		var memoryUnitView;
 		var unitViewCreated = false;
@@ -236,7 +242,7 @@ var MemoryGraphicalView = function(containerId) {
 	
 	// event handling
 	
-	var storeCurrentCoordinates = function(raphaelObject) {
+	MemoryGraphicalView.prototype.storeCurrentCoordinates = function(raphaelObject) {
 		
 		// particular case for NIL lines
 		if( raphaelObject.xstart != undefined){
@@ -252,13 +258,13 @@ var MemoryGraphicalView = function(containerId) {
 		}
 	}
 
-    this.unitMouseDrag = function(memoryUnitView) {
+    MemoryGraphicalView.prototype.unitMouseDrag = function(memoryUnitView) {
 		var memoryUnitBoxObject = memoryUnitView.getBoxObject();
-		storeCurrentCoordinates(memoryUnitBoxObject);
+		this.storeCurrentCoordinates(memoryUnitBoxObject);
 		
 		var linkedObjects = memoryUnitView.getLinkedObjects();
 		for (var i = 0; i < linkedObjects.length; i++) {
-			storeCurrentCoordinates(linkedObjects[i]);	
+			this.storeCurrentCoordinates(linkedObjects[i]);	
 		}
 		
 		// recursive all in child views
@@ -266,13 +272,10 @@ var MemoryGraphicalView = function(containerId) {
 		var childViews = memoryUnitView.getChildViews();
 		for(var i = 0; i < childViews.length; i++){
 			this.unitMouseDrag(childViews[i]);
-		}
-		
-
-				
-    };
+		}	
+    }
 	
-	var translateObject = function(raphaelObject, dx, dy) {
+	MemoryGraphicalView.prototype.translateObject = function(raphaelObject, dx, dy) {
 		
 		// particular case for NIL pointers
 		if( raphaelObject.oxstart != undefined){		
@@ -281,8 +284,7 @@ var MemoryGraphicalView = function(containerId) {
 			
 			raphaelObject.xend = raphaelObject.oxend + dx;		
 			raphaelObject.yend = raphaelObject.oyend + dy;
-
-							
+						
 			raphaelObject.attr({path: "M"+ raphaelObject.xstart + " " + raphaelObject.ystart + "L" + raphaelObject.xend + " " + raphaelObject.yend});
 		}
 		else{
@@ -291,10 +293,10 @@ var MemoryGraphicalView = function(containerId) {
 		}
 	}
 	
-	this.unitMouseMove = function(memoryUnitView, dx, dy) {	
+	MemoryGraphicalView.prototype.unitMouseMove = function(memoryUnitView, dx, dy) {	
 		var memoryUnitBoxObject = memoryUnitView.getBoxObject();	
 	
-		translateObject(memoryUnitBoxObject, dx, dy);
+		this.translateObject(memoryUnitBoxObject, dx, dy);
 		
         memoryUnitView.x = memoryUnitBoxObject.attr("x");
         memoryUnitView.y = memoryUnitBoxObject.attr("y");			
@@ -302,7 +304,7 @@ var MemoryGraphicalView = function(containerId) {
 		// updating linked objects
 		var linkedObjects = memoryUnitView.getLinkedObjects();
 		for (var i = 0; i < linkedObjects.length; i++) {
-			translateObject(linkedObjects[i], dx, dy);	
+			this.translateObject(linkedObjects[i], dx, dy);	
 		}
 		
 		// undating edges
@@ -316,15 +318,12 @@ var MemoryGraphicalView = function(containerId) {
 		for(var i = 0; i < childViews.length; i++){
 			this.unitMouseMove(childViews[i], dx, dy);
 		}
-				
-		
-
 		
 		//this.ctx.safari();
 	};
 
 	// for debug and demos
-	this.setPosition = function(memory, address, x, y) {		
+	MemoryGraphicalView.prototype.setPosition = function(memory, address, x, y) {		
 		var unit = memory.getUnit(address);
 		
 		if (unit == undefined) {
@@ -342,22 +341,18 @@ var MemoryGraphicalView = function(containerId) {
 		}
 	}
 	
-	this.clear = function() {
+	MemoryGraphicalView.prototype.clear = function() {
 		this.ctx.clear();
 	}
 
-}
 
-// static variables
-MemoryGraphicalView.UNIT_BORDER_MARGIN = 50;
-MemoryGraphicalView.NEW_UNIT_DX = 100;
-MemoryGraphicalView.NEW_UNIT_DY = 20;
-MemoryGraphicalView.STACK_UNIT_MIN_X = 50;   
-MemoryGraphicalView.HEAP_UNIT_MIN_X = 400;
+	// static variables
+	MemoryGraphicalView.UNIT_BORDER_MARGIN = 50;
+	MemoryGraphicalView.NEW_UNIT_DX = 100;
+	MemoryGraphicalView.NEW_UNIT_DY = 20;
+	MemoryGraphicalView.STACK_UNIT_MIN_X = 50;   
+	MemoryGraphicalView.HEAP_UNIT_MIN_X = 400;
 
-// Prototype based inheritance
-MemoryGraphicalView.prototype = new View();
-
-return MemoryGraphicalView;
+	return MemoryGraphicalView;
 
 });

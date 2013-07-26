@@ -9,18 +9,14 @@
 function(DebugLogger) {
 
 	var View = function() {
-
-		DebugLogger.call(this);		
-		
-		
-		this.update = function(model) {
-			
-			 // Abstract - should be overridden
-		}
-
+		DebugLogger.call(this);	
 	}
 
 	View.prototype = new DebugLogger();
+	
+	View.prototype.update = function(model) {
+			 // Abstract - should be overridden
+	}
 	
 	return View;
 

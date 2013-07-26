@@ -11,18 +11,22 @@
 ["View", "PointerDataType", "PointerMemoryValue"],
 function(View, PointerDataType, PointerMemoryValue) {
 	
-var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells, extComponent) {
+var HeapTableView = function(showDebugInfos, showIntermediateCells, extComponent) {
 
 	View.call(this);		// View implementation
 	
-	var containerElement = document.getElementById(containerId);
-
 	this.extComponent = extComponent;
 
 	// @Override
 	this.update = function(memory) {
 		var d1 = new Date();		
-		this.updateHeap(memory);
+		
+		var html = this.updateHeap(memory);
+		if (this.extComponent != undefined) {
+			this.extComponent.update(html);
+		//	this.extComponent.doLayout();
+		}
+		
 		var d2 = new Date();
 		this.log("heap view refresh: " + (d2 - d1));
 	}
@@ -42,86 +46,85 @@ var HeapTableView = function(containerId, showDebugInfos, showIntermediateCells,
 	this.updateHeap = function(memory) {
 		var heap = memory.getHeap();
 		
-		if(heap != undefined) {
-			var heapTableHTML = "<table id='heapHTMLTable' border='1' class='flattenMemoryTable'>";
-			heapTableHTML += "<col class='heapTableAddressColumn'/>";
-			heapTableHTML += "<col class='heapTableValueColumn'/>";
-			heapTableHTML += "<tr><th colspan='4'>Heap</th>";
-			heapTableHTML += "<tr><th>Address</th><th>Value</th></tr>";
-			
-			var startAddress = heap.getStartAddress();
-			var endAddress = heap.getEndAddress();
-			 
-			var rowSpan = 1;
-			
-			var dataType;
-			var dataAddress;
-			var dataString;
-			var dataSize;
-			var value;
-			var pointers;
-			
-			for (var i = startAddress ; i<= endAddress; i++) {			
-				heapTableHTML += "<tr> <td> " + i + " </td>";
-				
-				if (rowSpan > 1) {
-					rowSpan--;
-				} else {
-					var unit = heap.getUnit(i);
-
-					if (unit != undefined) {
-						dataAddress = unit.getAddress();
-						value = memory.getValue(i);
-
-						if (unit.isComposedDataType()) {
-							dataType = unit.getChild(i).getDataType();
-						} else {
-							dataType = unit.getDataType();
-						}
-
-						dataSize = dataType.getSize();					
-						dataString = buildDataString(value, dataType, dataSize);
-						
-						if (!showIntermediateCells) {
-							rowSpan = dataSize;
-						}
-						
-						var typeClassName;
-						
-						var backgroundClassName = value.hasChanged() ? "changed" : "";	
-						
-						// special case of POINTER
-						if (dataType instanceof PointerDataType) {
-							typeClassName = "address";
-							
-							// le pointeur NIL n'est pas invalide
-							if( value != PointerMemoryValue.NIL.getPrimitiveValue() && memory.getUnit( value ) == undefined  ){
-								backgroundClassName = "invalid";
-							}
-											
-						} else {
-							typeClassName = "value";				
-						}
-						
-											
-						heapTableHTML += "<td rowspan= '" + rowSpan + "' class='" + typeClassName + " " + backgroundClassName + "'> " + dataString + " </td>"; 		
-					} else {
-						var value = heap.getMemory().getValue(i, true);
-						dataString = buildDataString(value);
-						
-						var backgroundClassName = value.hasChanged() ? "changed" : "";		
-						heapTableHTML += "<td class='" + backgroundClassName + "'> " + dataString + " </td>"; 
-					}
-				}
-				heapTableHTML += "</tr>";
-			}
-			heapTableHTML += "</table>";	
-			containerElement.innerHTML = heapTableHTML;
+		if (heap == undefined) {
+			return "";
 		}
+
+		var heapTableHTML = "<table id='heapHTMLTable' border='1' class='flattenMemoryTable'>";
+		heapTableHTML += "<col class='heapTableAddressColumn'/>";
+		heapTableHTML += "<col class='heapTableValueColumn'/>";
+		heapTableHTML += "<tr><th colspan='4'>Heap</th>";
+		heapTableHTML += "<tr><th>Address</th><th>Value</th></tr>";
 		
-		if (extComponent != undefined) {
-			extComponent.doLayout();
+		var startAddress = heap.getStartAddress();
+		var endAddress = heap.getEndAddress();
+		 
+		var rowSpan = 1;
+		
+		var dataType;
+		var dataAddress;
+		var dataString;
+		var dataSize;
+		var value;
+		var pointers;
+		
+		for (var i = startAddress ; i<= endAddress; i++) {			
+			heapTableHTML += "<tr> <td> " + i + " </td>";
+			
+			if (rowSpan > 1) {
+				rowSpan--;
+			} else {
+				var unit = heap.getUnit(i);
+
+				if (unit != undefined) {
+					dataAddress = unit.getAddress();
+					value = memory.getValue(i);
+
+					if (unit.isComposedDataType()) {
+						dataType = unit.getChild(i).getDataType();
+					} else {
+						dataType = unit.getDataType();
+					}
+
+					dataSize = dataType.getSize();					
+					dataString = buildDataString(value, dataType, dataSize);
+					
+					if (!showIntermediateCells) {
+						rowSpan = dataSize;
+					}
+					
+					var typeClassName;
+					
+					var backgroundClassName = value.hasChanged() ? "changed" : "";	
+					
+					// special case of POINTER
+					if (dataType instanceof PointerDataType) {
+						typeClassName = "address";
+						
+						// le pointeur NIL n'est pas invalide
+						if( value != PointerMemoryValue.NIL.getPrimitiveValue() && memory.getUnit( value ) == undefined  ){
+							backgroundClassName = "invalid";
+						}
+										
+					} else {
+						typeClassName = "value";				
+					}
+					
+										
+					heapTableHTML += "<td rowspan= '" + rowSpan + "' class='" + typeClassName + " " + backgroundClassName + "'> " + dataString + " </td>"; 		
+				} else {
+					var value = heap.getMemory().getValue(i, true);
+					dataString = buildDataString(value);
+					
+					var backgroundClassName = value.hasChanged() ? "changed" : "";		
+					heapTableHTML += "<td class='" + backgroundClassName + "'> " + dataString + " </td>"; 
+				}
+			}
+			heapTableHTML += "</tr>";
 		}
+		heapTableHTML += "</table>";	
+		
+		return heapTableHTML;
 	}
 	
 }

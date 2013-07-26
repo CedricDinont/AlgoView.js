@@ -9,26 +9,37 @@
 ["View", "PointerDataType", "PointerMemoryValue"],
 function(View, PointerDataType, PointerMemoryValue) {
 	 
-var StackTableView = function(containerId, showDebugInfos, showIntermediateCells, extComponent) {
+	function StackTableView(showDebugInfos, showIntermediateCells, extComponent) {
+		View.call(this);		// View implementation
+		
+		this.extComponent = extComponent;
+		
+		//this.update(undefined);
+	}
 
-	View.call(this);		// View implementation
-	
-	var containerElement = document.getElementById(containerId);
-	
-	this.extComponent = extComponent;
-	
+	// Prototype based inheritance
+	StackTableView.prototype = new View();
+	StackTableView.prototype.constructor = StackTableView;
+
 	// @Override
-	this.update = function(memory) {
+	StackTableView.prototype.update = function(memory) {
 		var d1 = new Date();		
-		this.updateStack(memory);
+		
+		var html = this.updateStack(memory);
+		if (this.extComponent != undefined) {
+			this.extComponent.update(html);
+		//	this.extComponent.doLayout();
+		}
+		
 		var d2 = new Date();
-		this.log("stack view refresh: " + (d2 - d1));	
+		this.log("stack view refresh: " + (d2 - d1));
 	}	
 	
-	this.updateStack = function(memory) {
+	StackTableView.prototype.updateStack = function(memory) {
+		console.log(memory);
+		
 		if (memory == undefined) {
-			containerElement.innerHTML = "";
-			return;
+			return "";
 		}
 
 		var stack = memory.getStack();
@@ -150,17 +161,9 @@ var StackTableView = function(containerId, showDebugInfos, showIntermediateCells
 		} // End for i
 		
 		stackTableHTML += "</table>";
-		containerElement.innerHTML = stackTableHTML;
-		
-		if (extComponent != undefined) {
-			extComponent.doLayout();
-		}
+				
+		return stackTableHTML;
 	}
-
-}
-
-// Prototype based inheritance
-StackTableView.prototype = new View();
 
 	return StackTableView;
 });
