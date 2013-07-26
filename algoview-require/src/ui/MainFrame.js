@@ -58,7 +58,8 @@ function(Ext, JSUtils, LayoutManager) {
 			},
 			defaults: {
 				split: true,
-				deferredRender: true
+				deferredRender: true,
+				layout: 'fit',
 			},
 		});
 	}
@@ -67,34 +68,29 @@ function(Ext, JSUtils, LayoutManager) {
 		this.viewport.add([{
 			region: 'north',
 			id: 'north',
-			split: false,
 			height: 30,
 			minHeight: 30,
 			maxHeight: 30,
-			layout: 'fit',
+			split: false,
 		},{
 			region: 'center',
 			id: 'center',
 			minHeight: 80,
-			layout: 'fit',
 		},{
 			region: 'south',
 			id: 'south',
 			split: true,
 			height: 200,
 			minHeight: 40,
-			layout: 'fit',
 		},{
 			region: 'west',
 			id: 'west',
-			layout: 'fit',
 			width: '30%',
 			minWidth: 100,
 			minHeight: 140,
 		},{
 			region: 'east',
 			id: 'east',
-			layout: 'fit',
 			width: 350,
 			minWidth: 120,
 			minHeight: 140,

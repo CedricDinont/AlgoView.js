@@ -41,7 +41,10 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 				}
 			},
 			south: {
-				component: "OutputPanel"
+				component: "OutputPanel",
+				parameters: {
+					title: ''
+				}
 			}
 		};
 	}
