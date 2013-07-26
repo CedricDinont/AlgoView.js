@@ -135,15 +135,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 				this.remoteWindows.push(remoteWindow);
 				this.postMessage(remoteWindow, {command: "algoview-registered"});
 				break;
-			case "algoview-hide-toolbar":
-				this.hideToolBar();
-				break;
-			case "algoview-hide-heap-view":
-				this.hideHeapView();
-				break;
-			case "algoview-hide-graphical-view":
-				this.hideGraphicalView();
-				break;
 			case "algoview-load-program-text":
 				if (this.programRunner.state == "RUNNING") {
 					this.programRunner.stopProgram();
@@ -163,7 +154,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 				this.startProgram();
 				break;
 			case "algoview-set-breakpoint":
-				console.log("breakpoint " + message.line);
 				this.setBreakpoint(message.line - 1);
 				break;
 			case "algoview-step-over":
@@ -247,25 +237,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 			console.log("Adding toolbar");
 			this.mainFrame.viewport.add(this.toolBar);
 		}
-		this.mainFrame.viewport.doLayout();
-	}
-
-	AlgoViewApp.prototype.hideToolBar = function() {
-		this.toolBar = this.mainFrame.viewport.remove('north', false);
-		this.mainFrame.viewport.doLayout();
-		//this.mainFrame.viewport.getComponent('north').preventHeader = true;
-		//this.mainFrame.viewport.getComponent('north').collapse();
-	}
-
-	AlgoViewApp.prototype.hideHeapView = function() {
-		this.mainFrame.viewport.getComponent('east').remove('heapTableViewContainer', false);
-	}
-
-	AlgoViewApp.prototype.hideGraphicalView = function() {
-		var tableViewsContainer = this.mainFrame.viewport.getComponent('east').remove('tableViewsContainer', false);
-		var graphicalView = this.mainFrame.viewport.getComponent('center').remove('graphicalMemoryViewContainer', false);
-		this.mainFrame.viewport.getComponent('center').add(tableViewsContainer);
-		this.mainFrame.viewport.remove('east');
 		this.mainFrame.viewport.doLayout();
 	}
 

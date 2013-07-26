@@ -18,7 +18,7 @@ function() {
  **/\n\
 PROCEDURE main()\n\
 VAR\n\
-\n\
+\t\n\
 BEGIN\n\
 	PRINTLN(\"Hello, world!\")\n\
 END\n\

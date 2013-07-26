@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2013-07-26 17:11:16
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2013-07-26 20:25:43
 
 
 define("SimpleLanguageLexer",
@@ -18,7 +18,7 @@ var SimpleLanguageLexer = function(input, state) {
     (function(){
     }).call(this);
 
-    this.dfa11 = new SimpleLanguageLexer.DFA11(this);
+    this.dfa12 = new SimpleLanguageLexer.DFA12(this);
     SimpleLanguageLexer.superclass.constructor.call(this, input, state);
 
 
@@ -84,44 +84,45 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
     WHILE: 59,
     DO: 60,
     END_WHILE: 61,
-    FOR: 62,
-    FROM: 63,
-    TO: 64,
-    END_FOR: 65,
-    STEP: 66,
-    AFFECT: 67,
-    ALLOCATE: 68,
-    POINT: 69,
-    DEREFERENCE: 70,
-    CONTENT: 71,
-    RANDOM_INTEGER: 72,
-    ADDRESS: 73,
-    NULL: 74,
-    NOT: 75,
-    MINUS: 76,
-    AND: 77,
-    OR: 78,
-    EQ: 79,
-    NEQ: 80,
-    LTE: 81,
-    GTE: 82,
-    PLUS: 83,
-    MULT: 84,
-    EXP: 85,
-    DIV: 86,
-    MODULO: 87,
-    STRING: 88,
-    REPEAT: 89,
-    UNTIL: 90,
-    READ: 91,
-    APOSTROPH: 92,
-    WHITE_SPACE: 93,
-    HEX_DIGIT: 94,
-    DIGIT: 95,
-    LETTER: 96,
-    COMMENT: 97,
-    LINE_COMMENT: 98,
-    CHARACTER_VALUE: 99
+    END_DO_WHILE: 62,
+    FOR: 63,
+    FROM: 64,
+    TO: 65,
+    END_FOR: 66,
+    STEP: 67,
+    AFFECT: 68,
+    ALLOCATE: 69,
+    POINT: 70,
+    DEREFERENCE: 71,
+    CONTENT: 72,
+    RANDOM_INTEGER: 73,
+    ADDRESS: 74,
+    NULL: 75,
+    NOT: 76,
+    MINUS: 77,
+    AND: 78,
+    OR: 79,
+    EQ: 80,
+    NEQ: 81,
+    LTE: 82,
+    GTE: 83,
+    PLUS: 84,
+    MULT: 85,
+    EXP: 86,
+    DIV: 87,
+    MODULO: 88,
+    STRING: 89,
+    REPEAT: 90,
+    UNTIL: 91,
+    READ: 92,
+    APOSTROPH: 93,
+    WHITE_SPACE: 94,
+    HEX_DIGIT: 95,
+    DIGIT: 96,
+    LETTER: 97,
+    COMMENT: 98,
+    LINE_COMMENT: 99,
+    CHARACTER_VALUE: 100
 });
 
 (function(){
@@ -187,44 +188,45 @@ org.antlr.lang.extend(SimpleLanguageLexer, org.antlr.runtime.Lexer, {
     WHILE : 59,
     DO : 60,
     END_WHILE : 61,
-    FOR : 62,
-    FROM : 63,
-    TO : 64,
-    END_FOR : 65,
-    STEP : 66,
-    AFFECT : 67,
-    ALLOCATE : 68,
-    POINT : 69,
-    DEREFERENCE : 70,
-    CONTENT : 71,
-    RANDOM_INTEGER : 72,
-    ADDRESS : 73,
-    NULL : 74,
-    NOT : 75,
-    MINUS : 76,
-    AND : 77,
-    OR : 78,
-    EQ : 79,
-    NEQ : 80,
-    LTE : 81,
-    GTE : 82,
-    PLUS : 83,
-    MULT : 84,
-    EXP : 85,
-    DIV : 86,
-    MODULO : 87,
-    STRING : 88,
-    REPEAT : 89,
-    UNTIL : 90,
-    READ : 91,
-    APOSTROPH : 92,
-    WHITE_SPACE : 93,
-    HEX_DIGIT : 94,
-    DIGIT : 95,
-    LETTER : 96,
-    COMMENT : 97,
-    LINE_COMMENT : 98,
-    CHARACTER_VALUE : 99,
+    END_DO_WHILE : 62,
+    FOR : 63,
+    FROM : 64,
+    TO : 65,
+    END_FOR : 66,
+    STEP : 67,
+    AFFECT : 68,
+    ALLOCATE : 69,
+    POINT : 70,
+    DEREFERENCE : 71,
+    CONTENT : 72,
+    RANDOM_INTEGER : 73,
+    ADDRESS : 74,
+    NULL : 75,
+    NOT : 76,
+    MINUS : 77,
+    AND : 78,
+    OR : 79,
+    EQ : 80,
+    NEQ : 81,
+    LTE : 82,
+    GTE : 83,
+    PLUS : 84,
+    MULT : 85,
+    EXP : 86,
+    DIV : 87,
+    MODULO : 88,
+    STRING : 89,
+    REPEAT : 90,
+    UNTIL : 91,
+    READ : 92,
+    APOSTROPH : 93,
+    WHITE_SPACE : 94,
+    HEX_DIGIT : 95,
+    DIGIT : 96,
+    LETTER : 97,
+    COMMENT : 98,
+    LINE_COMMENT : 99,
+    CHARACTER_VALUE : 100,
     getGrammarFileName: function() { return "SimpleLanguage.g"; }
 });
 org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
@@ -233,8 +235,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.END_IF;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:610:7: ( 'END_IF' )
-            // SimpleLanguage.g:610:9: 'END_IF'
+            // SimpleLanguage.g:611:7: ( 'END_IF' )
+            // SimpleLanguage.g:611:9: 'END_IF'
             this.match("END_IF"); 
 
 
@@ -253,8 +255,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.END_WHILE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:611:10: ( 'END_WHILE' )
-            // SimpleLanguage.g:611:12: 'END_WHILE'
+            // SimpleLanguage.g:612:10: ( 'END_WHILE' )
+            // SimpleLanguage.g:612:12: 'END_WHILE'
             this.match("END_WHILE"); 
 
 
@@ -273,8 +275,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.END_FOR;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:612:8: ( 'END_FOR' )
-            // SimpleLanguage.g:612:10: 'END_FOR'
+            // SimpleLanguage.g:613:8: ( 'END_FOR' )
+            // SimpleLanguage.g:613:10: 'END_FOR'
             this.match("END_FOR"); 
 
 
@@ -288,13 +290,33 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
     },
     // $ANTLR end "END_FOR",
 
+    // $ANTLR start END_DO_WHILE
+    mEND_DO_WHILE: function()  {
+        try {
+            var _type = this.END_DO_WHILE;
+            var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
+            // SimpleLanguage.g:614:13: ( 'END_DO_WHILE' )
+            // SimpleLanguage.g:614:15: 'END_DO_WHILE'
+            this.match("END_DO_WHILE"); 
+
+
+
+
+            this.state.type = _type;
+            this.state.channel = _channel;
+        }
+        finally {
+        }
+    },
+    // $ANTLR end "END_DO_WHILE",
+
     // $ANTLR start END
     mEND: function()  {
         try {
             var _type = this.END;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:613:4: ( 'END' )
-            // SimpleLanguage.g:613:6: 'END'
+            // SimpleLanguage.g:615:4: ( 'END' )
+            // SimpleLanguage.g:615:6: 'END'
             this.match("END"); 
 
 
@@ -313,8 +335,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.PLUS;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:614:5: ( '+' )
-            // SimpleLanguage.g:614:7: '+'
+            // SimpleLanguage.g:616:5: ( '+' )
+            // SimpleLanguage.g:616:7: '+'
             this.match('+'); 
 
 
@@ -332,8 +354,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.MINUS;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:615:6: ( '-' )
-            // SimpleLanguage.g:615:8: '-'
+            // SimpleLanguage.g:617:6: ( '-' )
+            // SimpleLanguage.g:617:8: '-'
             this.match('-'); 
 
 
@@ -351,8 +373,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.MULT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:616:5: ( '*' )
-            // SimpleLanguage.g:616:7: '*'
+            // SimpleLanguage.g:618:5: ( '*' )
+            // SimpleLanguage.g:618:7: '*'
             this.match('*'); 
 
 
@@ -370,8 +392,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.EXP;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:617:4: ( '^' )
-            // SimpleLanguage.g:617:6: '^'
+            // SimpleLanguage.g:619:4: ( '^' )
+            // SimpleLanguage.g:619:6: '^'
             this.match('^'); 
 
 
@@ -389,8 +411,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.DIV;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:618:4: ( '/' )
-            // SimpleLanguage.g:618:6: '/'
+            // SimpleLanguage.g:620:4: ( '/' )
+            // SimpleLanguage.g:620:6: '/'
             this.match('/'); 
 
 
@@ -408,8 +430,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.MODULO;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:619:7: ( '%' )
-            // SimpleLanguage.g:619:9: '%'
+            // SimpleLanguage.g:621:7: ( '%' )
+            // SimpleLanguage.g:621:9: '%'
             this.match('%'); 
 
 
@@ -427,8 +449,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.EQ;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:620:3: ( '=' )
-            // SimpleLanguage.g:620:5: '='
+            // SimpleLanguage.g:622:3: ( '=' )
+            // SimpleLanguage.g:622:5: '='
             this.match('='); 
 
 
@@ -446,8 +468,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.NEQ;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:621:4: ( '!=' )
-            // SimpleLanguage.g:621:6: '!='
+            // SimpleLanguage.g:623:4: ( '!=' )
+            // SimpleLanguage.g:623:6: '!='
             this.match("!="); 
 
 
@@ -466,8 +488,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.NOT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:622:4: ( '!' )
-            // SimpleLanguage.g:622:6: '!'
+            // SimpleLanguage.g:624:4: ( '!' )
+            // SimpleLanguage.g:624:6: '!'
             this.match('!'); 
 
 
@@ -485,8 +507,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.LTE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:623:4: ( '<=' )
-            // SimpleLanguage.g:623:6: '<='
+            // SimpleLanguage.g:625:4: ( '<=' )
+            // SimpleLanguage.g:625:6: '<='
             this.match("<="); 
 
 
@@ -505,8 +527,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.LT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:624:3: ( '<' )
-            // SimpleLanguage.g:624:5: '<'
+            // SimpleLanguage.g:626:3: ( '<' )
+            // SimpleLanguage.g:626:5: '<'
             this.match('<'); 
 
 
@@ -524,8 +546,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.GTE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:625:4: ( '>=' )
-            // SimpleLanguage.g:625:6: '>='
+            // SimpleLanguage.g:627:4: ( '>=' )
+            // SimpleLanguage.g:627:6: '>='
             this.match(">="); 
 
 
@@ -544,8 +566,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.GT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:626:3: ( '>' )
-            // SimpleLanguage.g:626:5: '>'
+            // SimpleLanguage.g:628:3: ( '>' )
+            // SimpleLanguage.g:628:5: '>'
             this.match('>'); 
 
 
@@ -563,8 +585,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.AND;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:627:4: ( 'AND' )
-            // SimpleLanguage.g:627:6: 'AND'
+            // SimpleLanguage.g:629:4: ( 'AND' )
+            // SimpleLanguage.g:629:6: 'AND'
             this.match("AND"); 
 
 
@@ -583,8 +605,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.OR;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:628:3: ( 'OR' )
-            // SimpleLanguage.g:628:5: 'OR'
+            // SimpleLanguage.g:630:3: ( 'OR' )
+            // SimpleLanguage.g:630:5: 'OR'
             this.match("OR"); 
 
 
@@ -603,8 +625,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.REPEAT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:629:7: ( 'REPEAT' )
-            // SimpleLanguage.g:629:9: 'REPEAT'
+            // SimpleLanguage.g:631:7: ( 'REPEAT' )
+            // SimpleLanguage.g:631:9: 'REPEAT'
             this.match("REPEAT"); 
 
 
@@ -623,8 +645,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.UNTIL;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:630:6: ( 'UNTIL' )
-            // SimpleLanguage.g:630:8: 'UNTIL'
+            // SimpleLanguage.g:632:6: ( 'UNTIL' )
+            // SimpleLanguage.g:632:8: 'UNTIL'
             this.match("UNTIL"); 
 
 
@@ -643,8 +665,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.FOR;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:631:4: ( 'FOR' )
-            // SimpleLanguage.g:631:6: 'FOR'
+            // SimpleLanguage.g:633:4: ( 'FOR' )
+            // SimpleLanguage.g:633:6: 'FOR'
             this.match("FOR"); 
 
 
@@ -663,8 +685,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.FROM;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:632:5: ( 'FROM' )
-            // SimpleLanguage.g:632:7: 'FROM'
+            // SimpleLanguage.g:634:5: ( 'FROM' )
+            // SimpleLanguage.g:634:7: 'FROM'
             this.match("FROM"); 
 
 
@@ -683,8 +705,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.TO;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:633:3: ( 'TO' )
-            // SimpleLanguage.g:633:5: 'TO'
+            // SimpleLanguage.g:635:3: ( 'TO' )
+            // SimpleLanguage.g:635:5: 'TO'
             this.match("TO"); 
 
 
@@ -703,8 +725,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.STEP;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:634:5: ( 'STEP' )
-            // SimpleLanguage.g:634:7: 'STEP'
+            // SimpleLanguage.g:636:5: ( 'STEP' )
+            // SimpleLanguage.g:636:7: 'STEP'
             this.match("STEP"); 
 
 
@@ -723,8 +745,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.READ;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:635:5: ( 'READ' )
-            // SimpleLanguage.g:635:7: 'READ'
+            // SimpleLanguage.g:637:5: ( 'READ' )
+            // SimpleLanguage.g:637:7: 'READ'
             this.match("READ"); 
 
 
@@ -743,8 +765,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.ADDRESS;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:636:8: ( 'ADDRESS' )
-            // SimpleLanguage.g:636:10: 'ADDRESS'
+            // SimpleLanguage.g:638:8: ( 'ADDRESS' )
+            // SimpleLanguage.g:638:10: 'ADDRESS'
             this.match("ADDRESS"); 
 
 
@@ -763,8 +785,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.CONTENT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:637:8: ( 'CONTENT' )
-            // SimpleLanguage.g:637:10: 'CONTENT'
+            // SimpleLanguage.g:639:8: ( 'CONTENT' )
+            // SimpleLanguage.g:639:10: 'CONTENT'
             this.match("CONTENT"); 
 
 
@@ -783,8 +805,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.ALLOCATE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:638:9: ( 'ALLOC' )
-            // SimpleLanguage.g:638:11: 'ALLOC'
+            // SimpleLanguage.g:640:9: ( 'ALLOC' )
+            // SimpleLanguage.g:640:11: 'ALLOC'
             this.match("ALLOC"); 
 
 
@@ -803,8 +825,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.FREE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:639:5: ( 'FREE' )
-            // SimpleLanguage.g:639:7: 'FREE'
+            // SimpleLanguage.g:641:5: ( 'FREE' )
+            // SimpleLanguage.g:641:7: 'FREE'
             this.match("FREE"); 
 
 
@@ -823,8 +845,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.NULL;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:640:5: ( 'NULL' )
-            // SimpleLanguage.g:640:7: 'NULL'
+            // SimpleLanguage.g:642:5: ( 'NULL' )
+            // SimpleLanguage.g:642:7: 'NULL'
             this.match("NULL"); 
 
 
@@ -843,8 +865,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.BEGIN;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:641:6: ( 'BEGIN' )
-            // SimpleLanguage.g:641:8: 'BEGIN'
+            // SimpleLanguage.g:643:6: ( 'BEGIN' )
+            // SimpleLanguage.g:643:8: 'BEGIN'
             this.match("BEGIN"); 
 
 
@@ -863,8 +885,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.VAR;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:642:4: ( 'VAR' )
-            // SimpleLanguage.g:642:6: 'VAR'
+            // SimpleLanguage.g:644:4: ( 'VAR' )
+            // SimpleLanguage.g:644:6: 'VAR'
             this.match("VAR"); 
 
 
@@ -883,8 +905,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.WHILE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:643:6: ( 'WHILE' )
-            // SimpleLanguage.g:643:8: 'WHILE'
+            // SimpleLanguage.g:645:6: ( 'WHILE' )
+            // SimpleLanguage.g:645:8: 'WHILE'
             this.match("WHILE"); 
 
 
@@ -903,8 +925,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.DO;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:644:3: ( 'DO' )
-            // SimpleLanguage.g:644:5: 'DO'
+            // SimpleLanguage.g:646:3: ( 'DO' )
+            // SimpleLanguage.g:646:5: 'DO'
             this.match("DO"); 
 
 
@@ -923,8 +945,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.STRUCT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:645:7: ( 'STRUCT' )
-            // SimpleLanguage.g:645:9: 'STRUCT'
+            // SimpleLanguage.g:647:7: ( 'STRUCT' )
+            // SimpleLanguage.g:647:9: 'STRUCT'
             this.match("STRUCT"); 
 
 
@@ -943,8 +965,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.BOOLEAN;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:646:8: ( 'BOOLEAN' )
-            // SimpleLanguage.g:646:10: 'BOOLEAN'
+            // SimpleLanguage.g:648:8: ( 'BOOLEAN' )
+            // SimpleLanguage.g:648:10: 'BOOLEAN'
             this.match("BOOLEAN"); 
 
 
@@ -963,8 +985,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.INTEGER;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:647:8: ( 'INTEGER' )
-            // SimpleLanguage.g:647:10: 'INTEGER'
+            // SimpleLanguage.g:649:8: ( 'INTEGER' )
+            // SimpleLanguage.g:649:10: 'INTEGER'
             this.match("INTEGER"); 
 
 
@@ -983,8 +1005,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.FLOAT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:648:6: ( 'FLOAT' )
-            // SimpleLanguage.g:648:8: 'FLOAT'
+            // SimpleLanguage.g:650:6: ( 'FLOAT' )
+            // SimpleLanguage.g:650:8: 'FLOAT'
             this.match("FLOAT"); 
 
 
@@ -1003,8 +1025,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.CHARACTER;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:649:10: ( 'CHARACTER' )
-            // SimpleLanguage.g:649:12: 'CHARACTER'
+            // SimpleLanguage.g:651:10: ( 'CHARACTER' )
+            // SimpleLanguage.g:651:12: 'CHARACTER'
             this.match("CHARACTER"); 
 
 
@@ -1023,8 +1045,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.POINTER;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:650:8: ( 'POINTER' )
-            // SimpleLanguage.g:650:10: 'POINTER'
+            // SimpleLanguage.g:652:8: ( 'POINTER' )
+            // SimpleLanguage.g:652:10: 'POINTER'
             this.match("POINTER"); 
 
 
@@ -1043,8 +1065,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.IF;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:651:3: ( 'IF' )
-            // SimpleLanguage.g:651:5: 'IF'
+            // SimpleLanguage.g:653:3: ( 'IF' )
+            // SimpleLanguage.g:653:5: 'IF'
             this.match("IF"); 
 
 
@@ -1063,8 +1085,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.THEN;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:652:5: ( 'THEN' )
-            // SimpleLanguage.g:652:7: 'THEN'
+            // SimpleLanguage.g:654:5: ( 'THEN' )
+            // SimpleLanguage.g:654:7: 'THEN'
             this.match("THEN"); 
 
 
@@ -1083,8 +1105,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.ELSE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:653:5: ( 'ELSE' )
-            // SimpleLanguage.g:653:7: 'ELSE'
+            // SimpleLanguage.g:655:5: ( 'ELSE' )
+            // SimpleLanguage.g:655:7: 'ELSE'
             this.match("ELSE"); 
 
 
@@ -1103,8 +1125,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.FUNCTION;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:654:9: ( 'FUNCTION' )
-            // SimpleLanguage.g:654:11: 'FUNCTION'
+            // SimpleLanguage.g:656:9: ( 'FUNCTION' )
+            // SimpleLanguage.g:656:11: 'FUNCTION'
             this.match("FUNCTION"); 
 
 
@@ -1123,8 +1145,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.PROCEDURE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:655:10: ( 'PROCEDURE' )
-            // SimpleLanguage.g:655:12: 'PROCEDURE'
+            // SimpleLanguage.g:657:10: ( 'PROCEDURE' )
+            // SimpleLanguage.g:657:12: 'PROCEDURE'
             this.match("PROCEDURE"); 
 
 
@@ -1143,8 +1165,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.PRINT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:656:6: ( 'PRINT' )
-            // SimpleLanguage.g:656:8: 'PRINT'
+            // SimpleLanguage.g:658:6: ( 'PRINT' )
+            // SimpleLanguage.g:658:8: 'PRINT'
             this.match("PRINT"); 
 
 
@@ -1163,8 +1185,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.PRINTLN;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:657:8: ( 'PRINTLN' )
-            // SimpleLanguage.g:657:10: 'PRINTLN'
+            // SimpleLanguage.g:659:8: ( 'PRINTLN' )
+            // SimpleLanguage.g:659:10: 'PRINTLN'
             this.match("PRINTLN"); 
 
 
@@ -1183,8 +1205,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.ERROR;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:658:6: ( 'ERROR' )
-            // SimpleLanguage.g:658:8: 'ERROR'
+            // SimpleLanguage.g:660:6: ( 'ERROR' )
+            // SimpleLanguage.g:660:8: 'ERROR'
             this.match("ERROR"); 
 
 
@@ -1203,8 +1225,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.RANDOM_INTEGER;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:659:15: ( 'RANDOM_INTEGER' )
-            // SimpleLanguage.g:659:17: 'RANDOM_INTEGER'
+            // SimpleLanguage.g:661:15: ( 'RANDOM_INTEGER' )
+            // SimpleLanguage.g:661:17: 'RANDOM_INTEGER'
             this.match("RANDOM_INTEGER"); 
 
 
@@ -1223,8 +1245,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.RETURN;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:660:7: ( 'RETURN' )
-            // SimpleLanguage.g:660:9: 'RETURN'
+            // SimpleLanguage.g:662:7: ( 'RETURN' )
+            // SimpleLanguage.g:662:9: 'RETURN'
             this.match("RETURN"); 
 
 
@@ -1243,8 +1265,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.COLON;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:661:6: ( ':' )
-            // SimpleLanguage.g:661:8: ':'
+            // SimpleLanguage.g:663:6: ( ':' )
+            // SimpleLanguage.g:663:8: ':'
             this.match(':'); 
 
 
@@ -1262,8 +1284,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.COMMA;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:662:6: ( ',' )
-            // SimpleLanguage.g:662:8: ','
+            // SimpleLanguage.g:664:6: ( ',' )
+            // SimpleLanguage.g:664:8: ','
             this.match(','); 
 
 
@@ -1281,8 +1303,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.LB;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:663:3: ( '[' )
-            // SimpleLanguage.g:663:5: '['
+            // SimpleLanguage.g:665:3: ( '[' )
+            // SimpleLanguage.g:665:5: '['
             this.match('['); 
 
 
@@ -1300,8 +1322,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.RB;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:664:3: ( ']' )
-            // SimpleLanguage.g:664:5: ']'
+            // SimpleLanguage.g:666:3: ( ']' )
+            // SimpleLanguage.g:666:5: ']'
             this.match(']'); 
 
 
@@ -1319,8 +1341,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.LP;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:665:3: ( '(' )
-            // SimpleLanguage.g:665:5: '('
+            // SimpleLanguage.g:667:3: ( '(' )
+            // SimpleLanguage.g:667:5: '('
             this.match('('); 
 
 
@@ -1338,8 +1360,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.RP;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:666:3: ( ')' )
-            // SimpleLanguage.g:666:5: ')'
+            // SimpleLanguage.g:668:3: ( ')' )
+            // SimpleLanguage.g:668:5: ')'
             this.match(')'); 
 
 
@@ -1357,8 +1379,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.POINT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:667:6: ( '.' )
-            // SimpleLanguage.g:667:8: '.'
+            // SimpleLanguage.g:669:6: ( '.' )
+            // SimpleLanguage.g:669:8: '.'
             this.match('.'); 
 
 
@@ -1376,8 +1398,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.DEREFERENCE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:668:12: ( '->' )
-            // SimpleLanguage.g:668:14: '->'
+            // SimpleLanguage.g:670:12: ( '->' )
+            // SimpleLanguage.g:670:14: '->'
             this.match("->"); 
 
 
@@ -1396,8 +1418,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.AFFECT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:669:7: ( '<-' )
-            // SimpleLanguage.g:669:9: '<-'
+            // SimpleLanguage.g:671:7: ( '<-' )
+            // SimpleLanguage.g:671:9: '<-'
             this.match("<-"); 
 
 
@@ -1416,8 +1438,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.APOSTROPH;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:670:10: ( '\\'' )
-            // SimpleLanguage.g:670:12: '\\''
+            // SimpleLanguage.g:672:10: ( '\\'' )
+            // SimpleLanguage.g:672:12: '\\''
             this.match('\''); 
 
 
@@ -1435,16 +1457,45 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.WHITE_SPACE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:680:12: ( ( ' ' | '\\t' ) )
-            // SimpleLanguage.g:680:15: ( ' ' | '\\t' )
-            if ( this.input.LA(1)=='\t'||this.input.LA(1)==' ' ) {
-                this.input.consume();
+            // SimpleLanguage.g:682:12: ( ( ' ' | '\\t' )+ )
+            // SimpleLanguage.g:682:15: ( ' ' | '\\t' )+
+            // SimpleLanguage.g:682:15: ( ' ' | '\\t' )+
+            var cnt1=0;
+            loop1:
+            do {
+                var alt1=2;
+                var LA1_0 = this.input.LA(1);
 
-            }
-            else {
-                var mse = new org.antlr.runtime.MismatchedSetException(null,this.input);
-                this.recover(mse);
-                throw mse;}
+                if ( (LA1_0=='\t'||LA1_0==' ') ) {
+                    alt1=1;
+                }
+
+
+                switch (alt1) {
+                case 1 :
+                    // SimpleLanguage.g:
+                    if ( this.input.LA(1)=='\t'||this.input.LA(1)==' ' ) {
+                        this.input.consume();
+
+                    }
+                    else {
+                        var mse = new org.antlr.runtime.MismatchedSetException(null,this.input);
+                        this.recover(mse);
+                        throw mse;}
+
+
+
+                    break;
+
+                default :
+                    if ( cnt1 >= 1 ) {
+                        break loop1;
+                    }
+                        var eee = new org.antlr.runtime.EarlyExitException(1, this.input);
+                        throw eee;
+                }
+                cnt1++;
+            } while (true);
 
              _channel = HIDDEN; 
 
@@ -1461,8 +1512,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
     // $ANTLR start HEX_DIGIT
     mHEX_DIGIT: function()  {
         try {
-            // SimpleLanguage.g:684:2: ( ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' ) )
-            // SimpleLanguage.g:684:4: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )
+            // SimpleLanguage.g:686:2: ( ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' ) )
+            // SimpleLanguage.g:686:4: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )
             if ( (this.input.LA(1)>='0' && this.input.LA(1)<='9')||(this.input.LA(1)>='A' && this.input.LA(1)<='F')||(this.input.LA(1)>='a' && this.input.LA(1)<='f') ) {
                 this.input.consume();
 
@@ -1484,8 +1535,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
     // $ANTLR start DIGIT
     mDIGIT: function()  {
         try {
-            // SimpleLanguage.g:688:2: ( '0' .. '9' )
-            // SimpleLanguage.g:688:4: '0' .. '9'
+            // SimpleLanguage.g:690:2: ( '0' .. '9' )
+            // SimpleLanguage.g:690:4: '0' .. '9'
             this.matchRange('0','9'); 
 
 
@@ -1501,36 +1552,36 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.INTEGER_VALUE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:692:2: ( ( DIGIT )+ )
-            // SimpleLanguage.g:692:4: ( DIGIT )+
-            // SimpleLanguage.g:692:4: ( DIGIT )+
-            var cnt1=0;
-            loop1:
+            // SimpleLanguage.g:694:2: ( ( DIGIT )+ )
+            // SimpleLanguage.g:694:4: ( DIGIT )+
+            // SimpleLanguage.g:694:4: ( DIGIT )+
+            var cnt2=0;
+            loop2:
             do {
-                var alt1=2;
-                var LA1_0 = this.input.LA(1);
+                var alt2=2;
+                var LA2_0 = this.input.LA(1);
 
-                if ( ((LA1_0>='0' && LA1_0<='9')) ) {
-                    alt1=1;
+                if ( ((LA2_0>='0' && LA2_0<='9')) ) {
+                    alt2=1;
                 }
 
 
-                switch (alt1) {
+                switch (alt2) {
                 case 1 :
-                    // SimpleLanguage.g:692:4: DIGIT
+                    // SimpleLanguage.g:694:4: DIGIT
                     this.mDIGIT(); 
 
 
                     break;
 
                 default :
-                    if ( cnt1 >= 1 ) {
-                        break loop1;
+                    if ( cnt2 >= 1 ) {
+                        break loop2;
                     }
-                        var eee = new org.antlr.runtime.EarlyExitException(1, this.input);
+                        var eee = new org.antlr.runtime.EarlyExitException(2, this.input);
                         throw eee;
                 }
-                cnt1++;
+                cnt2++;
             } while (true);
 
 
@@ -1549,34 +1600,9 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.FLOAT_VALUE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:696:2: ( ( DIGIT )* '.' ( DIGIT )* )
-            // SimpleLanguage.g:696:4: ( DIGIT )* '.' ( DIGIT )*
-            // SimpleLanguage.g:696:4: ( DIGIT )*
-            loop2:
-            do {
-                var alt2=2;
-                var LA2_0 = this.input.LA(1);
-
-                if ( ((LA2_0>='0' && LA2_0<='9')) ) {
-                    alt2=1;
-                }
-
-
-                switch (alt2) {
-                case 1 :
-                    // SimpleLanguage.g:696:4: DIGIT
-                    this.mDIGIT(); 
-
-
-                    break;
-
-                default :
-                    break loop2;
-                }
-            } while (true);
-
-            this.match('.'); 
-            // SimpleLanguage.g:696:13: ( DIGIT )*
+            // SimpleLanguage.g:698:2: ( ( DIGIT )* '.' ( DIGIT )* )
+            // SimpleLanguage.g:698:4: ( DIGIT )* '.' ( DIGIT )*
+            // SimpleLanguage.g:698:4: ( DIGIT )*
             loop3:
             do {
                 var alt3=2;
@@ -1589,7 +1615,7 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
 
                 switch (alt3) {
                 case 1 :
-                    // SimpleLanguage.g:696:13: DIGIT
+                    // SimpleLanguage.g:698:4: DIGIT
                     this.mDIGIT(); 
 
 
@@ -1597,6 +1623,31 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
 
                 default :
                     break loop3;
+                }
+            } while (true);
+
+            this.match('.'); 
+            // SimpleLanguage.g:698:13: ( DIGIT )*
+            loop4:
+            do {
+                var alt4=2;
+                var LA4_0 = this.input.LA(1);
+
+                if ( ((LA4_0>='0' && LA4_0<='9')) ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+                case 1 :
+                    // SimpleLanguage.g:698:13: DIGIT
+                    this.mDIGIT(); 
+
+
+                    break;
+
+                default :
+                    break loop4;
                 }
             } while (true);
 
@@ -1616,52 +1667,52 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.BOOLEAN_VALUE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:700:2: ( 'TRUE' | 'FALSE' | 'true' | 'false' )
-            var alt4=4;
+            // SimpleLanguage.g:702:2: ( 'TRUE' | 'FALSE' | 'true' | 'false' )
+            var alt5=4;
             switch ( this.input.LA(1) ) {
             case 'T':
-                alt4=1;
+                alt5=1;
                 break;
             case 'F':
-                alt4=2;
+                alt5=2;
                 break;
             case 't':
-                alt4=3;
+                alt5=3;
                 break;
             case 'f':
-                alt4=4;
+                alt5=4;
                 break;
             default:
                 var nvae =
-                    new org.antlr.runtime.NoViableAltException("", 4, 0, this.input);
+                    new org.antlr.runtime.NoViableAltException("", 5, 0, this.input);
 
                 throw nvae;
             }
 
-            switch (alt4) {
+            switch (alt5) {
                 case 1 :
-                    // SimpleLanguage.g:700:4: 'TRUE'
+                    // SimpleLanguage.g:702:4: 'TRUE'
                     this.match("TRUE"); 
 
 
 
                     break;
                 case 2 :
-                    // SimpleLanguage.g:701:4: 'FALSE'
+                    // SimpleLanguage.g:703:4: 'FALSE'
                     this.match("FALSE"); 
 
 
 
                     break;
                 case 3 :
-                    // SimpleLanguage.g:702:4: 'true'
+                    // SimpleLanguage.g:704:4: 'true'
                     this.match("true"); 
 
 
 
                     break;
                 case 4 :
-                    // SimpleLanguage.g:703:4: 'false'
+                    // SimpleLanguage.g:705:4: 'false'
                     this.match("false"); 
 
 
@@ -1680,7 +1731,7 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
     // $ANTLR start LETTER
     mLETTER: function()  {
         try {
-            // SimpleLanguage.g:707:2: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )
+            // SimpleLanguage.g:709:2: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )
             // SimpleLanguage.g:
             if ( (this.input.LA(1)>='A' && this.input.LA(1)<='Z')||this.input.LA(1)=='_'||(this.input.LA(1)>='a' && this.input.LA(1)<='z') ) {
                 this.input.consume();
@@ -1705,21 +1756,21 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.IDENTIFIER;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:710:2: ( LETTER ( LETTER | DIGIT )* )
-            // SimpleLanguage.g:710:4: LETTER ( LETTER | DIGIT )*
+            // SimpleLanguage.g:712:2: ( LETTER ( LETTER | DIGIT )* )
+            // SimpleLanguage.g:712:4: LETTER ( LETTER | DIGIT )*
             this.mLETTER(); 
-            // SimpleLanguage.g:710:11: ( LETTER | DIGIT )*
-            loop5:
+            // SimpleLanguage.g:712:11: ( LETTER | DIGIT )*
+            loop6:
             do {
-                var alt5=2;
-                var LA5_0 = this.input.LA(1);
+                var alt6=2;
+                var LA6_0 = this.input.LA(1);
 
-                if ( ((LA5_0>='0' && LA5_0<='9')||(LA5_0>='A' && LA5_0<='Z')||LA5_0=='_'||(LA5_0>='a' && LA5_0<='z')) ) {
-                    alt5=1;
+                if ( ((LA6_0>='0' && LA6_0<='9')||(LA6_0>='A' && LA6_0<='Z')||LA6_0=='_'||(LA6_0>='a' && LA6_0<='z')) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt6) {
                 case 1 :
                     // SimpleLanguage.g:
                     if ( (this.input.LA(1)>='0' && this.input.LA(1)<='9')||(this.input.LA(1)>='A' && this.input.LA(1)<='Z')||this.input.LA(1)=='_'||(this.input.LA(1)>='a' && this.input.LA(1)<='z') ) {
@@ -1736,7 +1787,7 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
                     break;
 
                 default :
-                    break loop5;
+                    break loop6;
                 }
             } while (true);
 
@@ -1756,33 +1807,33 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.NEWLINE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:714:5: ( ( ( '\\r' )? '\\n' )+ )
-            // SimpleLanguage.g:714:7: ( ( '\\r' )? '\\n' )+
-            // SimpleLanguage.g:714:7: ( ( '\\r' )? '\\n' )+
-            var cnt7=0;
-            loop7:
+            // SimpleLanguage.g:716:5: ( ( ( '\\r' )? '\\n' )+ )
+            // SimpleLanguage.g:716:7: ( ( '\\r' )? '\\n' )+
+            // SimpleLanguage.g:716:7: ( ( '\\r' )? '\\n' )+
+            var cnt8=0;
+            loop8:
             do {
-                var alt7=2;
-                var LA7_0 = this.input.LA(1);
+                var alt8=2;
+                var LA8_0 = this.input.LA(1);
 
-                if ( (LA7_0=='\n'||LA7_0=='\r') ) {
-                    alt7=1;
+                if ( (LA8_0=='\n'||LA8_0=='\r') ) {
+                    alt8=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
                 case 1 :
-                    // SimpleLanguage.g:714:8: ( '\\r' )? '\\n'
-                    // SimpleLanguage.g:714:8: ( '\\r' )?
-                    var alt6=2;
-                    var LA6_0 = this.input.LA(1);
+                    // SimpleLanguage.g:716:8: ( '\\r' )? '\\n'
+                    // SimpleLanguage.g:716:8: ( '\\r' )?
+                    var alt7=2;
+                    var LA7_0 = this.input.LA(1);
 
-                    if ( (LA6_0=='\r') ) {
-                        alt6=1;
+                    if ( (LA7_0=='\r') ) {
+                        alt7=1;
                     }
-                    switch (alt6) {
+                    switch (alt7) {
                         case 1 :
-                            // SimpleLanguage.g:714:8: '\\r'
+                            // SimpleLanguage.g:716:8: '\\r'
                             this.match('\r'); 
 
 
@@ -1796,13 +1847,13 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
                     break;
 
                 default :
-                    if ( cnt7 >= 1 ) {
-                        break loop7;
+                    if ( cnt8 >= 1 ) {
+                        break loop8;
                     }
-                        var eee = new org.antlr.runtime.EarlyExitException(7, this.input);
+                        var eee = new org.antlr.runtime.EarlyExitException(8, this.input);
                         throw eee;
                 }
-                cnt7++;
+                cnt8++;
             } while (true);
 
 
@@ -1821,43 +1872,43 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.COMMENT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:718:5: ( '/*' ( . )* '*/' )
-            // SimpleLanguage.g:718:7: '/*' ( . )* '*/'
+            // SimpleLanguage.g:720:5: ( '/*' ( . )* '*/' )
+            // SimpleLanguage.g:720:7: '/*' ( . )* '*/'
             this.match("/*"); 
 
-            // SimpleLanguage.g:718:12: ( . )*
-            loop8:
+            // SimpleLanguage.g:720:12: ( . )*
+            loop9:
             do {
-                var alt8=2;
-                var LA8_0 = this.input.LA(1);
+                var alt9=2;
+                var LA9_0 = this.input.LA(1);
 
-                if ( (LA8_0=='*') ) {
-                    var LA8_1 = this.input.LA(2);
+                if ( (LA9_0=='*') ) {
+                    var LA9_1 = this.input.LA(2);
 
-                    if ( (LA8_1=='/') ) {
-                        alt8=2;
+                    if ( (LA9_1=='/') ) {
+                        alt9=2;
                     }
-                    else if ( ((LA8_1>='\u0000' && LA8_1<='.')||(LA8_1>='0' && LA8_1<='\uFFFF')) ) {
-                        alt8=1;
+                    else if ( ((LA9_1>='\u0000' && LA9_1<='.')||(LA9_1>='0' && LA9_1<='\uFFFF')) ) {
+                        alt9=1;
                     }
 
 
                 }
-                else if ( ((LA8_0>='\u0000' && LA8_0<=')')||(LA8_0>='+' && LA8_0<='\uFFFF')) ) {
-                    alt8=1;
+                else if ( ((LA9_0>='\u0000' && LA9_0<=')')||(LA9_0>='+' && LA9_0<='\uFFFF')) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
                 case 1 :
-                    // SimpleLanguage.g:718:12: .
+                    // SimpleLanguage.g:720:12: .
                     this.matchAny(); 
 
 
                     break;
 
                 default :
-                    break loop8;
+                    break loop9;
                 }
             } while (true);
 
@@ -1880,24 +1931,24 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.LINE_COMMENT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:722:5: ( '//' (~ ( '\\n' | '\\r' ) )* )
-            // SimpleLanguage.g:722:7: '//' (~ ( '\\n' | '\\r' ) )*
+            // SimpleLanguage.g:724:5: ( '//' (~ ( '\\n' | '\\r' ) )* )
+            // SimpleLanguage.g:724:7: '//' (~ ( '\\n' | '\\r' ) )*
             this.match("//"); 
 
-            // SimpleLanguage.g:722:12: (~ ( '\\n' | '\\r' ) )*
-            loop9:
+            // SimpleLanguage.g:724:12: (~ ( '\\n' | '\\r' ) )*
+            loop10:
             do {
-                var alt9=2;
-                var LA9_0 = this.input.LA(1);
+                var alt10=2;
+                var LA10_0 = this.input.LA(1);
 
-                if ( ((LA9_0>='\u0000' && LA9_0<='\t')||(LA9_0>='\u000B' && LA9_0<='\f')||(LA9_0>='\u000E' && LA9_0<='\uFFFF')) ) {
-                    alt9=1;
+                if ( ((LA10_0>='\u0000' && LA10_0<='\t')||(LA10_0>='\u000B' && LA10_0<='\f')||(LA10_0>='\u000E' && LA10_0<='\uFFFF')) ) {
+                    alt10=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt10) {
                 case 1 :
-                    // SimpleLanguage.g:722:12: ~ ( '\\n' | '\\r' )
+                    // SimpleLanguage.g:724:12: ~ ( '\\n' | '\\r' )
                     if ( (this.input.LA(1)>='\u0000' && this.input.LA(1)<='\t')||(this.input.LA(1)>='\u000B' && this.input.LA(1)<='\f')||(this.input.LA(1)>='\u000E' && this.input.LA(1)<='\uFFFF') ) {
                         this.input.consume();
 
@@ -1912,7 +1963,7 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
                     break;
 
                 default :
-                    break loop9;
+                    break loop10;
                 }
             } while (true);
 
@@ -1933,35 +1984,35 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.STRING;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:726:2: ( '\"' ( ( . )* ) '\"' )
-            // SimpleLanguage.g:726:4: '\"' ( ( . )* ) '\"'
+            // SimpleLanguage.g:728:2: ( '\"' ( ( . )* ) '\"' )
+            // SimpleLanguage.g:728:4: '\"' ( ( . )* ) '\"'
             this.match('\"'); 
-            // SimpleLanguage.g:726:8: ( ( . )* )
-            // SimpleLanguage.g:726:9: ( . )*
-            // SimpleLanguage.g:726:9: ( . )*
-            loop10:
+            // SimpleLanguage.g:728:8: ( ( . )* )
+            // SimpleLanguage.g:728:9: ( . )*
+            // SimpleLanguage.g:728:9: ( . )*
+            loop11:
             do {
-                var alt10=2;
-                var LA10_0 = this.input.LA(1);
+                var alt11=2;
+                var LA11_0 = this.input.LA(1);
 
-                if ( (LA10_0=='\"') ) {
-                    alt10=2;
+                if ( (LA11_0=='\"') ) {
+                    alt11=2;
                 }
-                else if ( ((LA10_0>='\u0000' && LA10_0<='!')||(LA10_0>='#' && LA10_0<='\uFFFF')) ) {
-                    alt10=1;
+                else if ( ((LA11_0>='\u0000' && LA11_0<='!')||(LA11_0>='#' && LA11_0<='\uFFFF')) ) {
+                    alt11=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt11) {
                 case 1 :
-                    // SimpleLanguage.g:726:9: .
+                    // SimpleLanguage.g:728:9: .
                     this.matchAny(); 
 
 
                     break;
 
                 default :
-                    break loop10;
+                    break loop11;
                 }
             } while (true);
 
@@ -1985,8 +2036,8 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
         try {
             var _type = this.CHARACTER_VALUE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:730:2: ( . )
-            // SimpleLanguage.g:730:4: .
+            // SimpleLanguage.g:732:2: ( . )
+            // SimpleLanguage.g:732:4: .
             this.matchAny(); 
 
 
@@ -2000,10 +2051,10 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
     // $ANTLR end "CHARACTER_VALUE",
 
     mTokens: function() {
-        // SimpleLanguage.g:1:8: ( END_IF | END_WHILE | END_FOR | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING | CHARACTER_VALUE )
-        var alt11=71;
-        alt11 = this.dfa11.predict(this.input);
-        switch (alt11) {
+        // SimpleLanguage.g:1:8: ( END_IF | END_WHILE | END_FOR | END_DO_WHILE | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING | CHARACTER_VALUE )
+        var alt12=72;
+        alt12 = this.dfa12.predict(this.input);
+        switch (alt12) {
             case 1 :
                 // SimpleLanguage.g:1:10: END_IF
                 this.mEND_IF(); 
@@ -2023,409 +2074,415 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
 
                 break;
             case 4 :
-                // SimpleLanguage.g:1:35: END
-                this.mEND(); 
+                // SimpleLanguage.g:1:35: END_DO_WHILE
+                this.mEND_DO_WHILE(); 
 
 
                 break;
             case 5 :
-                // SimpleLanguage.g:1:39: PLUS
-                this.mPLUS(); 
+                // SimpleLanguage.g:1:48: END
+                this.mEND(); 
 
 
                 break;
             case 6 :
-                // SimpleLanguage.g:1:44: MINUS
-                this.mMINUS(); 
+                // SimpleLanguage.g:1:52: PLUS
+                this.mPLUS(); 
 
 
                 break;
             case 7 :
-                // SimpleLanguage.g:1:50: MULT
-                this.mMULT(); 
+                // SimpleLanguage.g:1:57: MINUS
+                this.mMINUS(); 
 
 
                 break;
             case 8 :
-                // SimpleLanguage.g:1:55: EXP
-                this.mEXP(); 
+                // SimpleLanguage.g:1:63: MULT
+                this.mMULT(); 
 
 
                 break;
             case 9 :
-                // SimpleLanguage.g:1:59: DIV
-                this.mDIV(); 
+                // SimpleLanguage.g:1:68: EXP
+                this.mEXP(); 
 
 
                 break;
             case 10 :
-                // SimpleLanguage.g:1:63: MODULO
-                this.mMODULO(); 
+                // SimpleLanguage.g:1:72: DIV
+                this.mDIV(); 
 
 
                 break;
             case 11 :
-                // SimpleLanguage.g:1:70: EQ
-                this.mEQ(); 
+                // SimpleLanguage.g:1:76: MODULO
+                this.mMODULO(); 
 
 
                 break;
             case 12 :
-                // SimpleLanguage.g:1:73: NEQ
-                this.mNEQ(); 
+                // SimpleLanguage.g:1:83: EQ
+                this.mEQ(); 
 
 
                 break;
             case 13 :
-                // SimpleLanguage.g:1:77: NOT
-                this.mNOT(); 
+                // SimpleLanguage.g:1:86: NEQ
+                this.mNEQ(); 
 
 
                 break;
             case 14 :
-                // SimpleLanguage.g:1:81: LTE
-                this.mLTE(); 
+                // SimpleLanguage.g:1:90: NOT
+                this.mNOT(); 
 
 
                 break;
             case 15 :
-                // SimpleLanguage.g:1:85: LT
-                this.mLT(); 
+                // SimpleLanguage.g:1:94: LTE
+                this.mLTE(); 
 
 
                 break;
             case 16 :
-                // SimpleLanguage.g:1:88: GTE
-                this.mGTE(); 
+                // SimpleLanguage.g:1:98: LT
+                this.mLT(); 
 
 
                 break;
             case 17 :
-                // SimpleLanguage.g:1:92: GT
-                this.mGT(); 
+                // SimpleLanguage.g:1:101: GTE
+                this.mGTE(); 
 
 
                 break;
             case 18 :
-                // SimpleLanguage.g:1:95: AND
-                this.mAND(); 
+                // SimpleLanguage.g:1:105: GT
+                this.mGT(); 
 
 
                 break;
             case 19 :
-                // SimpleLanguage.g:1:99: OR
-                this.mOR(); 
+                // SimpleLanguage.g:1:108: AND
+                this.mAND(); 
 
 
                 break;
             case 20 :
-                // SimpleLanguage.g:1:102: REPEAT
-                this.mREPEAT(); 
+                // SimpleLanguage.g:1:112: OR
+                this.mOR(); 
 
 
                 break;
             case 21 :
-                // SimpleLanguage.g:1:109: UNTIL
-                this.mUNTIL(); 
+                // SimpleLanguage.g:1:115: REPEAT
+                this.mREPEAT(); 
 
 
                 break;
             case 22 :
-                // SimpleLanguage.g:1:115: FOR
-                this.mFOR(); 
+                // SimpleLanguage.g:1:122: UNTIL
+                this.mUNTIL(); 
 
 
                 break;
             case 23 :
-                // SimpleLanguage.g:1:119: FROM
-                this.mFROM(); 
+                // SimpleLanguage.g:1:128: FOR
+                this.mFOR(); 
 
 
                 break;
             case 24 :
-                // SimpleLanguage.g:1:124: TO
-                this.mTO(); 
+                // SimpleLanguage.g:1:132: FROM
+                this.mFROM(); 
 
 
                 break;
             case 25 :
-                // SimpleLanguage.g:1:127: STEP
-                this.mSTEP(); 
+                // SimpleLanguage.g:1:137: TO
+                this.mTO(); 
 
 
                 break;
             case 26 :
-                // SimpleLanguage.g:1:132: READ
-                this.mREAD(); 
+                // SimpleLanguage.g:1:140: STEP
+                this.mSTEP(); 
 
 
                 break;
             case 27 :
-                // SimpleLanguage.g:1:137: ADDRESS
-                this.mADDRESS(); 
+                // SimpleLanguage.g:1:145: READ
+                this.mREAD(); 
 
 
                 break;
             case 28 :
-                // SimpleLanguage.g:1:145: CONTENT
-                this.mCONTENT(); 
+                // SimpleLanguage.g:1:150: ADDRESS
+                this.mADDRESS(); 
 
 
                 break;
             case 29 :
-                // SimpleLanguage.g:1:153: ALLOCATE
-                this.mALLOCATE(); 
+                // SimpleLanguage.g:1:158: CONTENT
+                this.mCONTENT(); 
 
 
                 break;
             case 30 :
-                // SimpleLanguage.g:1:162: FREE
-                this.mFREE(); 
+                // SimpleLanguage.g:1:166: ALLOCATE
+                this.mALLOCATE(); 
 
 
                 break;
             case 31 :
-                // SimpleLanguage.g:1:167: NULL
-                this.mNULL(); 
+                // SimpleLanguage.g:1:175: FREE
+                this.mFREE(); 
 
 
                 break;
             case 32 :
-                // SimpleLanguage.g:1:172: BEGIN
-                this.mBEGIN(); 
+                // SimpleLanguage.g:1:180: NULL
+                this.mNULL(); 
 
 
                 break;
             case 33 :
-                // SimpleLanguage.g:1:178: VAR
-                this.mVAR(); 
+                // SimpleLanguage.g:1:185: BEGIN
+                this.mBEGIN(); 
 
 
                 break;
             case 34 :
-                // SimpleLanguage.g:1:182: WHILE
-                this.mWHILE(); 
+                // SimpleLanguage.g:1:191: VAR
+                this.mVAR(); 
 
 
                 break;
             case 35 :
-                // SimpleLanguage.g:1:188: DO
-                this.mDO(); 
+                // SimpleLanguage.g:1:195: WHILE
+                this.mWHILE(); 
 
 
                 break;
             case 36 :
-                // SimpleLanguage.g:1:191: STRUCT
-                this.mSTRUCT(); 
+                // SimpleLanguage.g:1:201: DO
+                this.mDO(); 
 
 
                 break;
             case 37 :
-                // SimpleLanguage.g:1:198: BOOLEAN
-                this.mBOOLEAN(); 
+                // SimpleLanguage.g:1:204: STRUCT
+                this.mSTRUCT(); 
 
 
                 break;
             case 38 :
-                // SimpleLanguage.g:1:206: INTEGER
-                this.mINTEGER(); 
+                // SimpleLanguage.g:1:211: BOOLEAN
+                this.mBOOLEAN(); 
 
 
                 break;
             case 39 :
-                // SimpleLanguage.g:1:214: FLOAT
-                this.mFLOAT(); 
+                // SimpleLanguage.g:1:219: INTEGER
+                this.mINTEGER(); 
 
 
                 break;
             case 40 :
-                // SimpleLanguage.g:1:220: CHARACTER
-                this.mCHARACTER(); 
+                // SimpleLanguage.g:1:227: FLOAT
+                this.mFLOAT(); 
 
 
                 break;
             case 41 :
-                // SimpleLanguage.g:1:230: POINTER
-                this.mPOINTER(); 
+                // SimpleLanguage.g:1:233: CHARACTER
+                this.mCHARACTER(); 
 
 
                 break;
             case 42 :
-                // SimpleLanguage.g:1:238: IF
-                this.mIF(); 
+                // SimpleLanguage.g:1:243: POINTER
+                this.mPOINTER(); 
 
 
                 break;
             case 43 :
-                // SimpleLanguage.g:1:241: THEN
-                this.mTHEN(); 
+                // SimpleLanguage.g:1:251: IF
+                this.mIF(); 
 
 
                 break;
             case 44 :
-                // SimpleLanguage.g:1:246: ELSE
-                this.mELSE(); 
+                // SimpleLanguage.g:1:254: THEN
+                this.mTHEN(); 
 
 
                 break;
             case 45 :
-                // SimpleLanguage.g:1:251: FUNCTION
-                this.mFUNCTION(); 
+                // SimpleLanguage.g:1:259: ELSE
+                this.mELSE(); 
 
 
                 break;
             case 46 :
-                // SimpleLanguage.g:1:260: PROCEDURE
-                this.mPROCEDURE(); 
+                // SimpleLanguage.g:1:264: FUNCTION
+                this.mFUNCTION(); 
 
 
                 break;
             case 47 :
-                // SimpleLanguage.g:1:270: PRINT
-                this.mPRINT(); 
+                // SimpleLanguage.g:1:273: PROCEDURE
+                this.mPROCEDURE(); 
 
 
                 break;
             case 48 :
-                // SimpleLanguage.g:1:276: PRINTLN
-                this.mPRINTLN(); 
+                // SimpleLanguage.g:1:283: PRINT
+                this.mPRINT(); 
 
 
                 break;
             case 49 :
-                // SimpleLanguage.g:1:284: ERROR
-                this.mERROR(); 
+                // SimpleLanguage.g:1:289: PRINTLN
+                this.mPRINTLN(); 
 
 
                 break;
             case 50 :
-                // SimpleLanguage.g:1:290: RANDOM_INTEGER
-                this.mRANDOM_INTEGER(); 
+                // SimpleLanguage.g:1:297: ERROR
+                this.mERROR(); 
 
 
                 break;
             case 51 :
-                // SimpleLanguage.g:1:305: RETURN
-                this.mRETURN(); 
+                // SimpleLanguage.g:1:303: RANDOM_INTEGER
+                this.mRANDOM_INTEGER(); 
 
 
                 break;
             case 52 :
-                // SimpleLanguage.g:1:312: COLON
-                this.mCOLON(); 
+                // SimpleLanguage.g:1:318: RETURN
+                this.mRETURN(); 
 
 
                 break;
             case 53 :
-                // SimpleLanguage.g:1:318: COMMA
-                this.mCOMMA(); 
+                // SimpleLanguage.g:1:325: COLON
+                this.mCOLON(); 
 
 
                 break;
             case 54 :
-                // SimpleLanguage.g:1:324: LB
-                this.mLB(); 
+                // SimpleLanguage.g:1:331: COMMA
+                this.mCOMMA(); 
 
 
                 break;
             case 55 :
-                // SimpleLanguage.g:1:327: RB
-                this.mRB(); 
+                // SimpleLanguage.g:1:337: LB
+                this.mLB(); 
 
 
                 break;
             case 56 :
-                // SimpleLanguage.g:1:330: LP
-                this.mLP(); 
+                // SimpleLanguage.g:1:340: RB
+                this.mRB(); 
 
 
                 break;
             case 57 :
-                // SimpleLanguage.g:1:333: RP
-                this.mRP(); 
+                // SimpleLanguage.g:1:343: LP
+                this.mLP(); 
 
 
                 break;
             case 58 :
-                // SimpleLanguage.g:1:336: POINT
-                this.mPOINT(); 
+                // SimpleLanguage.g:1:346: RP
+                this.mRP(); 
 
 
                 break;
             case 59 :
-                // SimpleLanguage.g:1:342: DEREFERENCE
-                this.mDEREFERENCE(); 
+                // SimpleLanguage.g:1:349: POINT
+                this.mPOINT(); 
 
 
                 break;
             case 60 :
-                // SimpleLanguage.g:1:354: AFFECT
-                this.mAFFECT(); 
+                // SimpleLanguage.g:1:355: DEREFERENCE
+                this.mDEREFERENCE(); 
 
 
                 break;
             case 61 :
-                // SimpleLanguage.g:1:361: APOSTROPH
-                this.mAPOSTROPH(); 
+                // SimpleLanguage.g:1:367: AFFECT
+                this.mAFFECT(); 
 
 
                 break;
             case 62 :
-                // SimpleLanguage.g:1:371: WHITE_SPACE
-                this.mWHITE_SPACE(); 
+                // SimpleLanguage.g:1:374: APOSTROPH
+                this.mAPOSTROPH(); 
 
 
                 break;
             case 63 :
-                // SimpleLanguage.g:1:383: INTEGER_VALUE
-                this.mINTEGER_VALUE(); 
+                // SimpleLanguage.g:1:384: WHITE_SPACE
+                this.mWHITE_SPACE(); 
 
 
                 break;
             case 64 :
-                // SimpleLanguage.g:1:397: FLOAT_VALUE
-                this.mFLOAT_VALUE(); 
+                // SimpleLanguage.g:1:396: INTEGER_VALUE
+                this.mINTEGER_VALUE(); 
 
 
                 break;
             case 65 :
-                // SimpleLanguage.g:1:409: BOOLEAN_VALUE
-                this.mBOOLEAN_VALUE(); 
+                // SimpleLanguage.g:1:410: FLOAT_VALUE
+                this.mFLOAT_VALUE(); 
 
 
                 break;
             case 66 :
-                // SimpleLanguage.g:1:423: IDENTIFIER
-                this.mIDENTIFIER(); 
+                // SimpleLanguage.g:1:422: BOOLEAN_VALUE
+                this.mBOOLEAN_VALUE(); 
 
 
                 break;
             case 67 :
-                // SimpleLanguage.g:1:434: NEWLINE
-                this.mNEWLINE(); 
+                // SimpleLanguage.g:1:436: IDENTIFIER
+                this.mIDENTIFIER(); 
 
 
                 break;
             case 68 :
-                // SimpleLanguage.g:1:442: COMMENT
-                this.mCOMMENT(); 
+                // SimpleLanguage.g:1:447: NEWLINE
+                this.mNEWLINE(); 
 
 
                 break;
             case 69 :
-                // SimpleLanguage.g:1:450: LINE_COMMENT
-                this.mLINE_COMMENT(); 
+                // SimpleLanguage.g:1:455: COMMENT
+                this.mCOMMENT(); 
 
 
                 break;
             case 70 :
-                // SimpleLanguage.g:1:463: STRING
-                this.mSTRING(); 
+                // SimpleLanguage.g:1:463: LINE_COMMENT
+                this.mLINE_COMMENT(); 
 
 
                 break;
             case 71 :
-                // SimpleLanguage.g:1:470: CHARACTER_VALUE
+                // SimpleLanguage.g:1:476: STRING
+                this.mSTRING(); 
+
+
+                break;
+            case 72 :
+                // SimpleLanguage.g:1:483: CHARACTER_VALUE
                 this.mCHARACTER_VALUE(); 
 
 
@@ -2438,7 +2495,7 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
 }, true); // important to pass true to overwrite default implementations
 
 org.antlr.lang.augmentObject(SimpleLanguageLexer, {
-    DFA11_eotS:
+    DFA12_eotS:
         "\u0001\uffff\u0001\u002f\u0001\uffff\u0001\u0032\u0002\uffff\u0001"+
     "\u0037\u0002\uffff\u0001\u003b\u0001\u003e\u0001\u0040\u000f\u002f\u0006"+
     "\uffff\u0001\u0063\u0002\uffff\u0001\u0067\u0002\u002f\u0001\uffff\u0001"+
@@ -2448,25 +2505,26 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
     "\uffff\u0001\u0094\u0002\u002f\u0001\u0097\u0002\u002f\u0001\uffff\u0005"+
     "\u002f\u0001\u009f\u0005\u002f\u0001\uffff\u0009\u002f\u0001\u00ae\u0001"+
     "\u002f\u0001\uffff\u0001\u002f\u0001\uffff\u0006\u002f\u0001\uffff\u0001"+
-    "\u00b9\u0001\u002f\u0001\uffff\u0003\u002f\u0001\u00be\u0003\u002f\u0001"+
-    "\uffff\u0001\u00c2\u0001\u00c3\u0003\u002f\u0001\u00c7\u0001\u00c8\u0001"+
-    "\u00c9\u0003\u002f\u0001\u00cd\u0002\u002f\u0001\uffff\u0005\u002f\u0001"+
-    "\u00c8\u0004\u002f\u0001\uffff\u0001\u00d9\u0001\u002f\u0001\u00db\u0001"+
-    "\u002f\u0001\uffff\u0002\u002f\u0001\u00df\u0002\uffff\u0001\u00e0\u0001"+
-    "\u002f\u0001\u00c8\u0003\uffff\u0003\u002f\u0001\uffff\u0001\u00e5\u0001"+
-    "\u002f\u0001\u00e7\u0003\u002f\u0001\u00ec\u0001\u00c8\u0001\u00ed\u0002"+
-    "\u002f\u0001\uffff\u0001\u002f\u0001\uffff\u0001\u00f1\u0001\u00f2\u0001"+
-    "\u002f\u0002\uffff\u0001\u002f\u0001\u00f5\u0002\u002f\u0001\uffff\u0001"+
-    "\u002f\u0001\uffff\u0004\u002f\u0002\uffff\u0001\u002f\u0001\u00fe\u0001"+
-    "\u00ff\u0002\uffff\u0002\u002f\u0001\uffff\u0001\u0102\u0001\u002f\u0001"+
-    "\u0104\u0001\u0105\u0001\u0106\u0001\u002f\u0001\u0108\u0001\u002f\u0002"+
-    "\uffff\u0001\u002f\u0001\u010b\u0001\uffff\u0001\u002f\u0003\uffff\u0001"+
-    "\u002f\u0001\uffff\u0001\u010e\u0001\u002f\u0001\uffff\u0001\u0110\u0001"+
-    "\u0111\u0001\uffff\u0001\u002f\u0002\uffff\u0003\u002f\u0001\u0116\u0001"+
-    "\uffff",
-    DFA11_eofS:
-        "\u0117\uffff",
-    DFA11_minS:
+    "\u00ba\u0001\u002f\u0001\uffff\u0003\u002f\u0001\u00bf\u0003\u002f\u0001"+
+    "\uffff\u0001\u00c3\u0001\u00c4\u0003\u002f\u0001\u00c8\u0001\u00c9\u0001"+
+    "\u00ca\u0003\u002f\u0001\u00ce\u0002\u002f\u0001\uffff\u0005\u002f\u0001"+
+    "\u00c9\u0005\u002f\u0001\uffff\u0001\u00db\u0001\u002f\u0001\u00dd\u0001"+
+    "\u002f\u0001\uffff\u0002\u002f\u0001\u00e1\u0002\uffff\u0001\u00e2\u0001"+
+    "\u002f\u0001\u00c9\u0003\uffff\u0003\u002f\u0001\uffff\u0001\u00e7\u0001"+
+    "\u002f\u0001\u00e9\u0003\u002f\u0001\u00ee\u0001\u00c9\u0001\u00ef\u0003"+
+    "\u002f\u0001\uffff\u0001\u002f\u0001\uffff\u0001\u00f4\u0001\u00f5\u0001"+
+    "\u002f\u0002\uffff\u0001\u002f\u0001\u00f8\u0002\u002f\u0001\uffff\u0001"+
+    "\u002f\u0001\uffff\u0004\u002f\u0002\uffff\u0001\u002f\u0001\u0101\u0001"+
+    "\u002f\u0001\u0103\u0002\uffff\u0002\u002f\u0001\uffff\u0001\u0106\u0001"+
+    "\u002f\u0001\u0108\u0001\u0109\u0001\u010a\u0001\u002f\u0001\u010c\u0001"+
+    "\u002f\u0001\uffff\u0001\u002f\u0001\uffff\u0001\u002f\u0001\u0110\u0001"+
+    "\uffff\u0001\u002f\u0003\uffff\u0001\u002f\u0001\uffff\u0001\u0113\u0002"+
+    "\u002f\u0001\uffff\u0001\u0116\u0001\u0117\u0001\uffff\u0002\u002f\u0002"+
+    "\uffff\u0002\u002f\u0001\u011c\u0001\u002f\u0001\uffff\u0001\u002f\u0001"+
+    "\u011f\u0001\uffff",
+    DFA12_eofS:
+        "\u0120\uffff",
+    DFA12_minS:
         "\u0001\u0000\u0001\u004c\u0001\uffff\u0001\u003e\u0002\uffff\u0001"+
     "\u002a\u0002\uffff\u0001\u003d\u0001\u002d\u0001\u003d\u0001\u0044\u0001"+
     "\u0052\u0001\u0041\u0001\u004e\u0001\u0041\u0001\u0048\u0001\u0054\u0001"+
@@ -2485,26 +2543,27 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
     "\uffff\u0001\u004e\u0001\u0045\u0001\u0050\u0001\u0055\u0001\u0054\u0001"+
     "\u0052\u0001\u004c\u0001\u0049\u0001\u004c\u0001\u0030\u0001\u004c\u0001"+
     "\uffff\u0001\u0045\u0001\uffff\u0001\u004e\u0001\u0043\u0001\u004e\u0001"+
-    "\u0065\u0001\u0073\u0001\u0046\u0001\uffff\u0001\u0030\u0001\u0052\u0001"+
+    "\u0065\u0001\u0073\u0001\u0044\u0001\uffff\u0001\u0030\u0001\u0052\u0001"+
     "\uffff\u0001\u0045\u0001\u0043\u0001\u0041\u0001\u0030\u0001\u0052\u0001"+
     "\u004f\u0001\u004c\u0001\uffff\u0002\u0030\u0002\u0054\u0001\u0045\u0003"+
     "\u0030\u0001\u0043\u0001\u0045\u0001\u0041\u0001\u0030\u0001\u004e\u0001"+
     "\u0045\u0001\uffff\u0001\u0045\u0001\u0047\u0001\u0054\u0001\u0045\u0001"+
-    "\u0054\u0001\u0030\u0001\u0065\u0001\u0046\u0001\u0048\u0001\u004f\u0001"+
+    "\u0054\u0001\u0030\u0001\u0065\u0001\u0046\u0001\u0048\u0002\u004f\u0001"+
     "\uffff\u0001\u0030\u0001\u0053\u0001\u0030\u0001\u0054\u0001\uffff\u0001"+
     "\u004e\u0001\u004d\u0001\u0030\u0002\uffff\u0001\u0030\u0001\u0049\u0001"+
     "\u0030\u0003\uffff\u0001\u0054\u0001\u004e\u0001\u0043\u0001\uffff\u0001"+
     "\u0030\u0001\u0041\u0001\u0030\u0002\u0045\u0001\u0044\u0003\u0030\u0001"+
-    "\u0049\u0001\u0052\u0001\uffff\u0001\u0053\u0001\uffff\u0002\u0030\u0001"+
-    "\u005f\u0002\uffff\u0001\u004f\u0001\u0030\u0002\u0054\u0001\uffff\u0001"+
-    "\u004e\u0001\uffff\u0002\u0052\u0001\u0055\u0001\u004e\u0002\uffff\u0001"+
-    "\u004c\u0002\u0030\u0002\uffff\u0001\u0049\u0001\u004e\u0001\uffff\u0001"+
-    "\u0030\u0001\u0045\u0003\u0030\u0001\u0052\u0001\u0030\u0001\u0045\u0002"+
-    "\uffff\u0001\u004e\u0001\u0030\u0001\uffff\u0001\u0052\u0003\uffff\u0001"+
-    "\u0045\u0001\uffff\u0001\u0030\u0001\u0054\u0001\uffff\u0002\u0030\u0001"+
-    "\uffff\u0001\u0045\u0002\uffff\u0001\u0047\u0001\u0045\u0001\u0052\u0001"+
-    "\u0030\u0001\uffff",
-    DFA11_maxS:
+    "\u0049\u0001\u0052\u0001\u005f\u0001\uffff\u0001\u0053\u0001\uffff\u0002"+
+    "\u0030\u0001\u005f\u0002\uffff\u0001\u004f\u0001\u0030\u0002\u0054\u0001"+
+    "\uffff\u0001\u004e\u0001\uffff\u0002\u0052\u0001\u0055\u0001\u004e\u0002"+
+    "\uffff\u0001\u004c\u0001\u0030\u0001\u0057\u0001\u0030\u0002\uffff\u0001"+
+    "\u0049\u0001\u004e\u0001\uffff\u0001\u0030\u0001\u0045\u0003\u0030\u0001"+
+    "\u0052\u0001\u0030\u0001\u0045\u0001\uffff\u0001\u0048\u0001\uffff\u0001"+
+    "\u004e\u0001\u0030\u0001\uffff\u0001\u0052\u0003\uffff\u0001\u0045\u0001"+
+    "\uffff\u0001\u0030\u0001\u0049\u0001\u0054\u0001\uffff\u0002\u0030\u0001"+
+    "\uffff\u0001\u004c\u0001\u0045\u0002\uffff\u0001\u0045\u0001\u0047\u0001"+
+    "\u0030\u0001\u0045\u0001\uffff\u0001\u0052\u0001\u0030\u0001\uffff",
+    DFA12_maxS:
         "\u0001\uffff\u0001\u0052\u0001\uffff\u0001\u003e\u0002\uffff\u0001"+
     "\u002f\u0002\uffff\u0003\u003d\u0001\u004e\u0001\u0052\u0001\u0045\u0001"+
     "\u004e\u0001\u0055\u0001\u0052\u0001\u0054\u0001\u004f\u0001\u0055\u0001"+
@@ -2528,45 +2587,47 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
     "\uffff\u0002\u007a\u0002\u0054\u0001\u0045\u0003\u007a\u0001\u0043\u0001"+
     "\u0045\u0001\u0041\u0001\u007a\u0001\u004e\u0001\u0045\u0001\uffff\u0001"+
     "\u0045\u0001\u0047\u0001\u0054\u0001\u0045\u0001\u0054\u0001\u007a\u0001"+
-    "\u0065\u0001\u0046\u0001\u0048\u0001\u004f\u0001\uffff\u0001\u007a\u0001"+
+    "\u0065\u0001\u0046\u0001\u0048\u0002\u004f\u0001\uffff\u0001\u007a\u0001"+
     "\u0053\u0001\u007a\u0001\u0054\u0001\uffff\u0001\u004e\u0001\u004d\u0001"+
     "\u007a\u0002\uffff\u0001\u007a\u0001\u0049\u0001\u007a\u0003\uffff\u0001"+
     "\u0054\u0001\u004e\u0001\u0043\u0001\uffff\u0001\u007a\u0001\u0041\u0001"+
     "\u007a\u0002\u0045\u0001\u0044\u0003\u007a\u0001\u0049\u0001\u0052\u0001"+
-    "\uffff\u0001\u0053\u0001\uffff\u0002\u007a\u0001\u005f\u0002\uffff\u0001"+
-    "\u004f\u0001\u007a\u0002\u0054\u0001\uffff\u0001\u004e\u0001\uffff\u0002"+
-    "\u0052\u0001\u0055\u0001\u004e\u0002\uffff\u0001\u004c\u0002\u007a\u0002"+
-    "\uffff\u0001\u0049\u0001\u004e\u0001\uffff\u0001\u007a\u0001\u0045\u0003"+
-    "\u007a\u0001\u0052\u0001\u007a\u0001\u0045\u0002\uffff\u0001\u004e\u0001"+
-    "\u007a\u0001\uffff\u0001\u0052\u0003\uffff\u0001\u0045\u0001\uffff\u0001"+
-    "\u007a\u0001\u0054\u0001\uffff\u0002\u007a\u0001\uffff\u0001\u0045\u0002"+
-    "\uffff\u0001\u0047\u0001\u0045\u0001\u0052\u0001\u007a\u0001\uffff",
-    DFA11_acceptS:
-        "\u0002\uffff\u0001\u0005\u0001\uffff\u0001\u0007\u0001\u0008\u0001"+
-    "\uffff\u0001\u000a\u0001\u000b\u0012\uffff\u0001\u0034\u0001\u0035\u0001"+
-    "\u0036\u0001\u0037\u0001\u0038\u0001\u0039\u0001\uffff\u0001\u003d\u0001"+
-    "\u003e\u0003\uffff\u0001\u0042\u0001\uffff\u0001\u0043\u0001\uffff\u0001"+
-    "\u0047\u0003\uffff\u0001\u0042\u0001\u0005\u0001\u003b\u0001\u0006\u0001"+
-    "\u0007\u0001\u0008\u0001\u0044\u0001\u0045\u0001\u0009\u0001\u000a\u0001"+
-    "\u000b\u0001\u000c\u0001\u000d\u0001\u000e\u0001\u003c\u0001\u000f\u0001"+
-    "\u0010\u0001\u0011\u001c\uffff\u0001\u0034\u0001\u0035\u0001\u0036\u0001"+
-    "\u0037\u0001\u0038\u0001\u0039\u0001\u003a\u0001\u0040\u0001\u003d\u0001"+
-    "\u003e\u0001\u003f\u0003\uffff\u0001\u0043\u0001\u0046\u0006\uffff\u0001"+
-    "\u0013\u000b\uffff\u0001\u0018\u000b\uffff\u0001\u0023\u0001\uffff\u0001"+
-    "\u002a\u0006\uffff\u0001\u0004\u0002\uffff\u0001\u0012\u0007\uffff\u0001"+
-    "\u0016\u000e\uffff\u0001\u0021\u000a\uffff\u0001\u002c\u0004\uffff\u0001"+
-    "\u001a\u0003\uffff\u0001\u0017\u0001\u001e\u0003\uffff\u0001\u002b\u0001"+
-    "\u0041\u0001\u0019\u0003\uffff\u0001\u001f\u000b\uffff\u0001\u0031\u0001"+
-    "\uffff\u0001\u001d\u0003\uffff\u0001\u0015\u0001\u0027\u0004\uffff\u0001"+
-    "\u0020\u0001\uffff\u0001\u0022\u0004\uffff\u0001\u002f\u0001\u0001\u0003"+
-    "\uffff\u0001\u0014\u0001\u0033\u0002\uffff\u0001\u0024\u0008\uffff\u0001"+
-    "\u0003\u0001\u001b\u0002\uffff\u0001\u001c\u0001\uffff\u0001\u0025\u0001"+
-    "\u0026\u0001\u0029\u0001\uffff\u0001\u0030\u0002\uffff\u0001\u002d\u0002"+
-    "\uffff\u0001\u0002\u0001\uffff\u0001\u0028\u0001\u002e\u0004\uffff\u0001"+
-    "\u0032",
-    DFA11_specialS:
-        "\u0001\u0001\u0029\uffff\u0001\u0000\u00ec\uffff}>",
-    DFA11_transitionS: [
+    "\u005f\u0001\uffff\u0001\u0053\u0001\uffff\u0002\u007a\u0001\u005f\u0002"+
+    "\uffff\u0001\u004f\u0001\u007a\u0002\u0054\u0001\uffff\u0001\u004e\u0001"+
+    "\uffff\u0002\u0052\u0001\u0055\u0001\u004e\u0002\uffff\u0001\u004c\u0001"+
+    "\u007a\u0001\u0057\u0001\u007a\u0002\uffff\u0001\u0049\u0001\u004e\u0001"+
+    "\uffff\u0001\u007a\u0001\u0045\u0003\u007a\u0001\u0052\u0001\u007a\u0001"+
+    "\u0045\u0001\uffff\u0001\u0048\u0001\uffff\u0001\u004e\u0001\u007a\u0001"+
+    "\uffff\u0001\u0052\u0003\uffff\u0001\u0045\u0001\uffff\u0001\u007a\u0001"+
+    "\u0049\u0001\u0054\u0001\uffff\u0002\u007a\u0001\uffff\u0001\u004c\u0001"+
+    "\u0045\u0002\uffff\u0001\u0045\u0001\u0047\u0001\u007a\u0001\u0045\u0001"+
+    "\uffff\u0001\u0052\u0001\u007a\u0001\uffff",
+    DFA12_acceptS:
+        "\u0002\uffff\u0001\u0006\u0001\uffff\u0001\u0008\u0001\u0009\u0001"+
+    "\uffff\u0001\u000b\u0001\u000c\u0012\uffff\u0001\u0035\u0001\u0036\u0001"+
+    "\u0037\u0001\u0038\u0001\u0039\u0001\u003a\u0001\uffff\u0001\u003e\u0001"+
+    "\u003f\u0003\uffff\u0001\u0043\u0001\uffff\u0001\u0044\u0001\uffff\u0001"+
+    "\u0048\u0003\uffff\u0001\u0043\u0001\u0006\u0001\u003c\u0001\u0007\u0001"+
+    "\u0008\u0001\u0009\u0001\u0045\u0001\u0046\u0001\u000a\u0001\u000b\u0001"+
+    "\u000c\u0001\u000d\u0001\u000e\u0001\u000f\u0001\u003d\u0001\u0010\u0001"+
+    "\u0011\u0001\u0012\u001c\uffff\u0001\u0035\u0001\u0036\u0001\u0037\u0001"+
+    "\u0038\u0001\u0039\u0001\u003a\u0001\u003b\u0001\u0041\u0001\u003e\u0001"+
+    "\u003f\u0001\u0040\u0003\uffff\u0001\u0044\u0001\u0047\u0006\uffff\u0001"+
+    "\u0014\u000b\uffff\u0001\u0019\u000b\uffff\u0001\u0024\u0001\uffff\u0001"+
+    "\u002b\u0006\uffff\u0001\u0005\u0002\uffff\u0001\u0013\u0007\uffff\u0001"+
+    "\u0017\u000e\uffff\u0001\u0022\u000b\uffff\u0001\u002d\u0004\uffff\u0001"+
+    "\u001b\u0003\uffff\u0001\u0018\u0001\u001f\u0003\uffff\u0001\u002c\u0001"+
+    "\u0042\u0001\u001a\u0003\uffff\u0001\u0020\u000c\uffff\u0001\u0032\u0001"+
+    "\uffff\u0001\u001e\u0003\uffff\u0001\u0016\u0001\u0028\u0004\uffff\u0001"+
+    "\u0021\u0001\uffff\u0001\u0023\u0004\uffff\u0001\u0030\u0001\u0001\u0004"+
+    "\uffff\u0001\u0015\u0001\u0034\u0002\uffff\u0001\u0025\u0008\uffff\u0001"+
+    "\u0003\u0001\uffff\u0001\u001c\u0002\uffff\u0001\u001d\u0001\uffff\u0001"+
+    "\u0026\u0001\u0027\u0001\u002a\u0001\uffff\u0001\u0031\u0003\uffff\u0001"+
+    "\u002e\u0002\uffff\u0001\u0002\u0002\uffff\u0001\u0029\u0001\u002f\u0004"+
+    "\uffff\u0001\u0004\u0002\uffff\u0001\u0033",
+    DFA12_specialS:
+        "\u0001\u0001\u0029\uffff\u0001\u0000\u00f5\uffff}>",
+    DFA12_transitionS: [
             "\u0009\u002b\u0001\u0023\u0001\u0029\u0002\u002b\u0001\u0028"+
             "\u0012\u002b\u0001\u0023\u0001\u0009\u0001\u002a\u0002\u002b"+
             "\u0001\u0007\u0001\u002b\u0001\u0022\u0001\u001f\u0001\u0020"+
@@ -2734,169 +2795,180 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
             "\u0001\u00b3",
             "\u0001\u00b4",
             "\u0001\u00b5",
-            "\u0001\u00b8\u0002\uffff\u0001\u00b6\u000d\uffff\u0001\u00b7",
+            "\u0001\u00b9\u0001\uffff\u0001\u00b8\u0002\uffff\u0001\u00b6"+
+            "\u000d\uffff\u0001\u00b7",
             "",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00ba",
-            "",
             "\u0001\u00bb",
+            "",
             "\u0001\u00bc",
             "\u0001\u00bd",
+            "\u0001\u00be",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00bf",
             "\u0001\u00c0",
             "\u0001\u00c1",
+            "\u0001\u00c2",
             "",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00c4",
             "\u0001\u00c5",
             "\u0001\u00c6",
+            "\u0001\u00c7",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00ca",
             "\u0001\u00cb",
             "\u0001\u00cc",
+            "\u0001\u00cd",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00ce",
             "\u0001\u00cf",
-            "",
             "\u0001\u00d0",
+            "",
             "\u0001\u00d1",
             "\u0001\u00d2",
             "\u0001\u00d3",
             "\u0001\u00d4",
+            "\u0001\u00d5",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00d5",
             "\u0001\u00d6",
             "\u0001\u00d7",
             "\u0001\u00d8",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u00d9",
             "\u0001\u00da",
+            "",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u0001\u00dc",
-            "",
-            "\u0001\u00dd",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
             "\u0001\u00de",
+            "",
+            "\u0001\u00df",
+            "\u0001\u00e0",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "",
             "",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00e1",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "",
-            "",
-            "",
-            "\u0001\u00e2",
             "\u0001\u00e3",
-            "\u0001\u00e4",
-            "",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
+            "",
+            "",
+            "",
+            "\u0001\u00e4",
+            "\u0001\u00e5",
             "\u0001\u00e6",
+            "",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u0001\u00e8",
-            "\u0001\u00e9",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
             "\u0001\u00ea",
-            "\u000a\u002f\u0007\uffff\u000b\u002f\u0001\u00eb\u000e\u002f"+
+            "\u0001\u00eb",
+            "\u0001\u00ec",
+            "\u000a\u002f\u0007\uffff\u000b\u002f\u0001\u00ed\u000e\u002f"+
             "\u0004\uffff\u0001\u002f\u0001\uffff\u001a\u002f",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u00ee",
-            "\u0001\u00ef",
-            "",
             "\u0001\u00f0",
+            "\u0001\u00f1",
+            "\u0001\u00f2",
             "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
             "\u0001\u00f3",
             "",
-            "",
-            "\u0001\u00f4",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u0001\u00f6",
+            "",
+            "",
             "\u0001\u00f7",
-            "",
-            "\u0001\u00f8",
-            "",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
             "\u0001\u00f9",
             "\u0001\u00fa",
+            "",
             "\u0001\u00fb",
+            "",
             "\u0001\u00fc",
-            "",
-            "",
             "\u0001\u00fd",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u00fe",
+            "\u0001\u00ff",
             "",
             "",
             "\u0001\u0100",
-            "\u0001\u0101",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
+            "\u0001\u0102",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
             "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u0103",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "",
+            "\u0001\u0104",
+            "\u0001\u0105",
+            "",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             "\u0001\u0107",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u0001\u0109",
-            "",
-            "",
-            "\u0001\u010a",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "",
-            "\u0001\u010c",
-            "",
-            "",
-            "",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
+            "\u0001\u010b",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
             "\u0001\u010d",
             "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u010f",
+            "\u0001\u010e",
             "",
+            "\u0001\u010f",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "",
+            "\u0001\u0111",
+            "",
+            "",
             "",
             "\u0001\u0112",
             "",
-            "",
-            "\u0001\u0113",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
             "\u0001\u0114",
             "\u0001\u0115",
+            "",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
+            "",
+            "\u0001\u0118",
+            "\u0001\u0119",
+            "",
+            "",
+            "\u0001\u011a",
+            "\u0001\u011b",
+            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
+            "\u0001\uffff\u001a\u002f",
+            "\u0001\u011d",
+            "",
+            "\u0001\u011e",
             "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
             "\u0001\uffff\u001a\u002f",
             ""
@@ -2904,44 +2976,44 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
 });
 
 org.antlr.lang.augmentObject(SimpleLanguageLexer, {
-    DFA11_eot:
-        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA11_eotS),
-    DFA11_eof:
-        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA11_eofS),
-    DFA11_min:
-        org.antlr.runtime.DFA.unpackEncodedStringToUnsignedChars(SimpleLanguageLexer.DFA11_minS),
-    DFA11_max:
-        org.antlr.runtime.DFA.unpackEncodedStringToUnsignedChars(SimpleLanguageLexer.DFA11_maxS),
-    DFA11_accept:
-        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA11_acceptS),
-    DFA11_special:
-        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA11_specialS),
-    DFA11_transition: (function() {
+    DFA12_eot:
+        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA12_eotS),
+    DFA12_eof:
+        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA12_eofS),
+    DFA12_min:
+        org.antlr.runtime.DFA.unpackEncodedStringToUnsignedChars(SimpleLanguageLexer.DFA12_minS),
+    DFA12_max:
+        org.antlr.runtime.DFA.unpackEncodedStringToUnsignedChars(SimpleLanguageLexer.DFA12_maxS),
+    DFA12_accept:
+        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA12_acceptS),
+    DFA12_special:
+        org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA12_specialS),
+    DFA12_transition: (function() {
         var a = [],
             i,
-            numStates = SimpleLanguageLexer.DFA11_transitionS.length;
+            numStates = SimpleLanguageLexer.DFA12_transitionS.length;
         for (i=0; i<numStates; i++) {
-            a.push(org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA11_transitionS[i]));
+            a.push(org.antlr.runtime.DFA.unpackEncodedString(SimpleLanguageLexer.DFA12_transitionS[i]));
         }
         return a;
     })()
 });
 
-SimpleLanguageLexer.DFA11 = function(recognizer) {
+SimpleLanguageLexer.DFA12 = function(recognizer) {
     this.recognizer = recognizer;
-    this.decisionNumber = 11;
-    this.eot = SimpleLanguageLexer.DFA11_eot;
-    this.eof = SimpleLanguageLexer.DFA11_eof;
-    this.min = SimpleLanguageLexer.DFA11_min;
-    this.max = SimpleLanguageLexer.DFA11_max;
-    this.accept = SimpleLanguageLexer.DFA11_accept;
-    this.special = SimpleLanguageLexer.DFA11_special;
-    this.transition = SimpleLanguageLexer.DFA11_transition;
+    this.decisionNumber = 12;
+    this.eot = SimpleLanguageLexer.DFA12_eot;
+    this.eof = SimpleLanguageLexer.DFA12_eof;
+    this.min = SimpleLanguageLexer.DFA12_min;
+    this.max = SimpleLanguageLexer.DFA12_max;
+    this.accept = SimpleLanguageLexer.DFA12_accept;
+    this.special = SimpleLanguageLexer.DFA12_special;
+    this.transition = SimpleLanguageLexer.DFA12_transition;
 };
 
-org.antlr.lang.extend(SimpleLanguageLexer.DFA11, org.antlr.runtime.DFA, {
+org.antlr.lang.extend(SimpleLanguageLexer.DFA12, org.antlr.runtime.DFA, {
     getDescription: function() {
-        return "1:1: Tokens : ( END_IF | END_WHILE | END_FOR | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING | CHARACTER_VALUE );";
+        return "1:1: Tokens : ( END_IF | END_WHILE | END_FOR | END_DO_WHILE | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING | CHARACTER_VALUE );";
     },
     specialStateTransition: function(s, input) {
         var _s = s;
@@ -2949,104 +3021,104 @@ org.antlr.lang.extend(SimpleLanguageLexer.DFA11, org.antlr.runtime.DFA, {
         var retval = (function(s, input) {
             switch ( s ) {
                         case 0 : 
-                            var LA11_42 = input.LA(1);
+                            var LA12_42 = input.LA(1);
 
                             s = -1;
-                            if ( ((LA11_42>='\u0000' && LA11_42<='\uFFFF')) ) {s = 108;}
+                            if ( ((LA12_42>='\u0000' && LA12_42<='\uFFFF')) ) {s = 108;}
 
                             else s = 43;
 
                             if ( s>=0 ) return s;
                             break;
                         case 1 : 
-                            var LA11_0 = input.LA(1);
+                            var LA12_0 = input.LA(1);
 
                             s = -1;
-                            if ( (LA11_0=='E') ) {s = 1;}
+                            if ( (LA12_0=='E') ) {s = 1;}
 
-                            else if ( (LA11_0=='+') ) {s = 2;}
+                            else if ( (LA12_0=='+') ) {s = 2;}
 
-                            else if ( (LA11_0=='-') ) {s = 3;}
+                            else if ( (LA12_0=='-') ) {s = 3;}
 
-                            else if ( (LA11_0=='*') ) {s = 4;}
+                            else if ( (LA12_0=='*') ) {s = 4;}
 
-                            else if ( (LA11_0=='^') ) {s = 5;}
+                            else if ( (LA12_0=='^') ) {s = 5;}
 
-                            else if ( (LA11_0=='/') ) {s = 6;}
+                            else if ( (LA12_0=='/') ) {s = 6;}
 
-                            else if ( (LA11_0=='%') ) {s = 7;}
+                            else if ( (LA12_0=='%') ) {s = 7;}
 
-                            else if ( (LA11_0=='=') ) {s = 8;}
+                            else if ( (LA12_0=='=') ) {s = 8;}
 
-                            else if ( (LA11_0=='!') ) {s = 9;}
+                            else if ( (LA12_0=='!') ) {s = 9;}
 
-                            else if ( (LA11_0=='<') ) {s = 10;}
+                            else if ( (LA12_0=='<') ) {s = 10;}
 
-                            else if ( (LA11_0=='>') ) {s = 11;}
+                            else if ( (LA12_0=='>') ) {s = 11;}
 
-                            else if ( (LA11_0=='A') ) {s = 12;}
+                            else if ( (LA12_0=='A') ) {s = 12;}
 
-                            else if ( (LA11_0=='O') ) {s = 13;}
+                            else if ( (LA12_0=='O') ) {s = 13;}
 
-                            else if ( (LA11_0=='R') ) {s = 14;}
+                            else if ( (LA12_0=='R') ) {s = 14;}
 
-                            else if ( (LA11_0=='U') ) {s = 15;}
+                            else if ( (LA12_0=='U') ) {s = 15;}
 
-                            else if ( (LA11_0=='F') ) {s = 16;}
+                            else if ( (LA12_0=='F') ) {s = 16;}
 
-                            else if ( (LA11_0=='T') ) {s = 17;}
+                            else if ( (LA12_0=='T') ) {s = 17;}
 
-                            else if ( (LA11_0=='S') ) {s = 18;}
+                            else if ( (LA12_0=='S') ) {s = 18;}
 
-                            else if ( (LA11_0=='C') ) {s = 19;}
+                            else if ( (LA12_0=='C') ) {s = 19;}
 
-                            else if ( (LA11_0=='N') ) {s = 20;}
+                            else if ( (LA12_0=='N') ) {s = 20;}
 
-                            else if ( (LA11_0=='B') ) {s = 21;}
+                            else if ( (LA12_0=='B') ) {s = 21;}
 
-                            else if ( (LA11_0=='V') ) {s = 22;}
+                            else if ( (LA12_0=='V') ) {s = 22;}
 
-                            else if ( (LA11_0=='W') ) {s = 23;}
+                            else if ( (LA12_0=='W') ) {s = 23;}
 
-                            else if ( (LA11_0=='D') ) {s = 24;}
+                            else if ( (LA12_0=='D') ) {s = 24;}
 
-                            else if ( (LA11_0=='I') ) {s = 25;}
+                            else if ( (LA12_0=='I') ) {s = 25;}
 
-                            else if ( (LA11_0=='P') ) {s = 26;}
+                            else if ( (LA12_0=='P') ) {s = 26;}
 
-                            else if ( (LA11_0==':') ) {s = 27;}
+                            else if ( (LA12_0==':') ) {s = 27;}
 
-                            else if ( (LA11_0==',') ) {s = 28;}
+                            else if ( (LA12_0==',') ) {s = 28;}
 
-                            else if ( (LA11_0=='[') ) {s = 29;}
+                            else if ( (LA12_0=='[') ) {s = 29;}
 
-                            else if ( (LA11_0==']') ) {s = 30;}
+                            else if ( (LA12_0==']') ) {s = 30;}
 
-                            else if ( (LA11_0=='(') ) {s = 31;}
+                            else if ( (LA12_0=='(') ) {s = 31;}
 
-                            else if ( (LA11_0==')') ) {s = 32;}
+                            else if ( (LA12_0==')') ) {s = 32;}
 
-                            else if ( (LA11_0=='.') ) {s = 33;}
+                            else if ( (LA12_0=='.') ) {s = 33;}
 
-                            else if ( (LA11_0=='\'') ) {s = 34;}
+                            else if ( (LA12_0=='\'') ) {s = 34;}
 
-                            else if ( (LA11_0=='\t'||LA11_0==' ') ) {s = 35;}
+                            else if ( (LA12_0=='\t'||LA12_0==' ') ) {s = 35;}
 
-                            else if ( ((LA11_0>='0' && LA11_0<='9')) ) {s = 36;}
+                            else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 36;}
 
-                            else if ( (LA11_0=='t') ) {s = 37;}
+                            else if ( (LA12_0=='t') ) {s = 37;}
 
-                            else if ( (LA11_0=='f') ) {s = 38;}
+                            else if ( (LA12_0=='f') ) {s = 38;}
 
-                            else if ( ((LA11_0>='G' && LA11_0<='H')||(LA11_0>='J' && LA11_0<='M')||LA11_0=='Q'||(LA11_0>='X' && LA11_0<='Z')||LA11_0=='_'||(LA11_0>='a' && LA11_0<='e')||(LA11_0>='g' && LA11_0<='s')||(LA11_0>='u' && LA11_0<='z')) ) {s = 39;}
+                            else if ( ((LA12_0>='G' && LA12_0<='H')||(LA12_0>='J' && LA12_0<='M')||LA12_0=='Q'||(LA12_0>='X' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='e')||(LA12_0>='g' && LA12_0<='s')||(LA12_0>='u' && LA12_0<='z')) ) {s = 39;}
 
-                            else if ( (LA11_0=='\r') ) {s = 40;}
+                            else if ( (LA12_0=='\r') ) {s = 40;}
 
-                            else if ( (LA11_0=='\n') ) {s = 41;}
+                            else if ( (LA12_0=='\n') ) {s = 41;}
 
-                            else if ( (LA11_0=='\"') ) {s = 42;}
+                            else if ( (LA12_0=='\"') ) {s = 42;}
 
-                            else if ( ((LA11_0>='\u0000' && LA11_0<='\b')||(LA11_0>='\u000B' && LA11_0<='\f')||(LA11_0>='\u000E' && LA11_0<='\u001F')||(LA11_0>='#' && LA11_0<='$')||LA11_0=='&'||LA11_0==';'||(LA11_0>='?' && LA11_0<='@')||LA11_0=='\\'||LA11_0=='`'||(LA11_0>='{' && LA11_0<='\uFFFF')) ) {s = 43;}
+                            else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||(LA12_0>='#' && LA12_0<='$')||LA12_0=='&'||LA12_0==';'||(LA12_0>='?' && LA12_0<='@')||LA12_0=='\\'||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 43;}
 
                             if ( s>=0 ) return s;
                             break;
@@ -3056,7 +3128,7 @@ org.antlr.lang.extend(SimpleLanguageLexer.DFA11, org.antlr.runtime.DFA, {
             return retval;
         }
         var nvae =
-            new org.antlr.runtime.NoViableAltException(this.getDescription(), 11, _s, input);
+            new org.antlr.runtime.NoViableAltException(this.getDescription(), 12, _s, input);
         this.error(nvae);
         throw nvae;
     },

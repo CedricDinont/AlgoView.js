@@ -4,8 +4,8 @@ options {
 	language=JavaScript;
 	output=AST;
 	ASTLabelType=Node;
-//	k=2;
-	backtrack=true;
+//	k=1;
+	backtrack = true;
 //	memoize=true;
 //  defaultErrorHandler=false;
 }
@@ -256,7 +256,7 @@ EmptyStackException,
 }
 
 program
-	: (struct_declaration | subprogram_declaration | NEWLINE)+
+	: NEWLINE* (struct_declaration | subprogram_declaration)+
 		-> ^(PROGRAM<ProgramNode> ^(STRUCT_DECLARATIONS<StructureDeclarationListNode> struct_declaration*) ^(FUNCTION_LIST<FunctionListNode> subprogram_declaration*))
 	;
 
@@ -289,12 +289,11 @@ variables_declaration_list_opt
 	;
 
 variables_declaration_list
-	: variables_declaration+ -> ^(VARIABLES_DECLARATION_LIST<VariablesDeclarationListNode> variables_declaration*)
+	: (variables_declaration | NEWLINE)+ -> ^(VARIABLES_DECLARATION_LIST<VariablesDeclarationListNode> variables_declaration*)
 	;
 
 variables_declaration
 	: i_l=identifier_list COLON v_t=variable_type NEWLINE -> ^(VARIABLES_DECLARATION<VariablesDeclarationNode> $i_l $v_t)
-	| NEWLINE ->
 	;
 
 identifier_list
@@ -338,12 +337,12 @@ subprogram_declaration
 	;
 
 function_declaration
-	: f=FUNCTION i=IDENTIFIER LP f_p_l=function_parameters_list_opt RP COLON v_t=variable_type NEWLINE v_d_s=variables_declaration_section_opt b=begin NEWLINE i_l=instruction_list_opt e=end NEWLINE
+	: f=FUNCTION i=IDENTIFIER LP f_p_l=function_parameters_list_opt RP COLON v_t=variable_type NEWLINE v_d_s=variables_declaration_section_opt b=begin NEWLINE i_l=instruction_list_opt e=end NEWLINE+
 		-> ^(FUNCTION<FunctionNode>[$f] {new FunctionNameNode(undefined, undefined, $i.getText())} $f_p_l $v_d_s $i_l $e $b $v_t)
 	;
 	
 procedure_declaration
-	: p=PROCEDURE i=IDENTIFIER LP f_p_l=function_parameters_list_opt RP NEWLINE v_d_s=variables_declaration_section_opt b=begin NEWLINE i_l=instruction_list_opt e=end NEWLINE 
+	: p=PROCEDURE i=IDENTIFIER LP f_p_l=function_parameters_list_opt RP NEWLINE v_d_s=variables_declaration_section_opt b=begin NEWLINE i_l=instruction_list_opt e=end NEWLINE+
 		-> ^(FUNCTION<FunctionNode>[$p] {new FunctionNameNode(undefined, undefined, $i.getText())} $f_p_l $v_d_s $i_l $e $b)
 	;
 
@@ -378,10 +377,12 @@ character_value
 	;
 */
 instruction_list
-	: instruction+ -> ^(INSTRUCTION_LIST<InstructionListNode> instruction*)
+	options { backtrack = true; }
+	: (instruction | NEWLINE)+ -> ^(INSTRUCTION_LIST<InstructionListNode> instruction*)
 	;
 
 instruction_list_opt
+	options { backtrack = true; }
 	: /* Nothing */ -> INSTRUCTION_LIST<InstructionListNode>
 	| instruction_list
 	;
@@ -395,6 +396,7 @@ end
 	;
 
 instruction
+	options { backtrack = true; }
 	: print_instruction NEWLINE -> print_instruction
 	| return_instruction NEWLINE -> return_instruction
 	| if_instruction NEWLINE -> if_instruction
@@ -405,7 +407,6 @@ instruction
 	| assign_instruction NEWLINE -> assign_instruction
 	| function_call NEWLINE -> function_call
 	| free_instruction NEWLINE -> free_instruction
-	| NEWLINE -> 
 	;
 
 free_instruction
@@ -445,7 +446,7 @@ while_instruction
 	;
 
 do_while_instruction
-	:  d=DO NEWLINE i_l=instruction_list_opt WHILE lp=LP e=expression RP 
+	:  d=DO NEWLINE i_l=instruction_list_opt END_DO_WHILE lp=LP e=expression RP 
 			-> ^(DO_WHILE<DoWhileNode>[$d] ^(CONDITION<ConditionNode>[$lp] $e) $i_l)
 	;
 
@@ -610,6 +611,7 @@ string
 END_IF: 'END_IF';
 END_WHILE: 'END_WHILE';
 END_FOR: 'END_FOR';
+END_DO_WHILE: 'END_DO_WHILE';
 END: 'END';
 PLUS: '+';
 MINUS: '-';
@@ -677,7 +679,7 @@ APOSTROPH: '\'';
 //INTEGER_VALUE, FLOAT_VALUE, BOOLEAN_VALUE, CHARACTER_VALUE;
 //STRING
 
-WHITE_SPACE:  (' ' | '\t') { $channel = HIDDEN; }
+WHITE_SPACE:  (' ' | '\t')+ { $channel = HIDDEN; }
 	;
 
 fragment HEX_DIGIT
