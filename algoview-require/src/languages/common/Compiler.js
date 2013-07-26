@@ -3,7 +3,7 @@ define("Compiler",
 function() {
 	
 	function Compiler() {
-		this.errors = new Array();
+		this.errors;
 		
 		this.listeners = new Array();
 	}

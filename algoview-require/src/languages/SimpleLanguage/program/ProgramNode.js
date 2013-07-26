@@ -17,6 +17,10 @@ function(Node, ProgramRunnerEvent, FunctionNodeContext) {
 	ProgramNode.prototype.getFunctionList = function() {
 		return this.children[1];
 	}
+	
+	ProgramNode.prototype.getFunctionCalls = function() {
+		return this.functionCalls;
+	}
 
 	ProgramNode.prototype.getMainFunction = function() {
 		return this.children[2];

@@ -18,7 +18,7 @@ CompilerEvent) {
 				console.log(msg);
 			}
 			self.errors.push(msg);
-		};
+		}; 
 	}
 	
 	// Prototype based inheritance
@@ -147,12 +147,17 @@ CompilerEvent) {
 		return structureDeclarationNode;
 	}
 	
-	SimpleLanguageCompiler.prototype.findFunctionDefinitionForFunctionCalls = function() {
-		// TODO: A implementer et à appeler
-		/*var functionNode = programRunner.getProgramTree().getFunction(this.getFunctionName(), this.getNumberOfParameters());
-		if (functionNode === undefined) {
-			throw new FunctionNotImplemented(getFunctionName(), this.getNumberOfParameters());
-	    }*/
+	SimpleLanguageCompiler.prototype.findFunctionDefinitionForFunctionCalls = function(program) {
+		var functionCalls = program.getFunctionCalls();
+		
+		for (var i = 0; i < functionCalls.length; ++i) {
+			var functionNode = program.getFunction(functionCalls[i].getFunctionName(), functionCalls[i].getNumberOfParameters());
+			if (functionNode === undefined) {
+				this.errors.push("Function not implemented: " + functionCalls[i].getFunctionName() + " with " +  functionCalls[i].getNumberOfParameters() + " parameters.");
+			} else {
+				functionCalls[i].setFunctionNode(functionNode);
+			}
+		}
 	}
 
 	return SimpleLanguageCompiler;

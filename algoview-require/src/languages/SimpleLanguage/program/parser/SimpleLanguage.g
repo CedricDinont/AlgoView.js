@@ -226,6 +226,8 @@ EmptyStackException,
 	VariablesDeclarationNode,
 	VariableTypeNode) ____BEGIN____
 	
+	var functionCallNodes;
+	
 	fixArrayDataTypesInVariabeType = function(variableTypeNode) {
 	 console.log("Fixing", variableTypeNode);
 		if (variableTypeNode == undefined) {
@@ -253,10 +255,18 @@ EmptyStackException,
 		 * on a déjà créé un PointerDataType pour le représenter
 		 */
 	}
+	
+	appendFunctionCalls = function(programNode) {
+		programNode.functionCalls = functionCallNodes;
+	}
 }
 
 program
-	: NEWLINE* (struct_declaration | subprogram_declaration)+
+	: p=program_to_be_fixed  { appendFunctionCalls($p.tree); }
+	;
+
+program_to_be_fixed
+	: { functionCallNodes = new Array();} NEWLINE* (struct_declaration | subprogram_declaration)+
 		-> ^(PROGRAM<ProgramNode> ^(STRUCT_DECLARATIONS<StructureDeclarationListNode> struct_declaration*) ^(FUNCTION_LIST<FunctionListNode> subprogram_declaration*))
 	;
 
@@ -377,7 +387,7 @@ character_value
 	;
 */
 instruction_list
-	options { backtrack = true; }
+//	options { backtrack = true; }
 	: (instruction | NEWLINE)+ -> ^(INSTRUCTION_LIST<InstructionListNode> instruction*)
 	;
 
@@ -396,7 +406,6 @@ end
 	;
 
 instruction
-	options { backtrack = true; }
 	: print_instruction NEWLINE -> print_instruction
 	| return_instruction NEWLINE -> return_instruction
 	| if_instruction NEWLINE -> if_instruction
@@ -524,7 +533,11 @@ null
 	;
 
 function_call
-	:	i=IDENTIFIER LP e_l=expression_list_opt RP -> ^(FUNCTION_CALL<FunctionCallNode>[$i] {new FunctionNameNode(undefined, undefined, $i.getText())} $e_l)
+	: f_c=function_call_to_be_saved { functionCallNodes.push($f_c.tree);  }
+	;
+	
+function_call_to_be_saved
+	:	i=IDENTIFIER LP e_l=expression_list_opt RP -> ^(FUNCTION_CALL<FunctionCallNode>[$i] {new FunctionNameNode(undefined, undefined, $i.getText())} $e_l) 
 	;
 
 not_expression
