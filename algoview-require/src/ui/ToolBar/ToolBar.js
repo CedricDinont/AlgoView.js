@@ -2,8 +2,10 @@ define("ToolBar",
 [],
 function() {
 	
-	function ToolBar() {
+	function ToolBar(algoViewApp) {
+		this.app = algoViewApp;
 		
+		this.app.programRunner.addListener(this);
 	}
 	
 	ToolBar.prototype.toggleDebugButtons = function() {
@@ -11,6 +13,29 @@ function() {
 		Ext.getCmp('stepOverButton').setDisabled(! Ext.getCmp('stepOverButton').disabled);
 		Ext.getCmp('stepInButton').setDisabled(! Ext.getCmp('stepInButton').disabled);
 		Ext.getCmp('stepOutButton').setDisabled(! Ext.getCmp('stepOutButton').disabled);
+	}
+	
+	ToolBar.prototype.programChanged = function(event) {
+		switch (event.type) {
+			case "OUTPUT_TEXT":
+				break;
+			case "DONE_STEP":
+				break;
+			case "DONE_INSTRUCTION":
+				break;
+			case "STARTED_PROGRAM":
+				this.goInDebugMode();
+				break;
+			case "STOPPED_PROGRAM":
+				this.leaveDebugMode();
+				break;
+			case "ENTERING_FUNCTION":
+				break;
+			case "EXITING_FUNCTION":
+				break;
+			case "EXCEPTION":
+				break;
+		}
 	}
 	
 	ToolBar.prototype.goInDebugMode = function() {
@@ -23,13 +48,11 @@ function() {
 		Ext.getCmp('runStopButton').setText("Run");
 	}
 		
-	
-	ToolBar.prototype.createToolbar = function() {
+	ToolBar.prototype.createExtComponent = function() {
 		var toolbar = Ext.create('Ext.toolbar.Toolbar');
 		toolbar.suspendLayout = true;
-		toolbar.render('north-body');
 		
-		var mainFrameRef = this;
+		var self = this;
 
 		toolbar.add({
 				text: 'File',
@@ -269,7 +292,8 @@ function() {
 
 		toolbar.suspendLayout = false;
 		toolbar.doLayout();
-		this.toolbar = toolbar;
+		
+		return toolbar;
 	}
 	
 	return ToolBar;

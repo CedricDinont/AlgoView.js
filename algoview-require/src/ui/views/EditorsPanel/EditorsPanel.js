@@ -7,7 +7,80 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 		
 		this.editors = new Array();
 		
+		this.programTextChanged = false;
+		
 		this.app.setEditorsPanel(this);
+		this.app.programRunner.addListener(this);
+	}
+	
+	EditorsPanel.prototype.setProgramTextChanged = function(value) {
+		this.programTextChanged = value;
+		this.updateProgramName();
+	}
+	
+	EditorsPanel.prototype.updateProgramName = function() {
+		if (this.programTextChanged) {
+			
+		} else {
+			
+		}
+	}
+	
+	EditorsPanel.prototype.initCodeEditor = function(codeEditor) {
+		var thisEditorsPanel = this;
+		
+		codeEditor.on("afterRender", function() {
+			var thisCodeEditor = this;
+			
+			this.editor.getSession().on("changeBreakpoint", function() {
+				var breakpoints = thisCodeEditor.editor.getSession().getBreakpoints();
+				var currentBreakpoint = 0;
+				var newBreakpointsArray = new Array();
+				for (var i in breakpoints) {
+					if (breakpoints[i] === true) {
+						newBreakpointsArray[currentBreakpoint] = Number(i) + 1;
+						currentBreakpoint++;
+					}
+				}
+				thisEditorsPanel.app.programRunner.breakpoints.setBreakpoints(newBreakpointsArray);
+			});
+		
+			this.editor.getSession().getDocument().on("change", function(e) {	
+				thisEditorsPanel.setProgramTextChanged(true);
+			});
+		});
+	}
+
+	EditorsPanel.prototype.programChanged = function(event) {
+		switch (event.type) {
+			case "OUTPUT_TEXT":
+				break;
+			case "DONE_STEP":
+				Ext.getCmp('editor-1').setCurrentLine(event.filePosition - 1);
+				break;
+			case "DONE_INSTRUCTION":
+				Ext.getCmp('editor-1').setCurrentLine(event.filePosition - 1);
+				break;
+			case "STARTED_PROGRAM":
+				Ext.getCmp('editor-1').editor.setReadOnly(true);
+				Ext.getCmp('editor-1').initCurrentLines();
+				break;
+			case "STOPPED_PROGRAM":
+				if (event.source.stopOnException === false) {
+					Ext.getCmp('editor-1').initCurrentLines();
+				}
+				Ext.getCmp('editor-1').editor.setReadOnly(false);
+				break;
+			case "ENTERING_FUNCTION":
+				Ext.getCmp('editor-1').pushCurrentLine(-1);
+				break;
+			case "EXITING_FUNCTION":
+				Ext.getCmp('editor-1').popCurrentLine();
+				break;
+			case "EXCEPTION":
+				this.app.stopProgram(false);
+				break;
+		}
 	}
 	
 	EditorsPanel.prototype.createExtComponent = function() {			
@@ -23,6 +96,7 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 			theme: 'algoview',
 			deferredRender: false,
 		});
+		this.initCodeEditor(editorPanel);
 		editorsTabPanel.add(editorPanel);
 		
 		this.editors.push(editorPanel);
@@ -34,14 +108,10 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 			theme: 'algoview',
 			deferredRender: false,
 		});
-		editorsTabPanel.add(this.quickReferencePanel); 
+		editorsTabPanel.add(this.quickReferencePanel);
 			
-
-	//	this.quickReferencePanel.setUseWorker(false);
-	//	this.quickReferencePanel.editor.renderer.setShowGutter(false);
-//		this.fillQuickReferenceEditor();
-	//	this.quickReferencePanel.editor.setReadOnly(true);
-	//	editorsTabPanel.setActiveTab(editorPanel);
+		this.fillQuickReferenceEditor();
+		this.loadProgramTemplate();
 			
 	/*	this.setShowQuickReference(this.showQuickReference);
 		 */
@@ -49,9 +119,52 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 		return editorsTabPanel;
 	}
 	
-	EditorsPanel.prototype.getCurrentEditor = function() {
-		return this.editors[0].editor;
+	EditorsPanel.prototype.loadProgramTemplate = function() {
+		var template = this.app.languageModule.programTemplate.text;
+		
+		var self = this;
+		Ext.getCmp("quick-reference-editor").on("afterRender", function() {
+			self.app.loadText(template);
+			self.app.setBreakpoint(self.app.languageModule.programTemplate.breakpointLine);
+		});
 	}
+	
+	EditorsPanel.prototype.fillQuickReferenceEditor = function() {
+		var quickReference = this.app.languageModule.quickReference.text;
+		Ext.getCmp("quick-reference-editor").on("afterRender", function() {
+			this.getSession().getDocument().setValue(quickReference);
+			this.setUseWorker(false);
+			this.editor.renderer.setShowGutter(false);
+			this.editor.setReadOnly(true);
+		}); 
+	}
+	
+	EditorsPanel.prototype.getCurrentEditor = function() {
+		return this.editors[0];
+	}
+	
+	/*	
+	   this.resizeEditors = function(mainFrame) {
+			console.log('resize');
+			console.log(mainFrame);
+			if (mainFrame.editors[0] != undefined) {
+				mainFrame.editors[0].resize();
+			}
+		}
+
+		this.showQuickReference = true;
+		
+		this.setShowQuickReference = function(showQuickReference) {
+			if (showQuickReference != this.showQuickReference) {
+				this.showQuickReference = showQuickReference;
+				
+				if (showQuickReference) {
+					Ext.getCmp('editorsTabPanel').add(this.quickReferencePanel);
+				} else {
+					Ext.getCmp('editorsTabPanel').remove(this.quickReferencePanel);
+				}
+			}
+		} */
 	
 	return EditorsPanel;
 	

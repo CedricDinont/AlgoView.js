@@ -8,6 +8,7 @@ function() {
 		this.extComponent;
 		
 		this.app.compiler.addListener(this);
+		this.app.programRunner.addListener(this);
 	}
 	
 	OutputPanel.prototype.createExtComponent = function() {
@@ -17,6 +18,43 @@ function() {
 			autoScroll: true,
 		});
 		return this.extComponent;
+	}
+	
+	OutputPanel.prototype.append = function(html) {		
+		var oldValue = this.extComponent.body.dom.innerHTML;
+		this.extComponent.update(oldValue + html);
+		this.extComponent.scrollBy(0, 50, false);
+	}
+	
+	OutputPanel.prototype.programChanged = function(event) {
+		switch (event.type) {
+			case "OUTPUT_TEXT":
+				this.append("<span>" + event.text + "</span>");
+				break;
+			case "DONE_STEP":
+				break;
+			case "DONE_INSTRUCTION":
+				break;
+			case "STARTED_PROGRAM":
+				this.append("<div>Running program.</div><hr />");
+				break;
+			case "STOPPED_PROGRAM":
+				this.append("<hr /><div>Program terminated.</div>");
+				break;
+			case "ENTERING_FUNCTION":
+				break;
+			case "EXITING_FUNCTION":
+				break;
+			case "EXCEPTION":
+				var message;
+				if (event.exception instanceof Exception) {
+					message = event.exception.wrappedException.toString();
+				} else {
+					message = event.exception;
+				}
+				this.append("<hr /><div class='programRunnerErrorMessage'><div>Error during program execution.</div><div>" + message + "</div></div>");
+				break;
+		}
 	}
 	
 	OutputPanel.prototype.onCompilerEvent = function(event) {

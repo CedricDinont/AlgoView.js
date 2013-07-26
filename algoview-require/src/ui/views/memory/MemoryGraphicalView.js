@@ -13,7 +13,11 @@ function(MathUtils, View, MemoryUnitView, LinkView, PointerMemoryValue, Raphael)
 	function MemoryGraphicalView(containerId) {
 		View.call(this);		// View implementation
 		
-		var containerElement = document.getElementById(containerId);
+		if (DEBUG) {
+			console.log("Init memory graphical view");
+		}
+		
+		this.containerElement = document.getElementById(containerId);
 		
 		this.maxY = undefined;
 		
@@ -23,22 +27,19 @@ function(MathUtils, View, MemoryUnitView, LinkView, PointerMemoryValue, Raphael)
 		this.stackUnitCounter = 0;		
 		this.linkCounter = 0;
 		
-		// TODO: A revoir
-		//this.updateDimension();
-		this.width = 100;
-		this.height = 100;
+		this.updateDimension();
 		this.ctx = Raphael(containerId, this.width, this.height);
 		
-		// TODO: A revoir
-		// this.initLayoutManager();
+		this.initLayoutManager();
 	}
 	
 		// Prototype based inheritance
 	MemoryGraphicalView.prototype = new View();
 
 	MemoryGraphicalView.prototype.updateDimension = function() {
-		this.width = containerElement.clientWidth;
-		this.height = containerElement.clientHeight;
+
+		this.width = this.containerElement.clientWidth;
+		this.height = this.containerElement.clientHeight;
 		if (this.ctx) {
 			this.ctx.setSize(this.width, this.height);
 		}

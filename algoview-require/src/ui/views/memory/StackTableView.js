@@ -35,9 +35,7 @@ function(View, PointerDataType, PointerMemoryValue) {
 		this.log("stack view refresh: " + (d2 - d1));
 	}	
 	
-	StackTableView.prototype.updateStack = function(memory) {
-		console.log(memory);
-		
+	StackTableView.prototype.updateStack = function(memory) {		
 		if (memory == undefined) {
 			return "";
 		}

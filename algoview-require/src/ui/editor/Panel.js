@@ -71,6 +71,7 @@ function(Ext, ace) {
 			me.oldSourceCode = me.sourceCode;
 			me.callParent(arguments);
 
+			console.log("Init editor");
 			me.initEditor();
 
 			// init editor on afterlayout

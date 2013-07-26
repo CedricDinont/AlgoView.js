@@ -6,23 +6,28 @@ function(MemoryGraphicalView) {
 		this.app = algoViewApp;
 	}
 	
-	MemoryGraphicalViewPanel.prototype.createExtComponent = function(parent) {
+	MemoryGraphicalViewPanel.prototype.createExtComponent = function() {
+		var self = this;
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'graphicalMemoryViewContainer',
-			html: "toto",
+			title: 'Memory',
+		//	html: "toto",
 			listeners: {
 				resize: function() {
 					// TODO: A revoir
 					if (self.memoryGraphicalView != undefined) {
 						self.memoryGraphicalView.updateDimension();
 					}
+				},
+				afterRender: function() {
+					var view =  new MemoryGraphicalView("graphicalMemoryViewContainer-body");
+					self.app.programRunner.memory.addView(view);
 				}
 			},
 			//autoRender: true,
 		});
 				
-	//	var view =  new MemoryGraphicalView("graphicalMemoryViewContainer-body");
-	//	this.app.programRunner.memory.addView(view);
+
 		
 		return panel;
 	}

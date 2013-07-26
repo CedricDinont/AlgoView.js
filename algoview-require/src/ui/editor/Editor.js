@@ -10,8 +10,6 @@ define("ExtUxAceEditor",
 ["Ext", "aceinit"],
 function(Ext, ace) {
 
-	// var Range = ace.require("ace/range").Range;
-
 	Ext.define('Ext.ux.aceeditor.Editor', {
 		// extend: 'Ext.AbstractComponent',
 

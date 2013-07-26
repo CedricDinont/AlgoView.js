@@ -37,7 +37,12 @@ requirejs.config({
         StackTableView: "ui/views/memory/StackTableView",
         HeapTableView: "ui/views/memory/HeapTableView",
         ProgramTreeView: "ui/views/callGraph/ProgramTreeView",
-        
+        HeapTableViewPanel: "ui/views/memory/HeapTableViewPanel",
+        MemoryGraphicalViewPanel: "ui/views/memory/MemoryGraphicalViewPanel",
+        StackTableViewPanel: "ui/views/memory/StackTableViewPanel",
+        HeapTableViewPanel: "ui/views/memory/HeapTableViewPanel",
+        ProgramTreeViewPanel: "ui/views/callGraph/ProgramTreeViewPanel",
+
         // Simple Graph aliases
         AlgoUtils: "utils/AlgoUtils",
         SimpleGraphExceptions: 'ui/views/callGraph/model/graph/SimpleGraphExceptions',
@@ -245,9 +250,13 @@ require(["ExtInit", "aceinit", "AlgoViewApp", "SimpleLanguageModule"],
      
 		if (DEBUG) {
 			console.log("AlgoView classes successfully loaded.");
-			console.log("Initializing GUI...");
+			console.log("Initializing AlgoView...");
 		}
 		
 		var algoViewApp = new AlgoViewApp(new LanguageModule());
+		
+		if (DEBUG) {
+			console.log("AlgoView initialized.");
+		}
 	}
 );

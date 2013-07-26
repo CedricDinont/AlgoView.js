@@ -24,11 +24,20 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 		this.programRunner = languageModule.programRunner;
 		this.programRunner.setMemory(this.memory);
 		
+		if (DEBUG) {
+			console.log("Initializing GUI...");
+		}
+		
 		this.mainFrame = new MainFrame(this); 
+		
+		if (DEBUG) {
+			console.log("GUI initialized.");
+		}
+		
 		this.externalController = new ExternalController(this);
 		this.remoteWindows = new Array();
 
-		this.loadProgramTemplate();
+	//	this.loadProgramTemplate();
 
 		window.addEventListener('message', AlgoViewApp.prototype.onMessage.bind(this), false);
 
@@ -40,25 +49,24 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 		}
 	}
 
+
+	AlgoViewApp.prototype.setEditorsPanel = function(editorsPanel) {
+		this.editorsPanel = editorsPanel;
+	}
+	
 	AlgoViewApp.prototype.getProgramRunner = function() {
 		return this.programRunner;
 	}
 
 	AlgoViewApp.prototype.loadText = function(text) {
-		this.mainFrame.editors[0].clearBreakpoints();
-		this.mainFrame.editors[0].getSession().getDocument().setValue(text);
-		this.mainFrame.setProgramTextChanged(false);
-	}
-
-	AlgoViewApp.prototype.loadProgramTemplate = function() {
-		var template = this.languageModule.programTemplate.text;
-		
-		this.loadText(template);
-		this.setBreakpoint(this.languageModule.programTemplate.breakpointLine);
+		var editor = this.editorsPanel.getCurrentEditor();
+		editor.clearBreakpoints();
+		editor.getSession().getDocument().setValue(text);
+		this.editorsPanel.setProgramTextChanged(false);
 	}
 
 	AlgoViewApp.prototype.compileProgram = function() {
-		this.program.text = this.mainFrame.editors[0].editor.getSession().getDocument().getValue();
+		this.program.text = this.editorsPanel.getCurrentEditor().getSession().getDocument().getValue();
 		return this.compiler.compile(this.program);
 	}
 
@@ -88,7 +96,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 	}
 
 	AlgoViewApp.prototype.setBreakpoint = function(line) {
-		this.mainFrame.editors[0].setBreakpoint(line);
+		this.editorsPanel.getCurrentEditor().setBreakpoint(line);
 	}
 
 	AlgoViewApp.prototype.setStopAfterInstructionExecution = function(value) {
