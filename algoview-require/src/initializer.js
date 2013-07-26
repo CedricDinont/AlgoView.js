@@ -21,6 +21,10 @@ requirejs.config({
         ExtInit: "ui/init/ExtInit",     
         aceinit: "ui/init/aceinit",     
         MainFrame: "ui/MainFrame",
+        ToolBar: 'ui/ToolBar',
+        OutputPanel: 'ui/views/OutputPanel/OutputPanel',
+        LayoutManager: 'ui/LayoutManager',
+        EditorsPanel: 'ui/views/EditorsPanel/EditorsPanel',
         ExtUxAceEditor: "ui/editor/Editor",
         ExtUxAceEditorPanel: "ui/editor/Panel",
         

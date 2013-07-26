@@ -679,8 +679,9 @@ ExtUxAceEditorPanel, Exception, $j) {
 					$j('#outputPanel-body').html("<div>Compiled without error.</div>");
 					break;
 				case "COMPILATION_ERROR":
-					$j('#outputPanel-body').html("");
-					for (var message in event.errors) {
+					$j('#outputPanel-body').html("<div class='error-message'>Compilation errors:</div>");
+					for (var i = 0; i < event.errors.length; ++i){
+						var message = event.errors[i];
 						$j('#outputPanel-body').append("<div class='error-message'>" + message + "</div>");
 					}
 					break;
