@@ -294,6 +294,7 @@ variables_declaration_list
 
 variables_declaration
 	: i_l=identifier_list COLON v_t=variable_type NEWLINE -> ^(VARIABLES_DECLARATION<VariablesDeclarationNode> $i_l $v_t)
+	| NEWLINE ->
 	;
 
 identifier_list
@@ -404,6 +405,7 @@ instruction
 	| assign_instruction NEWLINE -> assign_instruction
 	| function_call NEWLINE -> function_call
 	| free_instruction NEWLINE -> free_instruction
+	| NEWLINE -> 
 	;
 
 free_instruction
