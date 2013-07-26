@@ -1,15 +1,26 @@
 define("MainFrame",
-["Ext", "JSUtils", "Exception", "LayoutManager"],
-function(Ext, JSUtils, Exception, LayoutManager) {
+["Ext", "JSUtils", "LayoutManager"],
+function(Ext, JSUtils, LayoutManager) {
 
 	var MainFrame = function(algoViewApp, layoutName) {
 		this.app = algoViewApp;
-		this.viewport;
 		
 		this.layoutManager = new LayoutManager(this.app, this);
 		
+		this.viewport;
+		
 		this.init();
-
+	}
+	
+	MainFrame.prototype.init = function() {
+		this.createViewport();
+		this.initViewport();
+		this.layoutManager.applyLayoutByName("complete");
+		this.setOnLeaveHandler();
+		Ext.defer(this.hideLoadingMask, 250);
+	}
+	
+	MainFrame.prototype.setOnLeaveHandler = function() {
 		this.leaveWithoutConfirmation = JSUtils.getUrlVar("leaveWithoutConfirmation");
 		var self = this;
 		window.onbeforeunload = function(e) {
@@ -19,7 +30,7 @@ function(Ext, JSUtils, Exception, LayoutManager) {
 				return;
 			}
 			
-			if (self.programTextChanged == true) {
+			if (self.app.editorsPanel.programTextChanged == true) {
 				message = "Your Simple Language program changed since you last downloaded it. You will lose your changes if you leave or reload this page.";
 			} else {
 				return;
@@ -37,13 +48,6 @@ function(Ext, JSUtils, Exception, LayoutManager) {
 				return message;
 			}
 		}
-	}
-	
-	MainFrame.prototype.init = function() {
-		this.createViewport();
-		this.initViewport();
-		this.layoutManager.applyLayoutByName("complete");
-		Ext.defer(this.hideLoadingMask, 250);
 	}
 	
 	MainFrame.prototype.createViewport = function() {
