@@ -1,6 +1,8 @@
 define("GraphCreator",
-[],
-function(){
+["FunctionListNode", "FunctionNode", "FunctionNameNode",
+"InstructionListNode"],
+function(FunctionListNode, FunctionNode, FunctionNameNode,
+InstructionListNode) {
     GraphCreator = function(simpleGraph, programTree) {
         this.graph = simpleGraph;
         this.tree = programTree;
@@ -15,7 +17,7 @@ function(){
      * 
      * @return the graph of GraphCreator
      */
-    GraphCreator.prototype.getGraph = function(){
+    GraphCreator.prototype.getGraph = function() {
         return this.graph;
     };
 
@@ -24,7 +26,7 @@ function(){
      * 
      * @return the tree of GraphCreator
      */
-    GraphCreator.prototype.getTree = function(){
+    GraphCreator.prototype.getTree = function() {
         return this.tree;
     };
 
@@ -34,13 +36,15 @@ function(){
      * @param tree
      * @return the functionListNode from the program tree
      */
-    GraphCreator.prototype.getFunctionListNode = function(tree){
+    GraphCreator.prototype.getFunctionListNode = function(tree) {
         var functionListNode;
+
         for (var i = 0; i < tree.children.length; i++) {
-            if (tree.children[i].constructor.name === "FunctionListNode") {
+            if (tree.children[i] instanceof FunctionListNode) {
                 functionListNode = tree.children[i];
             }
         }
+
         return functionListNode;
     };
 
@@ -52,17 +56,16 @@ function(){
      */
     GraphCreator.prototype.createFunctionNodeList = function(functionListNode) {
         var allFunctionNodeName = {};
-        /*  Commenté pour passer la minification TODO : A revoir
         for (var i = 0; i < functionListNode.children.length; i++) {
-            if (functionListNode.children[i].constructor.name === "FunctionNode" && functionListNode.children[i].getName() === "main") {
+            if (functionListNode.children[i] instanceof FunctionNode && functionListNode.children[i].getName() === "main") {
                 allFunctionNodeName[functionListNode.children[i].getName()] = {nodeId: (1), functionNode: functionListNode.children[i]};
             }
         }
         for (var i = 0; i < functionListNode.children.length; i++) {
-            if (functionListNode.children[i].constructor.name === "FunctionNode" && functionListNode.children[i].getName() !== "main") {
+            if (functionListNode.children[i] instanceof FunctionNode && functionListNode.children[i].getName() !== "main") {
                 allFunctionNodeName[functionListNode.children[i].getName()] = {nodeId: (i + 2), functionNode: functionListNode.children[i]};
             }
-        } */
+        }
         return allFunctionNodeName;
     };
 
@@ -74,7 +77,7 @@ function(){
     GraphCreator.prototype.getMainFunctionNode = function() {
         var functionNode;
         for (var i = 0; i < this.tree.children.length; i++) {
-            if (this.tree.children[i].constructor.name === "FunctionNode") {
+            if (this.tree.children[i] instanceof  FunctionNode) {
                 functionNode = this.tree.children[i];
             }
         }
@@ -90,7 +93,7 @@ function(){
     GraphCreator.prototype.getFunctionNameNode = function(functionCallNode) {
         var functionNameNode;
         for (var i = 0; i < functionCallNode.children.length; i++) {
-            if (functionCallNode.children[i].constructor.name === "FunctionNameNode") {
+            if (functionCallNode.children[i] instanceof FunctionNameNode) {
                functionNameNode = functionCallNode.children[i];
             }
         }
@@ -106,7 +109,7 @@ function(){
     GraphCreator.prototype.getInstructionListNode = function(functionNode) {
         var instructionListNode;
         for (var j = 0; j < functionNode.children.length; j++) {
-            if (functionNode.children[j].constructor.name === "InstructionListNode") {
+            if (functionNode.children[j] instanceof InstructionListNode) {
                 instructionListNode = functionNode.children[j];
             }
         }
@@ -125,7 +128,7 @@ function(){
             }
         }
         for (var i = 0; i < functionListNode.children.length; i++) {
-            if (functionListNode.children[i].constructor.name === "FunctionNode" && functionListNode.children[i].getName() !== "main") {
+            if (functionListNode.children[i] instanceof FunctionNode && functionListNode.children[i].getName() !== "main") {
                 this.graph.addNode(i + 2).setValue(functionListNode.children[i].getName());
             }
         }
@@ -159,7 +162,7 @@ function(){
     GraphCreator.prototype.searchFunctionCallNode = function(currentNode, father, visited) {
 
             // If it's a function call node
-            if (currentNode.constructor.name === "FunctionCallNode") {
+            if (currentNode instanceof FunctionCallNode) {
                 // If the the currentNode has a father or hasn't yet been visited
                 if (father !== undefined || !visited.isVisited(currentNode)) {
                     // We add the edge between the father and the son
@@ -215,7 +218,7 @@ function(){
      /**
      * Procedure to add all nodes and edges of the whole tree
      */
-    GraphCreator.prototype.programTreeToSimpleGraph = function(){
+    GraphCreator.prototype.programTreeToSimpleGraph = function() {
         // Get the "root" node of the main function
         this.graph.addNode(1).setValue(this.tree.constructor.name);
         var id = {

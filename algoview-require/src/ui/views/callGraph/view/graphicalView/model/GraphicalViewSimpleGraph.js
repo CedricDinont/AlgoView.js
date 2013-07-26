@@ -1,6 +1,6 @@
 define("GraphicalViewSimpleGraph",
-["SimpleGraph", "GraphicalView", "GraphicalViewListenerHandler", "WindowWidthChangeEvent", "GraphicalViewNode"],
-function(SimpleGraph, GraphicalView, GraphicalViewListenerHandler, WindowWidthChangeEvent, GraphicalViewNode){
+["SimpleGraph", "GraphicalView", "GraphicalViewListenerHandler", "WindowWidthChangeEvent", "GraphicalViewNode", "jQuery"],
+function(SimpleGraph, GraphicalView, GraphicalViewListenerHandler, WindowWidthChangeEvent, GraphicalViewNode, $j) {
 
 
 GraphicalViewSimpleGraph = function(directed, containerId) {  // MSO : ajouté containerId

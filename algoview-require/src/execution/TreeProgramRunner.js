@@ -10,8 +10,6 @@ NodeContext, NodeStackElement, FunctionNode) {
 		ProgramRunner.call(this);
 		
 		this.nodeStack = new NodeStack(); 
-
-		this.programTree;
 		
 		this.instructionCounter = 0;
 	}
@@ -21,7 +19,11 @@ NodeContext, NodeStackElement, FunctionNode) {
 	TreeProgramRunner.prototype.constructor = TreeProgramRunner;
 
 	TreeProgramRunner.prototype.getProgramTree = function() {
-		return this.programTree;
+		if (this.program != undefined) {
+			return this.program.programTree;
+		} else {
+			return undefined;
+		}
 	}
 
 	TreeProgramRunner.prototype.reset = function() {
@@ -34,10 +36,8 @@ NodeContext, NodeStackElement, FunctionNode) {
 	// @Override
 	TreeProgramRunner.prototype.start = function() {
 		this.reset();	
-		
-		this.programTree = this.program.programTree;
-		
-		this.nodeStack.push(this.programTree, new NodeContext());
+				
+		this.nodeStack.push(this.program.programTree, new NodeContext());
 		
 		this.state = "RUNNING";
 		

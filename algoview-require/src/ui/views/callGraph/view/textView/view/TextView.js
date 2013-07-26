@@ -1,6 +1,6 @@
 define("TextView",
-["AbstractView", "GraphCreationEvent", "OpenNodeEvent", "CloseNodeEvent"],
-function(AbstractView, GraphCreationEvent, OpenNodeEvent, CloseNodeEvent){
+["AbstractView", "GraphCreationEvent", "OpenNodeEvent", "CloseNodeEvent", "jQuery"],
+function(AbstractView, GraphCreationEvent, OpenNodeEvent, CloseNodeEvent, $j) {
 
 TextView = function(containerId) {  // MSO : ajouté containerId
     AbstractView.call(this, containerId);

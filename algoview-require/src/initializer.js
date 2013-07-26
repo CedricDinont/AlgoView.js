@@ -2,9 +2,7 @@
 // All Files with their dependencies are listed here
 
 requirejs.config({
-
     paths: {
-        
         // Lib aliases
         jQuery: '../lib/jquery/jquery-1.9.0.min',
         antlr: '../lib/antlr-javascript-runtime-3.1/antlr3-all-patched',
@@ -121,9 +119,7 @@ requirejs.config({
         CharacterMemoryValue: "execution/CharacterMemoryValue",
         IntegerMemoryValue: "execution/IntegerMemoryValue",
         MemoryValue: "execution/MemoryValue",
-        TreeProgramRunner: "execution/TreeProgramRunner",
-        ProgramRunnerEvent: "execution/ProgramRunnerEvent",
-        ProgramRunnerListener: "execution/ProgramRunnerListener",
+
         NodeStack: "execution/NodeStack",
         NodeStackElement: 'execution/NodeStackElement',
         NodeContext: 'execution/NodeContext',
@@ -139,17 +135,23 @@ requirejs.config({
         AbstractModel: "model/AbstractModel",
         
         
-        // Compiler program aliases
+        // Compiler and program runner aliases
         Compiler: 'languages/common/Compiler',
         CompilerEvent: 'languages/common/CompilerEvent',
         ProgramRunner: 'languages/common/ProgramRunner',
+        ProgramRunnerEvent: "execution/ProgramRunnerEvent",
+        ProgramRunnerListener: "execution/ProgramRunnerListener",
+        TreeProgramRunner: "execution/TreeProgramRunner",
         LanguageModule: 'languages/common/LanguageModule',
+        
+        IntegerDataType: "languages/SimpleLanguage/program/IntegerDataType",
+        
+        // Simple Language specific aliases
+        SimpleLanguageModule: 'languages/SimpleLanguage/SimpleLanguageModule',
         SimpleLanguageCompiler: 'languages/SimpleLanguage/SimpleLanguageCompiler',
         SimpleLanguageProgramRunner: 'languages/SimpleLanguage/SimpleLanguageProgramRunner',
-        SimpleLanguageModule: 'languages/SimpleLanguage/SimpleLanguageModule',
         SimpleLanguageQuickReference: 'languages/SimpleLanguage/SimpleLanguageQuickReference',
         SimpleLanguageProgramTemplate: 'languages/SimpleLanguage/SimpleLanguageProgramTemplate',
-        IntegerDataType: "languages/SimpleLanguage/program/IntegerDataType",
         DoWhileNode: "languages/SimpleLanguage/program/DoWhileNode",
         WhileNode: "languages/SimpleLanguage/program/WhileNode",
         StructureNameNode: "languages/SimpleLanguage/program/StructureNameNode",

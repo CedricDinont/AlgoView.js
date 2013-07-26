@@ -37,7 +37,6 @@ function(MathUtils, View, MemoryUnitView, LinkView, PointerMemoryValue, Raphael)
 	MemoryGraphicalView.prototype = new View();
 
 	MemoryGraphicalView.prototype.updateDimension = function() {
-
 		this.width = this.containerElement.clientWidth;
 		this.height = this.containerElement.clientHeight;
 		if (this.ctx) {

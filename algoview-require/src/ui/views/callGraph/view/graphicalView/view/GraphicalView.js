@@ -1,8 +1,8 @@
 // MSO : ajouté containerId
 
 define("GraphicalView",
-["AbstractView", "GraphCreationEvent", "WindowWidthChangeEvent"],
-function(AbstractView, GraphCreationEvent, WindowWidthChangeEvent) {
+["AbstractView", "GraphCreationEvent", "WindowWidthChangeEvent", "jQuery"],
+function(AbstractView, GraphCreationEvent, WindowWidthChangeEvent, $j) {
 
 GraphicalView = function(containerId, svgId) {
     AbstractView.call(this, containerId);

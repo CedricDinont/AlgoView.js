@@ -60,10 +60,10 @@ CompilerEvent) {
 			this.sendCompilationErrorEvent();
 			return false;	
 		}
-		
+
+		program.programTree = programTree.tree;		
 		this.notifyListeners(new CompilerEvent(this, "COMPILED_PROGRAM"));
 
-		program.programTree = programTree.tree;
 		return true;
 	}
 

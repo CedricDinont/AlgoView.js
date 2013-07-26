@@ -246,7 +246,6 @@ function() {
 				handler: function() {
 					if (this.text === "Run") {
 						var compilationResult = self.app.compileProgram();
-						console.log(compilationResult);
 						if (compilationResult == true) {
 							self.app.startProgram();	
 						}

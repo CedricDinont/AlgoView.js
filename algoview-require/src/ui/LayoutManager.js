@@ -22,9 +22,9 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 				component: {
 					type: "TabbedPane",
 					components: [{
-							type: "ProgramTreeViewPanel"
-						}, {
 							type: "MemoryGraphicalViewPanel",
+						}, {
+							type: "ProgramTreeViewPanel"
 						}
 					],
 				}

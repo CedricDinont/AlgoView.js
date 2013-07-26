@@ -1,6 +1,6 @@
 define("TextViewSimpleGraph",
-["SimpleGraph", "TextView", "TextViewListenerHandler", "OpenNodeEvent", "CloseNodeEvent", "InvalidStatusException"],
-function(SimpleGraph, TextView, TextViewListenerHandler, OpenNodeEvent, CloseNodeEvent, InvalidStatusException){
+["SimpleGraph", "TextView", "TextViewListenerHandler", "OpenNodeEvent", "CloseNodeEvent", "InvalidStatusException", "jQuery"],
+function(SimpleGraph, TextView, TextViewListenerHandler, OpenNodeEvent, CloseNodeEvent, InvalidStatusException, $j) {
 
     TextViewSimpleGraph = function(directed, containerId) {  // MSO : retiré argument view (inutilisé)
         SimpleGraph.call(this, directed);

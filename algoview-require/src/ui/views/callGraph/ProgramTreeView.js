@@ -8,30 +8,43 @@ define("ProgramTreeView",
 [ "DebugLogger", "ProgramRunnerListener", "SimpleGraph", "GraphCreator", "ViewHandler" ],
 function(DebugLogger, ProgramRunnerListener, SimpleGraph, GraphCreator, ViewHandler) {
 
-	var ProgramTreeView = function(containerId, programRunner) {		
+	var ProgramTreeView = function(algoViewApp, containerId) {		
+		this.app = algoViewApp;
+		this.containerId = containerId;
+		this.programRunner = algoViewApp.programRunner;
+				
 		var debugMode = true;
 		
-		ProgramRunnerListener.call(this); 			// ProgramRunnerListener implementation
+		if (DEBUG) {
+			console.log("Init program tree view.");
+		}
+		
 		DebugLogger.call(this, debugMode);  					// DebugLogger inheritance
-		
-		this.programRunner = programRunner;
-		this.containerId = containerId;
-		
-		programRunner.addListener(this);
+
+		this.app.compiler.addListener(this);
 	}
 	
 	ProgramTreeView.prototype = new ProgramRunnerListener();
 	
 	// @Override
-	ProgramTreeView.prototype.programChanged = function(programRunnerEvent) {
-		if(programRunnerEvent.type == "COMPILED_PROGRAM") {			
-			var tree = this.programRunner.getProgramTree();
+	ProgramTreeView.prototype.onCompilerEvent = function(event) {
+		if (event.type == "COMPILED_PROGRAM") {			
+			var tree = this.app.program.programTree;
 			var g = this.newGraphFromTree(tree);
-			var vh = new ViewHandler(g);
 			
-			vh.addView("graphical", this.containerId)
-			vh.refreshViews();    			
+			if (DEBUG) {
+				console.log("Graph", g);
+			}
+			
+			var viewHandler = new ViewHandler(g);
+			
+			viewHandler.addView("text", this.containerId);
+			viewHandler.refreshViews();    			
 		}
+	}
+	
+	ProgramTreeView.prototype.updateDimension = function() {
+		console.log("TODO: Implement update dimension in ProgramTreeView");
 	}
 	
 	ProgramTreeView.prototype.newGraphFromTree = function(tree) {

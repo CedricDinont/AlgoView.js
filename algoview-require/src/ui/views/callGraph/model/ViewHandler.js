@@ -22,20 +22,20 @@ function(TextView, TextViewSimpleGraph, GraphicalView, GraphicalViewSimpleGraph,
      * @param string view type
      *
      */
-    ViewHandler.prototype.addView = function(viewType, containerId){  // MSO : ajouté containerId
-            if (viewType === undefined) {
-                throw new InvalidViewTypeException(viewType);
-            }
-            if (!(viewType in this.viewTypes)) {
-                throw new InvalidViewTypeException(viewType);
-            }
+    ViewHandler.prototype.addView = function(viewType, containerId) {  // MSO : ajouté containerId
+		if (viewType === undefined) {
+			throw new InvalidViewTypeException(viewType);
+		}
+		if (!(viewType in this.viewTypes)) {
+			throw new InvalidViewTypeException(viewType);
+		}
 
-            var newView = {'model': new this.viewTypes[viewType].model(this.graph.isDirected(), containerId), // MSO : ajouté containerId
-                            'view' : new this.viewTypes[viewType].view(containerId) // MSO : à revoir : il y a DEJA une vue dans model
-            };
-            newView.model.addReferenceSimpleGraph(this.graph);
-            this.views.push(newView);
-            return this;
+		var newView = {'model': new this.viewTypes[viewType].model(this.graph.isDirected(), containerId), // MSO : ajouté containerId
+						'view' : new this.viewTypes[viewType].view(containerId) // MSO : à revoir : il y a DEJA une vue dans model
+		};
+		newView.model.addReferenceSimpleGraph(this.graph);
+		this.views.push(newView);
+		return this;
     };
 
 
@@ -43,10 +43,10 @@ function(TextView, TextViewSimpleGraph, GraphicalView, GraphicalViewSimpleGraph,
      * Browse all the added views and call the refresh funtion the treir view
      */
     ViewHandler.prototype.refreshViews = function(){
-            var sizeViews = this.views.length;
-            for (var i = 0; i < sizeViews; i++) {
-                    this.views[i].view.refresh(new GraphCreationEvent(this.views[i].model));
-            };
+		var sizeViews = this.views.length;
+		for (var i = 0; i < sizeViews; i++) {
+				this.views[i].view.refresh(new GraphCreationEvent(this.views[i].model));
+		}
     };
     
     return ViewHandler;

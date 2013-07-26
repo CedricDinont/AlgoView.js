@@ -11,7 +11,9 @@ function(View, PointerDataType, PointerMemoryValue) {
 	 
 	function StackTableView(showDebugInfos, showIntermediateCells, extComponent) {
 		View.call(this);		// View implementation
-		
+
+		this.showDebugInfos = showDebugInfos;
+		this.showIntermediateCells = showIntermediateCells;		
 		this.extComponent = extComponent;
 		
 		//this.update(undefined);
@@ -120,7 +122,7 @@ function(View, PointerDataType, PointerMemoryValue) {
 			}
 
 			if (valueRowSpan == 1) {
-				if (! showIntermediateCells) {
+				if (! this.showIntermediateCells) {
 					valueRowSpan = dataSize;
 				}
 				stackTableHTML += "<td rowspan= '" + valueRowSpan + "' class='" + typeClassName + " " + valueBackgroundClassName + " " + functionCallLimitClass + "'> " + dataString + " </td>"; 						
@@ -130,7 +132,7 @@ function(View, PointerDataType, PointerMemoryValue) {
 			var unitBackgroundClassName = unit.hasChangedRecursive() ? "changed" : "";	
 			
 			if (variableRowSpan == 0) {
-				if (! showIntermediateCells) {
+				if (! this.showIntermediateCells) {
 					variableRowSpan = enclosingDataSize;
 				}								
 				stackTableHTML += "<td rowspan= '" + variableRowSpan + "' class='" + typeClassName + " " + unitBackgroundClassName + " " + functionCallLimitClass + "'> " + stack.getVariableName(i) + "</td>";

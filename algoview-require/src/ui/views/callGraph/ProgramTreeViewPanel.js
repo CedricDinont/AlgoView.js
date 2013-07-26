@@ -7,14 +7,22 @@ function(ProgramTreeView) {
 	}
 	
 	ProgramTreeViewPanel.prototype.createExtComponent = function() {
+		var self = this;
 		var panel = Ext.create("Ext.panel.Panel", {
-		//	html: "toto",
+			id: 'programTreeViewContainer',
 			title: 'Program tree',
-			//autoRender: true,
+			listeners: {
+				resize: function() {
+					if (self.programTreeView != undefined) {
+						self.programTreeView.updateDimension();
+					}
+				},
+				afterRender: function() {
+					self.programTreeView =  new ProgramTreeView(self.app, "programTreeContainer-body");
+				}
+			},
 		});
-		
-		var programTreeView =  new ProgramTreeView("programTreeContainer-body", this.app.programRunner);
-		
+				
 		return panel;
 	}
 	

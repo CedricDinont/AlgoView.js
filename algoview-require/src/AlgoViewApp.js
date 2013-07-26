@@ -37,8 +37,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 		this.externalController = new ExternalController(this);
 		this.remoteWindows = new Array();
 
-	//	this.loadProgramTemplate();
-
 		window.addEventListener('message', AlgoViewApp.prototype.onMessage.bind(this), false);
 
 		try {
