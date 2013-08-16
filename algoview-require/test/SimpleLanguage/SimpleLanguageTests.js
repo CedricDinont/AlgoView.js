@@ -54,14 +54,25 @@ define("SimpleLanguageTests",
 	}
 
 	SimpleLanguageTests.prototype.launchCorrectExecutionTest = function(_testName) {
-		this.testName = _testName;
+		var self = this;
+		asyncTest(_testName, 1, function() {
+			self.launchCorrectExecutionTest2();
+		});
 		
-		console.log("Getting files for test " + this.testName);
+		this.launchNextTest();
+	 }
+
+	SimpleLanguageTests.prototype.launchCorrectExecutionTest2 = function() {
+		this.testName = QUnit.config.current.testName;
+		
+		//stop();
+		
+		console.log("Getting files for test " + QUnit.config.current.testName);
 		
 		var self = this;
 		$j.ajax({
 			type: "GET",
-			url: "data/" + self.testName + ".sl",
+			url: "data/" + QUnit.config.current.testName + ".sl",
 			error: this.loadErrorHandler,
 			success: self.getExpectedOutput,
 			dataType: "text",
@@ -77,7 +88,7 @@ define("SimpleLanguageTests",
 		var self = this;
 		$j.ajax({
 			type: "GET",
-			url: "data/" + self.testName + ".expected_output",
+			url: "data/" + this.testName + ".expected_output",
 			error: this.loadErrorHandler,
 			success: self.runTest,
 			dataType: "text",
@@ -91,10 +102,7 @@ define("SimpleLanguageTests",
 		console.log("Real: ", this.realOutput);
 		console.log("Expected: ", this.expectedOutput);
 		
-		var self = this;
-		test(this.testName, function() {
-			equal(self.realOutput, self.expectedOutput, "Expected and real outputs are equal.");
-		});
+		equal(this.realOutput, this.expectedOutput, "Expected and real outputs are equal.");
 	}
 
 	SimpleLanguageTests.prototype.runTest = function(_expectedOutput) {
@@ -109,7 +117,7 @@ define("SimpleLanguageTests",
 
 		this.compareOutputs();
 		
-		this.launchNextTest();
+		start();
 	}
 
 	SimpleLanguageTests.prototype.launchNextTest = function() {		
