@@ -230,6 +230,8 @@ requirejs.config({
         // Compiler utils aliases
         JSUtils: "utils/JSUtils",
         MathUtils: "utils/MathUtils",
+        
+        SimpleLanguageTests: "../tests/sl/SimpleLanguageTests",
     },
     shim: {
         'jQuery': {
@@ -244,22 +246,55 @@ requirejs.config({
         },
         "Ext": {			
           exports: "Ext"
-        }                        
+        }                         
     }
 });
 
-require(["ExtInit", "aceinit", "AlgoViewApp", "SimpleLanguageModule"],
-	function(Ext, ace, AlgoViewApp, LanguageModule) {
-     
+
+if (INIT_UI) {
+	require(["ExtInit", "aceinit"], initAlgoView)
+} else {
+	initAlgoView()
+}
+
+
+function initAlgoView(Ext, ace) {
+	require(["AlgoViewAppInit"], function(AlgoViewApp) {
+		console.log(AlgoViewApp);
+	})
+}
+
+define("AlgoViewAppInit", 
+["AlgoViewApp", "SimpleLanguageModule"], function(AlgoViewApp, LanguageModule) {
+	
 		if (DEBUG) {
 			console.log("AlgoView classes successfully loaded.");
 			console.log("Initializing AlgoView...");
 		}
-		
+			
 		var algoViewApp = new AlgoViewApp(new LanguageModule());
-		
+
 		if (DEBUG) {
 			console.log("AlgoView initialized.");
 		}
-	}
-);
+
+		if (INIT_UI) {
+			if (DEBUG) {
+				console.log("Initializing GUI...");
+			}
+
+			require(["MainFrame"], function(MainFrame) {
+				this.mainFrame = new MainFrame(algoViewApp); 
+		
+				if (DEBUG) {
+					console.log("GUI initialized.");
+				}
+			})
+		} else {
+			if (AFTER_ALGOVIEW_INIT != undefined) {
+				AFTER_ALGOVIEW_INIT();
+			} 
+		}	
+	
+	return algoViewApp;
+})

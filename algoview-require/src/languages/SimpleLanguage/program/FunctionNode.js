@@ -68,10 +68,10 @@ MemoryValue, FunctionRequiresReturnValue, MemoryState, FunctionNodeContext) {
 				for (var i = 0; i < nodeContext.parametersValues.children.length; i++) {
 					var assignNode = new AssignNode(undefined, undefined);
 					var variable = this.getParameters().children[i];
-					var value = nodeContext.parametersValues.children[i];
-
+					var valueNode = nodeContext.parametersValues.children[i];
+					console.log(valueNode);
 					assignNode.addChild(new VariableNameNode(undefined, undefined, variable.getVariableName()));
-					assignNode.addChild(value);
+					assignNode.addChild(valueNode);
 					nodeStack.push(assignNode);
 				}
 			}

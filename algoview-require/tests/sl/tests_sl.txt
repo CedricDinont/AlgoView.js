@@ -1,0 +1,57 @@
+PROCEDURE main()
+VAR
+	i : INTEGER
+BEGIN
+	PRINTLN("Hello, world!")
+	i <- 42
+	
+	WHILE (i > 40) DO
+		i <- i - 1
+		PRINTLN(i)
+	END_WHILE
+END
+
+===================
+
+PROCEDURE main()
+VAR
+	i : INTEGER
+	p : POINTER
+BEGIN
+	PRINTLN("Hello, world!")
+	i <- 42
+	p <- ADDRESS(i)
+	WHILE (i > 40) DO
+		i <- i - 1
+		PRINTLN(i)
+	END_WHILE
+END
+
+======================
+
+/**
+ * Structures
+ **/
+
+
+/**
+ * Subprograms
+ **/
+PROCEDURE f(i : INTEGER)
+BEGIN
+	WHILE (i > 40) DO
+		i <- i - 1
+	END_WHILE
+END
+
+/**
+ * Entry point
+ **/
+PROCEDURE main()
+VAR
+	i : INTEGER
+BEGIN
+	i <- 42
+	f(i)
+	PRINTLN("Hello, world!")
+END

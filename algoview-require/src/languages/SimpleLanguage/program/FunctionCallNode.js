@@ -38,12 +38,12 @@ function(ExpressionNode, FunctionNodeContext, ExpressionListNodeContext) {
 	FunctionCallNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
-			nodeContext.parametersContext = new ExpressionListNodeContext();
-			nodeStack.push(this.getParameters(), nodeContext.parametersContext);
+		//	nodeContext.parametersContext = new ExpressionListNodeContext();
+		//	nodeStack.push(this.getParameters(), nodeContext.parametersContext);
 		} else if (nodeContext.currentChild == 1) {
 			nodeContext.currentChild++;
 			var functionNodeContext = new FunctionNodeContext();
-			functionNodeContext.setParametersValues(nodeContext.parametersContext);
+			functionNodeContext.setParametersValues(this.getParameters());
 			nodeStack.push(this.functionNode, functionNodeContext);
 		} else {
 			this.currentChild = 0;

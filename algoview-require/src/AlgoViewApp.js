@@ -1,7 +1,7 @@
 define("AlgoViewApp",
-["Program", "JSUtils", "ExternalController", "MainFrame", 
+["Program", "JSUtils", "ExternalController",
 "Memory", "ProgramRunner", "Compiler", "LanguageModule"],
-function(Program, JSUtils, ExternalController, MainFrame,  
+function(Program, JSUtils, ExternalController,   
 Memory, ProgramRunner, Compiler, LanguageModule) {
 
 	var AlgoViewApp = function(languageModule) {
@@ -23,17 +23,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 		
 		this.programRunner = languageModule.programRunner;
 		this.programRunner.setMemory(this.memory);
-		
-		if (DEBUG) {
-			console.log("Initializing GUI...");
-		}
-		
-		this.mainFrame = new MainFrame(this); 
-		
-		if (DEBUG) {
-			console.log("GUI initialized.");
-		}
-		
+						
 		this.externalController = new ExternalController(this);
 		this.remoteWindows = new Array();
 
@@ -46,7 +36,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 			// On ne doit pas avoir de parent
 		}
 	}
-
 
 	AlgoViewApp.prototype.setEditorsPanel = function(editorsPanel) {
 		this.editorsPanel = editorsPanel;

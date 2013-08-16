@@ -12,7 +12,7 @@ function(Node, NodeContext) {
 
 	ExpressionListNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (nodeContext.currentChild < this.children.length) {
-			var childContext = new NodeContext();
+			var childContext = this.children[nodeContext.currentChild].createContext();
 			nodeContext.addChild(childContext);
 			nodeStack.push(this.children[nodeContext.currentChild], childContext);
 			nodeContext.currentChild++;
