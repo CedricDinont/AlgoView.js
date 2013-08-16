@@ -1,6 +1,8 @@
 // Require configuration
 // All Files with their dependencies are listed here
 
+"use strict";
+
 requirejs.config({
     paths: {
         // Lib aliases
@@ -35,7 +37,6 @@ requirejs.config({
         StackTableView: "ui/views/memory/StackTableView",
         HeapTableView: "ui/views/memory/HeapTableView",
         ProgramTreeView: "ui/views/callGraph/ProgramTreeView",
-        HeapTableViewPanel: "ui/views/memory/HeapTableViewPanel",
         MemoryGraphicalViewPanel: "ui/views/memory/MemoryGraphicalViewPanel",
         StackTableViewPanel: "ui/views/memory/StackTableViewPanel",
         HeapTableViewPanel: "ui/views/memory/HeapTableViewPanel",
@@ -260,12 +261,12 @@ if (INIT_UI) {
 
 function initAlgoView(Ext, ace) {
 	require(["AlgoViewAppInit"], function(AlgoViewApp) {
-		console.log(AlgoViewApp);
+		// Nothing
 	})
 }
 
 define("AlgoViewAppInit", 
-["AlgoViewApp", "SimpleLanguageModule"], function(AlgoViewApp, LanguageModule) {
+["AlgoViewApp", LANGUAGE + "Module"], function(AlgoViewApp, LanguageModule) {
 	
 		if (DEBUG) {
 			console.log("AlgoView classes successfully loaded.");
@@ -284,7 +285,7 @@ define("AlgoViewAppInit",
 			}
 
 			require(["MainFrame"], function(MainFrame) {
-				this.mainFrame = new MainFrame(algoViewApp); 
+				algoViewApp.mainFrame = new MainFrame(algoViewApp); 
 		
 				if (DEBUG) {
 					console.log("GUI initialized.");

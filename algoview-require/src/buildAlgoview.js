@@ -5,7 +5,7 @@
     // nom du fichier de départ à minifier
     name: "initializer",
     // nom du fichier de sortie
-    out: "algoview-minify.js",
+    out: "AlgoView-SimpleLanguage-Minified.js",
     // fichier js où prendre la configuration require (require.config(...)) de l'application (par défaut, la configuration doit être faite dans ce fichier)
     mainConfigFile: './initializer.js',
     // retrouve les require qui sont imbriqués dans d'autres require
@@ -23,7 +23,9 @@
         },
         compress: {
             global_defs: {
-                DEBUG: false
+                DEBUG: false,
+                INIT_UI: true,
+                LANGUAGE: "SimpleLanguage",
             }
         },
         warnings: true,

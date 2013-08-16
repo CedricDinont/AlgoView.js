@@ -81,12 +81,15 @@ FxAAOw==" width="32" height="32" />
     	</div>
 		<script src="lib/require/require.js"></script>
 		<script>
+			const DEBUG = true;
+			const INIT_UI = true;
+			const LANGUAGE = "SimpleLanguage";
 		    require.config({
 		        baseUrl: 'src',
 		        paths: {
 		        }
 		    });
-		    require(["algoview-minify"]);
+		    require(["AlgoView-SimpleLanguage-Minified"]);
 		</script>
 	</body>
 </html>
