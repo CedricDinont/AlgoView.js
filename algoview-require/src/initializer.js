@@ -232,7 +232,7 @@ requirejs.config({
         JSUtils: "utils/JSUtils",
         MathUtils: "utils/MathUtils",
         
-        SimpleLanguageTests: "../tests/sl/SimpleLanguageTests",
+        SimpleLanguageTests: "../test/SimpleLanguage/SimpleLanguageTests",
     },
     shim: {
         'jQuery': {
