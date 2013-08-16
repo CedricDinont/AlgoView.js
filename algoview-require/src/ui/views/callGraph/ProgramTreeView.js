@@ -32,9 +32,9 @@ function(DebugLogger, ProgramRunnerListener, SimpleGraph, GraphCreator, ViewHand
 			var tree = this.app.program.programTree;
 			var g = this.newGraphFromTree(tree);
 			
-			if (DEBUG) {
+		//	if (DEBUG) {
 				console.log("Graph", g);
-			}
+		//	}
 			
 			var viewHandler = new ViewHandler(g);
 			

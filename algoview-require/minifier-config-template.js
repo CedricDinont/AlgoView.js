@@ -5,7 +5,7 @@
     // nom du fichier de départ à minifier
     name: "initializer-temp",
     // nom du fichier de sortie
-    out: "dist/SimpleLanguage/src/AlgoView-SimpleLanguage-Minified.js",
+    out: "build/__LANGUAGE__/src/AlgoView-__LANGUAGE__-Minified.js",
     // fichier js où prendre la configuration require (require.config(...)) de l'application (par défaut, la configuration doit être faite dans ce fichier)
     mainConfigFile: 'src/initializer-temp.js',
     // retrouve les require qui sont imbriqués dans d'autres require
@@ -22,10 +22,12 @@
 			}
         },
         compress: {
+			hoist_funs: false,
+			hoist_vars: false,
             global_defs: {
                 DEBUG: false,
                 INIT_UI: true,
-                LANGUAGE_MODULE: "SimpleLanguageModule",
+                LANGUAGE_MODULE: "__LANGUAGE__Module",
             }
         },
         warnings: true,
