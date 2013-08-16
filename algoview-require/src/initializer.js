@@ -266,7 +266,7 @@ function initAlgoView(Ext, ace) {
 }
 
 define("AlgoViewAppInit", 
-["AlgoViewApp", LANGUAGE + "Module"], function(AlgoViewApp, LanguageModule) {
+["AlgoViewApp", LANGUAGE_MODULE], function(AlgoViewApp, LanguageModule) {
 	
 		if (DEBUG) {
 			console.log("AlgoView classes successfully loaded.");
@@ -299,3 +299,4 @@ define("AlgoViewAppInit",
 	
 	return algoViewApp;
 })
+

@@ -1,13 +1,13 @@
 ({
     // pour avoir toutes les options, https://github.com/jrburke/r.js/blob/master/build/example.build.js
     // répertoire où se trouvent les scripts
-    baseUrl: ".",
+    baseUrl: "src/",
     // nom du fichier de départ à minifier
-    name: "initializer",
+    name: "initializer-temp",
     // nom du fichier de sortie
-    out: "AlgoView-SimpleLanguage-Minified.js",
+    out: "dist/SimpleLanguage/src/AlgoView-SimpleLanguage-Minified.js",
     // fichier js où prendre la configuration require (require.config(...)) de l'application (par défaut, la configuration doit être faite dans ce fichier)
-    mainConfigFile: './initializer.js',
+    mainConfigFile: 'src/initializer-temp.js',
     // retrouve les require qui sont imbriqués dans d'autres require
     // attention: ne supporte pas le chargement dynamique de module (type require dont les arguments sont calculés):
     // il faut faire un appel explicite à require(["monmodule"],function(monModule){})
@@ -25,7 +25,7 @@
             global_defs: {
                 DEBUG: false,
                 INIT_UI: true,
-                LANGUAGE: "SimpleLanguage",
+                LANGUAGE_MODULE: "SimpleLanguageModule",
             }
         },
         warnings: true,
@@ -34,6 +34,6 @@
 })
 // howto:
 // sudo npm install -g requirejs
-// r.js -o buildAlgoview.js
+// r.js -o minifier-config-template.js
 // nécessite l'installation de nodejs
 // l'exécutable recherché par r.js s'appelle node - faire éventuellement un lien symbolique /usr/bin/node sur /usr/bin/nodejs

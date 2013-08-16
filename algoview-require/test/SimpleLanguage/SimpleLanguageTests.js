@@ -23,7 +23,6 @@ define("SimpleLanguageTests",
 			},
 		];
 		
-				
 		algoViewApp.programRunner.addListener(this);
 		
 		this.currentTestModuleNumber = 0;
