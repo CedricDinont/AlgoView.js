@@ -1,6 +1,7 @@
 define("SimpleLanguageProgramRunner",
 ["TreeProgramRunner"],
 function(TreeProgramRunner) {
+	
 	function SimpleLanguageProgramRunner() {
 		TreeProgramRunner.call(this);
 	}

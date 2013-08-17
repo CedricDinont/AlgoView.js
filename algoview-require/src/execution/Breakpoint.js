@@ -2,10 +2,9 @@ define("Breakpoint",
 [],
 function() {
 	
-var Breakpoint = function(line) {
-	this.line = line;
-}
+	function Breakpoint(line) {
+		this.line = line;
+	}
 
-return Breakpoint;
-
+	return Breakpoint;
 });

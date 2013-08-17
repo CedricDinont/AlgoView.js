@@ -1,7 +1,7 @@
 // Require configuration
 // All Files with their dependencies are listed here
 
-"use strict";
+"use strict"; // Permet de voir les doublons, qui empêchent la minification
 
 requirejs.config({
     paths: {
@@ -128,6 +128,7 @@ requirejs.config({
         ExpressionListNodeContext: 'execution/ExpressionListNodeContext',
         FunctionNodeContext: 'execution/FunctionNodeContext',
         AssignableNodeContext: 'execution/AssignableNodeContext',
+        Breakpoint: "execution/Breakpoint",
         BreakpointList: "execution/BreakpointList",
         Stack: "execution/Stack",
         Heap: "execution/Heap",
@@ -138,8 +139,11 @@ requirejs.config({
         
         
         // Compiler and program runner aliases
+        
         Compiler: 'languages/common/Compiler',
         CompilerEvent: 'languages/common/CompilerEvent',
+        Program: "languages/common/Program",
+        Source: "languages/common/Source",
         ProgramRunner: 'languages/common/ProgramRunner',
         ProgramRunnerEvent: "execution/ProgramRunnerEvent",
         ProgramRunnerListener: "execution/ProgramRunnerListener",
@@ -147,6 +151,20 @@ requirejs.config({
         LanguageModule: 'languages/common/LanguageModule',
         
         IntegerDataType: "languages/SimpleLanguage/program/IntegerDataType",
+        
+        // RemoteC specific aliases
+		RemoteCModule: 'languages/RemoteC/RemoteCModule',
+        RemoteCCompiler: 'languages/RemoteC/RemoteCCompiler',
+        RemoteCProgramRunner: 'languages/RemoteC/RemoteCProgramRunner',
+        RemoteCQuickReference: 'languages/RemoteC/RemoteCQuickReference',
+        RemoteCProgramTemplate: 'languages/RemoteC/RemoteCProgramTemplate',        
+
+        // Simple Assembler specific aliases
+		SimpleAssemblerModule: 'languages/SimpleAssembler/SimpleAssemblerModule',
+        SimpleAssemblerCompiler: 'languages/SimpleAssembler/SimpleAssemblerCompiler',
+        SimpleAssemblerProgramRunner: 'languages/SimpleAssembler/SimpleAssemblerProgramRunner',
+        SimpleAssemblerQuickReference: 'languages/SimpleAssembler/SimpleAssemblerQuickReference',
+        SimpleAssemblerProgramTemplate: 'languages/SimpleAssembler/SimpleAssemblerProgramTemplate',     
         
         // Simple Language specific aliases
         SimpleLanguageModule: 'languages/SimpleLanguage/SimpleLanguageModule',
@@ -196,7 +214,7 @@ requirejs.config({
         DataType: "languages/SimpleLanguage/program/DataType",
         ArrayElementNode: "languages/SimpleLanguage/program/ArrayElementNode",
         FunctionListNode: "languages/SimpleLanguage/program/FunctionListNode",
-        Program: "languages/SimpleLanguage/program/Program",
+        SimpleLanguageProgram: "languages/SimpleLanguage/SimpleLanguageProgram",
         StructureDataType: "languages/SimpleLanguage/program/StructureDataType",
         TestNode: "languages/SimpleLanguage/program/TestNode",
         EndNode: "languages/SimpleLanguage/program/EndNode",

@@ -54,7 +54,7 @@ NodeContext, NodeStackElement, FunctionNode) {
 	}
 
 	// @Override
-	TreeProgramRunner.prototype.stopProgram = function(doReset) {
+	TreeProgramRunner.prototype.stop = function(doReset) {
 		var currentNode;
 		
 		if (this.nodeStack.isEmpty()) {

@@ -7,7 +7,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 	var AlgoViewApp = function(languageModule) {
 		this.languageModule = languageModule;
 		
-		this.program = new Program();
+		this.program = languageModule.programTemplate;
 		
 		this.compiler = languageModule.compiler;
 		
@@ -63,7 +63,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 	}
 
 	AlgoViewApp.prototype.stopProgram = function(doReset) {
-		this.programRunner.stopProgram(doReset);
+		this.programRunner.stop(doReset);
 	}
 
 	AlgoViewApp.prototype.continueProgram = function() {
@@ -126,7 +126,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 				break;
 			case "algoview-load-program-text":
 				if (this.programRunner.state == "RUNNING") {
-					this.programRunner.stopProgram();
+					this.programRunner.stop();
 				}
 				this.loadText(message.programText);
 				if (message.programName != undefined) {

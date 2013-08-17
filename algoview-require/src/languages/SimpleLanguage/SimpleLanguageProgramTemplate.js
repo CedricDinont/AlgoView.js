@@ -1,9 +1,14 @@
 define("SimpleLanguageProgramTemplate",
-[],
-function() {
+["Program", "Source"],
+function(Program, Source) {
 	
 	function SimpleLanguageProgramTemplate() {
-		this.text = "/**\n\
+		Program.call(this);
+		
+		var source = new Source();
+		
+		source.name = "program.sl";
+		source.text = "/**\n\
  * Structures\n\
  **/\n\
 \n\
@@ -23,13 +28,14 @@ BEGIN\n\
 	PRINTLN(\"Hello, world!\")\n\
 END\n\
 ";
-
-		this.breakpointLine = 17;
+		source.addBreakpoint(17);
+	
+		this.addSource(source);
 	}
 	
-	return SimpleLanguageProgramTemplate;
+	// Prototype based inheritance
+	SimpleLanguageProgramTemplate.prototype = new Program();
+	SimpleLanguageProgramTemplate.prototype.constructor = SimpleLanguageProgramTemplate;
 	
+	return SimpleLanguageProgramTemplate;
 });
-
-
-

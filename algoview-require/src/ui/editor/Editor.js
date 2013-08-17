@@ -274,4 +274,3 @@ function(Ext, ace) {
 
 	return undefined;
 }); // end define
-

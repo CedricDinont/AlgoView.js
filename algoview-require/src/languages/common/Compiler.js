@@ -24,6 +24,9 @@ function() {
 	
 	Compiler.prototype.compile = function(program) {
 		// Needs to be overridden
+		if (DEBUG) {
+			console.log("Compiler.compile() needs to be overridden.");
+		}
 	}
 	
 	return Compiler;

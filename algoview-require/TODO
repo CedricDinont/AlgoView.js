@@ -1,0 +1,13 @@
+- Gérer caractères
+- Gérer layouts
+- Gérer changement de layout
+- Préparer la gestion de plusieurs fichiers
+- Préparer le multi-langage
+- Créer des contrôleurs
+- Finir le framework de tests unitaires
+- Revoir éditeur ACE
+- Implémenter des layouts pour la vue mémoire par blocs
+- Scripter le placement des boîtes dans la vue par blocs
+- Implémenter vue "Local variables"
+- Implémenter vues "Stack" / "Trace"
+

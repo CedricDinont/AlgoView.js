@@ -120,12 +120,14 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 	}
 	
 	EditorsPanel.prototype.loadProgramTemplate = function() {
-		var template = this.app.languageModule.programTemplate.text;
+		var programTemplate = this.app.languageModule.programTemplate;
+		var source = programTemplate.getSources()[0];
 		
 		var self = this;
-		Ext.getCmp("quick-reference-editor").on("afterRender", function() {
-			self.app.loadText(template);
-			self.app.setBreakpoint(self.app.languageModule.programTemplate.breakpointLine);
+		Ext.getCmp("editor-1").on("afterRender", function() {
+			Ext.getCmp("editor-1").setTitle(source.name);
+			self.app.loadText(source.text);
+			//self.app.setBreakpoint(self.app.languageModule.programTemplate.breakpointLine);
 		});
 	}
 	
