@@ -1,6 +1,6 @@
 define("IfNode",
 ["MemoryValue", "Node"],
-function(MemoryValue, Node){
+function(MemoryValue, Node) {
 	//Node 
 	function IfNode(tokenType, token) {	
 		Node.call(this, tokenType, token);
@@ -23,13 +23,14 @@ function(MemoryValue, Node){
 	}
 
 	IfNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getCondition());
-		} else if (this.currentChild == 1) {
-			this.currentChild++;
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.conditionContext = this.getCondition().createContext();
+			nodeStack.push(this.getCondition(), nodeContext.conditionContext);
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
 		
-			var testValue = this.getCondition().getValue();
+			var testValue = nodeContext.conditionContext.getValue();
 			// TODO: Vérifier si la conversion s'est bien passée
 			var testValueAsBoolean = testValue.convertTo(MemoryValue.BOOLEAN).getPrimitiveValue();
 			// console.log("Test value", testValue);
@@ -39,11 +40,12 @@ function(MemoryValue, Node){
 				nodeStack.push(this.getElseInstructions());
 			}
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 		}
 		
 		return false;
 	}
-return IfNode;
+	
+	return IfNode;
 });
