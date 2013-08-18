@@ -1,5 +1,5 @@
 define("SimpleLanguageTests",
-["AlgoViewAppInit","jQuery"], function(algoViewApp, $j) {
+["AlgoViewAppInit","jQuery", "Source"], function(algoViewApp, $j, Source) {
 
 	var SimpleLanguageTests = function() {
 		this.testModules = [{
@@ -23,18 +23,23 @@ define("SimpleLanguageTests",
 			},
 		];
 		
+		algoViewApp.compiler.addListener(this);
 		algoViewApp.programRunner.addListener(this);
+		
+		algoViewApp.program.addSource(new Source());
 		
 		this.currentTestModuleNumber = 0;
 		this.currentTestNumber = -1;
 	}
+	
+	SimpleLanguageTests.prototype.onCompilerEvent = function(event) {
+		 console.log(event);
+	}
 
-	SimpleLanguageTests.prototype.programChanged = function(event) {
-		var self = this;
-		
+	SimpleLanguageTests.prototype.programChanged = function(event) {		
 		switch (event.type) {
 			case "OUTPUT_TEXT":
-				self.realOutput += event.text;
+				this.realOutput += event.text;
 				break;
 		}
 	}
@@ -109,11 +114,13 @@ define("SimpleLanguageTests",
 		this.expectedOutput = _expectedOutput;
 		this.realOutput = "";
 		
-		algoViewApp.program.text = this.programText;
-		algoViewApp.compiler.compile(algoViewApp.program);
-		algoViewApp.programRunner.setProgram(algoViewApp.program);
-		algoViewApp.programRunner.start();
-		algoViewApp.programRunner.doStep(true, true);
+		algoViewApp.program.currentSource.text = this.programText;
+		var compilationResult = algoViewApp.compiler.compile(algoViewApp.program);
+		if (compilationResult == true) {
+			algoViewApp.programRunner.setProgram(algoViewApp.program);
+			algoViewApp.programRunner.start();
+			algoViewApp.programRunner.doStep(true, true);
+		}
 
 		this.compareOutputs();
 		

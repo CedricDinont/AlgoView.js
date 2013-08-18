@@ -8,6 +8,10 @@ function() {
 	}
 	
 	Program.prototype.addSource = function(source) {
+		if (this.sources.length == 0) {
+			this.currentSource = source;
+		}
+		
 		this.sources.push(source);
 	}
 	

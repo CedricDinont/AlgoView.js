@@ -27,10 +27,10 @@ CompilerEvent) {
 	
 	SimpleLanguageCompiler.prototype.compile = function(program) {
 		this.errors = new Array();
-		
+
 		this.notifyListeners(new CompilerEvent(this, "STARTED_COMPILATION"));
-		
-		var cstream = new org.antlr.runtime.ANTLRStringStream(program.text + "\n");
+
+		var cstream = new org.antlr.runtime.ANTLRStringStream(program.currentSource.text + "\n");
 		var lexer = new SimpleLanguageLexer(cstream);
 		var tstream = new org.antlr.runtime.CommonTokenStream(lexer);
 		var parser = new SimpleLanguageParser(tstream);
