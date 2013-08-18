@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>AlgoView.js - Remote C</title>
+		<title>AlgoView.js</title>
 
 		<link href="lib/extjs/extjs-4.1.0/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
 		<link href='style/algoview.css' rel="stylesheet" type="text/css" />
@@ -79,11 +79,20 @@ FxAAOw==" width="32" height="32" />
 				</center>
     	    </div>
     	</div>
+		<script src="lib/require/require.js"></script>
 		<script>
 			const DEBUG = true;
 			const INIT_UI = true;
-			const LANGUAGE_MODULE = "RemoteCModule";
+			const LANGUAGE_MODULE = "SimpleLanguageModule";
+			const EXT_LOADER_PATH = "src/";
+		    require.config({
+		        baseUrl: 'src/',
+		        paths: {
+		        }
+		    });
+		    require(["AlgoView-SimpleLanguage-Minified"]);
 		</script>
-		<script data-main="src/initializer.js" src="lib/require/require.js"></script>
 	</body>
 </html>
+
+

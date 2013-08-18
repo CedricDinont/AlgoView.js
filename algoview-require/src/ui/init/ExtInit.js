@@ -7,7 +7,7 @@ function(Ext) {
 	Ext.Loader.setConfig({
 		enabled: true,
 		paths: {
-			'Ext.ux.aceeditor': 'src/ui/editor'
+			'Ext.ux.aceeditor': EXT_LOADER_PATH + '/ui/editor'
 		}
 	});
 

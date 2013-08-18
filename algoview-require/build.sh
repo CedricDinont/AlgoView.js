@@ -10,7 +10,7 @@ do
 	echo "Building ${LANGUAGE}..."
 	mkdir -p build/${LANGUAGE}/src/
 
-	cp AlgoView-${LANGUAGE}.html build/${LANGUAGE}/
+	cp src/languages/${LANGUAGE}/AlgoView-${LANGUAGE}.html build/${LANGUAGE}/
 	cp -r lib/ build/${LANGUAGE}/
 	cp -r resources/ build/${LANGUAGE}/
 	cp -r style/ build/${LANGUAGE}/

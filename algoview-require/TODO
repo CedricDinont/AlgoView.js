@@ -6,8 +6,8 @@
 - Créer des contrôleurs
 - Finir le framework de tests unitaires
 - Revoir éditeur ACE
+- Revoir workers
 - Implémenter des layouts pour la vue mémoire par blocs
 - Scripter le placement des boîtes dans la vue par blocs
 - Implémenter vue "Local variables"
 - Implémenter vues "Stack" / "Trace"
-
