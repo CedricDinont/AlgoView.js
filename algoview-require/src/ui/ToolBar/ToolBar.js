@@ -1,6 +1,6 @@
 define("ToolBar",
-[],
-function() {
+["jQuery"],
+function($j) {
 	
 	function ToolBar(algoViewApp) {
 		this.app = algoViewApp;
@@ -99,12 +99,14 @@ function() {
 													var form = this.up('form').getForm();
 													if (form.isValid()) {
 														form.submit({
-															url: 'local_files/load_local_program.php',
+															//url: 'local_files/load_local_program.php',
+															url: '/node/load_local_file',
 															waitMsg: 'Loading your program...',
 															success: function(form, action) {
 																form.owner.up('window').close();
 																var message;
 																try {
+																	console.log(action);
 																	var escapedText = action.response.responseText;
 																	console.log(escapedText);
 																	var unescapedText = $j('<div/>').html(escapedText).text();

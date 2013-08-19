@@ -11,3 +11,4 @@
 - Scripter le placement des boîtes dans la vue par blocs
 - Implémenter vue "Local variables"
 - Implémenter vues "Stack" / "Trace"
+- Implémenter fonctions mathématiques

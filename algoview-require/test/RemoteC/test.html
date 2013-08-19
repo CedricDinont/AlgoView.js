@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Remote C test</title>
+	</head>
+	<body>
+		<button onclick="compile()">Compile</button>
+		<button onclick="start()">Start</button>
+		<button onclick="setBreakpoint()">Set breakpoint</button>
+		<button onclick="continueToNextBreakpoint()">Continue</button>
+		<button onclick="stepIn()">Step in</button>
+		<button onclick="stepOver()">Step over</button>
+		<button onclick="stepOut()">Step out</button>
+		<button onclick="stop()">Stop</button>
+		<button onclick="updateMemoryView()">Update memory</button>
+				
+		<br />
+		
+		Command output: <div id="output"></div>
+		Memory: <div id="memory"></div>
+		
+		<script src="../../lib/jquery/jquery-1.9.0.min.js"></script>
+		<script src="test_remote_c"></script>
+	</body>
+</html>
