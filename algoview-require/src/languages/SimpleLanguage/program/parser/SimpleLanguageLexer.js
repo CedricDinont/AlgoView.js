@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2013-07-26 22:00:29
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 SimpleLanguage.g 2013-08-19 22:14:41
 
 
 define("SimpleLanguageLexer",
@@ -121,8 +121,7 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
     DIGIT: 96,
     LETTER: 97,
     COMMENT: 98,
-    LINE_COMMENT: 99,
-    CHARACTER_VALUE: 100
+    LINE_COMMENT: 99
 });
 
 (function(){
@@ -226,7 +225,6 @@ org.antlr.lang.extend(SimpleLanguageLexer, org.antlr.runtime.Lexer, {
     LETTER : 97,
     COMMENT : 98,
     LINE_COMMENT : 99,
-    CHARACTER_VALUE : 100,
     getGrammarFileName: function() { return "SimpleLanguage.g"; }
 });
 org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
@@ -2031,28 +2029,9 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
     },
     // $ANTLR end "STRING",
 
-    // $ANTLR start CHARACTER_VALUE
-    mCHARACTER_VALUE: function()  {
-        try {
-            var _type = this.CHARACTER_VALUE;
-            var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // SimpleLanguage.g:745:2: ( . )
-            // SimpleLanguage.g:745:4: .
-            this.matchAny(); 
-
-
-
-            this.state.type = _type;
-            this.state.channel = _channel;
-        }
-        finally {
-        }
-    },
-    // $ANTLR end "CHARACTER_VALUE",
-
     mTokens: function() {
-        // SimpleLanguage.g:1:8: ( END_IF | END_WHILE | END_FOR | END_DO_WHILE | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING | CHARACTER_VALUE )
-        var alt12=72;
+        // SimpleLanguage.g:1:8: ( END_IF | END_WHILE | END_FOR | END_DO_WHILE | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING )
+        var alt12=71;
         alt12 = this.dfa12.predict(this.input);
         switch (alt12) {
             case 1 :
@@ -2481,12 +2460,6 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
 
 
                 break;
-            case 72 :
-                // SimpleLanguage.g:1:483: CHARACTER_VALUE
-                this.mCHARACTER_VALUE(); 
-
-
-                break;
 
         }
 
@@ -2496,47 +2469,45 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer.prototype, {
 
 org.antlr.lang.augmentObject(SimpleLanguageLexer, {
     DFA12_eotS:
-        "\u0001\uffff\u0001\u002f\u0001\uffff\u0001\u0032\u0002\uffff\u0001"+
-    "\u0037\u0002\uffff\u0001\u003b\u0001\u003e\u0001\u0040\u000f\u002f\u0006"+
-    "\uffff\u0001\u0063\u0002\uffff\u0001\u0067\u0002\u002f\u0001\uffff\u0001"+
-    "\u002b\u0001\uffff\u0001\u002b\u0001\uffff\u0003\u002f\u0012\uffff\u0003"+
-    "\u002f\u0001\u0073\u0008\u002f\u0001\u007f\u000a\u002f\u0001\u008b\u0001"+
-    "\u002f\u0001\u008d\u0002\u002f\u000b\uffff\u0001\u0067\u0002\u002f\u0002"+
-    "\uffff\u0001\u0094\u0002\u002f\u0001\u0097\u0002\u002f\u0001\uffff\u0005"+
-    "\u002f\u0001\u009f\u0005\u002f\u0001\uffff\u0009\u002f\u0001\u00ae\u0001"+
-    "\u002f\u0001\uffff\u0001\u002f\u0001\uffff\u0006\u002f\u0001\uffff\u0001"+
-    "\u00ba\u0001\u002f\u0001\uffff\u0003\u002f\u0001\u00bf\u0003\u002f\u0001"+
-    "\uffff\u0001\u00c3\u0001\u00c4\u0003\u002f\u0001\u00c8\u0001\u00c9\u0001"+
-    "\u00ca\u0003\u002f\u0001\u00ce\u0002\u002f\u0001\uffff\u0005\u002f\u0001"+
-    "\u00c9\u0005\u002f\u0001\uffff\u0001\u00db\u0001\u002f\u0001\u00dd\u0001"+
-    "\u002f\u0001\uffff\u0002\u002f\u0001\u00e1\u0002\uffff\u0001\u00e2\u0001"+
-    "\u002f\u0001\u00c9\u0003\uffff\u0003\u002f\u0001\uffff\u0001\u00e7\u0001"+
-    "\u002f\u0001\u00e9\u0003\u002f\u0001\u00ee\u0001\u00c9\u0001\u00ef\u0003"+
-    "\u002f\u0001\uffff\u0001\u002f\u0001\uffff\u0001\u00f4\u0001\u00f5\u0001"+
-    "\u002f\u0002\uffff\u0001\u002f\u0001\u00f8\u0002\u002f\u0001\uffff\u0001"+
-    "\u002f\u0001\uffff\u0004\u002f\u0002\uffff\u0001\u002f\u0001\u0101\u0001"+
-    "\u002f\u0001\u0103\u0002\uffff\u0002\u002f\u0001\uffff\u0001\u0106\u0001"+
-    "\u002f\u0001\u0108\u0001\u0109\u0001\u010a\u0001\u002f\u0001\u010c\u0001"+
-    "\u002f\u0001\uffff\u0001\u002f\u0001\uffff\u0001\u002f\u0001\u0110\u0001"+
-    "\uffff\u0001\u002f\u0003\uffff\u0001\u002f\u0001\uffff\u0001\u0113\u0002"+
-    "\u002f\u0001\uffff\u0001\u0116\u0001\u0117\u0001\uffff\u0002\u002f\u0002"+
-    "\uffff\u0002\u002f\u0001\u011c\u0001\u002f\u0001\uffff\u0001\u002f\u0001"+
-    "\u011f\u0001\uffff",
+        "\u0001\uffff\u0001\u0027\u0001\uffff\u0001\u002e\u0002\uffff\u0001"+
+    "\u0031\u0002\uffff\u0001\u0033\u0001\u0036\u0001\u0038\u000f\u0027\u0006"+
+    "\uffff\u0001\u0055\u0002\uffff\u0001\u0057\u0002\u0027\u0003\uffff\u0003"+
+    "\u0027\u000c\uffff\u0003\u0027\u0001\u0060\u0008\u0027\u0001\u006c\u000a"+
+    "\u0027\u0001\u0078\u0001\u0027\u0001\u007a\u0002\u0027\u0003\uffff\u0002"+
+    "\u0027\u0001\u0081\u0002\u0027\u0001\u0084\u0002\u0027\u0001\uffff\u0005"+
+    "\u0027\u0001\u008c\u0005\u0027\u0001\uffff\u0009\u0027\u0001\u009b\u0001"+
+    "\u0027\u0001\uffff\u0001\u0027\u0001\uffff\u0006\u0027\u0001\uffff\u0001"+
+    "\u00a7\u0001\u0027\u0001\uffff\u0003\u0027\u0001\u00ac\u0003\u0027\u0001"+
+    "\uffff\u0001\u00b0\u0001\u00b1\u0003\u0027\u0001\u00b5\u0001\u00b6\u0001"+
+    "\u00b7\u0003\u0027\u0001\u00bb\u0002\u0027\u0001\uffff\u0005\u0027\u0001"+
+    "\u00b6\u0005\u0027\u0001\uffff\u0001\u00c8\u0001\u0027\u0001\u00ca\u0001"+
+    "\u0027\u0001\uffff\u0002\u0027\u0001\u00ce\u0002\uffff\u0001\u00cf\u0001"+
+    "\u0027\u0001\u00b6\u0003\uffff\u0003\u0027\u0001\uffff\u0001\u00d4\u0001"+
+    "\u0027\u0001\u00d6\u0003\u0027\u0001\u00db\u0001\u00b6\u0001\u00dc\u0003"+
+    "\u0027\u0001\uffff\u0001\u0027\u0001\uffff\u0001\u00e1\u0001\u00e2\u0001"+
+    "\u0027\u0002\uffff\u0001\u0027\u0001\u00e5\u0002\u0027\u0001\uffff\u0001"+
+    "\u0027\u0001\uffff\u0004\u0027\u0002\uffff\u0001\u0027\u0001\u00ee\u0001"+
+    "\u0027\u0001\u00f0\u0002\uffff\u0002\u0027\u0001\uffff\u0001\u00f3\u0001"+
+    "\u0027\u0001\u00f5\u0001\u00f6\u0001\u00f7\u0001\u0027\u0001\u00f9\u0001"+
+    "\u0027\u0001\uffff\u0001\u0027\u0001\uffff\u0001\u0027\u0001\u00fd\u0001"+
+    "\uffff\u0001\u0027\u0003\uffff\u0001\u0027\u0001\uffff\u0001\u0100\u0002"+
+    "\u0027\u0001\uffff\u0001\u0103\u0001\u0104\u0001\uffff\u0002\u0027\u0002"+
+    "\uffff\u0002\u0027\u0001\u0109\u0001\u0027\u0001\uffff\u0001\u0027\u0001"+
+    "\u010c\u0001\uffff",
     DFA12_eofS:
-        "\u0120\uffff",
+        "\u010d\uffff",
     DFA12_minS:
-        "\u0001\u0000\u0001\u004c\u0001\uffff\u0001\u003e\u0002\uffff\u0001"+
+        "\u0001\u0009\u0001\u004c\u0001\uffff\u0001\u003e\u0002\uffff\u0001"+
     "\u002a\u0002\uffff\u0001\u003d\u0001\u002d\u0001\u003d\u0001\u0044\u0001"+
     "\u0052\u0001\u0041\u0001\u004e\u0001\u0041\u0001\u0048\u0001\u0054\u0001"+
     "\u0048\u0001\u0055\u0001\u0045\u0001\u0041\u0001\u0048\u0001\u004f\u0001"+
     "\u0046\u0001\u004f\u0006\uffff\u0001\u0030\u0002\uffff\u0001\u002e\u0001"+
-    "\u0072\u0001\u0061\u0001\uffff\u0001\u000a\u0001\uffff\u0001\u0000\u0001"+
-    "\uffff\u0001\u0044\u0001\u0053\u0001\u0052\u0012\uffff\u0002\u0044\u0001"+
-    "\u004c\u0001\u0030\u0001\u0041\u0001\u004e\u0001\u0054\u0001\u0052\u0001"+
-    "\u0045\u0001\u004f\u0001\u004e\u0001\u004c\u0001\u0030\u0001\u0045\u0001"+
-    "\u0055\u0001\u0045\u0001\u004e\u0001\u0041\u0001\u004c\u0001\u0047\u0001"+
-    "\u004f\u0001\u0052\u0001\u0049\u0001\u0030\u0001\u0054\u0001\u0030\u0002"+
-    "\u0049\u000b\uffff\u0001\u002e\u0001\u0075\u0001\u006c\u0002\uffff\u0001"+
+    "\u0072\u0001\u0061\u0003\uffff\u0001\u0044\u0001\u0053\u0001\u0052\u000c"+
+    "\uffff\u0002\u0044\u0001\u004c\u0001\u0030\u0001\u0041\u0001\u004e\u0001"+
+    "\u0054\u0001\u0052\u0001\u0045\u0001\u004f\u0001\u004e\u0001\u004c\u0001"+
+    "\u0030\u0001\u0045\u0001\u0055\u0001\u0045\u0001\u004e\u0001\u0041\u0001"+
+    "\u004c\u0001\u0047\u0001\u004f\u0001\u0052\u0001\u0049\u0001\u0030\u0001"+
+    "\u0054\u0001\u0030\u0002\u0049\u0003\uffff\u0001\u0075\u0001\u006c\u0001"+
     "\u0030\u0001\u0045\u0001\u004f\u0001\u0030\u0001\u0052\u0001\u004f\u0001"+
     "\uffff\u0001\u0045\u0001\u0044\u0001\u0055\u0001\u0044\u0001\u0049\u0001"+
     "\u0030\u0001\u004d\u0001\u0045\u0001\u0041\u0001\u0043\u0001\u0053\u0001"+
@@ -2564,18 +2535,17 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
     "\uffff\u0001\u004c\u0001\u0045\u0002\uffff\u0001\u0045\u0001\u0047\u0001"+
     "\u0030\u0001\u0045\u0001\uffff\u0001\u0052\u0001\u0030\u0001\uffff",
     DFA12_maxS:
-        "\u0001\uffff\u0001\u0052\u0001\uffff\u0001\u003e\u0002\uffff\u0001"+
+        "\u0001\u007a\u0001\u0052\u0001\uffff\u0001\u003e\u0002\uffff\u0001"+
     "\u002f\u0002\uffff\u0003\u003d\u0001\u004e\u0001\u0052\u0001\u0045\u0001"+
     "\u004e\u0001\u0055\u0001\u0052\u0001\u0054\u0001\u004f\u0001\u0055\u0001"+
     "\u004f\u0001\u0041\u0001\u0048\u0001\u004f\u0001\u004e\u0001\u0052\u0006"+
-    "\uffff\u0001\u0039\u0002\uffff\u0001\u0039\u0001\u0072\u0001\u0061\u0001"+
-    "\uffff\u0001\u000a\u0001\uffff\u0001\uffff\u0001\uffff\u0001\u0044\u0001"+
-    "\u0053\u0001\u0052\u0012\uffff\u0002\u0044\u0001\u004c\u0001\u007a\u0001"+
-    "\u0054\u0001\u004e\u0001\u0054\u0001\u0052\u0002\u004f\u0001\u004e\u0001"+
-    "\u004c\u0001\u007a\u0001\u0045\u0001\u0055\u0001\u0052\u0001\u004e\u0001"+
-    "\u0041\u0001\u004c\u0001\u0047\u0001\u004f\u0001\u0052\u0001\u0049\u0001"+
-    "\u007a\u0001\u0054\u0001\u007a\u0001\u0049\u0001\u004f\u000b\uffff\u0001"+
-    "\u0039\u0001\u0075\u0001\u006c\u0002\uffff\u0001\u007a\u0001\u0045\u0001"+
+    "\uffff\u0001\u0039\u0002\uffff\u0001\u0039\u0001\u0072\u0001\u0061\u0003"+
+    "\uffff\u0001\u0044\u0001\u0053\u0001\u0052\u000c\uffff\u0002\u0044\u0001"+
+    "\u004c\u0001\u007a\u0001\u0054\u0001\u004e\u0001\u0054\u0001\u0052\u0002"+
+    "\u004f\u0001\u004e\u0001\u004c\u0001\u007a\u0001\u0045\u0001\u0055\u0001"+
+    "\u0052\u0001\u004e\u0001\u0041\u0001\u004c\u0001\u0047\u0001\u004f\u0001"+
+    "\u0052\u0001\u0049\u0001\u007a\u0001\u0054\u0001\u007a\u0001\u0049\u0001"+
+    "\u004f\u0003\uffff\u0001\u0075\u0001\u006c\u0001\u007a\u0001\u0045\u0001"+
     "\u004f\u0001\u007a\u0001\u0052\u0001\u004f\u0001\uffff\u0001\u0045\u0001"+
     "\u0044\u0001\u0055\u0001\u0044\u0001\u0049\u0001\u007a\u0001\u004d\u0001"+
     "\u0045\u0001\u0041\u0001\u0043\u0001\u0053\u0001\uffff\u0001\u004e\u0001"+
@@ -2606,371 +2576,349 @@ org.antlr.lang.augmentObject(SimpleLanguageLexer, {
         "\u0002\uffff\u0001\u0006\u0001\uffff\u0001\u0008\u0001\u0009\u0001"+
     "\uffff\u0001\u000b\u0001\u000c\u0012\uffff\u0001\u0035\u0001\u0036\u0001"+
     "\u0037\u0001\u0038\u0001\u0039\u0001\u003a\u0001\uffff\u0001\u003e\u0001"+
-    "\u003f\u0003\uffff\u0001\u0043\u0001\uffff\u0001\u0044\u0001\uffff\u0001"+
-    "\u0048\u0003\uffff\u0001\u0043\u0001\u0006\u0001\u003c\u0001\u0007\u0001"+
-    "\u0008\u0001\u0009\u0001\u0045\u0001\u0046\u0001\u000a\u0001\u000b\u0001"+
-    "\u000c\u0001\u000d\u0001\u000e\u0001\u000f\u0001\u003d\u0001\u0010\u0001"+
-    "\u0011\u0001\u0012\u001c\uffff\u0001\u0035\u0001\u0036\u0001\u0037\u0001"+
-    "\u0038\u0001\u0039\u0001\u003a\u0001\u003b\u0001\u0041\u0001\u003e\u0001"+
-    "\u003f\u0001\u0040\u0003\uffff\u0001\u0044\u0001\u0047\u0006\uffff\u0001"+
-    "\u0014\u000b\uffff\u0001\u0019\u000b\uffff\u0001\u0024\u0001\uffff\u0001"+
-    "\u002b\u0006\uffff\u0001\u0005\u0002\uffff\u0001\u0013\u0007\uffff\u0001"+
-    "\u0017\u000e\uffff\u0001\u0022\u000b\uffff\u0001\u002d\u0004\uffff\u0001"+
-    "\u001b\u0003\uffff\u0001\u0018\u0001\u001f\u0003\uffff\u0001\u002c\u0001"+
-    "\u0042\u0001\u001a\u0003\uffff\u0001\u0020\u000c\uffff\u0001\u0032\u0001"+
-    "\uffff\u0001\u001e\u0003\uffff\u0001\u0016\u0001\u0028\u0004\uffff\u0001"+
-    "\u0021\u0001\uffff\u0001\u0023\u0004\uffff\u0001\u0030\u0001\u0001\u0004"+
-    "\uffff\u0001\u0015\u0001\u0034\u0002\uffff\u0001\u0025\u0008\uffff\u0001"+
-    "\u0003\u0001\uffff\u0001\u001c\u0002\uffff\u0001\u001d\u0001\uffff\u0001"+
-    "\u0026\u0001\u0027\u0001\u002a\u0001\uffff\u0001\u0031\u0003\uffff\u0001"+
-    "\u002e\u0002\uffff\u0001\u0002\u0002\uffff\u0001\u0029\u0001\u002f\u0004"+
-    "\uffff\u0001\u0004\u0002\uffff\u0001\u0033",
+    "\u003f\u0003\uffff\u0001\u0043\u0001\u0044\u0001\u0047\u0003\uffff\u0001"+
+    "\u003c\u0001\u0007\u0001\u0045\u0001\u0046\u0001\u000a\u0001\u000d\u0001"+
+    "\u000e\u0001\u000f\u0001\u003d\u0001\u0010\u0001\u0011\u0001\u0012\u001c"+
+    "\uffff\u0001\u003b\u0001\u0041\u0001\u0040\u0008\uffff\u0001\u0014\u000b"+
+    "\uffff\u0001\u0019\u000b\uffff\u0001\u0024\u0001\uffff\u0001\u002b\u0006"+
+    "\uffff\u0001\u0005\u0002\uffff\u0001\u0013\u0007\uffff\u0001\u0017\u000e"+
+    "\uffff\u0001\u0022\u000b\uffff\u0001\u002d\u0004\uffff\u0001\u001b\u0003"+
+    "\uffff\u0001\u0018\u0001\u001f\u0003\uffff\u0001\u002c\u0001\u0042\u0001"+
+    "\u001a\u0003\uffff\u0001\u0020\u000c\uffff\u0001\u0032\u0001\uffff\u0001"+
+    "\u001e\u0003\uffff\u0001\u0016\u0001\u0028\u0004\uffff\u0001\u0021\u0001"+
+    "\uffff\u0001\u0023\u0004\uffff\u0001\u0030\u0001\u0001\u0004\uffff\u0001"+
+    "\u0015\u0001\u0034\u0002\uffff\u0001\u0025\u0008\uffff\u0001\u0003\u0001"+
+    "\uffff\u0001\u001c\u0002\uffff\u0001\u001d\u0001\uffff\u0001\u0026\u0001"+
+    "\u0027\u0001\u002a\u0001\uffff\u0001\u0031\u0003\uffff\u0001\u002e\u0002"+
+    "\uffff\u0001\u0002\u0002\uffff\u0001\u0029\u0001\u002f\u0004\uffff\u0001"+
+    "\u0004\u0002\uffff\u0001\u0033",
     DFA12_specialS:
-        "\u0001\u0001\u0029\uffff\u0001\u0000\u00f5\uffff}>",
+        "\u010d\uffff}>",
     DFA12_transitionS: [
-            "\u0009\u002b\u0001\u0023\u0001\u0029\u0002\u002b\u0001\u0028"+
-            "\u0012\u002b\u0001\u0023\u0001\u0009\u0001\u002a\u0002\u002b"+
-            "\u0001\u0007\u0001\u002b\u0001\u0022\u0001\u001f\u0001\u0020"+
-            "\u0001\u0004\u0001\u0002\u0001\u001c\u0001\u0003\u0001\u0021"+
-            "\u0001\u0006\u000a\u0024\u0001\u001b\u0001\u002b\u0001\u000a"+
-            "\u0001\u0008\u0001\u000b\u0002\u002b\u0001\u000c\u0001\u0015"+
-            "\u0001\u0013\u0001\u0018\u0001\u0001\u0001\u0010\u0002\u0027"+
-            "\u0001\u0019\u0004\u0027\u0001\u0014\u0001\u000d\u0001\u001a"+
-            "\u0001\u0027\u0001\u000e\u0001\u0012\u0001\u0011\u0001\u000f"+
-            "\u0001\u0016\u0001\u0017\u0003\u0027\u0001\u001d\u0001\u002b"+
-            "\u0001\u001e\u0001\u0005\u0001\u0027\u0001\u002b\u0005\u0027"+
-            "\u0001\u0026\u000d\u0027\u0001\u0025\u0006\u0027\uff85\u002b",
-            "\u0001\u002d\u0001\uffff\u0001\u002c\u0003\uffff\u0001\u002e",
+            "\u0001\u0023\u0001\u0028\u0002\uffff\u0001\u0028\u0012\uffff"+
+            "\u0001\u0023\u0001\u0009\u0001\u0029\u0002\uffff\u0001\u0007"+
+            "\u0001\uffff\u0001\u0022\u0001\u001f\u0001\u0020\u0001\u0004"+
+            "\u0001\u0002\u0001\u001c\u0001\u0003\u0001\u0021\u0001\u0006"+
+            "\u000a\u0024\u0001\u001b\u0001\uffff\u0001\u000a\u0001\u0008"+
+            "\u0001\u000b\u0002\uffff\u0001\u000c\u0001\u0015\u0001\u0013"+
+            "\u0001\u0018\u0001\u0001\u0001\u0010\u0002\u0027\u0001\u0019"+
+            "\u0004\u0027\u0001\u0014\u0001\u000d\u0001\u001a\u0001\u0027"+
+            "\u0001\u000e\u0001\u0012\u0001\u0011\u0001\u000f\u0001\u0016"+
+            "\u0001\u0017\u0003\u0027\u0001\u001d\u0001\uffff\u0001\u001e"+
+            "\u0001\u0005\u0001\u0027\u0001\uffff\u0005\u0027\u0001\u0026"+
+            "\u000d\u0027\u0001\u0025\u0006\u0027",
+            "\u0001\u002b\u0001\uffff\u0001\u002a\u0003\uffff\u0001\u002c",
             "",
-            "\u0001\u0031",
-            "",
-            "",
-            "\u0001\u0035\u0004\uffff\u0001\u0036",
+            "\u0001\u002d",
             "",
             "",
-            "\u0001\u003a",
-            "\u0001\u003d\u000f\uffff\u0001\u003c",
+            "\u0001\u002f\u0004\uffff\u0001\u0030",
+            "",
+            "",
+            "\u0001\u0032",
+            "\u0001\u0035\u000f\uffff\u0001\u0034",
+            "\u0001\u0037",
+            "\u0001\u003a\u0007\uffff\u0001\u003b\u0001\uffff\u0001\u0039",
+            "\u0001\u003c",
+            "\u0001\u003e\u0003\uffff\u0001\u003d",
             "\u0001\u003f",
-            "\u0001\u0042\u0007\uffff\u0001\u0043\u0001\uffff\u0001\u0041",
-            "\u0001\u0044",
-            "\u0001\u0046\u0003\uffff\u0001\u0045",
-            "\u0001\u0047",
-            "\u0001\u004c\u000a\uffff\u0001\u004a\u0002\uffff\u0001\u0048"+
-            "\u0002\uffff\u0001\u0049\u0002\uffff\u0001\u004b",
-            "\u0001\u004e\u0006\uffff\u0001\u004d\u0002\uffff\u0001\u004f",
+            "\u0001\u0044\u000a\uffff\u0001\u0042\u0002\uffff\u0001\u0040"+
+            "\u0002\uffff\u0001\u0041\u0002\uffff\u0001\u0043",
+            "\u0001\u0046\u0006\uffff\u0001\u0045\u0002\uffff\u0001\u0047",
+            "\u0001\u0048",
+            "\u0001\u004a\u0006\uffff\u0001\u0049",
+            "\u0001\u004b",
+            "\u0001\u004c\u0009\uffff\u0001\u004d",
+            "\u0001\u004e",
+            "\u0001\u004f",
             "\u0001\u0050",
-            "\u0001\u0052\u0006\uffff\u0001\u0051",
-            "\u0001\u0053",
-            "\u0001\u0054\u0009\uffff\u0001\u0055",
-            "\u0001\u0056",
-            "\u0001\u0057",
+            "\u0001\u0052\u0007\uffff\u0001\u0051",
+            "\u0001\u0053\u0002\uffff\u0001\u0054",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\u000a\u0056",
+            "",
+            "",
+            "\u0001\u0056\u0001\uffff\u000a\u0024",
             "\u0001\u0058",
-            "\u0001\u005a\u0007\uffff\u0001\u0059",
-            "\u0001\u005b\u0002\uffff\u0001\u005c",
+            "\u0001\u0059",
+            "",
+            "",
+            "",
+            "\u0001\u005a",
+            "\u0001\u005b",
+            "\u0001\u005c",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\u000a\u0064",
             "",
             "",
-            "\u0001\u0064\u0001\uffff\u000a\u0068",
+            "",
+            "",
+            "",
+            "",
+            "\u0001\u005d",
+            "\u0001\u005e",
+            "\u0001\u005f",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u0062\u000e\uffff\u0001\u0061\u0003\uffff\u0001\u0063",
+            "\u0001\u0064",
+            "\u0001\u0065",
+            "\u0001\u0066",
+            "\u0001\u0068\u0009\uffff\u0001\u0067",
             "\u0001\u0069",
             "\u0001\u006a",
-            "",
             "\u0001\u006b",
-            "",
-            "\u0000\u006c",
-            "",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u006d",
             "\u0001\u006e",
-            "\u0001\u006f",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\u0001\u0070",
+            "\u0001\u006f\u000c\uffff\u0001\u0070",
             "\u0001\u0071",
             "\u0001\u0072",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u0075\u000e\uffff\u0001\u0074\u0003\uffff\u0001\u0076",
+            "\u0001\u0073",
+            "\u0001\u0074",
+            "\u0001\u0075",
+            "\u0001\u0076",
             "\u0001\u0077",
-            "\u0001\u0078",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u0079",
-            "\u0001\u007b\u0009\uffff\u0001\u007a",
-            "\u0001\u007c",
-            "\u0001\u007d",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u007b",
+            "\u0001\u007d\u0005\uffff\u0001\u007c",
+            "",
+            "",
+            "",
             "\u0001\u007e",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u0080",
-            "\u0001\u0081",
-            "\u0001\u0082\u000c\uffff\u0001\u0083",
-            "\u0001\u0084",
+            "\u0001\u007f",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0080"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u0082",
+            "\u0001\u0083",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u0085",
             "\u0001\u0086",
+            "",
             "\u0001\u0087",
             "\u0001\u0088",
             "\u0001\u0089",
             "\u0001\u008a",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u008c",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u008b",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u008d",
             "\u0001\u008e",
-            "\u0001\u0090\u0005\uffff\u0001\u008f",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\u0001\u0064\u0001\uffff\u000a\u0068",
+            "\u0001\u008f",
+            "\u0001\u0090",
             "\u0001\u0091",
+            "",
             "\u0001\u0092",
-            "",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u0093"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u0093",
+            "\u0001\u0094",
             "\u0001\u0095",
             "\u0001\u0096",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u0097",
             "\u0001\u0098",
             "\u0001\u0099",
-            "",
             "\u0001\u009a",
-            "\u0001\u009b",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u009c",
+            "",
             "\u0001\u009d",
+            "",
             "\u0001\u009e",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u009f",
             "\u0001\u00a0",
             "\u0001\u00a1",
             "\u0001\u00a2",
-            "\u0001\u00a3",
-            "\u0001\u00a4",
+            "\u0001\u00a6\u0001\uffff\u0001\u00a5\u0002\uffff\u0001\u00a3"+
+            "\u000d\uffff\u0001\u00a4",
             "",
-            "\u0001\u00a5",
-            "\u0001\u00a6",
-            "\u0001\u00a7",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00a8",
+            "",
             "\u0001\u00a9",
             "\u0001\u00aa",
             "\u0001\u00ab",
-            "\u0001\u00ac",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00ad",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u00ae",
             "\u0001\u00af",
             "",
-            "\u0001\u00b0",
-            "",
-            "\u0001\u00b1",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00b2",
             "\u0001\u00b3",
             "\u0001\u00b4",
-            "\u0001\u00b5",
-            "\u0001\u00b9\u0001\uffff\u0001\u00b8\u0002\uffff\u0001\u00b6"+
-            "\u000d\uffff\u0001\u00b7",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u00bb",
-            "",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u00b8",
+            "\u0001\u00b9",
+            "\u0001\u00ba",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00bc",
             "\u0001\u00bd",
+            "",
             "\u0001\u00be",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u00bf",
             "\u0001\u00c0",
             "\u0001\u00c1",
             "\u0001\u00c2",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u00c3",
+            "\u0001\u00c4",
             "\u0001\u00c5",
             "\u0001\u00c6",
             "\u0001\u00c7",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u00c9",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00cb",
+            "",
             "\u0001\u00cc",
             "\u0001\u00cd",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u00cf",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "",
+            "",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00d0",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "",
+            "",
             "",
             "\u0001\u00d1",
             "\u0001\u00d2",
             "\u0001\u00d3",
-            "\u0001\u00d4",
+            "",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00d5",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u00d6",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00d7",
             "\u0001\u00d8",
             "\u0001\u00d9",
-            "\u0001\u00da",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u00dc",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u000a\u0027\u0007\uffff\u000b\u0027\u0001\u00da\u000e\u0027"+
+            "\u0004\uffff\u0001\u0027\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u00dd",
             "\u0001\u00de",
-            "",
             "\u0001\u00df",
+            "",
             "\u0001\u00e0",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
             "",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00e3",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "",
             "",
             "",
             "\u0001\u00e4",
-            "\u0001\u00e5",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00e6",
+            "\u0001\u00e7",
             "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
             "\u0001\u00e8",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "",
+            "\u0001\u00e9",
             "\u0001\u00ea",
             "\u0001\u00eb",
             "\u0001\u00ec",
-            "\u000a\u002f\u0007\uffff\u000b\u002f\u0001\u00ed\u000e\u002f"+
-            "\u0004\uffff\u0001\u002f\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u00f0",
+            "",
+            "",
+            "\u0001\u00ed",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u00ef",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "",
+            "",
             "\u0001\u00f1",
             "\u0001\u00f2",
             "",
-            "\u0001\u00f3",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u00f6",
-            "",
-            "",
-            "\u0001\u00f7",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u00f9",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u00f4",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u00f8",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "\u0001\u00fa",
             "",
             "\u0001\u00fb",
             "",
             "\u0001\u00fc",
-            "\u0001\u00fd",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "",
             "\u0001\u00fe",
+            "",
+            "",
+            "",
             "\u0001\u00ff",
             "",
-            "",
-            "\u0001\u0100",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u0101",
             "\u0001\u0102",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
             "",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             "",
-            "\u0001\u0104",
             "\u0001\u0105",
+            "\u0001\u0106",
             "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "",
             "\u0001\u0107",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u0001\u0108",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
+            "\u0001\u010a",
+            "",
             "\u0001\u010b",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u010d",
-            "",
-            "\u0001\u010e",
-            "",
-            "\u0001\u010f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "",
-            "\u0001\u0111",
-            "",
-            "",
-            "",
-            "\u0001\u0112",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u0114",
-            "\u0001\u0115",
-            "",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "",
-            "\u0001\u0118",
-            "\u0001\u0119",
-            "",
-            "",
-            "\u0001\u011a",
-            "\u0001\u011b",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
-            "\u0001\u011d",
-            "",
-            "\u0001\u011e",
-            "\u000a\u002f\u0007\uffff\u001a\u002f\u0004\uffff\u0001\u002f"+
-            "\u0001\uffff\u001a\u002f",
+            "\u000a\u0027\u0007\uffff\u001a\u0027\u0004\uffff\u0001\u0027"+
+            "\u0001\uffff\u001a\u0027",
             ""
     ]
 });
@@ -3013,124 +2961,7 @@ SimpleLanguageLexer.DFA12 = function(recognizer) {
 
 org.antlr.lang.extend(SimpleLanguageLexer.DFA12, org.antlr.runtime.DFA, {
     getDescription: function() {
-        return "1:1: Tokens : ( END_IF | END_WHILE | END_FOR | END_DO_WHILE | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING | CHARACTER_VALUE );";
-    },
-    specialStateTransition: function(s, input) {
-        var _s = s;
-        /* bind to recognizer so semantic predicates can be evaluated */
-        var retval = (function(s, input) {
-            switch ( s ) {
-                        case 0 : 
-                            var LA12_42 = input.LA(1);
-
-                            s = -1;
-                            if ( ((LA12_42>='\u0000' && LA12_42<='\uFFFF')) ) {s = 108;}
-
-                            else s = 43;
-
-                            if ( s>=0 ) return s;
-                            break;
-                        case 1 : 
-                            var LA12_0 = input.LA(1);
-
-                            s = -1;
-                            if ( (LA12_0=='E') ) {s = 1;}
-
-                            else if ( (LA12_0=='+') ) {s = 2;}
-
-                            else if ( (LA12_0=='-') ) {s = 3;}
-
-                            else if ( (LA12_0=='*') ) {s = 4;}
-
-                            else if ( (LA12_0=='^') ) {s = 5;}
-
-                            else if ( (LA12_0=='/') ) {s = 6;}
-
-                            else if ( (LA12_0=='%') ) {s = 7;}
-
-                            else if ( (LA12_0=='=') ) {s = 8;}
-
-                            else if ( (LA12_0=='!') ) {s = 9;}
-
-                            else if ( (LA12_0=='<') ) {s = 10;}
-
-                            else if ( (LA12_0=='>') ) {s = 11;}
-
-                            else if ( (LA12_0=='A') ) {s = 12;}
-
-                            else if ( (LA12_0=='O') ) {s = 13;}
-
-                            else if ( (LA12_0=='R') ) {s = 14;}
-
-                            else if ( (LA12_0=='U') ) {s = 15;}
-
-                            else if ( (LA12_0=='F') ) {s = 16;}
-
-                            else if ( (LA12_0=='T') ) {s = 17;}
-
-                            else if ( (LA12_0=='S') ) {s = 18;}
-
-                            else if ( (LA12_0=='C') ) {s = 19;}
-
-                            else if ( (LA12_0=='N') ) {s = 20;}
-
-                            else if ( (LA12_0=='B') ) {s = 21;}
-
-                            else if ( (LA12_0=='V') ) {s = 22;}
-
-                            else if ( (LA12_0=='W') ) {s = 23;}
-
-                            else if ( (LA12_0=='D') ) {s = 24;}
-
-                            else if ( (LA12_0=='I') ) {s = 25;}
-
-                            else if ( (LA12_0=='P') ) {s = 26;}
-
-                            else if ( (LA12_0==':') ) {s = 27;}
-
-                            else if ( (LA12_0==',') ) {s = 28;}
-
-                            else if ( (LA12_0=='[') ) {s = 29;}
-
-                            else if ( (LA12_0==']') ) {s = 30;}
-
-                            else if ( (LA12_0=='(') ) {s = 31;}
-
-                            else if ( (LA12_0==')') ) {s = 32;}
-
-                            else if ( (LA12_0=='.') ) {s = 33;}
-
-                            else if ( (LA12_0=='\'') ) {s = 34;}
-
-                            else if ( (LA12_0=='\t'||LA12_0==' ') ) {s = 35;}
-
-                            else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 36;}
-
-                            else if ( (LA12_0=='t') ) {s = 37;}
-
-                            else if ( (LA12_0=='f') ) {s = 38;}
-
-                            else if ( ((LA12_0>='G' && LA12_0<='H')||(LA12_0>='J' && LA12_0<='M')||LA12_0=='Q'||(LA12_0>='X' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='e')||(LA12_0>='g' && LA12_0<='s')||(LA12_0>='u' && LA12_0<='z')) ) {s = 39;}
-
-                            else if ( (LA12_0=='\r') ) {s = 40;}
-
-                            else if ( (LA12_0=='\n') ) {s = 41;}
-
-                            else if ( (LA12_0=='\"') ) {s = 42;}
-
-                            else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||(LA12_0>='#' && LA12_0<='$')||LA12_0=='&'||LA12_0==';'||(LA12_0>='?' && LA12_0<='@')||LA12_0=='\\'||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 43;}
-
-                            if ( s>=0 ) return s;
-                            break;
-            }
-        }).call(this.recognizer, s, input);
-        if (!org.antlr.lang.isUndefined(retval)) {
-            return retval;
-        }
-        var nvae =
-            new org.antlr.runtime.NoViableAltException(this.getDescription(), 12, _s, input);
-        this.error(nvae);
-        throw nvae;
+        return "1:1: Tokens : ( END_IF | END_WHILE | END_FOR | END_DO_WHILE | END | PLUS | MINUS | MULT | EXP | DIV | MODULO | EQ | NEQ | NOT | LTE | LT | GTE | GT | AND | OR | REPEAT | UNTIL | FOR | FROM | TO | STEP | READ | ADDRESS | CONTENT | ALLOCATE | FREE | NULL | BEGIN | VAR | WHILE | DO | STRUCT | BOOLEAN | INTEGER | FLOAT | CHARACTER | POINTER | IF | THEN | ELSE | FUNCTION | PROCEDURE | PRINT | PRINTLN | ERROR | RANDOM_INTEGER | RETURN | COLON | COMMA | LB | RB | LP | RP | POINT | DEREFERENCE | AFFECT | APOSTROPH | WHITE_SPACE | INTEGER_VALUE | FLOAT_VALUE | BOOLEAN_VALUE | IDENTIFIER | NEWLINE | COMMENT | LINE_COMMENT | STRING );";
     },
     dummy: null
 });

@@ -1,7 +1,7 @@
 define("ProgramNode",
 ["Node", "ProgramRunnerEvent", "FunctionNodeContext"],
 function(Node, ProgramRunnerEvent, FunctionNodeContext) {
-	//Node, ProgramRunnerEvent
+
 	function ProgramNode(tokenType, token) {	
 		Node.call(this, tokenType, token); 
 	}
@@ -57,5 +57,6 @@ function(Node, ProgramRunnerEvent, FunctionNodeContext) {
 	        return false;
 		}
 	}
-return ProgramNode;
+	
+	return ProgramNode;
 });

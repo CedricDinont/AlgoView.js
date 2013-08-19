@@ -5,7 +5,7 @@ options {
 	output=AST;
 	ASTLabelType=Node;
 //	k=1;
-	backtrack = true;
+//	backtrack = true;
 //	memoize=true;
 //  defaultErrorHandler=false;
 }
@@ -295,7 +295,7 @@ variables_declaration_section
 
 variables_declaration_list_opt
 	: /* Nothing */ -> VARIABLES_DECLARATION_LIST<VariablesDeclarationListNode>
-	| variables_declaration_list 
+	| variables_declaration_list
 	;
 
 variables_declaration_list
@@ -303,15 +303,15 @@ variables_declaration_list
 	;
 
 variables_declaration
-	: i_l=identifier_list COLON v_t=variable_type NEWLINE -> ^(VARIABLES_DECLARATION<VariablesDeclarationNode> $i_l $v_t)
+	: i_l=identifier_list COLON v_t=variable_type NEWLINE -> ^(VARIABLES_DECLARATION<VariablesDeclarationNode> $i_l $v_t) 
 	;
 
 identifier_list
-	: (IDENTIFIER) (COMMA IDENTIFIER)* -> ^(IDENTIFIER_LIST<IdentifierListNode> IDENTIFIER*)
+	: IDENTIFIER (COMMA IDENTIFIER)* -> ^(IDENTIFIER_LIST<IdentifierListNode> IDENTIFIER*)
 	;
 
 variable_type
-	:	variable_type_to_be_fixed  { fixArrayDataTypesInVariabeType($variable_type_to_be_fixed.tree); } -> variable_type_to_be_fixed
+	: variable_type_to_be_fixed  { fixArrayDataTypesInVariabeType($variable_type_to_be_fixed.tree); } -> variable_type_to_be_fixed
 	;
 
 variable_type_to_be_fixed
@@ -392,7 +392,7 @@ instruction_list
 	;
 
 instruction_list_opt
-	options { backtrack = true; }
+//	options { backtrack = true; }
 	: /* Nothing */ -> INSTRUCTION_LIST<InstructionListNode>
 	| instruction_list
 	;
@@ -410,7 +410,7 @@ instruction
 	| return_instruction NEWLINE -> return_instruction
 	| if_instruction NEWLINE -> if_instruction
 	| while_instruction NEWLINE -> while_instruction
-	| do_while_instruction NEWLINE -> do_while_instruction
+//	| do_while_instruction NEWLINE -> do_while_instruction
 	| for_instruction NEWLINE -> for_instruction
 	| error_instruction NEWLINE -> error_instruction
 	| assign_instruction NEWLINE -> assign_instruction
@@ -741,7 +741,7 @@ STRING
 	: '"' (.*) '"' 
 	;
 
-CHARACTER_VALUE
+/*CHARACTER_VALUE
 	:	.
 	;
-	
+	*/

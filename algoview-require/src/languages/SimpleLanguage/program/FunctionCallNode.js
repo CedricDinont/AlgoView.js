@@ -46,7 +46,7 @@ function(ExpressionNode, FunctionNodeContext, ExpressionListNodeContext) {
 			functionNodeContext.setParametersValues(this.getParameters());
 			nodeStack.push(this.functionNode, functionNodeContext);
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeContext.setValue(nodeContext.getValue());
 			nodeStack.pop();
 		}
