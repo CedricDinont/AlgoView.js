@@ -18,14 +18,16 @@ app.use(express.static('static'));
 app.post('/load_local_file', local_files.load);
 
 app.post('/remote_c/compile', remote_c.compile);
-app.get('/remote_c/start', remote_c.start);
+app.get('/remote_c/startGdb', remote_c.startGdb);
+app.get('/remote_c/startProgram', remote_c.startProgram);
 app.get('/remote_c/stop', remote_c.stop);
 app.get('/remote_c/continueToNextBreakpoint', remote_c.continueToNextBreakpoint);
 app.get('/remote_c/stepIn', remote_c.stepIn);
 app.get('/remote_c/stepOver', remote_c.stepOver);
 app.get('/remote_c/stepOut', remote_c.stepOut);
-app.get('/remote_c/setBreakpoint', remote_c.setBreakpoint);
+app.post('/remote_c/setBreakpoint', remote_c.setBreakpoint);
 app.get('/remote_c/getMemory', remote_c.getMemory);
+app.get('/remote_c/getProgramOutput', remote_c.getProgramOutput);
 
 // All configuration done. Start listening
 app.listen(8080);

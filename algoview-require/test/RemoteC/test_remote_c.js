@@ -1,6 +1,4 @@
-
 function compile() {
-	
 	$.ajax({
 		url: "/node/remote_c/compile",
 		type: 'POST',
@@ -31,9 +29,19 @@ int main() {\n\
 	
 }
 
-function start() {
+function startProgram() {
 	$.ajax({
-		url: "/node/remote_c/start",
+		url: "/node/remote_c/startProgram",
+		type: 'GET',
+	}).done(function(data) {
+		console.log("Done", data);
+		$("#output").html(JSON.stringify(data));
+	});
+}
+
+function startGdb() {
+	$.ajax({
+		url: "/node/remote_c/startGdb",
 		type: 'GET',
 	}).done(function(data) {
 		console.log("Done", data);
@@ -52,7 +60,17 @@ function stop() {
 }
 
 function setBreakpoint(line) {
-	
+	$.ajax({
+		url: "/node/remote_c/setBreakpoint",
+		type: 'POST',
+		data: {
+			line: line
+		}
+	}).done(function(data) {
+		console.log("Done", data);
+	}).error(function(data) {
+		console.log("Eror", data);
+	});
 }
 
 function stepIn() {
@@ -110,6 +128,18 @@ function updateMemoryView() {
 	}).done(function(data) {
 		console.log("Done", data);
 		$("#memory").html(JSON.stringify(data));
+	}).error(function(data) {
+		console.log("Eror", data);
+	});
+}
+
+function getProgramOutput() {
+	$.ajax({
+		url: "/node/remote_c/getProgramOutput",
+		type: 'GET',
+	}).done(function(data) {
+		console.log("Done", data);
+		$("#programStdout").html(JSON.stringify(data));
 	}).error(function(data) {
 		console.log("Eror", data);
 	});
