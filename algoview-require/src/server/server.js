@@ -1,7 +1,4 @@
 var express = require('express');
-var local_files = require('./routes/local_files');
-var remote_c = require('./routes/remote_c');
-
 var app = express();
 
 app.use(express.cookieParser());
@@ -15,19 +12,14 @@ app.configure(function () {
 // Configuration of static content
 app.use(express.static('static'));
 
-app.post('/load_local_file', local_files.load);
+var local_files = require('./routes/local_files/local_files');
+local_files.configureApp(app);
 
-app.post('/remote_c/compile', remote_c.compile);
-app.get('/remote_c/startGdb', remote_c.startGdb);
-app.get('/remote_c/startProgram', remote_c.startProgram);
-app.get('/remote_c/stop', remote_c.stop);
-app.get('/remote_c/continueToNextBreakpoint', remote_c.continueToNextBreakpoint);
-app.get('/remote_c/stepIn', remote_c.stepIn);
-app.get('/remote_c/stepOver', remote_c.stepOver);
-app.get('/remote_c/stepOut', remote_c.stepOut);
-app.post('/remote_c/setBreakpoint', remote_c.setBreakpoint);
-app.get('/remote_c/getMemory', remote_c.getMemory);
-app.get('/remote_c/getProgramOutput', remote_c.getProgramOutput);
+var remote_c = require('./routes/remote_c/remote_c');
+remote_c.configureApp(app);
+
+var tests = require('./routes/tests/test_simultaneous_queries');
+tests.configureApp(app);
 
 // All configuration done. Start listening
 app.listen(8080);

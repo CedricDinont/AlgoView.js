@@ -6,31 +6,10 @@
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 var execFile = require('child_process').execFile;
+var RemoteCClient = require('./remote_c_client');
+
 
 var remoteCClients = new Array();
-
-function RemoteCClient(clientSession) {
-	this.status = 'CREATED';
-	this.commandState = 'OUT';
-	this.gdb;
-	this.gdbStdout = "";
-	this.gdbStderr = "";
-	this.programStdout = "";
-	this.programStdin = "";
-	this.clientSession = clientSession;
-	this.workingDirectory;
-	
-	this.commandQueue = new Array();
-}
-
-RemoteCClient.prototype.sendCommandToGdb = function() {
-	
-}
-
-RemoteCClient.prototype.compile = function() {
-	
-}
-
 
 function GdbCommand() {
 	this.text;
@@ -51,35 +30,29 @@ if (typeof String.prototype.endsWith != 'function') {
 	}
 };
 
+function mkfifo(path) {
+	execFile("mkfifo", [path], function (err, out, err) {
+		
+	});
+}
 
-function sendCommandToGdb(session, command) {
-	session.commandQueue.push(command);
+function checkSession(req) {
+	console.log(req.sessionID, remoteCClients);
 	
-	if (session.commandQueue.length == 1) {
-		sendNextCommand(session);
-	}
-}
-
-function sendNextCommand(session) {
-	if (session.commandQueue.length == 0) {
-		return;
-	}
-	var command = session.commandQueue[0];
-	console.log("Sending command to gdb: ", command.text);
-	session.gdb.stdin.write(command.text + "\n");
-}
-
-function checkSession(req, res) {
-	var session = remoteCClients[req.session.sid];
+	var session = remoteCClients[req.sessionID];
+	
+	req.session.status = 'LOGGED IN';
+	
+	console.log(req.session);
 	
 	if (session == undefined) {
-		session = new Session(req.session);
-		remoteCClients[req.session.sid] = session;
+		session = new RemoteCClient(req.sessionID, req.session);
+		remoteCClients[req.sessionID] = session;
 	}
 	
 	if (session.workingDirectory == undefined) {
-		console.log("Creating working directory for session", req.session.sid);
-		session.workingDirectory = '/tmp/' + req.session.sid + '/';
+		console.log("Creating working directory for session", req.sessionID);
+		session.workingDirectory = '/tmp/algoview.js/' + req.sessionID + '/';
 		fs.mkdirSync(session.workingDirectory);
 		mkfifo(session.workingDirectory + "stdout.fifo");
 		mkfifo(session.workingDirectory + "stderr.fifo");
@@ -90,48 +63,14 @@ function checkSession(req, res) {
 	}
 }
 
-function getSession(req, res) {
+function getSession(req) {
 	checkSession(req);
-	return remoteCClients[req.session.sid];
+	return remoteCClients[req.sessionID];
 }
 
 function reportErrorToClient(error) {
 	
 }
-
-exports.compile = function(req, res) {
-	var session = getSession(req);
-
-	var program = req.body;
-	var source = program.sources[0];
-	var filename = source.name;
-	var fileContent = source.text;
-	
-	fs.writeFileSync(session.workingDirectory + filename, fileContent);
-
-	var gcc = execFile("gcc", [
-		'-g', 
-		'-Wall',
-		'-v',
-		'-Werror',
-		'-o', session.workingDirectory + 'a.out',
-		session.workingDirectory + filename
-	], function(error, stdout, stderr) {
-		console.log('stdout: ' + stdout);
-		console.log('stderr: ' + stderr);
-		if (error !== null) {
-			console.log('exec error: ' + error);
-		}
-		
-		session.status = 'COMPILED';
-		
-		res.send({
-			success: 'true',
-			stdout: stdout,
-			stderr: stderr
-		});
-	});
-};
 
 function onGdbStdout(session, data) {
 	console.log('gdb stdout: ' + data);
@@ -275,16 +214,22 @@ function stepInCallback(session, command) {
 	return false;
 }
 
+exports.compile = function(req, res) {
+	var session = getSession(req);
+	session.req = req;
+	session.res = res;
+	session.commandState = 'IN';
+	session.compile();
+	session.commandState = 'OUT';
+};
+
 exports.stepIn = function(req, res) {
 	var session = getSession(req);
-	
-	var command = new GdbCommand();
-	command.text = "-exec-step";
-	command.res = res;
-	command.req = req;
-	command.callback = stepInCallback;
-	
-	sendCommandToGdb(session, command);
+	session.req = req;
+	session.res = res;
+	session.commandState = 'IN';
+	session.stepIn();
+	session.commandState = 'OUT';
 }
 
 exports.stepOver = function(req, res) {
@@ -365,7 +310,6 @@ exports.getMemory = function(req, res) {
 	sendCommandToGdb(session, command);
 }
 
-
 exports.getProgramOutput = function(req, res) {
 	var session = getSession(req);
 	
@@ -376,4 +320,18 @@ exports.getProgramOutput = function(req, res) {
 		success: 'true',
 		output: output
 	});
+}
+
+exports.configureApp = function(app) {
+	app.post('/remote_c/compile', module.exports.compile);
+	app.get('/remote_c/startGdb', module.exports.startGdb);
+	app.get('/remote_c/startProgram', module.exports.startProgram);
+	app.get('/remote_c/stop', module.exports.stop);
+	app.get('/remote_c/continueToNextBreakpoint', module.exports.continueToNextBreakpoint);
+	app.get('/remote_c/stepIn', module.exports.stepIn);
+	app.get('/remote_c/stepOver', module.exports.stepOver);
+	app.get('/remote_c/stepOut', module.exports.stepOut);
+	app.post('/remote_c/setBreakpoint', module.exports.setBreakpoint);
+	app.get('/remote_c/getMemory', module.exports.getMemory);
+	app.get('/remote_c/getProgramOutput', module.exports.getProgramOutput);
 }

@@ -14,3 +14,7 @@ exports.load = function(req, res) {
 		programText: fileContent
 	});
 };
+
+exports.configureApp = function(app) {
+	app.post('/load_local_file', module.exports.load);
+}

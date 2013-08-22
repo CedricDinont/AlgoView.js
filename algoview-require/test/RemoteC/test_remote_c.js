@@ -144,3 +144,26 @@ function getProgramOutput() {
 		console.log("Eror", data);
 	});
 }
+
+function testSimultaneousQueries() {
+	$.ajax({
+		url: "/node/tests/longQuery?toto=3",
+		type: 'GET',
+	}).done(function(data) {
+		console.log("Done", data);
+	}).error(function(data) {
+		console.log("Eror", data);
+	});
+	window.setTimeout(function() {
+			$.ajax({
+		url: "/node/tests/longQuery?toto=2",
+		type: 'GET',
+	}).done(function(data) {
+		console.log("Done", data);
+	}).error(function(data) {
+		console.log("Eror", data);
+	});
+		
+		},1000);
+
+}
