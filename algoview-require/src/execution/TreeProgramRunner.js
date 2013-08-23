@@ -252,6 +252,8 @@ NodeContext, NodeStackElement, FunctionNode) {
 				
 				var exceptionEvent = new ProgramRunnerEvent(this, "EXCEPTION", undefined, e);
 				this.notifyListeners(exceptionEvent);
+				
+				this.stop(false);
 				return;
 			}
 

@@ -79,7 +79,7 @@ define("SimpleLanguageTester",
 	 }
 
 	SimpleLanguageTester.prototype.getTestSourceFile = function(test) {
-		console.log("Getting source file for test " + test.name);
+		console.log("Getting source file for test '" + test.name + "'.");
 		
 		return $j.ajax({
 			url: test.sourcesPrefix + "/" + test.sources + ".sl",
@@ -91,7 +91,7 @@ define("SimpleLanguageTester",
 	}
 
 	SimpleLanguageTester.prototype.getExpectedOutput = function(test) {
-		console.log("Getting expected output for test " + test.name);
+		console.log("Getting expected output for test '" + test.name + "'.");
 
 		return $j.ajax({
 			url: test.sourcesPrefix + "/" + test.sources + ".expected_output",
@@ -199,7 +199,7 @@ define("SimpleLanguageTester",
 			currentTest.sourcesPrefix = currentTestModule.sourcesPrefix;
 			//currentTestModule.handler.bind(this, currentTest)();
 			var command = "this." + currentTestModule.handler + "(" + "this.getCurrentTest()" + ")";
-			console.log(command);
+			//console.log(command);
 			eval(command);
 		}
 	}

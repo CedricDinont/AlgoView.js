@@ -1,6 +1,7 @@
 define("DereferenceNode",
 ["ExpressionNode"],
 function(ExpressionNode) {
+	
 	function DereferenceNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 	}
@@ -13,5 +14,6 @@ function(ExpressionNode) {
 		nodeStack.pop();
 		return false;
 	}
-return DereferenceNode;
+	
+	return DereferenceNode;
 });

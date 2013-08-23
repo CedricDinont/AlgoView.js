@@ -26,9 +26,7 @@ function(AssignableNode, JSUtils, PointerMemoryValue, TryToDereferenceNullPointe
 		} else {
 			nodeContext.currentChild = 0;
 			nodeStack.pop();
-			
-			console.log(nodeContext.variableContext);
-			
+						
 			var memoryValue = nodeContext.variableContext.getValue();
 			
 			if (! (memoryValue instanceof PointerMemoryValue)) {
@@ -36,7 +34,7 @@ function(AssignableNode, JSUtils, PointerMemoryValue, TryToDereferenceNullPointe
 			}
 			
 			if (memoryValue.value == PointerMemoryValue.NIL.value) {
-				throw new TryToDereferenceNullPointer();
+				throw new TryToDereferenceNullPointer(this.getVariable().name);
 			}
 
 			var parent = this.getVariable();

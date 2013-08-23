@@ -1,7 +1,9 @@
 define("SimpleLanguageUnitTests",
 [], function() {
 
-	return [{
+	return [
+			// Suite de tests pour les erreurs de compilation
+			{
 			name: "Incorrect compilation",
 			handler: "launchIncorrectCompilationTest",
 			sourcesPrefix: 'data/IncorrectCompilation',
@@ -24,7 +26,10 @@ define("SimpleLanguageUnitTests",
 						"UndefinedStructureError"
 					]
 				}]
-			}, {
+			},
+			
+			// Suite de tests pour les erreurs d'exécution
+			 {
 				name: "Correct compilation / Incorrect execution",
 				handler: "launchIncorrectExecutionTest",
 				sourcesPrefix: 'data/CorrectCompilation/IncorrectExecution',
@@ -35,7 +40,10 @@ define("SimpleLanguageUnitTests",
 							"TryToDereferenceNullPointer"
 						]
 				}]
-			}, {
+			},
+			
+			// Suite de tests pour les exécutions sans problème
+			{
 				name: "Correct compilation / Correct execution",
 				handler: "launchCorrectExecutionTest",
 				sourcesPrefix: 'data/CorrectCompilation/CorrectExecution',
