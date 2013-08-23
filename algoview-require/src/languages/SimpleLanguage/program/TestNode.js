@@ -1,7 +1,7 @@
-//ExpressionNode
 define("TestNode",
 ["ExpressionNode", "ExpressionNodeContext"],
-function(ExpressionNode, ExpressionNodeContext) { 
+function(ExpressionNode, ExpressionNodeContext) {
+	
 	function TestNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 		
@@ -52,5 +52,6 @@ function(ExpressionNode, ExpressionNodeContext) {
 		
 		return false;
 	}
+	
 	return TestNode;
 });

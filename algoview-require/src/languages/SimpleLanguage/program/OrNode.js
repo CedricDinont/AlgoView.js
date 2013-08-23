@@ -1,6 +1,6 @@
 define("OrNode",
 ["MemoryValue", "ExpressionNode", "CannotConvertTo", "BooleanMemoryValue"],
-function(MemoryValue, ExpressionNode, CannotConvertTo, BooleanMemoryValue){
+function(MemoryValue, ExpressionNode, CannotConvertTo, BooleanMemoryValue) {
 
 	function OrNode(tokenType, token) {
 		ExpressionNode.call(this, tokenType, token);
@@ -19,42 +19,37 @@ function(MemoryValue, ExpressionNode, CannotConvertTo, BooleanMemoryValue){
 	}
 
 	OrNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			nodeStack.push(this.getLeftOperand());
-			this.currentChild++;
-		} else if (this.currentChild == 1) {
-			var leftOperandMemoryValue = this.getLeftOperand().getValue();
+		if (nodeContext.currentChild == 0) {
+			nodeContext.leftOperandContext = this.getLeftOperand().createContext();
+			nodeStack.push(this.getLeftOperand(), nodeContext.leftOperandContext);
+			nodeContext.currentChild++;
+		} else if (nodeContext.currentChild == 1) {
+			var leftOperandMemoryValue = nodeContext.leftOperandContext.getValue();
 			var leftOperandMemoryValueAsBoolean = leftOperandMemoryValue.convertTo(MemoryValue.BOOLEAN);
-			
-			if (leftOperandMemoryValueAsBoolean == undefined) {
-				throw new CannotConvertTo(MemoryValue.BOOLEAN);
-			}
-			
+						
 			if (leftOperandMemoryValueAsBoolean.getPrimitiveValue() == true) {
 	                // No need to continue with the right operand
-				this.currentChild = 0;			
+				nodeContext.currentChild = 0;			
 				nodeStack.pop();
-				this.setValue(new BooleanMemoryValue(true));
+				nodeContext.setValue(new BooleanMemoryValue(true));
 			} else {
-				nodeStack.push(this.getRightOperand());
-				this.currentChild++;
+				nodeContext.rightOperandContext = this.getRightOperand().createContext();
+				nodeStack.push(this.getRightOperand(), nodeContext.rightOperandContext);
+				nodeContext.currentChild++;
 			}
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			
-			var rightOperandMemoryValue = this.getRightOperand().getValue();
+			var rightOperandMemoryValue = nodeContext.rightOperandContext.getValue();
 			var rightOperandMemoryValueAsBoolean = rightOperandMemoryValue.convertTo(MemoryValue.BOOLEAN);
-			
-			if (rightOperandMemoryValueAsBoolean == undefined) {
-				throw new CannotConvertTo(MemoryValue.BOOLEAN);
-			}
 
 			var finalValue = rightOperandMemoryValueAsBoolean.getPrimitiveValue();
-			this.setValue(new BooleanMemoryValue(finalValue));
+			nodeContext.setValue(new BooleanMemoryValue(finalValue));
 		}
 		
 		return false;
 	}
-return OrNode;
+
+	return OrNode;
 });

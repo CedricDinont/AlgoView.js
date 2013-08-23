@@ -53,6 +53,12 @@ define("SimpleLanguageUnitTests",
 				}, {
 					name: "if",
 					sources: "if",
+				}, {
+					name: "Type conversions",
+					sources: "TypeConversions",
+				}, {
+					name: "Recursion - Factorial",
+					sources: "Recursion_Factorial",
 				}]
 			},
 		];

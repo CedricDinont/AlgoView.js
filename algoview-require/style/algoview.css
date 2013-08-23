@@ -37,6 +37,15 @@
 	text-align: center;
 }
 
+#loading-task {
+	text-align: center;
+	color: black;
+	font: 13px Helvetica, Arial, sans-serif;
+	height: auto;
+	margin: 0;
+	padding: 0px;
+}
+
 .changed {
 	background-color: rgba(0, 90, 255, 0.2); /*#D7EFFF;*/  /* #D7FFFB; */
 }

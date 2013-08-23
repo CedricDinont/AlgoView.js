@@ -41,7 +41,7 @@ function(Node, ProgramRunnerEvent, StringNode) {
 			// TODO: Protéger les caractères HTML : Attention au mode console
 			
 			if (this.newLine == true) {
-				outputText += "<br />";
+				outputText += "\n"; // <br />";
 			}
 			
 			var event = new ProgramRunnerEvent(programRunner, "OUTPUT_TEXT", outputText);

@@ -62,6 +62,8 @@ NodeContext, NodeStackElement, FunctionNode) {
 			return;
 		}
 		
+		var currentStackElement;
+		
 		// On vide la pile
 		while (!this.nodeStack.isEmpty()) {
 			currentStackElement = this.nodeStack.pop();

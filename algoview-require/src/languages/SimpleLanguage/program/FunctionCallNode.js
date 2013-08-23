@@ -46,6 +46,15 @@ BuiltInFunctionNode) {
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
 			nodeContext.functionNodeContext = this.getFunctionNode().createContext();
+			
+			// TODO: Evaluer les paramètres
+			nodeContext.functionNodeContext.parametersValuesContexts = new Array();
+			for (var i = 0; i < this.getParameters().children.length; i++) {
+				nodeContext.functionNodeContext.parametersValuesContexts[i] = this.getParameters().children[i].createContext();
+				nodeStack.push(this.getParameters().children[i], nodeContext.functionNodeContext.parametersValuesContexts[i]);
+			}
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
 			nodeContext.functionNodeContext.setParametersValues(this.getParameters());
 			nodeStack.push(this.getFunctionNode(), nodeContext.functionNodeContext);
 		} else {

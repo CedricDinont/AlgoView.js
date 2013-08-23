@@ -6,8 +6,9 @@
 define("CharacterMemoryValue",
 // Attention: Ne pas inclure les autres xxMemoryValue comme dépendance car cela génère des pbs de dépendance circulaire
 ["IllegalArgumentException", "MemoryValue", "MemoryState"],
-function(IllegalArgumentException, MemoryValue, MemoryState) { 
-	var CharacterMemoryValue = function(value) {
+function(IllegalArgumentException, MemoryValue, MemoryState) {
+	
+	function CharacterMemoryValue(value) {
 	
 		var typeOfValue = (typeof value);
 		var expectedType = "string";
@@ -30,7 +31,7 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 	
 	// @Override(MemoryValue)
 	CharacterMemoryValue.prototype.getStringValue = function() { 	
-			return "'" + this.value + "'";
+			return "" + this.value + "";
 	} 	
 	
 	CharacterMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
@@ -47,6 +48,8 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 			case MemoryValue.BOOLEAN:
 				break;
 			case MemoryValue.INTEGER:
+				var IntegerMemoryValue = require("IntegerMemoryValue");
+				return new IntegerMemoryValue(this.getPrimitiveValue().charCodeAt(0));
 				break;
 			case MemoryValue.CHARACTER:
 				return this;
@@ -61,6 +64,7 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 	// @Override
 	CharacterMemoryValue.prototype.clone = function() { 	
 		return new CharacterMemoryValue(this.value, this.state);
-	} 
+	}
+	
 	return CharacterMemoryValue;
 });

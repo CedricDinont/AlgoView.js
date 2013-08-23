@@ -303,6 +303,14 @@ function initAlgoView(Ext, ace) {
 	})
 }
 
+function updateLoadingMessage(loadingStep) {
+	var div = document.getElementById("loading-task");
+	if (div == undefined) {
+		return;
+	}
+	div.innerHTML = loadingStep;
+}
+
 define("AlgoViewAppInit", 
 ["AlgoViewApp", LANGUAGE_MODULE], function(AlgoViewApp, LanguageModule) {
 	
@@ -310,6 +318,7 @@ define("AlgoViewAppInit",
 			console.log("AlgoView classes successfully loaded.");
 			console.log("Initializing AlgoView...");
 		}
+		updateLoadingMessage("Initializing application");
 			
 		var algoViewApp = new AlgoViewApp(new LanguageModule());
 
@@ -321,6 +330,7 @@ define("AlgoViewAppInit",
 			if (DEBUG) {
 				console.log("Initializing GUI...");
 			}
+			updateLoadingMessage("Initializing user interface");
 
 			require(["MainFrame"], function(MainFrame) {
 				algoViewApp.mainFrame = new MainFrame(algoViewApp); 
@@ -328,6 +338,7 @@ define("AlgoViewAppInit",
 				if (DEBUG) {
 					console.log("GUI initialized.");
 				}
+				updateLoadingMessage("Done.");
 			})
 		} else {
 			if (AFTER_ALGOVIEW_INIT != undefined) {

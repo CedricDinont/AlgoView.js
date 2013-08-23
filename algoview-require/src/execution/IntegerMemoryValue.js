@@ -105,13 +105,15 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 				return this;
 				break;
 			case MemoryValue.CHARACTER:
+				var CharacterMemoryValue = require("CharacterMemoryValue");
+				return new CharacterMemoryValue(String.fromCharCode(this.getPrimitiveValue()));
 				break;
 			case MemoryValue.FLOAT:
 				var FloatMemoryValue = require("FloatMemoryValue");
 				return new FloatMemoryValue(this.getPrimitiveValue());
 				break;
 			case MemoryValue.POINTER:
-				return undefined;
+				throw new CannotConvertTo();
 				break;
 		}
 	}
