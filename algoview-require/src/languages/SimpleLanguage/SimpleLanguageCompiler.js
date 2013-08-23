@@ -2,11 +2,11 @@ define("SimpleLanguageCompiler",
 ["Compiler", "SimpleLanguageLexer", "SimpleLanguageParser", 
 "VariablesDeclarationListNode", "VariableDeclarationNode", "VariableNameNode",
 "StructureDataType", "CompilerEvent", "CompilationError", "NoMainFunctionError", 
-"UndefinedFunctionError", "UndefinedStructureError", "ProgramLocation"],
+"UndefinedFunctionError", "UndefinedStructureError", "ProgramLocation", "ParsingError"],
 function(Compiler, SimpleLanguageLexer, SimpleLanguageParser, 
 VariablesDeclarationListNode, VariableDeclarationNode, VariableNameNode, 
 StructureDataType, CompilerEvent, CompilationError, NoMainFunctionError, 
-UndefinedFunctionError, UndefinedStructureError, ProgramLocation) {
+UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) {
 
 	function SimpleLanguageCompiler() {
 		
@@ -15,11 +15,25 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation) {
 		this.program;
 		
 		var self = this;
-		org.antlr.runtime.BaseRecognizer.prototype.emitErrorMessage = function (msg) {
+		org.antlr.runtime.BaseRecognizer.prototype.emitErrorMessage = function (errorMessage) {
 			if (DEBUG) {
-				console.log(msg);
+				console.log(errorMessage);
 			}
-			self.errors.push(msg);
+			
+			var regex = new RegExp("^line ([0-9]+):(-?[0-9]+)(.*)","g");
+			var result = regex.exec(errorMessage);
+			console.log(result);
+			if (result[1] == 0) {
+				result[1] = 1;
+			}
+		
+			var location = new ProgramLocation(self.program,
+				self.program.currentSource,
+				result[1],
+				result[2]
+			);
+			
+			self.errors.push(new ParsingError(location, result[3], errorMessage));
 		}; 
 	}
 	
@@ -131,6 +145,18 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation) {
 				var dataType = currentVariableDeclarationNode.getVariableType();
 				if (dataType instanceof StructureDataType) {
 					var structureDeclarationNode = this.findStructureDeclarationNode(dataType.getStructureName());
+					if (structureDeclarationNode == undefined) {
+						this.errors.push(
+							new UndefinedStructureError(
+								new ProgramLocation(this.program,
+									this.program.currentSource, 
+									currentVariableDeclarationNode.token.line, 
+									currentVariableDeclarationNode.token.charPositionInLine
+								),
+								dataType.getStructureName()
+							)
+						);
+					}
 					dataType.setStructureDeclarationNode(structureDeclarationNode);
 				}
 			}
@@ -140,7 +166,8 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation) {
 	SimpleLanguageCompiler.prototype.findStructureDeclarationNode = function(structureName) {
 		var structureDeclarationNode = this.programTree.getStructureDeclarationList().getStructureDeclarationByName(structureName);
 		if (structureDeclarationNode == undefined) {
-			//this.errors.push(new UndefinedStructureError(undefined, dataType.getStructureName()));
+			return undefined;
+			//this.errors.push(new UndefinedStructureError(undefined, ));
 		}
 		return structureDeclarationNode;
 	}
@@ -151,12 +178,17 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation) {
 		for (var i = 0; i < functionCalls.length; ++i) {
 			var functionNode = program.getFunctionNode(functionCalls[i].getFunctionName(), functionCalls[i].getNumberOfParameters());
 			if (functionNode === undefined) {
-				console.log(functionCalls[i]);
+				//console.log(functionCalls[i]);
 				this.errors.push(new UndefinedFunctionError(
-					new ProgramLocation(this.program, this.program.currentSource, functionCalls[i].token.line, functionCalls[i].token.charPositionInLine),
+					new ProgramLocation(this.program, 
+						this.program.currentSource, 
+						functionCalls[i].token.line, 
+						functionCalls[i].token.charPositionInLine + 1
+					),
 					functionCalls[i].getFunctionName(),
 					functionCalls[i].getNumberOfParameters())
 				);
+				console.log(this.errors);
 			} else {
 				functionCalls[i].setFunctionNode(functionNode);
 			}

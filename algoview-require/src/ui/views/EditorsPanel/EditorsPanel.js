@@ -89,13 +89,25 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 			case "STARTED_COMPILATION":
 				break;
 			case "COMPILED_PROGRAM":
+				Ext.getCmp('editor-1').editor.session.clearAnnotations();
 				break;
 			case "COMPILATION_ERROR":
+			var annotations = new Array();
 				for (var i = 0; i < event.errors.length; ++i) {
 					var error = event.errors[i];
-					console.log(error);
-					Ext.getCmp('editor-1').setBreakpoint(error.location.line - 1);
+					if ((error.location !== undefined) && (error.location.line !== undefined)) {
+						var annotation = {
+							row: error.location.line - 1,
+							column: 1,
+							text: error.toString(),
+							type: 'error',
+						};
+						annotations.push(annotation);
+					}
 				}
+				console.log(annotations);
+				Ext.getCmp('editor-1').editor.session.setAnnotations(annotations);
+				console.log("passed");
 				break;
 		}
 	}

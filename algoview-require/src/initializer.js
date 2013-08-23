@@ -98,6 +98,7 @@ requirejs.config({
         NoMainFunctionError: "languages/SimpleLanguage/compilation_errors/NoMainFunctionError",
         UndefinedFunctionError: "languages/SimpleLanguage/compilation_errors/UndefinedFunctionError",
         UndefinedStructureError: "languages/SimpleLanguage/compilation_errors/UndefinedStructureError",
+        ParsingError: "languages/SimpleLanguage/compilation_errors/ParsingError",
         
         // AlgoView Exceptions
         AlreadyAllocatedSegmentException: "exceptions/AlreadyAllocatedSegmentException",
