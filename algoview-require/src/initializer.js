@@ -100,6 +100,9 @@ requirejs.config({
         UndefinedStructureError: "languages/SimpleLanguage/compilation_errors/UndefinedStructureError",
         ParsingError: "languages/SimpleLanguage/compilation_errors/ParsingError",
         
+        // Simple Language execution errors
+        TryToDereferenceNullPointer: "languages/SimpleLanguage/execution_errors/TryToDereferenceNullPointer",
+        
         // AlgoView Exceptions
         AlreadyAllocatedSegmentException: "exceptions/AlreadyAllocatedSegmentException",
         CannotApplyTestOperatorException: "exceptions/CannotApplyTestOperatorException",
@@ -265,7 +268,9 @@ requirejs.config({
         JSUtils: "utils/JSUtils",
         MathUtils: "utils/MathUtils",
         
-        SimpleLanguageTests: "../test/SimpleLanguage/SimpleLanguageTests",
+        // Simple Language unit tests
+        SimpleLanguageTester: "../test/SimpleLanguage/SimpleLanguageTester",
+        SimpleLanguageUnitTests: "../test/SimpleLanguage/SimpleLanguageUnitTests",
     },
     shim: {
         'jQuery': {

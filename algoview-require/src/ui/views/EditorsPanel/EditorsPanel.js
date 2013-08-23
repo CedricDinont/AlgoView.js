@@ -79,6 +79,7 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 				Ext.getCmp('editor-1').popCurrentLine();
 				break;
 			case "EXCEPTION":
+				// TODO: A placer ailleurs
 				this.app.stopProgram(false);
 				break;
 		}

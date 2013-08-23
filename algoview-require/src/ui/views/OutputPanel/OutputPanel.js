@@ -48,7 +48,11 @@ function(Exception) {
 			case "EXCEPTION":
 				var message;
 				if (event.exception instanceof Exception) {
-					message = event.exception.wrappedException.toString();
+					if (event.exception.wrappedException != undefined) {
+						message = event.exception.wrappedException.toString();
+					} else {
+						message = event.exception.toString();
+					}
 				} else {
 					message = event.exception;
 				}

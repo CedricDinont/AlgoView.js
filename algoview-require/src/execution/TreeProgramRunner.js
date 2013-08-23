@@ -6,7 +6,7 @@ function(ProgramRunner, JSUtils,
 Memory, NodeStack, ProgramRunnerEvent, BreakpointList, 
 NodeContext, NodeStackElement, FunctionNode) {
 
-	var TreeProgramRunner = function() {
+	function TreeProgramRunner() {
 		ProgramRunner.call(this);
 		
 		this.nodeStack = new NodeStack(); 

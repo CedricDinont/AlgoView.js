@@ -6,8 +6,8 @@
  */
  
  define("Stack",
-["Variable", "MemoryUnitHashTable"], 
-function(Variable, MemoryUnitHashTable) { 
+["Variable", "MemoryUnitHashTable", "JSUtils"], 
+function(Variable, MemoryUnitHashTable, JSUtils) { 
 	
 var Stack = function(memory) {
 
@@ -117,7 +117,7 @@ Stack.prototype.findVariable = function(name) {	// throws BadVariableNameExcepti
 	
 	for(var i = this.variables.length - 1; i >= this.variables.length - this.getNumberOfVariablesForCurrentFunction(); i--) {
 		var variable = this.variables[i];
-		if( variable.getName() == name ) {
+		if (variable.getName() == name) {
 			return variable;
 		}
 	}

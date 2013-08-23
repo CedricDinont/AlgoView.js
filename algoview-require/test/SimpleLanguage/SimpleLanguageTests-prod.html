@@ -7,19 +7,20 @@
 		<link href="../../lib/extjs/extjs-4.1.0/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
 		<link href='../../style/algoview.css' rel="stylesheet" type="text/css" />
 		<link href='../../style/callGraph.css' rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="../style/qunit-1.12.0.css" type="text/css" />
+		<link rel="stylesheet" href="../style/qunit.css" type="text/css" />
 	</head>
 
 	<body>
 		<div id="qunit"></div>
 		<script type="text/javascript" src="../../lib/jquery/jquery-1.9.0.min.js"></script>
-		<script type="text/javascript" src="../lib/qunit-1.12.0.js"></script>
+		<script type="text/javascript" src="../lib/qunit-1.7.js"></script>
+		<script src="../../lib/require/require.js"></script>
 		<script>
 			function startTests() {
-				require(["SimpleLanguageTester", "SimpleLanguageUnitTests"], function(SimpleLanguageTester, simpleLanguageUnitTests) {
+				require(["SimpleLanguageTests"], function(SimpleLanguageTests) {
 					console.log("Simple language tests initialized.");
-					var simpleLanguageTester = new SimpleLanguageTester(simpleLanguageUnitTests);
-					simpleLanguageTester.startTests();
+					var simpleLanguageTests = new SimpleLanguageTests();
+					simpleLanguageTests.startTests();
 				});
 			}
 			
@@ -27,7 +28,14 @@
 			const INIT_UI = false;
 			const LANGUAGE_MODULE = "SimpleLanguageModule";
 			const AFTER_ALGOVIEW_INIT = startTests;
+			
+			require.config({
+		        baseUrl: '../../build/SimpleLanguage/src/',
+		        paths: {
+		        }
+		    });
+		    require(["AlgoView-SimpleLanguage-Minified"]);
 		</script>
-		<script data-main="../../src/initializer.js" src="../../lib/require/require.js"></script>
+
 	</body>
 </html>

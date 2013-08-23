@@ -95,7 +95,6 @@ function(BooleanMemoryValue, MemoryState, MemoryValue, JSUtils) {
 
 	PointerMemoryValue.NIL = new PointerMemoryValue(0);
 
-
 	return PointerMemoryValue;
 
 });

@@ -15,13 +15,12 @@ function(Exception) {
         this.address = address;
     }
 
-// prototype based inheritance
+	// prototype based inheritance
     InvalidAddressException.prototype = new Exception();
 
     InvalidAddressException.prototype.toString = function() {
         return "Trying to access an invalid address in memory: " + this.address;
     }
-
 
     return InvalidAddressException;
 
