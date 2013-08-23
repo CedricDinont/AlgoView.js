@@ -8,18 +8,18 @@
 ["Exception"],
 function(Exception) {
 
-var UndeclaredItemException = function(text) {
-	Exception.call(this);
-	
-	this.text = text;
-}
+	var UndeclaredItemException = function(text) {
+		Exception.call(this);
+		
+		this.text = text;
+	}
 
-// prototype based inheritance
-UndeclaredItemException.prototype = new Exception();
+	// prototype based inheritance
+	UndeclaredItemException.prototype = new Exception();
 
-UndeclaredItemException.prototype.toString = function() {
-	return this.text;
-}
+	UndeclaredItemException.prototype.toString = function() {
+		return this.text;
+	}
 
     return UndeclaredItemException;
 

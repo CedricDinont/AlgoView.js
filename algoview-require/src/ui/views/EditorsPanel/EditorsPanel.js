@@ -11,6 +11,7 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 		
 		this.app.setEditorsPanel(this);
 		this.app.programRunner.addListener(this);
+		this.app.compiler.addListener(this);
 	}
 	
 	EditorsPanel.prototype.setProgramTextChanged = function(value) {
@@ -79,6 +80,22 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 				break;
 			case "EXCEPTION":
 				this.app.stopProgram(false);
+				break;
+		}
+	}
+	
+	EditorsPanel.prototype.onCompilerEvent = function(event) {
+		switch (event.type) {
+			case "STARTED_COMPILATION":
+				break;
+			case "COMPILED_PROGRAM":
+				break;
+			case "COMPILATION_ERROR":
+				for (var i = 0; i < event.errors.length; ++i) {
+					var error = event.errors[i];
+					console.log(error);
+					Ext.getCmp('editor-1').setBreakpoint(error.location.line - 1);
+				}
 				break;
 		}
 	}

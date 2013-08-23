@@ -68,7 +68,12 @@ function(Exception) {
 			case "COMPILATION_ERROR":
 				var newContent = "<div class='error-message'>Compilation errors:</div>";
 				for (var i = 0; i < event.errors.length; ++i) {
-					var message = event.errors[i];
+					var error = event.errors[i];
+					var message = "";
+					if (error.location !== undefined) {
+						message += error.location.toString() + " - ";
+					}
+					message += error.toString();
 					newContent += "<div class='error-message'>" + message + "</div>";
 				}
 				this.extComponent.update(newContent);

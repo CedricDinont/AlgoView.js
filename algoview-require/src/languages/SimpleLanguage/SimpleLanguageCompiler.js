@@ -1,16 +1,18 @@
 define("SimpleLanguageCompiler",
-["Compiler", "FunctionNotImplemented", "SimpleLanguageLexer", 
-"SimpleLanguageParser", "CompilationError",  "VariablesDeclarationListNode", 
-"VariableDeclarationNode", "VariableNameNode", "StructureDataType",
-"CompilerEvent"],
-function(Compiler, FunctionNotImplemented, SimpleLanguageLexer,
-SimpleLanguageParser, CompilationError, VariablesDeclarationListNode, 
-VariableDeclarationNode, VariableNameNode, StructureDataType,
-CompilerEvent) {
+["Compiler", "SimpleLanguageLexer", "SimpleLanguageParser", 
+"VariablesDeclarationListNode", "VariableDeclarationNode", "VariableNameNode",
+"StructureDataType", "CompilerEvent", "CompilationError", "NoMainFunctionError", 
+"UndefinedFunctionError", "UndefinedStructureError", "ProgramLocation"],
+function(Compiler, SimpleLanguageLexer, SimpleLanguageParser, 
+VariablesDeclarationListNode, VariableDeclarationNode, VariableNameNode, 
+StructureDataType, CompilerEvent, CompilationError, NoMainFunctionError, 
+UndefinedFunctionError, UndefinedStructureError, ProgramLocation) {
 
-	function SimpleLanguageCompiler () {
+	function SimpleLanguageCompiler() {
 		
 		Compiler.call(this);
+		
+		this.program;
 		
 		var self = this;
 		org.antlr.runtime.BaseRecognizer.prototype.emitErrorMessage = function (msg) {
@@ -27,13 +29,14 @@ CompilerEvent) {
 	
 	SimpleLanguageCompiler.prototype.compile = function(program) {
 		this.errors = new Array();
+		this.program = program;
 
 		this.notifyListeners(new CompilerEvent(this, "STARTED_COMPILATION"));
 
 		var cstream = new org.antlr.runtime.ANTLRStringStream(program.currentSource.text + "\n");
 		var lexer = new SimpleLanguageLexer(cstream);
-		var tstream = new org.antlr.runtime.CommonTokenStream(lexer);
-		var parser = new SimpleLanguageParser(tstream);
+		var tokenStream = new org.antlr.runtime.CommonTokenStream(lexer);
+		var parser = new SimpleLanguageParser(tokenStream);
 		var programTree = parser.program();
 
 		if (this.errors.length != 0) {
@@ -45,12 +48,7 @@ CompilerEvent) {
 			console.log("Program tree", programTree.tree);
 		}
 		
-		if (! this.findMainFunction(programTree.tree)) {
-			this.errors.push("ERROR: No main function defined.");
-			this.sendCompilationErrorEvent();
-			return false;
-		}
-
+		this.findMainFunction(programTree.tree);
 		this.parseVariablesDeclarationNodesForFunctions(programTree.tree);
 		this.parseVariablesDeclarationNodesForStructureDeclarations(programTree.tree);
 		this.findStructureDeclarations(programTree.tree);
@@ -58,7 +56,7 @@ CompilerEvent) {
 
 		if (this.errors.length != 0) {
 			this.sendCompilationErrorEvent();
-			return false;	
+			return false;
 		}
 
 		program.programTree = programTree.tree;		
@@ -78,10 +76,10 @@ CompilerEvent) {
 		for (var i = 0; i < functionList.children.length; ++i) {
 			if (functionList.children[i].getName() == "main") {
 				program.setMainFunction(functionList.children[i]);
-				return true;
+				return;
 			}
 		}
-		return false;
+		this.errors.push(new NoMainFunctionError());
 	}
 
 	SimpleLanguageCompiler.prototype.parseVariablesDeclarationNodesForFunctions = function(program) {
@@ -142,7 +140,7 @@ CompilerEvent) {
 	SimpleLanguageCompiler.prototype.findStructureDeclarationNode = function(structureName) {
 		var structureDeclarationNode = this.programTree.getStructureDeclarationList().getStructureDeclarationByName(structureName);
 		if (structureDeclarationNode == undefined) {
-			JSUtils.throwException("UndeclaredItemException", "Undeclared structure : " + dataType.getStructureName());	
+			//this.errors.push(new UndefinedStructureError(undefined, dataType.getStructureName()));
 		}
 		return structureDeclarationNode;
 	}
@@ -153,7 +151,12 @@ CompilerEvent) {
 		for (var i = 0; i < functionCalls.length; ++i) {
 			var functionNode = program.getFunctionNode(functionCalls[i].getFunctionName(), functionCalls[i].getNumberOfParameters());
 			if (functionNode === undefined) {
-				this.errors.push("Function not implemented: " + functionCalls[i].getFunctionName() + " with " +  functionCalls[i].getNumberOfParameters() + " parameters.");
+				console.log(functionCalls[i]);
+				this.errors.push(new UndefinedFunctionError(
+					new ProgramLocation(this.program, this.program.currentSource, functionCalls[i].token.line, functionCalls[i].token.charPositionInLine),
+					functionCalls[i].getFunctionName(),
+					functionCalls[i].getNumberOfParameters())
+				);
 			} else {
 				functionCalls[i].setFunctionNode(functionNode);
 			}

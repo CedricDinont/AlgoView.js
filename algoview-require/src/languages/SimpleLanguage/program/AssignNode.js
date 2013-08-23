@@ -42,10 +42,10 @@ function(ExpressionNode, PointerMemoryValue, CannotConvertTo, ArrayDataType, Exp
 		} else if (nodeContext.currentChild == 2) {
 			nodeContext.currentChild++;
 			if (this.getExpression().containsFunctionCall()) {
-				 console.log("AssignNode contains function call.");
+				// console.log("AssignNode contains function call.");
 				return true;
 			} else {
-				 console.log("AssignNode does not contain function call.");
+				// console.log("AssignNode does not contain function call.");
 				return false;
 			}
 		} else {
@@ -54,7 +54,7 @@ function(ExpressionNode, PointerMemoryValue, CannotConvertTo, ArrayDataType, Exp
 			var expressionMemoryValue = this.getExpressionContext(nodeContext).getValue();
 			
 			var expressionDataType = this.getExpressionContext(nodeContext).dataType;
-			 console.log(expressionDataType, expressionMemoryValue);
+			// console.log(expressionDataType, expressionMemoryValue);
 			if (expressionDataType instanceof ArrayDataType) {
 				expressionMemoryValue = new PointerMemoryValue(this.getExpressionContext(nodeContext).getAddress());
 			}

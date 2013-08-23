@@ -94,6 +94,11 @@ requirejs.config({
         SimpleLanguageLexer: "languages/SimpleLanguage/program/parser/SimpleLanguageLexer",
         SimpleLanguageParser: "languages/SimpleLanguage/program/parser/SimpleLanguageParser",
         
+        // Simple Language compiler errors
+        NoMainFunctionError: "languages/SimpleLanguage/compilation_errors/NoMainFunctionError",
+        UndefinedFunctionError: "languages/SimpleLanguage/compilation_errors/UndefinedFunctionError",
+        UndefinedStructureError: "languages/SimpleLanguage/compilation_errors/UndefinedStructureError",
+        
         // AlgoView Exceptions
         AlreadyAllocatedSegmentException: "exceptions/AlreadyAllocatedSegmentException",
         CannotApplyTestOperatorException: "exceptions/CannotApplyTestOperatorException",
@@ -103,7 +108,7 @@ requirejs.config({
         PartOfPrimitiveTypeException: "exceptions/PartOfPrimitiveTypeException",
         UnallocatedSegmentException: "exceptions/UnallocatedSegmentException",
         BadVariableNameException: "exceptions/BadVariableNameException",
-        CompilationError: "exceptions/CompilationError",
+      //  CompilationError: "exceptions/CompilationError",
         EmptyStackException: "exceptions/EmptyStackException",
         Exception: "exceptions/Exception",
         InvalidAddressException: "exceptions/InvalidAddressException",
@@ -142,8 +147,10 @@ requirejs.config({
         
         Compiler: 'languages/common/Compiler',
         CompilerEvent: 'languages/common/CompilerEvent',
+        CompilationError: 'languages/common/CompilationError',
         Program: "languages/common/Program",
         Source: "languages/common/Source",
+        ProgramLocation: "languages/common/ProgramLocation",
         ProgramRunner: 'languages/common/ProgramRunner',
         ProgramRunnerEvent: "execution/ProgramRunnerEvent",
         ProgramRunnerListener: "execution/ProgramRunnerListener",
