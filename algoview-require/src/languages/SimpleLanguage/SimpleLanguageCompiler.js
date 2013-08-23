@@ -22,7 +22,6 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) 
 			
 			var regex = new RegExp("^line ([0-9]+):(-?[0-9]+)(.*)","g");
 			var result = regex.exec(errorMessage);
-			console.log(result);
 			if (result[1] == 0) {
 				result[1] = 1;
 			}
@@ -144,14 +143,15 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) 
 				var currentVariableDeclarationNode = variablesDeclarationListNode.children[j];
 				var dataType = currentVariableDeclarationNode.getVariableType();
 				if (dataType instanceof StructureDataType) {
-					var structureDeclarationNode = this.findStructureDeclarationNode(dataType.getStructureName());
+					var structureDeclarationNode = this.findStructureDeclarationNode(program, dataType.getStructureName());
 					if (structureDeclarationNode == undefined) {
+						var variableTypeNode = currentVariableDeclarationNode.children[VariableDeclarationNode.VARIABLE_TYPE_CHILD_INDEX];
 						this.errors.push(
 							new UndefinedStructureError(
 								new ProgramLocation(this.program,
 									this.program.currentSource, 
-									currentVariableDeclarationNode.token.line, 
-									currentVariableDeclarationNode.token.charPositionInLine
+									variableTypeNode.token.line, 
+									variableTypeNode.token.charPositionInLine
 								),
 								dataType.getStructureName()
 							)
@@ -163,11 +163,10 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) 
 		}
 	}
 
-	SimpleLanguageCompiler.prototype.findStructureDeclarationNode = function(structureName) {
-		var structureDeclarationNode = this.programTree.getStructureDeclarationList().getStructureDeclarationByName(structureName);
+	SimpleLanguageCompiler.prototype.findStructureDeclarationNode = function(program, structureName) {
+		var structureDeclarationNode = program.getStructureDeclarationList().getStructureDeclarationByName(structureName);
 		if (structureDeclarationNode == undefined) {
 			return undefined;
-			//this.errors.push(new UndefinedStructureError(undefined, ));
 		}
 		return structureDeclarationNode;
 	}
@@ -178,7 +177,6 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) 
 		for (var i = 0; i < functionCalls.length; ++i) {
 			var functionNode = program.getFunctionNode(functionCalls[i].getFunctionName(), functionCalls[i].getNumberOfParameters());
 			if (functionNode === undefined) {
-				//console.log(functionCalls[i]);
 				this.errors.push(new UndefinedFunctionError(
 					new ProgramLocation(this.program, 
 						this.program.currentSource, 

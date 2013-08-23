@@ -7,8 +7,8 @@
  */
  
  define("MemoryUnitHashTable",
-["MemoryUnit"],
-function(MemoryUnit) {
+["MemoryUnit", "MathUtils"],
+function(MemoryUnit, MathUtils) {
 	 
 var MemoryUnitHashTable = function(memory){
 

@@ -5,21 +5,31 @@ define("SimpleLanguageTests",
 		this.testModules = [{
 			name: "Incorrect compilation",
 			handler: "launchIncorrectCompilationTest",
-			tests: ["print",
-				"if",
-				]
+			tests: [{
+					name: "print",
+					sources: "print",
+				}, {
+					name: "if",
+					sources: "if",
+				}]
 			}, {
 				name: "Correct compilation / Incorrect execution",
 				handler: "launchIncorrectExecutionTest",
-				tests: ["print",
-					"if",
-				]
+				tests: [{
+					sources: "print",
+				}, {
+					sources: "if",
+				}]
 			}, {
 				name: "Correct compilation / Correct execution",
 				handler: "launchCorrectExecutionTest",
-				tests: ["print",
-					"if",
-				]
+				tests: [{
+					name: "print",
+					sources: "print",
+				}, {
+					name: "if",
+					sources: "if",
+				}]
 			},
 		];
 		
@@ -33,13 +43,21 @@ define("SimpleLanguageTests",
 	}
 	
 	SimpleLanguageTests.prototype.onCompilerEvent = function(event) {
-		 console.log(event);
+		switch (event.type) {
+			case "STARTED_COMPILATION":
+				break;
+			case "COMPILED_PROGRAM":
+				break;
+			case "COMPILATION_ERROR":
+				this.currentRunningTest.compilationErrors = event.errors;
+				break;
+		}
 	}
 
 	SimpleLanguageTests.prototype.programChanged = function(event) {		
 		switch (event.type) {
 			case "OUTPUT_TEXT":
-				this.realOutput += event.text;
+				this.currentRunningTest.realOutput += event.text;
 				break;
 		}
 	}
@@ -58,75 +76,75 @@ define("SimpleLanguageTests",
 		this.launchNextTest();
 	}
 
-	SimpleLanguageTests.prototype.launchCorrectExecutionTest = function(_testName) {
+	SimpleLanguageTests.prototype.launchCorrectExecutionTest = function(test) {
 		var self = this;
-		asyncTest(_testName, 1, function() {
-			self.launchCorrectExecutionTest2();
+		
+		asyncTest(test.name, 1, function() {
+			self.getTestSourceFile(test)
+				.done(function(data) { test.programText = data; console.log("PROG", data, test); },
+					function() { self.getExpectedOutput(test)
+						.done(function(data) { console.log("EXP", data); test.expectedOutput = data; },
+							function() { self.runTest(test); } 
+						 )
+					}
+			)
 		});
 		
 		this.launchNextTest();
 	 }
 
-	SimpleLanguageTests.prototype.launchCorrectExecutionTest2 = function() {
-		this.testName = QUnit.config.current.testName;
+	SimpleLanguageTests.prototype.getTestSourceFile = function(test) {
+		console.log("Getting source file for test " + test.name);
 		
-		//stop();
-		
-		console.log("Getting files for test " + QUnit.config.current.testName);
-		
-		var self = this;
-		$j.ajax({
-			type: "GET",
-			url: "data/" + QUnit.config.current.testName + ".sl",
-			error: this.loadErrorHandler,
-			success: self.getExpectedOutput,
+		return $j.ajax({
+			url: "data/" + test.sources + ".sl",
 			dataType: "text",
-			context: self,
 		});
 	}
 
-	SimpleLanguageTests.prototype.getExpectedOutput = function(_programText) {
-		this.programText = _programText;
+	SimpleLanguageTests.prototype.getExpectedOutput = function(test) {
+		console.log("Getting expected output for test " + test.name);
 
-		console.log("Getting expected output for test " + this.testName);
-
-		var self = this;
-		$j.ajax({
-			type: "GET",
-			url: "data/" + this.testName + ".expected_output",
-			error: this.loadErrorHandler,
-			success: self.runTest,
+		return $j.ajax({
+			url: "data/" + test.sources + ".expected_output",
 			dataType: "text",
-			context: self,
 		});
 	}
 
-	SimpleLanguageTests.prototype.compareOutputs = function() {
-		this.realOutput += "\n";
+	SimpleLanguageTests.prototype.compareOutputs = function(test) {
+		test.realOutput += "\n";
 		
-		console.log("Real: ", this.realOutput);
-		console.log("Expected: ", this.expectedOutput);
+		console.log("Real: ", test.realOutput);
+		console.log("Expected: ", test.expectedOutput);
 		
-		equal(this.realOutput, this.expectedOutput, "Expected and real outputs are equal.");
+		equal(test.realOutput, test.expectedOutput, "Expected and real outputs are equal.");
 	}
 
-	SimpleLanguageTests.prototype.runTest = function(_expectedOutput) {
-		this.expectedOutput = _expectedOutput;
-		this.realOutput = "";
+	SimpleLanguageTests.prototype.runTest = function(test) {
+		this.currentRunningTest = test;
+		test.realOutput = "";
 		
-		algoViewApp.program.currentSource.text = this.programText;
+		console.log(test);
+		
+		algoViewApp.program.currentSource.text = test.programText;
 		var compilationResult = algoViewApp.compiler.compile(algoViewApp.program);
 		if (compilationResult == true) {
 			algoViewApp.programRunner.setProgram(algoViewApp.program);
 			algoViewApp.programRunner.start();
 			algoViewApp.programRunner.doStep(true, true);
+		} else {
+			
 		}
-
-		this.compareOutputs();
+		
+		this.compareOutputs(test);
 		
 		start();
 	}
-
+	
+	SimpleLanguageTests.prototype.getCurrentTest = function() {
+		return this.testModules[this.currentTestModuleNumber].tests[this.currentTestNumber];
+	}
+		
 	SimpleLanguageTests.prototype.launchNextTest = function() {		
 		this.currentTestNumber++;
 		
@@ -146,7 +164,7 @@ define("SimpleLanguageTests",
 			this.launchNextTest();			
 		} else {
 			//currentTestModule.handler.bind(this, currentTest)();
-			var command = "this." + currentTestModule.handler + "('" + currentTest + "')";
+			var command = "this." + currentTestModule.handler + "(" + "this.getCurrentTest()" + ")";
 			console.log(command);
 			eval(command);
 		}

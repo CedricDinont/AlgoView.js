@@ -105,9 +105,7 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 						annotations.push(annotation);
 					}
 				}
-				console.log(annotations);
 				Ext.getCmp('editor-1').editor.session.setAnnotations(annotations);
-				console.log("passed");
 				break;
 		}
 	}
