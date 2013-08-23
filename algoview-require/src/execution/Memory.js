@@ -11,7 +11,7 @@
 ["MemoryState", "Variable", "AbstractModel", "MemoryValue", "Stack", "Heap"], 
 function(MemoryState, Variable, AbstractModel, MemoryValue, Stack, Heap) {
 
-	var Memory = function(size) {
+	function Memory(size) {
 		AbstractModel.call(this);	// AbstractModel inheritance
 		
 		this.size = size;
@@ -195,7 +195,7 @@ function(MemoryState, Variable, AbstractModel, MemoryValue, Stack, Heap) {
 		
 		//console.log( this.heap.getLastVariableAddress() );
 
-		dataSize = unit.getDataType().getSize();	
+		var dataSize = unit.getDataType().getSize();	
 		
 		for (var i = 0; i < dataSize; i++) {
 			var newMemoryValue = new MemoryValue(); // generic memory value with state UNUSED
@@ -246,7 +246,7 @@ function(MemoryState, Variable, AbstractModel, MemoryValue, Stack, Heap) {
 
 	Memory.prototype.setCellsAccessibleFromStack = function(accessible) {
 		// on ne réinitialise à faux que les unités du tas : celles de la pile sont par définition accessibles
-		for (memoryUnitKey in this.heap.memoryUnits) {
+		for (var memoryUnitKey in this.heap.memoryUnits) {
 			var memoryUnit = this.heap.memoryUnits[memoryUnitKey];
 			memoryUnit.getValue().setAccessibleFromStack(accessible);
 			

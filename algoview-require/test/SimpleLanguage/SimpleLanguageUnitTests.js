@@ -11,6 +11,18 @@ define("SimpleLanguageUnitTests",
 					expectedCompilationErrors: [
 						"NoMainFunctionError"
 					]
+				}, {
+					name: "Undefined function",
+					sources: "UndefinedFunction",
+					expectedCompilationErrors: [
+						"UndefinedFunctionError"
+					]
+				}, {
+					name: "Undefined structure",
+					sources: "UndefinedStructure",
+					expectedCompilationErrors: [
+						"UndefinedStructureError"
+					]
 				}]
 			}, {
 				name: "Correct compilation / Incorrect execution",

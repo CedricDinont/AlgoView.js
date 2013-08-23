@@ -107,7 +107,7 @@ define("SimpleLanguageTester",
 			"Number of expected and real compilation errors are equal.");
 		for (var i = 0; i < test.expectedCompilationErrors.length; ++i) {
 			ok(test.expectedCompilationErrors[i] == test.compilationErrors[i].constructor.name,
-				"Compilation error " + (i + 1) + " is " + test.expectedCompilationErrors[i] + "(got " + test.compilationErrors[i].constructor.name + ").");
+				"Compilation error " + (i + 1) + " is " + test.expectedCompilationErrors[i] + " (got " + test.compilationErrors[i].constructor.name + ").");
 		}
 	}
 

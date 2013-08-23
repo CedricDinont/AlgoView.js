@@ -1,0 +1,4 @@
+PROCEDURE main()
+BEGIN
+	f()
+END
