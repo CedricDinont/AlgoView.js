@@ -42,10 +42,10 @@ function(ExpressionNode, PointerMemoryValue, CannotConvertTo, ArrayDataType, Exp
 		} else if (nodeContext.currentChild == 2) {
 			nodeContext.currentChild++;
 			if (this.getExpression().containsFunctionCall()) {
-				// console.log("AssignNode contains function call.");
+				 console.log("AssignNode contains function call.");
 				return true;
 			} else {
-				// console.log("AssignNode does not contain function call.");
+				 console.log("AssignNode does not contain function call.");
 				return false;
 			}
 		} else {

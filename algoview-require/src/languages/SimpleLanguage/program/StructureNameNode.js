@@ -1,4 +1,3 @@
-//Node
 /**
  * class StructureNameNode extends Node
  * @param tokenType : the type of the token below
@@ -8,13 +7,13 @@
  */
 define("StructureNameNode",
 ["Node"],
-function(Node){ 
+function(Node) { 
 	
 	function StructureNameNode(tokenType, token, name) {	
 	
 		Node.call(this, tokenType, token);	
-		this.name = name;
-	
+
+		this.name = name;	
 	}
 	
 	// prototype based inheritance
@@ -25,6 +24,8 @@ function(Node){
 	StructureNameNode.prototype.getName = function() {
 		return this.name;
 	}
+	
 	return StructureNameNode;
+
 });
 	

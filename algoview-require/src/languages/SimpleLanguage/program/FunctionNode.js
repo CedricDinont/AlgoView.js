@@ -48,10 +48,7 @@ MemoryValue, FunctionRequiresReturnValue, MemoryState, FunctionNodeContext) {
 		return this.children[6];
 	}
 
-	FunctionNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-	//	console.log("Execute function node", this);
-	//	nodeStack.print();
-		
+	FunctionNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {		
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
 
@@ -59,22 +56,7 @@ MemoryValue, FunctionRequiresReturnValue, MemoryState, FunctionNodeContext) {
 			programRunner.notifyListeners(event);
 
 			this.createVariables(memory.getStack());
-		
-			/**
-			 * Setting parameters values
-			 * using assign nodes
-			 **/
-			if (nodeContext.parametersValues != undefined) {	
-				for (var i = 0; i < nodeContext.parametersValues.children.length; i++) {
-					var assignNode = new AssignNode(undefined, undefined);
-					var variable = this.getParameters().children[i];
-					var valueNode = nodeContext.parametersValues.children[i];
-					console.log(valueNode);
-					assignNode.addChild(new VariableNameNode(undefined, undefined, variable.getVariableName()));
-					assignNode.addChild(valueNode);
-					nodeStack.push(assignNode);
-				}
-			}
+			this.createParametersAssignInstructions(nodeContext, nodeStack);
 			
 			return false;
 		} else if (nodeContext.currentChild == 1) {
@@ -88,8 +70,9 @@ MemoryValue, FunctionRequiresReturnValue, MemoryState, FunctionNodeContext) {
 			}
 		} else if (nodeContext.currentChild == 2) {
 			nodeContext.currentChild++;
-		
-			nodeStack.push(this.getInstructions());	
+			nodeStack.push(this.getInstructions());
+			
+			return false;
 		} else if (nodeContext.currentChild == 3) {
 			nodeContext.currentChild++;
 				
@@ -145,6 +128,19 @@ MemoryValue, FunctionRequiresReturnValue, MemoryState, FunctionNodeContext) {
 		}
 	}
 
+	FunctionNode.prototype.createParametersAssignInstructions = function(nodeContext, nodeStack) {
+		if (nodeContext.parametersValues != undefined) {	
+			for (var i = 0; i < nodeContext.parametersValues.children.length; i++) {
+				var assignNode = new AssignNode(undefined, undefined);
+				var variable = this.getParameters().children[i];
+				var valueNode = nodeContext.parametersValues.children[i];
+				assignNode.addChild(new VariableNameNode(undefined, undefined, variable.getVariableName()));
+				assignNode.addChild(valueNode);
+				nodeStack.push(assignNode);
+			}
+		}
+	}
+
 	FunctionNode.prototype.destroyVariables = function(stack) {
 		var localVariablesList = this.getLocalVariableDeclarations();
 		for (var currentVariable = 0; currentVariable < localVariablesList.children.length; currentVariable++) {
@@ -159,6 +155,11 @@ MemoryValue, FunctionRequiresReturnValue, MemoryState, FunctionNodeContext) {
 		}
 		
 		stack.popFunctionCall();
+	}
+	
+	// @Override
+	ExpressionNode.prototype.createContext = function() {
+		return new FunctionNodeContext();
 	}
 
 	return FunctionNode;

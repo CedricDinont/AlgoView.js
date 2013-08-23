@@ -1,6 +1,9 @@
 define("ForNode",
-["MemoryValue", "Node", "ArithmeticExpressionNode", "AssignNode", "TestNode", "InvalidExpressionException", "InternalError"],
-function(MemoryValue, Node, ArithmeticExpressionNode, AssignNode, TestNode, InvalidExpressionException, InternalError){
+["MemoryValue", "Node", "ArithmeticExpressionNode", "AssignNode", 
+"TestNode", "InvalidExpressionException", "InternalError"],
+function(MemoryValue, Node, ArithmeticExpressionNode, AssignNode, 
+TestNode, InvalidExpressionException, InternalError) {
+
 	function ForNode(tokenType, token) {	
 		Node.call(this, tokenType, token);
 		

@@ -235,6 +235,13 @@ requirejs.config({
         VariableTypeNode: "languages/SimpleLanguage/program/VariableTypeNode",
         NotNode: "languages/SimpleLanguage/program/NotNode",
         
+        BuiltInFunctionLibrary: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionLibrary",
+        BuiltInFunctionLibrariesManager: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionLibrariesManager",
+        BuiltInFunctionNode: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionNode",
+        MathLibrary: "languages/SimpleLanguage/program/libraries/math/MathLibrary",
+        CosFunctionNode: "languages/SimpleLanguage/program/libraries/math/CosFunctionNode",
+        StringLibrary: "languages/SimpleLanguage/program/libraries/string/StringLibrary",
+        
         // Compiler not yet implemented classes aliases
         InternalError: "notImplementedYet/InternalError",
         InvalidExpressionException: "notImplementedYet/InvalidExpressionException",

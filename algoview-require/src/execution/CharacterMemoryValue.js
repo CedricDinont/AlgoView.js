@@ -4,6 +4,7 @@
  * @author Michaël, Cédric
  **/
 define("CharacterMemoryValue",
+// Attention: Ne pas inclure les autres xxMemoryValue comme dépendance car cela génère des pbs de dépendance circulaire
 ["IllegalArgumentException", "MemoryValue", "MemoryState"],
 function(IllegalArgumentException, MemoryValue, MemoryState) { 
 	var CharacterMemoryValue = function(value) {
@@ -41,6 +42,7 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 	}
 	
 	CharacterMemoryValue.prototype.convertTo = function(type) {
+		// Attention: Faire les require ici pour éviter les pbs de dépendance circulaire
 		switch (type) {
 			case MemoryValue.BOOLEAN:
 				break;

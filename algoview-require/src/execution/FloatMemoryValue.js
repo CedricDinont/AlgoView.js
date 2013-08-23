@@ -4,8 +4,9 @@
 	 * @author Michaël, Cédric
 	 */
 define("FloatMemoryValue",
-["IllegalArgumentException", "MemoryValue", "IntegerMemoryValue", "MemoryState"],
-function(IllegalArgumentException, MemoryValue, IntegerMemoryValue, MemoryState) { 
+// Attention: Ne pas inclure les autres xxMemoryValue comme dépendance car cela génère des pbs de dépendance circulaire
+["IllegalArgumentException", "MemoryValue", "MemoryState"],
+function(IllegalArgumentException, MemoryValue, MemoryState) { 
 	var FloatMemoryValue = function(value) {
 	
 		var typeOfValue = (typeof value);
@@ -80,8 +81,11 @@ function(IllegalArgumentException, MemoryValue, IntegerMemoryValue, MemoryState)
 	}
 	
 	FloatMemoryValue.prototype.convertTo = function(type) {
+		// Attention: Faire les require ici pour éviter les pbs de dépendance circulaire
+		
 		switch (type) {
 			case MemoryValue.BOOLEAN:
+				var BooleanMemoryValue = require("BooleanMemoryValue");
 				if (this.value == 0) {
 					return new BooleanMemoryValue(false);
 				} else {
@@ -89,6 +93,7 @@ function(IllegalArgumentException, MemoryValue, IntegerMemoryValue, MemoryState)
 				}
 				break;
 			case MemoryValue.INTEGER:
+				var IntegerMemoryValue = require("IntegerMemoryValue");
 				return new IntegerMemoryValue(parseInt(this.value));
 				break;
 			case MemoryValue.CHARACTER:

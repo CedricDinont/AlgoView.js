@@ -4,8 +4,10 @@
  * @author Michaël, Cédric
  **/
 define("BooleanMemoryValue",
+// Attention: Ne pas inclure les autres xxMemoryValue comme dépendance car cela génère des pbs de dépendance circulaire
 ["JSUtils", "MemoryValue", "MemoryState"],
 function(JSUtils, MemoryValue, MemoryState) { 
+	
 	var BooleanMemoryValue = function(value) {
 	
 		var typeOfValue = (typeof value);
@@ -26,6 +28,7 @@ function(JSUtils, MemoryValue, MemoryState) {
 	
 	// Prototype based inheritance
 	BooleanMemoryValue.prototype = new MemoryValue();
+	BooleanMemoryValue.prototype.constructor = BooleanMemoryValue;
 	
 	BooleanMemoryValue.prototype.applyArithmeticOperator = function(operator, secondOperand) {
 		JSUtils.throwException("CannotApplyArithmeticOperatorException", operator);
@@ -61,11 +64,13 @@ function(JSUtils, MemoryValue, MemoryState) {
 	}
 	
 	BooleanMemoryValue.prototype.convertTo = function(type) {
+		// Attention: Faire les require ici pour éviter les pbs de dépendance circulaire
 		switch (type) {
 			case MemoryValue.BOOLEAN:
 				return this;
 				break;
 			case MemoryValue.INTEGER:
+				var IntegerMemoryValue = require("IntegerMemoryValue");
 				if (this.value) {
 					return new IntegerMemoryValue(1);
 				} else {
@@ -73,10 +78,9 @@ function(JSUtils, MemoryValue, MemoryState) {
 				}
 				break;
 			case MemoryValue.CHARACTER:
-				break;
 			case MemoryValue.FLOAT:
-				break;
 			case MemoryValue.POINTER:
+				JSUtils.throwException("CannotConvertTo", MemoryValue.BOOLEAN);
 				break;
 		}
 	}

@@ -11,12 +11,17 @@ function(Node, ExpressionNodeContext) {
 
 	ExpressionNode.prototype.containsFunctionCall = function() {
 		var FunctionCallNode = (FunctionCallNode == undefined) ? require("FunctionCallNode") : FunctionCallNode;
-		
+		var BuiltInFunctionNode = (BuiltInFunctionNode == undefined) ? require("BuiltInFunctionNode") : BuiltInFunctionNode;
+				
 		for (var i in this.children) {
 			var currentChild = this.children[i];
 			
 			if (currentChild instanceof FunctionCallNode) {
-				return true;
+				if (currentChild.getFunction() instanceof BuiltInFunctionNode) {
+					return false;
+				} else {
+					return true;
+				}
 			}
 
 			if ((typeof currentChild.containsFunctionCall) == "function") {

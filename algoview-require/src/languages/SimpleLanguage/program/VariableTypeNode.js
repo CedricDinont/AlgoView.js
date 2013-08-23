@@ -5,7 +5,9 @@
  * @author michael
  */
 define("VariableTypeNode",
-["Node"],function(Node){
+["Node"],
+function(Node) {
+	
 	function VariableTypeNode(tokenType, token, dataType) {	
 	
 		Node.call(this, tokenType, token);	

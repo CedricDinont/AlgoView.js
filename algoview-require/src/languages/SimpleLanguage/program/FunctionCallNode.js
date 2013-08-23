@@ -1,6 +1,9 @@
 define("FunctionCallNode",
-["ExpressionNode", "FunctionNodeContext", "ExpressionListNodeContext"],
-function(ExpressionNode, FunctionNodeContext, ExpressionListNodeContext) {
+["ExpressionNode", "FunctionNodeContext", "ExpressionListNodeContext",
+"BuiltInFunctionNode"],
+function(ExpressionNode, FunctionNodeContext, ExpressionListNodeContext,
+BuiltInFunctionNode) {
+	
 	function FunctionCallNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 		
@@ -24,7 +27,11 @@ function(ExpressionNode, FunctionNodeContext, ExpressionListNodeContext) {
 	}
 
 	FunctionCallNode.prototype.containsFunctionCall = function() {
-		return true;
+		if (this.getFunctionNode() instanceof BuiltInFunctionNode) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	FunctionCallNode.prototype.getFunctionNode = function() {
@@ -38,16 +45,12 @@ function(ExpressionNode, FunctionNodeContext, ExpressionListNodeContext) {
 	FunctionCallNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
-		//	nodeContext.parametersContext = new ExpressionListNodeContext();
-		//	nodeStack.push(this.getParameters(), nodeContext.parametersContext);
-		} else if (nodeContext.currentChild == 1) {
-			nodeContext.currentChild++;
-			var functionNodeContext = new FunctionNodeContext();
-			functionNodeContext.setParametersValues(this.getParameters());
-			nodeStack.push(this.functionNode, functionNodeContext);
+			nodeContext.functionNodeContext = this.getFunctionNode().createContext();
+			nodeContext.functionNodeContext.setParametersValues(this.getParameters());
+			nodeStack.push(this.getFunctionNode(), nodeContext.functionNodeContext);
 		} else {
 			nodeContext.currentChild = 0;
-			nodeContext.setValue(nodeContext.getValue());
+			nodeContext.setValue(nodeContext.functionNodeContext.getValue());
 			nodeStack.pop();
 		}
 		

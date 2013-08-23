@@ -151,7 +151,7 @@ CompilerEvent) {
 		var functionCalls = program.getFunctionCalls();
 		
 		for (var i = 0; i < functionCalls.length; ++i) {
-			var functionNode = program.getFunction(functionCalls[i].getFunctionName(), functionCalls[i].getNumberOfParameters());
+			var functionNode = program.getFunctionNode(functionCalls[i].getFunctionName(), functionCalls[i].getNumberOfParameters());
 			if (functionNode === undefined) {
 				this.errors.push("Function not implemented: " + functionCalls[i].getFunctionName() + " with " +  functionCalls[i].getNumberOfParameters() + " parameters.");
 			} else {

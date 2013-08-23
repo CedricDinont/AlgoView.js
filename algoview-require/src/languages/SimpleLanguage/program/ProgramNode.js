@@ -1,9 +1,15 @@
 define("ProgramNode",
-["Node", "ProgramRunnerEvent", "FunctionNodeContext"],
-function(Node, ProgramRunnerEvent, FunctionNodeContext) {
+["Node", "ProgramRunnerEvent", "FunctionNodeContext",
+"BuiltInFunctionLibrariesManager", "MathLibrary", "StringLibrary"],
+function(Node, ProgramRunnerEvent, FunctionNodeContext,
+BuiltInFunctionLibrariesManager, MathLibrary, StringLibrary) {
 
 	function ProgramNode(tokenType, token) {	
-		Node.call(this, tokenType, token); 
+		Node.call(this, tokenType, token);
+		
+		this.builtInFunctionLibrariesManager = new BuiltInFunctionLibrariesManager();
+		this.builtInFunctionLibrariesManager.addLibrary(new MathLibrary());
+		// this.builtInFunctionLibrariesManager.addLibrary(new StringLibrary());
 	}
 
 	// prototype based inheritance
@@ -30,7 +36,15 @@ function(Node, ProgramRunnerEvent, FunctionNodeContext) {
 		this.children[2] = mainFunction;
 	}
 
-	ProgramNode.prototype.getFunction = function(functionName, numberOfParameters) {
+	ProgramNode.prototype.getFunctionNode = function(functionName, numberOfParameters) {
+		
+		// Check if the requested function is in a built-in library...
+		var builInFunctionNode = this.builtInFunctionLibrariesManager.getFunctionNode(functionName, numberOfParameters);
+		if (builInFunctionNode != undefined) {
+			return builInFunctionNode;
+		}
+		
+		// ... No. Check if it is in user defined functions...
 		var functionList = this.getFunctionList();
 		for (var i = 0; i < functionList.children.length; ++i) {
 			if (functionList.children[i].getName() === functionName) {
@@ -40,6 +54,8 @@ function(Node, ProgramRunnerEvent, FunctionNodeContext) {
 				}
 			}
 		}
+		
+		// ... No. Requested function does not exist.
 		return undefined;
 	}
 

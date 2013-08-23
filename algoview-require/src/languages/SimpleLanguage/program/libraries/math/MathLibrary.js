@@ -1,9 +1,11 @@
 define("MathLibrary",
-["BuiltInFunctionLibrary"],
-function(BuiltInFunctionLibrary) {
+["BuiltInFunctionLibrary", "CosFunctionNode"],
+function(BuiltInFunctionLibrary, CosFunctionNode) {
 	
 	function MathLibrary() {
 		BuiltInFunctionLibrary.call(this);
+		
+		this.functions.push(new CosFunctionNode());
 	}
 	
 	// Prototype based inheritance

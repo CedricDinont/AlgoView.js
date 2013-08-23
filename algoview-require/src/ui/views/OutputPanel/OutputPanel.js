@@ -1,6 +1,6 @@
 define("OutputPanel",
-[],
-function() {
+["Exception"],
+function(Exception) {
 	
 	function OutputPanel(algoViewApp) {
 		this.app = algoViewApp;

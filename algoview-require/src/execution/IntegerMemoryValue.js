@@ -4,9 +4,11 @@
 	 * @author Michaël, Cédric
 	 */
 define("IntegerMemoryValue",
-["IllegalArgumentException", "MemoryValue", "BooleanMemoryValue", "FloatMemoryValue", "MemoryState"],
-function(IllegalArgumentException, MemoryValue, BooleanMemoryValue, FloatMemoryValue, MemoryState) { 
-	var IntegerMemoryValue = function(value) {
+// Attention: Ne pas inclure les autres xxMemoryValue comme dépendance car cela génère des pbs de dépendance circulaire
+["IllegalArgumentException", "MemoryValue", "MemoryState"], 
+function(IllegalArgumentException, MemoryValue, MemoryState) {
+	
+	function IntegerMemoryValue(value) {
 	
 		var typeOfValue = (typeof value);
 		var expectedType = "number";
@@ -27,6 +29,7 @@ function(IllegalArgumentException, MemoryValue, BooleanMemoryValue, FloatMemoryV
 	
 	// Prototype based inheritance
 	IntegerMemoryValue.prototype = new MemoryValue();
+	IntegerMemoryValue.prototype.constructor = IntegerMemoryValue;
 	
 	IntegerMemoryValue.prototype.opposite = function() {
 		return new IntegerMemoryValue(-this.getPrimitiveValue());
@@ -86,8 +89,10 @@ function(IllegalArgumentException, MemoryValue, BooleanMemoryValue, FloatMemoryV
 	}
 	
 	IntegerMemoryValue.prototype.convertTo = function(type) {
+		// Attention: Faire les require ici pour éviter les pbs de dépendance circulaire
 		switch (type) {
 			case MemoryValue.BOOLEAN:
+				var BooleanMemoryValue = require("BooleanMemoryValue");
 				if (this.value == 0) {
 					return new BooleanMemoryValue(false);
 				} else {
@@ -100,6 +105,7 @@ function(IllegalArgumentException, MemoryValue, BooleanMemoryValue, FloatMemoryV
 			case MemoryValue.CHARACTER:
 				break;
 			case MemoryValue.FLOAT:
+				var FloatMemoryValue = require("FloatMemoryValue");
 				return new FloatMemoryValue(this.getPrimitiveValue());
 				break;
 			case MemoryValue.POINTER:
@@ -112,5 +118,6 @@ function(IllegalArgumentException, MemoryValue, BooleanMemoryValue, FloatMemoryV
 	IntegerMemoryValue.prototype.clone = function() { 	
 		return new IntegerMemoryValue(this.value, this.state);
 	} 
+	
 	return IntegerMemoryValue;
 });

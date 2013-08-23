@@ -1,13 +1,15 @@
 define("WhileNode",
 ["MemoryValue", "Node", "CannotConvertTo"],
 function(MemoryValue, Node, CannotConvertTo) {
-		var WhileNode = function(tokenType, token) {	
+	
+	function WhileNode(tokenType, token) {	
 		Node.call(this, tokenType, token);
 	}
 	
 	// Prototype based inheritance
 	WhileNode.prototype = new Node();
-	
+	WhileNode.prototype.constructor = WhileNode;
+		
 	WhileNode.prototype.getCondition = function() {
 		return this.children[0];
 	}
@@ -33,13 +35,7 @@ function(MemoryValue, Node, CannotConvertTo) {
 		
 			var testMemoryValue = nodeContext.conditionContext.getValue();
 			var testMemoryValueAsBoolean = testMemoryValue.convertTo(MemoryValue.BOOLEAN);
-			
-			if (testMemoryValueAsBoolean == undefined) {
-				throw new CannotConvertTo(MemoryValue.BOOLEAN);
-			}
-			
 			var testValueAsBoolean = testMemoryValueAsBoolean.getPrimitiveValue();
-			//console.log("Test value", testValueAsBoolean);
 			if (testValueAsBoolean) {
 				nodeStack.push(this.getInstructions());
 			} else {
