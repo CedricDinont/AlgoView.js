@@ -1,6 +1,7 @@
 - Gérer caractères
 - Gérer layouts
 - Gérer changement de layout
+- Revoir la relation Program / EditorsPanel
 - Préparer la gestion de plusieurs fichiers
 - Préparer le multi-langage
 - Créer des contrôleurs
@@ -13,3 +14,5 @@
 - Implémenter vues "Stack" / "Trace"
 - Implémenter fonctions mathématiques
 - Revoir taille mémoire par défaut (512 ou 1024 ?)
+- Implémenter le rechargement de la page en conservant le programme
+- Revoir scripting d'AlgoView dans les slides
