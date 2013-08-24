@@ -9,6 +9,10 @@ function(StackTableView) {
 		this.stackTableView;
 	}
 	
+	StackTableViewPanel.prototype.destroy = function() {
+		this.app.programRunner.memory.removeView(this.stackTableView);
+	}
+	
 	StackTableViewPanel.prototype.createExtComponent = function() {
 		this.extComponent = Ext.create("Ext.panel.Panel", {
 			title: "Stack",

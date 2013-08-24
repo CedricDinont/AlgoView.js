@@ -1,6 +1,6 @@
 define("ProgramRunner",
-["BreakpointList", "Memory"],
-function(BreakpointList, Memory) {
+["BreakpointList", "Memory", "JSUtils"],
+function(BreakpointList, Memory ,JSUtils) {
 	
 	function ProgramRunner() {
 		this.memory;
@@ -19,6 +19,10 @@ function(BreakpointList, Memory) {
 	
 	ProgramRunner.prototype.addListener = function(listener) {
 		this.listeners.push(listener);
+	}
+	
+	ProgramRunner.prototype.removeListener = function(listener) {
+		JSUtils.removeElementsFromArray(this.listeners, listener);
 	}
 
 	ProgramRunner.prototype.notifyListeners = function(event) {

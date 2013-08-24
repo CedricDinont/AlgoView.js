@@ -11,6 +11,11 @@ function(Exception) {
 		this.app.programRunner.addListener(this);
 	}
 	
+	OutputPanel.prototype.destroy = function() {
+		this.app.compiler.removeListener(this);
+		this.app.programRunner.removeListener(this);
+	}
+	
 	OutputPanel.prototype.createExtComponent = function() {
 		this.extComponent = Ext.create("Ext.panel.Panel", {
 			id: 'outputPanel',

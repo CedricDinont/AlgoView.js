@@ -26,15 +26,19 @@ function(DebugLogger, ProgramRunnerListener, SimpleGraph, GraphCreator, ViewHand
 	
 	ProgramTreeView.prototype = new ProgramRunnerListener();
 	
+	ProgramTreeView.prototype.destroy = function() {
+		this.app.compiler.removeListener(this);
+	}
+	
 	// @Override
 	ProgramTreeView.prototype.onCompilerEvent = function(event) {
-		if (event.type == "COMPILED_PROGRAM") {			
+		if (event.type == "COMPILED_PROGRAM") {				
 			var tree = this.app.program.programTree;
 			var g = this.newGraphFromTree(tree);
 			
-		//	if (DEBUG) {
+			if (DEBUG) {
 				console.log("Graph", g);
-		//	}
+			}
 			
 			var viewHandler = new ViewHandler(g);
 			

@@ -38,6 +38,10 @@ function($j) {
 		}
 	}
 	
+	ToolBar.prototype.destroy = function() {
+		this.app.programRunner.removeListener(this);
+	}
+	
 	ToolBar.prototype.goInDebugMode = function() {
 		this.toggleDebugButtons();
 		Ext.getCmp('runStopButton').setText("Stop");

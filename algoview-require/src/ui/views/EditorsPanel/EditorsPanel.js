@@ -14,6 +14,11 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 		this.app.compiler.addListener(this);
 	}
 	
+	EditorsPanel.prototype.destroy = function() {
+		this.app.programRunner.removeListener(this);
+		this.app.compiler.removeListener(this);
+	}
+	
 	EditorsPanel.prototype.setProgramTextChanged = function(value) {
 		this.programTextChanged = value;
 		this.updateProgramName();

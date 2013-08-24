@@ -103,7 +103,7 @@ function(Ext, JSUtils, LayoutManager) {
 		this.viewport.removeAll(true);
 	}
 	
-	MainFrame.prototype.hideLoadingMask = function () {
+	MainFrame.prototype.hideLoadingMask = function() {
 		try {
 			Ext.get('loading').remove();
 			Ext.fly('loading-mask').animate({
@@ -113,6 +113,10 @@ function(Ext, JSUtils, LayoutManager) {
 		} catch (e) {
 			console.log("Cannot remove loading mask", e);
 		}
+	}
+	
+	MainFrame.prototype.setLayout = function(layout) {
+		this.layoutManager.applyLayout(layout);
 	}
 	
 	return MainFrame;

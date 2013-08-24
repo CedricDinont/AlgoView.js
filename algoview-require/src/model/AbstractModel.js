@@ -4,9 +4,10 @@
  * @author michael
  */
 define("AbstractModel",
-[],
-function() {
-	var AbstractModel = function() {	
+["JSUtils"],
+function(JSUtils) {
+	
+	function AbstractModel() {	
 		this.views = [];
 	}
 	
@@ -16,6 +17,10 @@ function() {
 		if (! noRefresh) {
 			view.update(this);
 		}
+	}
+	
+	AbstractModel.prototype.removeView = function(view) {
+		JSUtils.removeElementsFromArray(this.views, view);
 	}
 	
 	AbstractModel.prototype.updateViews = function() {

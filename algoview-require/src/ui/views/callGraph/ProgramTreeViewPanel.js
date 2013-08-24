@@ -6,6 +6,10 @@ function(ProgramTreeView) {
 		this.app = algoViewApp;
 	}
 	
+	ProgramTreeViewPanel.prototype.destroy = function() {
+		this.programTreeView.destroy();
+	}
+	
 	ProgramTreeViewPanel.prototype.createExtComponent = function() {
 		var self = this;
 		var panel = Ext.create("Ext.panel.Panel", {
@@ -22,7 +26,7 @@ function(ProgramTreeView) {
 				}
 			},
 		});
-				
+		
 		return panel;
 	}
 	

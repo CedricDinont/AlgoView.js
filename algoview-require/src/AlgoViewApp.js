@@ -28,13 +28,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 		this.remoteWindows = new Array();
 
 		window.addEventListener('message', AlgoViewApp.prototype.onMessage.bind(this), false);
-
-		try {
-			parent.focus();
-			window.parent.onAlgoViewInit();
-		} catch (e) {
-			// On ne doit pas avoir de parent
-		}
 	}
 
 	AlgoViewApp.prototype.setEditorsPanel = function(editorsPanel) {
@@ -98,8 +91,8 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 		this.programRunner.setInfiniteLoopDetectionThreshold(value);
 	}
 
-	AlgoViewApp.prototype.setLayout = function(layoutName) {
-		this.mainFrame.setLayout(layoutName);
+	AlgoViewApp.prototype.setLayout = function(layout) {
+		this.mainFrame.setLayout(layout);
 	}
 
 	AlgoViewApp.prototype.setShowQuickReference = function(value) {
@@ -134,7 +127,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 				} else {
 					Ext.getCmp('editor-1').setTitle("Program.sl");
 				}
-				$j('#outputPanel-body').html("<div>File successfully loaded.</div><hr />");
+				// $j('#outputPanel-body').html("<div>File successfully loaded.</div><hr />");
 				break;
 			case "algoview-compile-program":
 				this.compileProgram();
@@ -176,7 +169,7 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 				this.setStartPaused(message.value);
 				break;
 			case "algoview-set-layout":
-				this.setLayout(message.name);
+				this.setLayout(message.layout);
 				break;
 			case "algoview-set-show-quick-reference":
 				this.setShowQuickReference(message.value);

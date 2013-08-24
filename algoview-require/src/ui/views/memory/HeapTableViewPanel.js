@@ -6,6 +6,10 @@ function(HeapTableView) {
 		this.app = algoViewApp;
 	}
 	
+	HeapTableViewPanel.prototype.destroy = function() {
+		this.app.programRunner.memory.removeView(this.heapTableView);
+	}
+	
 	HeapTableViewPanel.prototype.createExtComponent = function() {
 		var panel = Ext.create("Ext.panel.Panel", {
 			title: "Heap",

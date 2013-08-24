@@ -10,6 +10,8 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 		
 		this.layouts = new Array();
 		
+		this.components = new Array();
+		
 		this.layouts["complete"] = {
 			north: {
 				component: "ToolBar",
@@ -53,6 +55,16 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 		this.layouts[layoutName] = layout;
 	}
 	
+	LayoutManager.prototype.destroyOldComponents = function() {
+		console.log("Destroying old components", this.components);
+		for (var i = 0; i < this.components.length; i++) {
+			if (this.components[i].destroy != undefined) {
+				this.components[i].destroy();
+			}
+		}
+		this.components = new Array();
+	}
+	
 	LayoutManager.prototype.createCompoundComponent = function(componentDescription) {
 		var component;
 		
@@ -92,6 +104,8 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 		}  else if (componentDescription === "ProgramTreeViewPanel") {
 			component = new ProgramTreeViewPanel(this.app);
 		} 
+		
+		this.components.push(component);
 				
 		return component.createExtComponent();
 	}
@@ -105,6 +119,10 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 	}
 	
 	LayoutManager.prototype.applyLayoutPart = function(layout, extComponent) {
+		if (layout == undefined) {
+			return;
+		}
+		
 		if (layout.visible != undefined) {
 			extComponent.setVisible(layout.visible);
 		}
@@ -115,11 +133,16 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 		}
 	}
 	
-	LayoutManager.prototype.applyLayout = function(layout, mainFrame) {
+	LayoutManager.prototype.applyLayout = function(layout) {
+		
+		console.log("Applying layout", layout);
+
+		this.destroyOldComponents();
+		
 		this.mainFrame.resetViewport();
 		this.mainFrame.initViewport();
 		this.mainFrame.viewport.doLayout();
-		
+
 		this.applyLayoutPart(layout.north, Ext.getCmp('north'));
 		this.applyLayoutPart(layout.west, Ext.getCmp('west'));
 		this.applyLayoutPart(layout.center, Ext.getCmp('center'));
@@ -134,8 +157,8 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 		}
 	}
 
-	LayoutManager.prototype.applyLayoutByName = function(layoutName, mainFrame) {
-		this.applyLayout(this.layouts[layoutName], mainFrame);
+	LayoutManager.prototype.applyLayoutByName = function(layoutName) {
+		this.applyLayout(this.layouts[layoutName]);
 	}
 		
 	return LayoutManager;

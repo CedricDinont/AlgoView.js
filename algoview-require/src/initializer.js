@@ -315,6 +315,15 @@ function updateLoadingMessage(loadingStep) {
 	div.innerHTML = loadingStep;
 }
 
+function informParentWindow() {
+	try {
+		parent.focus();
+		window.parent.onAlgoViewInit();
+	} catch (e) {
+		// On ne doit pas avoir de parent
+	}
+}
+
 define("AlgoViewAppInit", 
 ["AlgoViewApp", LANGUAGE_MODULE], function(AlgoViewApp, LanguageModule) {
 	
@@ -343,13 +352,15 @@ define("AlgoViewAppInit",
 				console.log("GUI initialized.");
 			}
 			updateLoadingMessage("Done.");
+			
+			informParentWindow();
 		})
 	} else {
 		if (AFTER_ALGOVIEW_INIT != undefined) {
 			AFTER_ALGOVIEW_INIT();
-		} 
-	}	
+		}
+		informParentWindow();
+	}
 
 	return algoViewApp;
 })
-

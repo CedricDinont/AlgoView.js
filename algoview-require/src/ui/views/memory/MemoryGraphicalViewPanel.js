@@ -8,8 +8,13 @@ function(MemoryGraphicalView) {
 		this.memoryGraphicalView;
 	}
 	
+	MemoryGraphicalViewPanel.prototype.destroy = function() {
+		this.app.programRunner.memory.removeView(this.memoryGraphicalView);
+	}
+	
 	MemoryGraphicalViewPanel.prototype.createExtComponent = function() {
 		var self = this;
+		
 		var panel = Ext.create("Ext.panel.Panel", {
 			id: 'graphicalMemoryViewContainer',
 			title: 'Memory',
@@ -25,9 +30,7 @@ function(MemoryGraphicalView) {
 				}
 			},
 		});
-				
 
-		
 		return panel;
 	}
 	
