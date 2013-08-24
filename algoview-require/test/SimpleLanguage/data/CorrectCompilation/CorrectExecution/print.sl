@@ -1,4 +1,4 @@
 PROCEDURE main()
 BEGIN
-	PRINT("coucou")
+	PRINTLN("coucou")
 END

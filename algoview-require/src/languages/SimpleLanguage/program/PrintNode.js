@@ -35,13 +35,11 @@ function(Node, ProgramRunnerEvent, StringNode) {
 				var quotedText = parameter.getText();
 				outputText = quotedText.substring(1, quotedText.length - 1);
 			} else {
-				outputText = nodeContext.parameterContext.getValue();
+				outputText = "" + nodeContext.parameterContext.getValue().toString(); // On force la conversion en chaîne de caractères
 			}
 			
-			// TODO: Protéger les caractères HTML : Attention au mode console
-			
 			if (this.newLine == true) {
-				outputText += "\n"; // <br />";
+				outputText += "\n";
 			}
 			
 			var event = new ProgramRunnerEvent(programRunner, "OUTPUT_TEXT", outputText);

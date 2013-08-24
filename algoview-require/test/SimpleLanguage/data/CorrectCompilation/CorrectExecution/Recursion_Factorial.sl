@@ -18,5 +18,5 @@ VAR
   f : INTEGER
 BEGIN
   f <- factorial(3)
-  PRINT(f)
+  PRINTLN(f)
 END

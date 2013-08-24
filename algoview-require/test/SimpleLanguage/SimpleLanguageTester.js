@@ -120,7 +120,7 @@ define("SimpleLanguageTester",
 	}
 
 	SimpleLanguageTester.prototype.compareOutputs = function(test) {
-		test.realOutput += "\n";
+		// test.realOutput += "\n";
 		
 		console.log("Real: ", test.realOutput);
 		console.log("Expected: ", test.expectedOutput);

@@ -66,6 +66,7 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) 
 		this.parseVariablesDeclarationNodesForStructureDeclarations(programTree.tree);
 		this.findStructureDeclarations(programTree.tree);
 		this.findFunctionDefinitionForFunctionCalls(programTree.tree);
+		// TODO: Check for redefined functions (taking care of built-in functions)
 
 		if (this.errors.length != 0) {
 			this.sendCompilationErrorEvent();

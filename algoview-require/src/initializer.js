@@ -252,6 +252,9 @@ requirejs.config({
         BuiltInFunctionNode: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionNode",
         MathLibrary: "languages/SimpleLanguage/program/libraries/math/MathLibrary",
         CosFunctionNode: "languages/SimpleLanguage/program/libraries/math/CosFunctionNode",
+        SinFunctionNode: "languages/SimpleLanguage/program/libraries/math/SinFunctionNode",
+        TanFunctionNode: "languages/SimpleLanguage/program/libraries/math/TanFunctionNode",
+        PowFunctionNode: "languages/SimpleLanguage/program/libraries/math/PowFunctionNode",
         StringLibrary: "languages/SimpleLanguage/program/libraries/string/StringLibrary",
         
         // Compiler not yet implemented classes aliases

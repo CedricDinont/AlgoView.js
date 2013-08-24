@@ -29,7 +29,10 @@ function(Exception) {
 	OutputPanel.prototype.programChanged = function(event) {
 		switch (event.type) {
 			case "OUTPUT_TEXT":
-				this.append("<span>" + event.text + "</span>");
+			console.log(event);
+				// TODO: Voir pour protéger les balises HTML
+				var html = event.text.replace(/\n/g, "<br />");
+				this.append("<span>" + html + "</span>");
 				break;
 			case "DONE_STEP":
 				break;

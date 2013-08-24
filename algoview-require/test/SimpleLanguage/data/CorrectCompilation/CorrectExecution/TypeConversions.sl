@@ -6,5 +6,5 @@ BEGIN
 	c <- 65
 	i <- c
 	PRINTLN(c)
-	PRINT(i)
+	PRINTLN(i)
 END

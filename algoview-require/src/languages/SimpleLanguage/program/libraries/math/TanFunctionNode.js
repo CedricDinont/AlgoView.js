@@ -1,4 +1,4 @@
-define("CosFunctionNode",
+define("TanFunctionNode",
 ["BuiltInFunctionNode", "FunctionNameNode", "FunctionParametersListNode",
 "VariablesDeclarationListNode", "VariableDeclarationNode",
 "VariableNameNode", "VariableTypeNode", "FloatDataType", "FloatMemoryValue"],
@@ -6,11 +6,11 @@ function(BuiltInFunctionNode, FunctionNameNode, FunctionParametersListNode,
 VariablesDeclarationListNode, VariableDeclarationNode,
 VariableNameNode, VariableTypeNode, FloatDataType, FloatMemoryValue) {
 	
-	function CosFunctionNode() {
+	function TanFunctionNode() {
 		BuiltInFunctionNode.call(this);
 		
 		// Name
-		this.children.push(new FunctionNameNode(undefined, undefined, "cos"));
+		this.children.push(new FunctionNameNode(undefined, undefined, "tan"));
 		
 		// Parameters
 		var functionParametersListNode = new FunctionParametersListNode();
@@ -40,14 +40,14 @@ VariableNameNode, VariableTypeNode, FloatDataType, FloatMemoryValue) {
 	}
 	
 	// Prototype based inheritance
-	CosFunctionNode.prototype = new BuiltInFunctionNode();
-	CosFunctionNode.prototype.constructor = CosFunctionNode;
+	TanFunctionNode.prototype = new BuiltInFunctionNode();
+	TanFunctionNode.prototype.constructor = TanFunctionNode;
 
-	CosFunctionNode.prototype.executeBuiltInFunction = function(nodeContext, memory, nodeStack, programRunner) {
+	TanFunctionNode.prototype.executeBuiltInFunction = function(nodeContext, memory, nodeStack, programRunner) {
 		// TODO: Convert parameter in Float
-		nodeContext.setValue(new FloatMemoryValue(Math.cos(nodeContext.parametersValues.children[0].value.value)));
+		nodeContext.setValue(new FloatMemoryValue(Math.tan(nodeContext.parametersValues.children[0].value.value)));
 	}
 
-	return CosFunctionNode;
+	return TanFunctionNode;
 	
 });

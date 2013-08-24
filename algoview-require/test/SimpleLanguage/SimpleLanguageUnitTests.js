@@ -59,6 +59,9 @@ define("SimpleLanguageUnitTests",
 				}, {
 					name: "Recursion - Factorial",
 					sources: "Recursion_Factorial",
+				}, , {
+					name: "Math Library",
+					sources: "MathLibrary",
 				}]
 			},
 		];
