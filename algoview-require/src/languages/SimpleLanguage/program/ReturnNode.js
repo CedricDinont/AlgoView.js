@@ -31,7 +31,7 @@ function(ExpressionNode, FunctionNode) {
 			var functionNodeStackElement = nodeStack.peek();
 			functionNodeStackElement.contextNode.returnExecuted = true;
 			if (this.getReturnExpression() != undefined) {
-				functionNodeStackElement.contextNode.setValue(nodeContext.returnExpressionContext);
+				functionNodeStackElement.contextNode.setValue(nodeContext.returnExpressionContext.getValue());
 			}
 		}
 		return false;
