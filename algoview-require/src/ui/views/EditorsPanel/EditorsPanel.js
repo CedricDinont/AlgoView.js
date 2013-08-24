@@ -194,20 +194,6 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 			if (mainFrame.editors[0] != undefined) {
 				mainFrame.editors[0].resize();
 			}
-		}
-
-		this.showQuickReference = true;
-		
-		this.setShowQuickReference = function(showQuickReference) {
-			if (showQuickReference != this.showQuickReference) {
-				this.showQuickReference = showQuickReference;
-				
-				if (showQuickReference) {
-					Ext.getCmp('editorsTabPanel').add(this.quickReferencePanel);
-				} else {
-					Ext.getCmp('editorsTabPanel').remove(this.quickReferencePanel);
-				}
-			}
 		} */
 	
 	return EditorsPanel;

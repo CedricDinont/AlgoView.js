@@ -130,8 +130,9 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 	}
 	
 	LayoutManager.prototype.applyLayout = function(layout) {
-		
-		console.log("Applying layout", layout);
+		if (DEBUG) { 
+			console.log("Applying layout", layout);
+		}
 
 		this.destroyOldComponents();
 		
