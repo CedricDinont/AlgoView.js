@@ -1,6 +1,6 @@
 define("ReturnNode",
-["ExpressionNode"],
-function(ExpressionNode) {
+["ExpressionNode", "FunctionNode"],
+function(ExpressionNode, FunctionNode) {
 
 	function ReturnNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
@@ -18,7 +18,8 @@ function(ExpressionNode) {
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
 			if (this.getReturnExpression() != undefined) {
-				nodeStack.push(this.getReturnExpression());
+				nodeContext.returnExpressionContext = this.getReturnExpression().createContext();
+				nodeStack.push(this.getReturnExpression(), nodeContext.returnExpressionContext);
 			}
 		} else {
 			nodeContext.currentChild = 0;
@@ -30,7 +31,7 @@ function(ExpressionNode) {
 			var functionNodeStackElement = nodeStack.peek();
 			functionNodeStackElement.contextNode.returnExecuted = true;
 			if (this.getReturnExpression() != undefined) {
-				functionNodeStackElement.contextNode.setValue(nodeContext.getReturnExpressionValue());
+				functionNodeStackElement.contextNode.setValue(nodeContext.returnExpressionContext);
 			}
 		}
 		return false;

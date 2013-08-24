@@ -245,6 +245,7 @@ requirejs.config({
         FunctionParametersListNode: "languages/SimpleLanguage/program/FunctionParametersListNode",
         VariableTypeNode: "languages/SimpleLanguage/program/VariableTypeNode",
         NotNode: "languages/SimpleLanguage/program/NotNode",
+        FunctionParameterValueNode: "languages/SimpleLanguage/program/FunctionParameterValueNode",
         
         BuiltInFunctionLibrary: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionLibrary",
         BuiltInFunctionLibrariesManager: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionLibrariesManager",
@@ -314,38 +315,38 @@ function updateLoadingMessage(loadingStep) {
 define("AlgoViewAppInit", 
 ["AlgoViewApp", LANGUAGE_MODULE], function(AlgoViewApp, LanguageModule) {
 	
-		if (DEBUG) {
-			console.log("AlgoView classes successfully loaded.");
-			console.log("Initializing AlgoView...");
-		}
-		updateLoadingMessage("Initializing application");
-			
-		var algoViewApp = new AlgoViewApp(new LanguageModule());
-
-		if (DEBUG) {
-			console.log("AlgoView initialized.");
-		}
-
-		if (INIT_UI) {
-			if (DEBUG) {
-				console.log("Initializing GUI...");
-			}
-			updateLoadingMessage("Initializing user interface");
-
-			require(["MainFrame"], function(MainFrame) {
-				algoViewApp.mainFrame = new MainFrame(algoViewApp); 
+	if (DEBUG) {
+		console.log("AlgoView classes successfully loaded.");
+		console.log("Initializing AlgoView...");
+	}
+	updateLoadingMessage("Initializing application");
 		
-				if (DEBUG) {
-					console.log("GUI initialized.");
-				}
-				updateLoadingMessage("Done.");
-			})
-		} else {
-			if (AFTER_ALGOVIEW_INIT != undefined) {
-				AFTER_ALGOVIEW_INIT();
-			} 
-		}	
+	var algoViewApp = new AlgoViewApp(new LanguageModule());
+
+	if (DEBUG) {
+		console.log("AlgoView initialized.");
+	}
+
+	if (INIT_UI) {
+		if (DEBUG) {
+			console.log("Initializing GUI...");
+		}
+		updateLoadingMessage("Initializing user interface");
+
+		require(["MainFrame"], function(MainFrame) {
+			algoViewApp.mainFrame = new MainFrame(algoViewApp); 
 	
+			if (DEBUG) {
+				console.log("GUI initialized.");
+			}
+			updateLoadingMessage("Done.");
+		})
+	} else {
+		if (AFTER_ALGOVIEW_INIT != undefined) {
+			AFTER_ALGOVIEW_INIT();
+		} 
+	}	
+
 	return algoViewApp;
 })
 

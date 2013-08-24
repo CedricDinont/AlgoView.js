@@ -17,7 +17,7 @@ function(Node, ExpressionNodeContext) {
 			var currentChild = this.children[i];
 			
 			if (currentChild instanceof FunctionCallNode) {
-				if (currentChild.getFunction() instanceof BuiltInFunctionNode) {
+				if (currentChild.getFunctionNode() instanceof BuiltInFunctionNode) {
 					return false;
 				} else {
 					return true;
