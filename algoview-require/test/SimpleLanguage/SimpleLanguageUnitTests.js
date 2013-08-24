@@ -59,9 +59,12 @@ define("SimpleLanguageUnitTests",
 				}, {
 					name: "Recursion - Factorial",
 					sources: "Recursion_Factorial",
-				}, , {
+				}, {
 					name: "Math Library",
 					sources: "MathLibrary",
+				}, {
+					name: "Slides codage de l'information",
+					sources: "Slides_Codage_Info_equality_example",
 				}]
 			},
 		];

@@ -2,10 +2,22 @@ define("EditorsPanel",
 ["Ext", "ExtUxAceEditorPanel", "ExtUxAceEditor"],
 function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 	
-	function EditorsPanel(algoViewApp) {
+	function EditorsPanel(algoViewApp, parameters) {
 		this.app = algoViewApp;
 		
 		this.editors = new Array();
+		
+		this.showQuickReference = true;
+		this.editorsWorkers = true;
+		
+		if (parameters != undefined) {
+			if (parameters.showQuickReference != undefined) {
+				this.showQuickReference = parameters.showQuickReference;
+			}
+			if (parameters.editorsWorkers != undefined) {
+				this.editorsWorkers = parameters.editorsWorkers;
+			}
+		}
 		
 		this.programTextChanged = false;
 		
@@ -131,21 +143,20 @@ function(Ext, ExtUxAceEditorPanel, ExtUxAceEditor) {
 		editorsTabPanel.add(editorPanel);
 		
 		this.editors.push(editorPanel);
-			
-		this.quickReferencePanel = Ext.create("Ext.ux.aceeditor.Panel", {
-			id: 'quick-reference-editor',
-			title: 'Quick reference',
-			parser: 'simple_language',
-			theme: 'algoview',
-			deferredRender: false,
-		});
-		editorsTabPanel.add(this.quickReferencePanel);
-			
-		this.fillQuickReferenceEditor();
+		
+		if (this.showQuickReference) {
+			this.quickReferencePanel = Ext.create("Ext.ux.aceeditor.Panel", {
+				id: 'quick-reference-editor',
+				title: 'Quick reference',
+				parser: 'simple_language',
+				theme: 'algoview',
+				deferredRender: false,
+			});
+			editorsTabPanel.add(this.quickReferencePanel);
+			this.fillQuickReferenceEditor();
+		}
+
 		this.loadProgramTemplate();
-			
-	/*	this.setShowQuickReference(this.showQuickReference);
-		 */
 		
 		return editorsTabPanel;
 	}

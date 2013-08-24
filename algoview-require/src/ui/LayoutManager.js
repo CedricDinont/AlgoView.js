@@ -56,7 +56,7 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 	}
 	
 	LayoutManager.prototype.destroyOldComponents = function() {
-		console.log("Destroying old components", this.components);
+		//console.log("Destroying old components", this.components);
 		for (var i = 0; i < this.components.length; i++) {
 			if (this.components[i].destroy != undefined) {
 				this.components[i].destroy();
@@ -73,7 +73,7 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 				deferredRender: false,
 			});
 		} else {
-			component = this.createSimpleComponent(componentDescription.type);
+			component = this.createSimpleComponent(componentDescription);
 		}
 		
 		if (componentDescription.components != undefined) {
@@ -87,23 +87,18 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 	}
 
 	LayoutManager.prototype.createSimpleComponent = function(componentDescription) {
+		var componentType;
+		var componentParameters = undefined;
+		
+		if (typeof(componentDescription) === "object") {
+			componentType = componentDescription.type;
+			componentParameters = componentDescription.parameters;
+		} else {
+			componentType = componentDescription;
+		}
+		
 		var component;
-
-		if (componentDescription === "ToolBar") {
-			component = new ToolBar(this.app);
-		} else if (componentDescription === "OutputPanel") {
-			component = new OutputPanel(this.app);
-		} else if (componentDescription === "EditorsPanel") {
-			component = new EditorsPanel(this.app);
-		} else if (componentDescription === "StackTableViewPanel") {
-			component = new StackTableViewPanel(this.app);
-		} else if (componentDescription === "HeapTableViewPanel") {
-			component = new HeapTableViewPanel(this.app);
-		} else if (componentDescription === "MemoryGraphicalViewPanel") {
-			component = new MemoryGraphicalViewPanel(this.app);
-		}  else if (componentDescription === "ProgramTreeViewPanel") {
-			component = new ProgramTreeViewPanel(this.app);
-		} 
+		eval("component = new " + componentType + "(this.app, componentParameters)");
 		
 		this.components.push(component);
 				
@@ -120,13 +115,14 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 	
 	LayoutManager.prototype.applyLayoutPart = function(layout, extComponent) {
 		if (layout == undefined) {
+			extComponent.setVisible(false);
 			return;
 		}
 		
 		if (layout.visible != undefined) {
 			extComponent.setVisible(layout.visible);
 		}
-				
+
 		if (layout.component != undefined) {
 			var component = this.createComponent(layout.component, extComponent);
 			extComponent.add(component);

@@ -27,14 +27,6 @@ function(antlr, NodeContext) {
 		return this.token.line;
 	}
 
-	Node.prototype.setExecuted = function(executed) {
-		this.executed = executed;
-	}
-
-	Node.prototype.isExecuted = function() {
-		return this.executed;
-	}
-
 	Node.prototype.createContext = function() {
 		return new NodeContext();
 	}

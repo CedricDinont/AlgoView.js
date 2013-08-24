@@ -77,6 +77,7 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 				expressionValue = (val1 >= val2);
 				break;
 		}
+		var BooleanMemoryValue = require("BooleanMemoryValue");
 		return new BooleanMemoryValue(expressionValue);
 	}
 	
@@ -119,4 +120,3 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 	return FloatMemoryValue;
 	
 });
-	

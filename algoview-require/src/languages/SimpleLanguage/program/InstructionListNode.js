@@ -1,7 +1,7 @@
 define("InstructionListNode",
 ["Node", "NodeContext"],
 function(Node, NodeContext) {
-	//Node
+
 	function InstructionListNode(tokenType, token) {	
 		Node.call(this, tokenType, token);
 	}
@@ -19,9 +19,11 @@ function(Node, NodeContext) {
 		}
 
 		if (nodeContext.currentChild < this.children.length) {
-			var newNodeContext = this.children[nodeContext.currentChild].createContext();
-			nodeContext.addChild(newNodeContext);
-			nodeStack.push(this.children[nodeContext.currentChild], newNodeContext);
+			if (nodeContext.getNumberOfChildren() < nodeContext.currentChild + 1) {
+				var newNodeContext = this.children[nodeContext.currentChild].createContext();
+				nodeContext.addChild(newNodeContext);
+			}
+			nodeStack.push(this.children[nodeContext.currentChild], nodeContext.children[nodeContext.currentChild]);
 			++nodeContext.currentChild;
 			return true;
 		} else {

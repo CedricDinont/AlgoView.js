@@ -27,6 +27,13 @@ function() {
 		this.children.push(child);
 	}
 	
+	NodeContext.prototype.getNumberOfChildren = function() {
+		if (this.children == undefined) {
+			return 0;
+		}
+		return this.children.length;
+	}
+	
 	return NodeContext;
 });
 
