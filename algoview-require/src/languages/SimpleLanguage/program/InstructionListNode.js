@@ -1,6 +1,6 @@
 define("InstructionListNode",
-["Node", "NodeContext"],
-function(Node, NodeContext) {
+["Node", "InstructionListNodeContext"],
+function(Node, InstructionListNodeContext) {
 
 	function InstructionListNode(tokenType, token) {	
 		Node.call(this, tokenType, token);
@@ -31,6 +31,10 @@ function(Node, NodeContext) {
 			nodeStack.pop();
 			return false;
 		}
+	}
+	
+	InstructionListNode.prototype.createContext = function() {
+		return new InstructionListNodeContext();
 	}
 	
 	return InstructionListNode;

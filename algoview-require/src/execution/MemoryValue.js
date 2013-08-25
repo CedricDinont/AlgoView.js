@@ -6,8 +6,8 @@
  */
 
 define("MemoryValue",
-["MemoryState"],
-function(MemoryState) { 
+["MemoryState", "TryToUseUndefinedValue", "TryToUseUnusedValue"],
+function(MemoryState, TryToUseUndefinedValue, TryToUseUnusedValue) { 
  
 	var MemoryValue = function(value, state) {
 	
@@ -75,14 +75,33 @@ function(MemoryState) {
 	MemoryValue.prototype.getState = function() {
 		return this.state;
 	}
+	
+	MemoryValue.prototype.checkState = function() {
+		if (this.state == MemoryState.UNDEFINED) {
+			throw new TryToUseUndefinedValue();
+		}
+		if (this.state == MemoryState.UNUSED) {
+			throw new TryToUseUnusedValue();
+		}
+	}
 		
 	MemoryValue.prototype.getPrimitiveValue = function() {
 		return this.value;
 	}
 	
-	MemoryValue.prototype.getStringValue = function() { 	// this method can be overridden if necessary
+	MemoryValue.prototype.getPrimitiveValueChecked = function() {
+		this.checkState();
+		return this.value;
+	}
+	
+	MemoryValue.prototype.getStringValue = function() { // this method can be overridden if necessary
 		return this.getPrimitiveValue();
-	} 
+	}
+	
+	MemoryValue.prototype.getStringValueChecked = function() { // this method can be overridden if necessary
+		this.checkState();
+		return this.getPrimitiveValue();
+	}
 	
 	MemoryValue.prototype.clone = function() { 	// this method can be overridden if necessary
 		return new MemoryValue(this.value, this.state);

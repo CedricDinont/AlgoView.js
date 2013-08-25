@@ -2,11 +2,13 @@ define("SimpleLanguageCompiler",
 ["Compiler", "SimpleLanguageLexer", "SimpleLanguageParser", 
 "VariablesDeclarationListNode", "VariableDeclarationNode", "VariableNameNode",
 "StructureDataType", "CompilerEvent", "CompilationError", "NoMainFunctionError", 
-"UndefinedFunctionError", "UndefinedStructureError", "ProgramLocation", "ParsingError"],
+"UndefinedFunctionError", "UndefinedStructureError", "ProgramLocation", "ParsingError",
+"WrongMainFunctionPrototypeError", "RedefinedFunctionError", "RedefinedStructureError"],
 function(Compiler, SimpleLanguageLexer, SimpleLanguageParser, 
 VariablesDeclarationListNode, VariableDeclarationNode, VariableNameNode, 
 StructureDataType, CompilerEvent, CompilationError, NoMainFunctionError, 
-UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) {
+UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError,
+WrongMainFunctionPrototypeError, RedefinedFunctionError, RedefinedStructureError) {
 
 	function SimpleLanguageCompiler() {
 		
@@ -66,7 +68,8 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) 
 		this.parseVariablesDeclarationNodesForStructureDeclarations(programTree.tree);
 		this.findStructureDeclarations(programTree.tree);
 		this.findFunctionDefinitionForFunctionCalls(programTree.tree);
-		// TODO: Check for redefined functions (taking care of built-in functions)
+		this.checkRedefinedFunctions(programTree.tree);
+		// TODO: Check for redefined structures
 
 		if (this.errors.length != 0) {
 			this.sendCompilationErrorEvent();
@@ -85,15 +88,64 @@ UndefinedFunctionError, UndefinedStructureError, ProgramLocation, ParsingError) 
 		this.notifyListeners(event);
 	}
 
+	SimpleLanguageCompiler.prototype.checkRedefinedFunctions = function(program) {
+		var functionList = program.getFunctionList();
+		var functionSignatures = new Array();
+		// TODO: Push built-in function signatures
+		
+		for (var i = 0; i < functionList.children.length; ++i) {
+			var currentFunction = functionList.children[i];
+			var currentFunctionSignature = {
+				name: currentFunction.getName(), 
+				numberOfParameters: currentFunction.getNumberOfParameters(),
+				type: "USER",
+				source: "",
+				line: ""
+			};
+			
+			for (var j = 0; j < functionSignatures.length; ++j) {
+				if ((currentFunctionSignature.name == functionSignatures[j].name)
+					&& (currentFunctionSignature.numberOfParameters == functionSignatures[j].numberOfParameters)) {
+						this.errors.push(new RedefinedFunctionError(currentFunctionSignature, functionSignatures[j]));
+					}
+			}
+						
+			functionSignatures.push(currentFunctionSignature);
+		}
+	}
+
+	SimpleLanguageCompiler.prototype.checkMainFunctionPrototype = function(functionNode) {
+		// Check if this is a PROCEDURE
+		if (functionNode.getReturnType() != undefined) {
+			return false;
+		}
+		
+		if (functionNode.getNumberOfParameters() != 0) {
+			return false;
+		}
+		
+		return true;
+	}
+
 	SimpleLanguageCompiler.prototype.findMainFunction = function(program) {
+		var haveMainWithWrongPrototype = false;
 		var functionList = program.getFunctionList();
 		for (var i = 0; i < functionList.children.length; ++i) {
 			if (functionList.children[i].getName() == "main") {
-				program.setMainFunction(functionList.children[i]);
-				return;
+				if (this.checkMainFunctionPrototype(functionList.children[i])) {
+					program.setMainFunction(functionList.children[i]);
+					return;
+				} else {
+					haveMainWithWrongPrototype = true;
+				}
 			}
 		}
-		this.errors.push(new NoMainFunctionError());
+		
+		if (haveMainWithWrongPrototype) {
+			this.errors.push(new WrongMainFunctionPrototypeError());
+		} else {
+			this.errors.push(new NoMainFunctionError());
+		}
 	}
 
 	SimpleLanguageCompiler.prototype.parseVariablesDeclarationNodesForFunctions = function(program) {

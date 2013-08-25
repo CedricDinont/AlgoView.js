@@ -23,8 +23,7 @@ function(Node, ProgramRunnerEvent, StringNode) {
 
 	PrintNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (nodeContext.currentChild == 0) {
-			nodeContext.parameterContext = this.getParameter().createContext();
-			nodeStack.push(this.getParameter(), nodeContext.parameterContext);
+			nodeContext.parameterContext = nodeStack.push(this.getParameter());
 			nodeContext.currentChild++;
 		} else {
 			nodeContext.currentChild = 0;
@@ -35,7 +34,9 @@ function(Node, ProgramRunnerEvent, StringNode) {
 				var quotedText = parameter.getText();
 				outputText = quotedText.substring(1, quotedText.length - 1);
 			} else {
-				outputText = "" + nodeContext.parameterContext.getValue().toString(); // On force la conversion en chaîne de caractères
+				var parameterMemoryValue = nodeContext.parameterContext.getValue();
+				
+				outputText = "" + parameterMemoryValue.getStringValueChecked(); // On force la conversion en chaîne de caractères
 			}
 			
 			if (this.newLine == true) {

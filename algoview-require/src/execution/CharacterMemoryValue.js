@@ -1,3 +1,6 @@
+// Info : Javascript utilise de l'UTF-16
+
+// Voir http://msdn.microsoft.com/fr-fr/library/fwa1sfwk(v=vs.90).aspx 
 /**
  * class CharacterMemoryValue extends MemoryValue
  * @param value: the value to store in the superclass field "value"
@@ -9,21 +12,26 @@ define("CharacterMemoryValue",
 function(IllegalArgumentException, MemoryValue, MemoryState) {
 	
 	function CharacterMemoryValue(value) {
-	
-		var typeOfValue = (typeof value);
-		var expectedType = "string";
 		
-		if (value != undefined && typeOfValue != expectedType) {
+		console.log("Character value: '" + value + "'.");
+
+		this.type = MemoryValue.CHARACTER;
+
+		if (value == undefined) {
+			MemoryValue.call(this, undefined, MemoryState.UNDEFINED);
+			return;
+		}
+	
+		var typeOfValue = typeof(value);
+		if (typeOfValue == "number") {
+			value = String.fromCharCode(value);
+		} else if (typeOfValue == "string") {
+			value = value.charAt(0);
+		} else {
 			throw new IllegalArgumentException("[CharacterMemoryValue constructor] Expected " + expectedType + ", found " + typeOfValue);
 		}
 		
-		if (value != undefined) {
-			MemoryValue.call(this, value, MemoryState.HAS_VALUE);
-		} else {
-			MemoryValue.call(this, undefined, MemoryState.UNDEFINED);
-		}
-		
-		this.type = MemoryValue.CHARACTER;
+		MemoryValue.call(this, value, MemoryState.HAS_VALUE);
 	}
 	
 	// Prototype based inheritance
@@ -44,19 +52,31 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 	
 	CharacterMemoryValue.prototype.convertTo = function(type) {
 		// Attention: Faire les require ici pour éviter les pbs de dépendance circulaire
+
+		var charCode = this.getPrimitiveValue().charCodeAt(0);
+		
 		switch (type) {
 			case MemoryValue.BOOLEAN:
+				var BooleanMemoryValue = require("BooleanMemoryValue");
+				if (charCode == 0) {
+					return new BooleanMemoryValue(false);
+				} else {
+					return new BooleanMemoryValue(true);
+				}
 				break;
 			case MemoryValue.INTEGER:
 				var IntegerMemoryValue = require("IntegerMemoryValue");
-				return new IntegerMemoryValue(this.getPrimitiveValue().charCodeAt(0));
+				return new IntegerMemoryValue(charCode);
 				break;
 			case MemoryValue.CHARACTER:
 				return this;
 				break;
 			case MemoryValue.FLOAT:
+				var FloatMemoryValue = require("FloatMemoryValue");
+				return new FloatMemoryValue(charCode);
 				break;
 			case MemoryValue.POINTER:
+				throw new CannotConvertTo();
 				break;
 		}
 	}

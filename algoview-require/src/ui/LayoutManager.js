@@ -32,6 +32,7 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 				}
 			},
 			east: {
+				width: 250,
 				component: {
 					type: "TabbedPane",
 					components: [{
@@ -56,7 +57,9 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 	}
 	
 	LayoutManager.prototype.destroyOldComponents = function() {
-		//console.log("Destroying old components", this.components);
+		if (DEBUG) {
+			console.log("Destroying old components", this.components);
+		}
 		for (var i = 0; i < this.components.length; i++) {
 			if (this.components[i].destroy != undefined) {
 				this.components[i].destroy();
@@ -121,6 +124,14 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 		
 		if (layout.visible != undefined) {
 			extComponent.setVisible(layout.visible);
+		}
+		
+		if (layout.height != undefined) {
+			extComponent.setHeight(layout.height);
+		}
+
+		if (layout.width != undefined) {
+			extComponent.setWidth(layout.width);
 		}
 
 		if (layout.component != undefined) {

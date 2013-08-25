@@ -106,7 +106,7 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 				break;
 			case MemoryValue.CHARACTER:
 				var CharacterMemoryValue = require("CharacterMemoryValue");
-				return new CharacterMemoryValue(String.fromCharCode(this.getPrimitiveValue()));
+				return new CharacterMemoryValue(this.getPrimitiveValue());
 				break;
 			case MemoryValue.FLOAT:
 				var FloatMemoryValue = require("FloatMemoryValue");

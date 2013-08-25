@@ -71,16 +71,10 @@ function(BooleanMemoryValue, MemoryState, MemoryValue, JSUtils) {
 		// Attention: Faire les require ici pour éviter les pbs de dépendance circulaire
 		switch (type) {
 			case MemoryValue.BOOLEAN:
-				return undefined;
-				break;
 			case MemoryValue.INTEGER:
-				return undefined;
-				break;
 			case MemoryValue.CHARACTER:
-				return undefined;
-				break;
 			case MemoryValue.FLOAT:
-				return undefined;
+				throw new CannotConvertTo();
 				break;
 			case MemoryValue.POINTER:
 				return this;

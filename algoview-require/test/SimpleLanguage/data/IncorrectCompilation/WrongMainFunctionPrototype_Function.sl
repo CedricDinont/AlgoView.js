@@ -1,0 +1,4 @@
+FUNCTION main() : INTEGER
+BEGIN
+
+END

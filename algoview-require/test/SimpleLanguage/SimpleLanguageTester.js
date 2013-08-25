@@ -126,8 +126,14 @@ define("SimpleLanguageTester",
 	SimpleLanguageTester.prototype.compareExecutionErrors = function(test) {
 		ok(test.expectedExecutionErrors.length == test.executionErrors.length, "Number of expected and real execution errors are equal.");
 		for (var i = 0; i < test.expectedExecutionErrors.length; ++i) {
-			ok(test.expectedExecutionErrors[i] == test.executionErrors[i].constructor.name,
-				"Execution error " + (i + 1) + " is " + test.expectedExecutionErrors[i] + "(got " + test.executionErrors[i].constructor.name + ").");
+			var realException;
+			if (i < test.executionErrors.length) {
+				realException = test.executionErrors[i].constructor.name;
+			} else {
+				realException = undefined;
+			}
+			ok(test.expectedExecutionErrors[i] == realException,
+				"Execution error " + (i + 1) + " is " + test.expectedExecutionErrors[i] + " (got " + realException + ").");
 		}
 	}
 

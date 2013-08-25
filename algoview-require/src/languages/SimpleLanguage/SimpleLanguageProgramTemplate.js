@@ -28,7 +28,7 @@ BEGIN\n\
 	PRINTLN(\"Hello, world!\")\n\
 END\n\
 ";
-		source.addBreakpoint(17);
+		source.addBreakpoint(18);
 	
 		this.addSource(source);
 	}

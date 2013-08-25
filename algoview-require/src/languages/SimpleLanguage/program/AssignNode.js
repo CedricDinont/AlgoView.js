@@ -14,31 +14,17 @@ function(ExpressionNode, PointerMemoryValue, CannotConvertTo, ArrayDataType, Exp
 		return this.children[0];
 	}
 	
-	AssignNode.prototype.getVariableContext = function(nodeContext) {
-		return nodeContext.children[1];
-	}
-
 	AssignNode.prototype.getExpression = function() {
 		return this.children[1];
-	}
-	
-	AssignNode.prototype.getExpressionContext = function(nodeContext) {
-		return nodeContext.children[0];
 	}
 
 	AssignNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
-			var expressionNode = this.getExpression();
-			var expressionNodeContext  = expressionNode.createContext();
-			nodeContext.addChild(expressionNodeContext);
-			nodeStack.push(expressionNode, expressionNodeContext);
+			nodeContext.expressionContext = nodeStack.push(this.getExpression());
 		} else if (nodeContext.currentChild == 1) {
 			nodeContext.currentChild++;
-			var variableNode = this.getVariable();
-			var variableNodeContext = variableNode.createContext();
-			nodeContext.addChild(variableNodeContext);
-			nodeStack.push(variableNode, variableNodeContext);
+			nodeContext.VariableContext = nodeStack.push(this.getVariable());
 		} else if (nodeContext.currentChild == 2) {
 			nodeContext.currentChild++;
 			if (this.getExpression().containsFunctionCall()) {
@@ -51,22 +37,19 @@ function(ExpressionNode, PointerMemoryValue, CannotConvertTo, ArrayDataType, Exp
 		} else {
 			nodeContext.currentChild = 0;
 			
-			var expressionMemoryValue = this.getExpressionContext(nodeContext).getValue();
+			var expressionMemoryValue = nodeContext.expressionContext.getValue();
+			expressionMemoryValue.checkState();
 			
-			var expressionDataType = this.getExpressionContext(nodeContext).dataType;
+			var expressionDataType = nodeContext.expressionContext.dataType;
 			// console.log(expressionDataType, expressionMemoryValue);
 			if (expressionDataType instanceof ArrayDataType) {
-				expressionMemoryValue = new PointerMemoryValue(this.getExpressionContext(nodeContext).getAddress());
+				expressionMemoryValue = new PointerMemoryValue(nodeContext.expressionContext.getAddress());
 			}
 			
-			var resultType = this.getVariableContext(nodeContext).memoryValue.type;
-			
+			var resultType = nodeContext.VariableContext.getValue().type;
 			var expressionMemoryValueAsResultType = expressionMemoryValue.convertTo(resultType);
-			if (expressionMemoryValueAsResultType == undefined) {
-				throw new CannotConvertTo(resultType);
-			}
 
-			memory.setValue(this.getVariableContext(nodeContext).getAddress(), expressionMemoryValueAsResultType);
+			memory.setValue(nodeContext.VariableContext.getAddress(), expressionMemoryValueAsResultType);
 			nodeContext.setValue(expressionMemoryValueAsResultType);
 			nodeStack.pop();
 		}

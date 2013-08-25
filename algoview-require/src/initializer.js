@@ -96,12 +96,17 @@ requirejs.config({
         
         // Simple Language compiler errors
         NoMainFunctionError: "languages/SimpleLanguage/compilation_errors/NoMainFunctionError",
+        WrongMainFunctionPrototypeError: "languages/SimpleLanguage/compilation_errors/WrongMainFunctionPrototypeError",
+        RedefinedFunctionError: "languages/SimpleLanguage/compilation_errors/RedefinedFunctionError",
+        RedefinedStructureError: "languages/SimpleLanguage/compilation_errors/RedefinedStructureError",
         UndefinedFunctionError: "languages/SimpleLanguage/compilation_errors/UndefinedFunctionError",
         UndefinedStructureError: "languages/SimpleLanguage/compilation_errors/UndefinedStructureError",
         ParsingError: "languages/SimpleLanguage/compilation_errors/ParsingError",
         
         // Simple Language execution errors
         TryToDereferenceNullPointer: "languages/SimpleLanguage/execution_errors/TryToDereferenceNullPointer",
+        TryToUseUndefinedValue: "languages/SimpleLanguage/execution_errors/TryToUseUndefinedValue",
+        TryToUseUnusedValue: "languages/SimpleLanguage/execution_errors/TryToUseUnusedValue",
         
         // AlgoView Exceptions
         AlreadyAllocatedSegmentException: "exceptions/AlreadyAllocatedSegmentException",
@@ -135,6 +140,7 @@ requirejs.config({
         NodeContext: 'execution/NodeContext',
         ExpressionNodeContext: 'execution/ExpressionNodeContext',
         ExpressionListNodeContext: 'execution/ExpressionListNodeContext',
+        InstructionListNodeContext: 'execution/InstructionListNodeContext',
         FunctionNodeContext: 'execution/FunctionNodeContext',
         AssignableNodeContext: 'execution/AssignableNodeContext',
         Breakpoint: "execution/Breakpoint",

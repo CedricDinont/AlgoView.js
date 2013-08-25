@@ -95,14 +95,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 		this.mainFrame.setLayout(layout);
 	}
 
-	AlgoViewApp.prototype.setShowQuickReference = function(value) {
-		this.mainFrame.setShowQuickReference(value);
-	}
-
-	AlgoViewApp.prototype.setSouthPanelHeight = function(height) {
-		this.mainFrame.setSouthPanelHeight(height);
-	}
-
 	AlgoViewApp.prototype.setMemoryUnitPosition = function(memoryAddress, x, y) {
 		var memoryGraphicalView = this.mainFrame.memoryGraphicalView;
 		if (memoryGraphicalView == undefined) {
@@ -162,23 +154,14 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 			case "algoview-stop-at-begin":
 				this.programRunner.stopAtBegin = true;
 				break;
-			case "algoview-reset-interface":
-				this.resetInterface();
-				break;
 			case "algoview-set-start-paused":
 				this.setStartPaused(message.value);
 				break;
 			case "algoview-set-layout":
 				this.setLayout(message.layout);
 				break;
-			case "algoview-set-show-quick-reference":
-				this.setShowQuickReference(message.value);
-				break
 			case "algoview-set-memory-unit-position":
 				this.setMemoryUnitPosition(message.address, message.x, message.y);
-				break;
-			case "algoview-set-south-panel-height":
-				this.setSouthPanelHeight(message.height);
 				break;
 			case "algoview-give-focus-to-parent":
 				parent.focus();
@@ -212,14 +195,6 @@ Memory, ProgramRunner, Compiler, LanguageModule) {
 
 	AlgoViewApp.prototype.setMemorySendEvents = function(value) {
 		this.programRunner.memory.setSendEvents(value);
-	}
-
-	AlgoViewApp.prototype.resetInterface = function() {
-		if (this.toolBar) {
-			console.log("Adding toolbar");
-			this.mainFrame.viewport.add(this.toolBar);
-		}
-		this.mainFrame.viewport.doLayout();
 	}
 
 	AlgoViewApp.prototype.postMessage = function(window, message) {

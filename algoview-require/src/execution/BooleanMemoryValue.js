@@ -78,9 +78,23 @@ function(JSUtils, MemoryValue, MemoryState) {
 				}
 				break;
 			case MemoryValue.CHARACTER:
+				var CharacterMemoryValue = require("CharacterMemoryValue");
+				if (this.value) {
+					return new CharacterMemoryValue(1);
+				} else {
+					return new CharacterMemoryValue(0);
+				}
+				break;
 			case MemoryValue.FLOAT:
+				var FloatMemoryValue = require("FloatMemoryValue");
+				if (this.value) {
+					return new FloatMemoryValue(1);
+				} else {
+					return new FloatMemoryValue(0);
+				}		
+				break;
 			case MemoryValue.POINTER:
-				JSUtils.throwException("CannotConvertTo", MemoryValue.BOOLEAN);
+				throw new CannotConvertTo();
 				break;
 		}
 	}

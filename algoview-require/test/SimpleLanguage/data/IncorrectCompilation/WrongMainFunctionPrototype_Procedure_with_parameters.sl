@@ -1,0 +1,4 @@
+PROCEDURE main(i : INTEGER)
+BEGIN
+
+END

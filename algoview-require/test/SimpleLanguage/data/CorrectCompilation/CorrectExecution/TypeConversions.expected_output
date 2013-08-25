@@ -1,2 +1,5 @@
-A
-65
+true 1 1 1
+false 0 0 0
+false 0 0 0
+true 42 42 *
+true 65 65 A

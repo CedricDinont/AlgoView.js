@@ -98,12 +98,14 @@ function(IllegalArgumentException, MemoryValue, MemoryState) {
 				return new IntegerMemoryValue(parseInt(this.value));
 				break;
 			case MemoryValue.CHARACTER:
+				var CharacterMemoryValue = require("CharacterMemoryValue");
+				return new CharacterMemoryValue(parseInt(this.getPrimitiveValue()));
 				break;
 			case MemoryValue.FLOAT:
 				return this;
 				break;
 			case MemoryValue.POINTER:
-				return undefined;
+				throw new CannotConvertTo();
 				break;
 		}
 	}

@@ -13,9 +13,7 @@ function(JSUtils) {
 	}
 	
 	Compiler.prototype.removeListener = function(listener) {
-		console.log(this.listeners);
 		JSUtils.removeElementsFromArray(this.listeners, listener);
-		console.log(this.listeners);
 	}
 
 	Compiler.prototype.notifyListeners = function(event) {

@@ -2,6 +2,7 @@
 define("MemoryState",
 [],
 function() { 
+	
 	var MemoryState = {
 		UNUSED : "Unused",
 		UNDEFINED : "Undefined",

@@ -30,36 +30,9 @@ VAR
 	f : FLOAT
 	c : CHARACTER
 BEGIN
-	// Booléen vers reste
-	b <- TRUE
-	i <- b
-	f <- b
-	c <- b
-	printValuesWithCharacterAsInteger(b, i, f, c)
-	
-	b <- FALSE
-	i <- b
-	f <- b
-	c <- b
-	printValuesWithCharacterAsInteger(b, i, f, c)
-	
-	// Entier vers reste
-	i <- 0
-	b <- i
-	f <- i
-	c <- i
-	printValuesWithCharacterAsInteger(b, i, f, c)
-	
-	i <- 42
-	b <- i
-	f <- i
-	c <- i
-	printValues(b, i, f, c)
-	
-	// Caractère vers reste
-	c <- 'A'
+	c <- '\0'  // Ne compile pas encore
 	b <- c
 	i <- c
 	f <- c
-	printValues(b, i, f, c)
+	printValuesWithCharacterAsInteger(b, i, f, c)
 END

@@ -381,11 +381,10 @@ boolean_value
 	: b=BOOLEAN_VALUE -> NUMBER<NumberNode>[$b, new BooleanMemoryValue(MathUtils.parseBoolean($b.getText()))]
 	;
 	
-/*
 character_value
-	: APOSTROPH CHARACTER_VALUE APOSTROPH
+	: c=CHARACTER_VALUE -> NUMBER<NumberNode>[$c, new CharacterMemoryValue($c.getText().substring(1, 2))]
 	;
-*/
+
 instruction_list
 //	options { backtrack = true; }
 	: (instruction | NEWLINE)+ -> ^(INSTRUCTION_LIST<InstructionListNode> instruction*)
@@ -506,7 +505,7 @@ expression_operand
 	: integer_number
 	| float_number
     | boolean_value
- //   | character_value 
+    | character_value 
 	| null
 	| function_call
 	| r=RANDOM_INTEGER LP expression RP -> ^(RANDOM_INTEGER<RandomNode>[$r, true] expression)
@@ -741,7 +740,7 @@ STRING
 	: '"' (.*) '"' 
 	;
 
-/*CHARACTER_VALUE
-	:	.
+// Voir http://msdn.microsoft.com/fr-fr/library/fwa1sfwk(v=vs.90).aspx
+CHARACTER_VALUE
+	:	'\'' (.) '\''
 	;
-	*/

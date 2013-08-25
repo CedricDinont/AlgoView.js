@@ -2,4 +2,3 @@ PROCEDURE m()
 BEGIN
 
 END
-
