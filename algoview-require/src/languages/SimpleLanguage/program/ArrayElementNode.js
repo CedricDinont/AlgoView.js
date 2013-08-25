@@ -1,6 +1,11 @@
 define("ArrayElementNode",
-["AssignableNode", "PointerDataType", "ArrayDataType", "NotAnArrayException", "TryToAccessIncorrectArrayElementException", "InvalidMemoryAddressException"],
-function(AssignableNode, PointerDataType, ArrayDataType, NotAnArrayException, TryToAccessIncorrectArrayElementException, InvalidMemoryAddressException) {
+["AssignableNode", "PointerDataType", "ArrayDataType", 
+"NotAnArrayException", "TryToAccessIncorrectArrayElementException",
+"InvalidMemoryAddressException"],
+function(AssignableNode, PointerDataType, ArrayDataType, 
+NotAnArrayException, TryToAccessIncorrectArrayElementException, 
+InvalidMemoryAddressException) {
+	
 	function ArrayElementNode(tokenType, token) {	
 		AssignableNode.call(this, tokenType, token);
 	}
@@ -18,21 +23,21 @@ function(AssignableNode, PointerDataType, ArrayDataType, NotAnArrayException, Tr
 	}
 
 	ArrayElementNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getVariable());
-		} else if (this.currentChild == 1) {
-			this.currentChild++;
-			nodeStack.push(this.getIndexExpression());
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.variableContext = nodeStack.push(this.getVariable());
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
+			nodeContext.indexExpressionContext = nodeStack.push(this.getIndexExpression());
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 
 	        var arrayBaseAddress;
 	        var elementAddress;
 	        var index;
 	        var arrayDataType;
-			var parent = this.getVariable();
+			var parent = nodeContext.variableContext;
 			
 			/**
 			 *  3 cas : on accède à un élément de tableau 
@@ -69,23 +74,24 @@ function(AssignableNode, PointerDataType, ArrayDataType, NotAnArrayException, Tr
 			} else if (parent.dataType instanceof ArrayDataType) {
 				// Tableau alloué statiquement sur la pile
 				arrayDataType = parent.getDataType();
-				arrayBaseAddress = this.getVariable().getAddress();
+				arrayBaseAddress = parent.getAddress();
 			} else {
 				throw new NotAnArrayException();
 			}
 			
-			index = this.getIndexExpression().getValue().getPrimitiveValue();
+			index = nodeContext.indexExpressionContext.getValue().getPrimitiveValue();
 			if ((index < 0) || (index >= arrayDataType.getSize())) {
 				throw new TryToAccessIncorrectArrayElementException(null, index);
 			}
 			
 			elementAddress = arrayBaseAddress + (arrayDataType.getElementsSize() * index);
-			this.setAddress(elementAddress);
-			this.setValue(memory.getValue(elementAddress));
-			this.setDataType(arrayDataType.getElementsDataType());
+			nodeContext.setAddress(elementAddress);
+			nodeContext.setValue(memory.getValue(elementAddress));
+			nodeContext.setDataType(arrayDataType.getElementsDataType());
 		}
 		
 		return false;
 	}
-return ArrayElementNode;
+	
+	return ArrayElementNode;
 });

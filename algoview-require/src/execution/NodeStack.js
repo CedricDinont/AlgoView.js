@@ -17,6 +17,8 @@ function(NodeStackElement) {
 		
 		nodeContext.programNode = programNode;
 		this.nodes.push(new NodeStackElement(programNode, nodeContext));
+		
+		return nodeContext;
 	}
 
 	NodeStack.prototype.pop = function() {

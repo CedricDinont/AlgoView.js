@@ -1,6 +1,7 @@
 define("ContentNode",
 ["AssignableNode"],
 function(AssignableNode) {
+	
 	function ContentNode(tokenType, token) {	
 		AssignableNode.call(this, tokenType, token);
 	}
@@ -14,19 +15,21 @@ function(AssignableNode) {
 	}
 
 	ContentNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getVariable());
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.VariableContext = nodeStack.push(this.getVariable());
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			
-			var memoryValue = this.getVariable().getValue();
+			var memoryValue = nodeContext.VariableContext.getValue();
 			var address = memoryValue.getPrimitiveValue();
-			this.setValue(memory.getValue(address));
-			this.setAddress(address);
+			nodeContext.setValue(memory.getValue(address));
+			nodeContext.setAddress(address);
 		}
 		return false;
 	}
-return ContentNode;
+	
+	return ContentNode;
+
 });

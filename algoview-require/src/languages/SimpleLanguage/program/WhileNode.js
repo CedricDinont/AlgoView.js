@@ -1,6 +1,6 @@
 define("WhileNode",
-["MemoryValue", "Node", "CannotConvertTo"],
-function(MemoryValue, Node, CannotConvertTo) {
+["MemoryValue", "Node"],
+function(MemoryValue, Node) {
 	
 	function WhileNode(tokenType, token) {	
 		Node.call(this, tokenType, token);

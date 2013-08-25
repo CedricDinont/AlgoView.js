@@ -1,7 +1,8 @@
 //ExpressionNode
 define("UnaryMinusNode",
 ["ExpressionNode"],
-function(ExpressionNode){ 
+function(ExpressionNode) { 
+
 	function UnaryMinusNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 	}
@@ -15,16 +16,16 @@ function(ExpressionNode){
 	}
 	
 	UnaryMinusNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			nodeStack.push(this.getExpression());
-			this.currentChild++;
+		if (nodeContext.currentChild == 0) {
+			nodeContext.ExpressionContext = nodeStack.push(this.getExpression());
+			nodeContext.currentChild++;
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			
 			// TODO: Check expression type
 			
-			this.setValue(this.getExpression().getValue().opposite());
+			nodeContext.setValue(nodeContext.ExpressionContext.getValue().opposite());
 		}
 		
 		return false;

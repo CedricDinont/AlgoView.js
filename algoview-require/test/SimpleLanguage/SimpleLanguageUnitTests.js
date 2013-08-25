@@ -48,11 +48,14 @@ define("SimpleLanguageUnitTests",
 				handler: "launchCorrectExecutionTest",
 				sourcesPrefix: 'data/CorrectCompilation/CorrectExecution',
 				tests: [{
-					name: "print",
-					sources: "print",
+					name: "Print",
+					sources: "Print",
 				}, {
-					name: "if",
-					sources: "if",
+					name: "If",
+					sources: "If",
+				}, {
+					name: "For",
+					sources: "For",
 				}, {
 					name: "Type conversions",
 					sources: "TypeConversions",
@@ -63,7 +66,7 @@ define("SimpleLanguageUnitTests",
 					name: "Math Library",
 					sources: "MathLibrary",
 				}, {
-					name: "Slides codage de l'information",
+					name: "Slides codage de l'information - Equality example",
 					sources: "Slides_Codage_Info_equality_example",
 				}]
 			},

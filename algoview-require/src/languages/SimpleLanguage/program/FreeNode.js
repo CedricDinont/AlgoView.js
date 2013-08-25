@@ -1,7 +1,7 @@
 define("FreeNode",
 ["Node"],
-function(Node){
-	//node
+function(Node) {
+
 	function FreeNode(tokenType, token) {	
 		Node.call(this, tokenType, token);	
 	}
@@ -15,14 +15,14 @@ function(Node){
 	}
 
 	FreeNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getExpression());
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.expressionContext = nodeStack.push(this.getExpression());
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 
-			var expressionValue = this.getExpression();
+			var expressionValue = nodeContext.expressionContext;
 			console.log(expressionValue);
 			
 			// TODO: Vérifier que expressionValue.memoryValue est bien un PointerMemoryValue
@@ -31,5 +31,7 @@ function(Node){
 		}
 		return false;
 	}
-return FreeNode;
+	
+	return FreeNode;
+	
 });

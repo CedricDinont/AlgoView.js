@@ -18,8 +18,7 @@ function(ExpressionNode, FunctionNode) {
 		if (nodeContext.currentChild == 0) {
 			nodeContext.currentChild++;
 			if (this.getReturnExpression() != undefined) {
-				nodeContext.returnExpressionContext = this.getReturnExpression().createContext();
-				nodeStack.push(this.getReturnExpression(), nodeContext.returnExpressionContext);
+				nodeContext.returnExpressionContext = nodeStack.push(this.getReturnExpression());
 			}
 		} else {
 			nodeContext.currentChild = 0;

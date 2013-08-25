@@ -1,11 +1,9 @@
 define("DoWhileNode",
-["Node", "CannotConvertTo", "MemoryValue"],
-function(Node, CannotConvertTo, MemoryValue) {
+["Node", "MemoryValue"],
+function(Node, MemoryValue) {
+	
 	function DoWhileNode(tokenType, token) {	
 		Node.call(this, tokenType, token);
-		
-		this.clonedCondition;
-		this.clonedInstructions;
 	}
 
 	// Prototype based inheritance
@@ -16,38 +14,23 @@ function(Node, CannotConvertTo, MemoryValue) {
 		return this.children[0];
 	}
 
-	DoWhileNode.prototype.cloneCondition = function() {
-		this.clonedCondition = this.getCondition().clone();
-	}
-
 	DoWhileNode.prototype.getInstructions = function() {
 		return this.children[1];
 	}
 
-	DoWhileNode.prototype.cloneInstructions = function() {
-		this.clonedInstructions = this.getInstructions().clone();
-	}
-
 	DoWhileNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			this.cloneInstructions();
-			nodeStack.push(this.clonedInstructions);
-		} else if (this.currentChild == 1) {
-			this.currentChild++;
-			this.cloneCondition();
-			nodeStack.push(this.clonedCondition);
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeStack.push(this.getInstructions());
+		} else if (nodeContext.currentChild == 1) {
+			nodeContext.currentChild++;
+			nodeContext.conditionContext = nodeStack.push(this.getCondition());
 			return true;
-		} else if (this.currentChild == 2) {
-			this.currentChild = 0;
+		} else if (nodeContext.currentChild == 2) {
+			nodeContext.currentChild = 0;
 				
-			var testMemoryValue = this.clonedCondition.getValue();
+			var testMemoryValue = nodeContext.conditionContext.getValue();
 			var testMemoryValueAsBoolean = testMemoryValue.convertTo(MemoryValue.BOOLEAN);
-			
-			if (testMemoryValueAsBoolean == undefined) {
-				throw new CannotConvertTo(MemoryValue.BOOLEAN);
-			}
-			
 			var testValueAsBoolean = testMemoryValueAsBoolean.getPrimitiveValue();
 			if (! testValueAsBoolean) {
 				nodeStack.pop();
@@ -55,5 +38,6 @@ function(Node, CannotConvertTo, MemoryValue) {
 		}
 		return false;
 	}
-return DoWhileNode;
+	
+	return DoWhileNode;
 });

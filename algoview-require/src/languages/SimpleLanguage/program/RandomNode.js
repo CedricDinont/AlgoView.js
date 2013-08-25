@@ -1,7 +1,7 @@
 define("RandomNode",
-["ExpressionNode", "CannotConvertTo", "IntegerMemoryValue"],
-function(ExpressionNode, CannotConvertTo, IntegerMemoryValue){
-	//ExpressionNode, CannotConvertTo, IntegerMemoryValue
+["ExpressionNode",  "IntegerMemoryValue"],
+function(ExpressionNode, IntegerMemoryValue) {
+
 	function RandomNode(tokenType, token, produceIntegers) {	
 		ExpressionNode.call(this, tokenType, token);
 		
@@ -17,24 +17,20 @@ function(ExpressionNode, CannotConvertTo, IntegerMemoryValue){
 	}
 
 	RandomNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getLimitExpression());
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.LimitExpressionContext = this.getLimitExpression().createContext();
+			nodeStack.push(this.getLimitExpression(), nodeContext.LimitExpressionContext);
 		} else {
-			var limitExpressionMemoryValue = this.getLimitExpression().getValue();
-			console.log(limitExpressionMemoryValue);
+			var limitExpressionMemoryValue = nodeContext.LimitExpressionContext.getValue();
 			var limitExpressionMemoryValueAsInteger = limitExpressionMemoryValue.convertTo(MemoryValue.INTEGER);
 			
-			if (limitExpressionMemoryValueAsInteger == undefined) {
-				throw new CannotConvertTo(MemoryValue.INTEGER);
-			}
-			
-			this.setValue(new IntegerMemoryValue(Math.floor(Math.random() * limitExpressionMemoryValueAsInteger)));
+			nodeContext.setValue(new IntegerMemoryValue(Math.floor(Math.random() * limitExpressionMemoryValueAsInteger)));
 			nodeStack.pop();
 		}
-		
 
 		return false;
 	}
-return RandomNode;
+	
+	return RandomNode;
 });

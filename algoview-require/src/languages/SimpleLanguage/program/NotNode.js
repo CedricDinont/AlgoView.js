@@ -1,7 +1,7 @@
 define("NotNode",
-["ExpressionNode", "CannotConvertTo", "BooleanMemoryValue"],
-function(ExpressionNode, CannotConvertTo, BooleanMemoryValue){
-	//ExpressionNode, CannotConvertTo, BooleanMemoryValue
+["ExpressionNode", "BooleanMemoryValue"],
+function(ExpressionNode, BooleanMemoryValue) {
+
 	function NotNode(tokenType, token) {	
 		ExpressionNode.call(this, tokenType, token);
 	}
@@ -15,24 +15,22 @@ function(ExpressionNode, CannotConvertTo, BooleanMemoryValue){
 	}
 
 	NotNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			nodeStack.push(this.getOperand());
-			this.currentChild++;
+		if (nodeContext.currentChild == 0) {
+			nodeContext.operandContext = this.getOperand().createContext(); 
+			nodeStack.push(this.getOperand(), nodeContext.operandContext);
+			nodeContext.currentChild++;
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 			
-			var operandMemoryValue = this.getOperand().getValue();
+			var operandMemoryValue = nodeContext.operandContext.getValue();
 			var operandMemoryValueAsBoolean = operandMemoryValue.convertTo(MemoryValue.BOOLEAN);
 			
-			if (operandMemoryValueAsBoolean == undefined) {
-				throw new CannotConvertTo(MemoryValue.BOOLEAN);
-			}
-			
-			this.setValue(new BooleanMemoryValue(! operandMemoryValueAsBoolean.getPrimitiveValue()));
+			nodeContext.setValue(new BooleanMemoryValue(! operandMemoryValueAsBoolean.getPrimitiveValue()));
 		}
 		
 		return false;
 	}
-return NotNode;
+	
+	return NotNode;
 });

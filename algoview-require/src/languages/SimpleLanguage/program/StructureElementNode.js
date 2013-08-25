@@ -1,8 +1,9 @@
 //AssignableNode
 define("StructureElementNode",
 ["AssignableNode"],
-function(AssignableNode){ 
-	var StructureElementNode = function(tokenType, token) {	
+function(AssignableNode) { 
+	
+	function StructureElementNode(tokenType, token) {	
 		AssignableNode.call(this, tokenType, token);	
 	}
 	
@@ -19,22 +20,21 @@ function(AssignableNode){
 	}
 	
 	StructureElementNode.prototype.execute = function(nodeContext, memory, nodeStack, programRunner) {
-		if (this.currentChild == 0) {
-			this.currentChild++;
-			nodeStack.push(this.getVariable());
+		if (nodeContext.currentChild == 0) {
+			nodeContext.currentChild++;
+			nodeContext.variableContext = nodeStack.push(this.getVariable());
 		} else {
-			this.currentChild = 0;
+			nodeContext.currentChild = 0;
 			nodeStack.pop();
 	
-			var parent = this.getVariable();
+			var parent = nodeContext.variableContext;
 			var structBaseAddress = parent.getAddress();
 			var elementDataType = parent.getDataType();
 			var structureDeclarationNode = elementDataType.getStructureDeclarationNode();
 			var offset = structureDeclarationNode.getFieldOffset(this.getField().getName());
 	
-			this.setAddress(structBaseAddress + offset);
-			this.setValue(memory.getValue(this.getAddress()));
-	
+			nodeContext.setAddress(structBaseAddress + offset);
+			nodeContext.setValue(memory.getValue(nodeContext.getAddress()));
 		}
 		return false;
 	}
