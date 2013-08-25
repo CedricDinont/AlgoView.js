@@ -39,7 +39,7 @@ define("SimpleLanguageTester",
 	SimpleLanguageTester.prototype.launchIncorrectCompilationTest = function(test) {
 		var self = this;
 		
-		asyncTest(test.name, 1 + test.expectedCompilationErrors.length + 1, function() {
+		asyncTest(test.name, 2 + test.expectedCompilationErrors.length + 1, function() {
 			self.getTestSourceFile(test)
 				.done(function() { 
 					self.runTest(test); 
@@ -52,7 +52,7 @@ define("SimpleLanguageTester",
 	SimpleLanguageTester.prototype.launchIncorrectExecutionTest = function(test) {
 		var self = this;
 		
-		asyncTest(test.name, 2 + test.expectedExecutionErrors.length + 1, function() {
+		asyncTest(test.name, 3 + test.expectedExecutionErrors.length + 1, function() {
 			self.getTestSourceFile(test)
 				.done(function() { 
 					self.runTest(test); 
@@ -65,7 +65,7 @@ define("SimpleLanguageTester",
 	SimpleLanguageTester.prototype.launchCorrectExecutionTest = function(test) {
 		var self = this;
 		
-		asyncTest(test.name, 3, function() {
+		asyncTest(test.name, 5, function() {
 			self.getTestSourceFile(test)
 				.done(function() { 
 					self.getExpectedOutput(test)
@@ -81,11 +81,17 @@ define("SimpleLanguageTester",
 	SimpleLanguageTester.prototype.getTestSourceFile = function(test) {
 		console.log("Getting source file for test '" + test.name + "'.");
 		
+		var sourceUrl = test.sourcesPrefix + "/" + test.sources + ".sl";
+		
 		return $j.ajax({
-			url: test.sourcesPrefix + "/" + test.sources + ".sl",
+			url: sourceUrl,
 			dataType: "text",
 			success: function(data) {
 				test.programText = data;
+				ok(42, "Load source from __LINK__" + sourceUrl + "__.");
+			},
+			error: function() {
+				ok(false, "Load source from __LINK__" + sourceUrl + "__.");
 			}
 		});
 	}
@@ -93,11 +99,17 @@ define("SimpleLanguageTester",
 	SimpleLanguageTester.prototype.getExpectedOutput = function(test) {
 		console.log("Getting expected output for test '" + test.name + "'.");
 
+		var expectedOutputUrl = test.sourcesPrefix + "/" + test.sources + ".expected_output"
+
 		return $j.ajax({
-			url: test.sourcesPrefix + "/" + test.sources + ".expected_output",
+			url: expectedOutputUrl,
 			dataType: "text",
 			success: function(data) {
 				test.expectedOutput = data;
+				ok(42, "Load expected output from __LINK__" + expectedOutputUrl + "__.");
+			},
+			error: function() {
+				ok(false, "Load expected output from __LINK__" + expectedOutputUrl + "__.");
 			}
 		});
 	}
@@ -119,9 +131,7 @@ define("SimpleLanguageTester",
 		}
 	}
 
-	SimpleLanguageTester.prototype.compareOutputs = function(test) {
-		// test.realOutput += "\n";
-		
+	SimpleLanguageTester.prototype.compareOutputs = function(test) {		
 		console.log("Real: ", test.realOutput);
 		console.log("Expected: ", test.expectedOutput);
 		
@@ -204,9 +214,19 @@ define("SimpleLanguageTester",
 		}
 	}
 
+	SimpleLanguageTester.prototype.onQunitDone = function() {
+		$(".test-message").each(function() {
+			var text = $(this).html();
+			var newText = text.replace(/__LINK__(.*)__/g, "<a href='$1'>$1</a>");
+			$(this).html(newText);
+		});
+	}
+
 	SimpleLanguageTester.prototype.startTests = function() {
 		console.log("Starting tests...");
-				
+		
+		QUnit.done(this.onQunitDone.bind(this));
+		
 		this.launchNextTest();
 	}
 	
