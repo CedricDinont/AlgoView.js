@@ -22,7 +22,7 @@ function(ProgramTreeView) {
 					}
 				},
 				afterRender: function() {
-					self.programTreeView =  new ProgramTreeView(self.app, "programTreeContainer-body");
+					self.programTreeView =  new ProgramTreeView(self.app, "programTreeViewContainer-body");
 				}
 			},
 		});

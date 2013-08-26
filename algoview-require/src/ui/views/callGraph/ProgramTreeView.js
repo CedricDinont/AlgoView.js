@@ -42,7 +42,7 @@ function(DebugLogger, ProgramRunnerListener, SimpleGraph, GraphCreator, ViewHand
 			
 			var viewHandler = new ViewHandler(g);
 			
-			viewHandler.addView("text", this.containerId);
+			viewHandler.addView("graphical", this.containerId);
 			viewHandler.refreshViews();    			
 		}
 	}
