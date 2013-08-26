@@ -38,13 +38,11 @@ InstructionListNode) {
      */
     GraphCreator.prototype.getFunctionListNode = function(tree) {
         var functionListNode;
-
         for (var i = 0; i < tree.children.length; i++) {
             if (tree.children[i] instanceof FunctionListNode) {
                 functionListNode = tree.children[i];
             }
         }
-
         return functionListNode;
     };
 
@@ -124,12 +122,12 @@ InstructionListNode) {
     GraphCreator.prototype.addAllFunctionNodesToSimpleGraph = function(functionListNode) {
         for (var i = 0; i < functionListNode.children.length; i++) {
             if (functionListNode.children[i].getName() === "main") {
-                this.graph.addNode(1).setValue(functionListNode.children[i].getName());
+                this.graph.addNode(1).setValue({name:functionListNode.children[i].getName(), line:functionListNode.children[i].token.line});
             }
         }
         for (var i = 0; i < functionListNode.children.length; i++) {
             if (functionListNode.children[i] instanceof FunctionNode && functionListNode.children[i].getName() !== "main") {
-                this.graph.addNode(i + 2).setValue(functionListNode.children[i].getName());
+                this.graph.addNode(i + 2).setValue({name:functionListNode.children[i].getName(), line:functionListNode.children[i].token.line});
             }
         }
     };
@@ -147,7 +145,7 @@ InstructionListNode) {
                 if(this.graph.getNode(id.inc()) === undefined){
                     var newNode = this.graph.addNode(id.id);
                     this.browseTreeGraph(fatherNode.children[i], id);
-                    newNode.setValue(fatherNode.children[i].constructor.name);
+                    newNode.setValue({name:fatherNode.children[i].constructor.name});
                     this.graph.addEdge(this.graph.getNode(fatherId), newNode);
                 }
         }
@@ -220,7 +218,7 @@ InstructionListNode) {
      */
     GraphCreator.prototype.programTreeToSimpleGraph = function() {
         // Get the "root" node of the main function
-        this.graph.addNode(1).setValue(this.tree.constructor.name);
+        this.graph.addNode(1).setValue({name:this.tree.constructor.name});
         var id = {
             id:1,
             inc: function(){
