@@ -55,8 +55,9 @@ function(DebugLogger, ProgramRunnerListener, SimpleGraph, GraphCreator, ViewHand
 		var g = new SimpleGraph(true);
 		var gc = new GraphCreator(g, tree);
 		gc.programTreeToSimpleGraph();
+             	
 		return g;
-	}
+	};
 	
 	return ProgramTreeView;
 });

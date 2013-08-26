@@ -1,7 +1,7 @@
 define("GraphCreator",
-["FunctionListNode", "FunctionNode", "FunctionNameNode",
+["FunctionListNode", "FunctionNode", "FunctionCallNode", "FunctionNameNode",
 "InstructionListNode"],
-function(FunctionListNode, FunctionNode, FunctionNameNode,
+function(FunctionListNode, FunctionNode, FunctionCallNode, FunctionNameNode,
 InstructionListNode) {
     GraphCreator = function(simpleGraph, programTree) {
         this.graph = simpleGraph;

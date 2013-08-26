@@ -1,8 +1,8 @@
 define("LayoutManager",
 ["ToolBar", "OutputPanel", "EditorsPanel", "MemoryGraphicalViewPanel", 
-"StackTableViewPanel", "HeapTableViewPanel", "ProgramTreeViewPanel"],
+"StackTableViewPanel", "HeapTableViewPanel", "ProgramTreeViewPanel", "CallGraphViewPanel"],
 function(ToolBar, OutputPanel, EditorsPanel, MemoryGraphicalViewPanel, 
-StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
+StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel, CallGraphViewPanel) {
 
 	function LayoutManager(algoViewApp, mainFrame) {
 		this.app = algoViewApp;
@@ -25,7 +25,11 @@ StackTableViewPanel, HeapTableViewPanel, ProgramTreeViewPanel) {
 					type: "TabbedPane",
 					components: [{
 							type: "MemoryGraphicalViewPanel",
-						}, {
+						},
+						{
+							type: "CallGraphViewPanel"
+						},						
+						{
 							type: "ProgramTreeViewPanel"
 						}
 					],

@@ -37,11 +37,13 @@ requirejs.config({
         StackTableView: "ui/views/memory/StackTableView",
         HeapTableView: "ui/views/memory/HeapTableView",
         ProgramTreeView: "ui/views/callGraph/ProgramTreeView",
+        CallGraphView : "ui/views/callGraph/CallGraphView",
         MemoryGraphicalViewPanel: "ui/views/memory/MemoryGraphicalViewPanel",
         StackTableViewPanel: "ui/views/memory/StackTableViewPanel",
         HeapTableViewPanel: "ui/views/memory/HeapTableViewPanel",
         ProgramTreeViewPanel: "ui/views/callGraph/ProgramTreeViewPanel",
-
+		CallGraphViewPanel : "ui/views/callGraph/CallGraphViewPanel",
+		
         // Simple Graph aliases
         AlgoUtils: "utils/AlgoUtils",
         SimpleGraphExceptions: 'ui/views/callGraph/model/graph/SimpleGraphExceptions',
