@@ -23,8 +23,7 @@ GraphicalViewSimpleGraph = function(directed, containerId) {  // MSO : ajouté c
         "coefDezoom": 0.8,
         "maxNbNodeChar":25
     }
-    this.windowWidth = $j("#" + this.defaultValues['contener']).width();
-    this.windowHeight = $j("#" + this.defaultValues['contener']).height();
+
 };
 
 GraphicalViewSimpleGraph.prototype = new SimpleGraph();
@@ -135,6 +134,9 @@ GraphicalViewSimpleGraph.prototype.browseGraph = function() {
 };
 
 GraphicalViewSimpleGraph.prototype.createGraphHtml = function() {
+	
+	this.windowWidth = $j("#" + this.defaultValues['contener']).width();
+    this.windowHeight = $j("#" + this.defaultValues['contener']).height();
 
     var nodesGraphicalView = this.browseGraph()[0];
     var edgesGraphicalView = this.browseGraph()[1];

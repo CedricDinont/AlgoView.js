@@ -4,6 +4,7 @@ function(ProgramTreeView) {
 	
 	function ProgramTreeViewPanel(algoViewApp) {
 		this.app = algoViewApp;
+		this.programTreeView =  new ProgramTreeView(this.app, "programTreeViewContainer-body");
 	}
 	
 	ProgramTreeViewPanel.prototype.destroy = function() {
@@ -22,7 +23,7 @@ function(ProgramTreeView) {
 					}
 				},
 				afterRender: function() {
-					self.programTreeView =  new ProgramTreeView(self.app, "programTreeViewContainer-body");
+					self.programTreeView.updateDimension();
 				}
 			},
 		});

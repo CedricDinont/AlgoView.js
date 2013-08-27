@@ -4,6 +4,7 @@ function(CallGraphView) {
 	
 	function CallGraphViewPanel(algoViewApp) {
 		this.app = algoViewApp;
+		this.callGraphView =  new CallGraphView(this.app, "callGraphViewContainer-body");
 	}
 	
 	CallGraphViewPanel.prototype.destroy = function() {
@@ -22,7 +23,7 @@ function(CallGraphView) {
 					}
 				},
 				afterRender: function() {
-					self.callGraphView =  new CallGraphView(self.app, "callGraphViewContainer-body");
+					self.callGraphView.updateDimension();
 				}
 			},
 		});

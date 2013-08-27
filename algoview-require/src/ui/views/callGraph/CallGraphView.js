@@ -33,24 +33,27 @@ function(DebugLogger, ProgramRunnerListener, SimpleGraph, GraphCreator, ViewHand
 	// @Override
 	CallGraphView.prototype.onCompilerEvent = function(event) {
 		if (event.type == "COMPILED_PROGRAM") {				
-			var tree = this.app.program.programTree;
-			var g = this.newGraphFromTree(tree);
+			this.tree = this.app.program.programTree;
+			this.g = this.newGraphFromTree(this.tree);
 			
 			if (DEBUG) {
-				console.log("Graph", g);
+				console.log("Graph", this.g);
 			}
 			
-			var viewHandler = new ViewHandler(g);
+			this.viewHandler = new ViewHandler(this.g);
 			
-			viewHandler.addView("graphical", this.containerId);
-			viewHandler.refreshViews();    			
+			this.viewHandler.addView("graphical", this.containerId);
+			this.viewHandler.refreshViews();    			
 		}
 	}
 	
 	CallGraphView.prototype.updateDimension = function() {
-		console.log("TODO: Implement update dimension in CallGraphView");
+		if(this.viewHandler != undefined){
+			this.viewHandler.refreshViews();  
+		}
 	}
 	
+
 	CallGraphView.prototype.newGraphFromTree = function(tree) {
 		var g = new SimpleGraph(true);
 		var gc = new GraphCreator(g, tree);

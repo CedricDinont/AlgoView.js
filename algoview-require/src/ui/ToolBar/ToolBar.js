@@ -234,6 +234,7 @@ function($j) {
 								Ext.Msg.alert('About', 'AlgoView.js 0.1 Beta<br />\
 									<hr /><br />\
 									&copy; 2012 ISEN Computer Science Department<br />\
+									Call graph module by Romain Bouyé and Thibault Itart-Longueville<br />\
 									<br />\
 									Please contact core developers for comments, questions or bug reports:<br />\
 									<ul>\
