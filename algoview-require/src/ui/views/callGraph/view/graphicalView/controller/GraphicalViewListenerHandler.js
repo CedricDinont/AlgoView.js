@@ -41,7 +41,7 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    $j('rect',$j(g)).attr('fill', "#FFF");
 		});
 
-		$j(document).bind('mousemove.dragnode', e.data.self.svgId,function(ev){
+		$j(document).on('mousemove.dragnode', e.data.self.svgId,function(ev){
 		    var deltaX = 0.0;
 		    var deltaY = 0.0;
 
@@ -76,11 +76,14 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    Xpage = ePageX;
 		    Ypage = ePageY;
 
-		    nodeSrc = $j(e.data.self.svgId+" #node-"+String($j(this).attr('data-src')));
-			nodeSrc = nodeSrc[0];
+		    
+
 
 		    //Move edges
 		    for (var i = srcNodes.length - 1; i >= 0; i--) {
+		    	nodeSrc = $j(e.data.self.svgId+" #node-"+String($j(srcNodes[i]).attr('data-src')));
+				nodeSrc = nodeSrc[0];
+
 		    	x0 = deltaX;
 		    	y0 = deltaY+($j("rect",nodeSrc).attr('height')/2);
 		    	x1 = $j("line",srcNodes[i]).attr("x2");
@@ -102,6 +105,10 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    	           ;
 		    };
 		    for (var i = destNodes.length - 1; i >= 0; i--) {
+
+		    	nodeSrc = $j(e.data.self.svgId+" #node-"+String($j(destNodes[i]).attr('data-src')));
+				nodeSrc = nodeSrc[0];
+
 		    	x0 = $j("line",$j(destNodes[i])).attr("x1");
 		    	y0 = $j("line",$j(destNodes[i])).attr("y1");
 		    	x1 = deltaX;
@@ -124,6 +131,9 @@ GraphicalViewListenerHandler.prototype.nodeDragMouseDown = function(e) {
 		    };
 
 		    for (var i = srcDestNodes.length - 1; i >= 0; i--) {
+
+		    	nodeSrc = $j(e.data.self.svgId+" #node-"+String($j(srcDestNodes[i]).attr('data-src')));
+				nodeSrc = nodeSrc[0];
 
 		    	var de = $j("path.line",$j(srcDestNodes[i])).attr("d");
 		    	de = de.split(' ');
@@ -164,21 +174,21 @@ GraphicalViewListenerHandler.prototype.moveGraph = function(ev) {
 	var Ypage = 0;
 	var clicking = true;
 	if (ev.ctrlKey) {
-		$j(document).unbind('mousemove.dragnode');
+		$j(document).off('mousemove.dragnode',ev.data.self.svgId);
 		Xpage = ev.pageX;
 		Ypage = ev.pageY;
 
-		$j(document).on('mouseup',function(){
+		$j(document).on('mouseup', ev.data.self.svgId, function(){
 		    clicking = false;
 		    Xpage = 0;
 		    Ypage = 0;
 		    ePageX = 0.0;
 		    ePageY = 0.0;
-		    $j(document).bind('mousemove.dragnode');
-		    $j(document).unbind('mousedown.moveGraph');
+		    $j(document).on('mousemove.dragnode',ev.data.self.svgId);
+		    $j(document).off('mousedown.moveGraph',ev.data.self.svgId);
 		});
 
-		$j(document).mousemove(function(e){
+		$j(ev.data.self.svgId).mousemove(function(e){
 		    var deltaX = 0.0;
 		    var deltaY = 0.0;
 
@@ -284,7 +294,8 @@ GraphicalViewListenerHandler.prototype.moveGraph = function(ev) {
 
 GraphicalViewListenerHandler.prototype.zoomGraph = function(ev) {
 		if (ev.keyCode == 16) {
-			$j(document).bind('keypress.zoom2',function(ev2) {
+
+			$j(document).on('keypress.zoom2',function(ev2) {
 				
 				if(ev2.keyCode == 43) {
 					//ZOOM
@@ -300,7 +311,7 @@ GraphicalViewListenerHandler.prototype.zoomGraph = function(ev) {
 
 			$j(document).keyup(function(ev3) {
 				if (ev3.keyCode == 16) {
-					$j(document).unbind("keypress.zoom2");
+					$j(document).off("keypress.zoom2");
 					
 				}
 			});
@@ -370,7 +381,6 @@ GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff = function(coeff, ev) 
 
 			$j('line',this).attr("x2",parseFloat($j('line',this).attr("x2")*(parseFloat(coeff))));
 			$j('line',this).attr("y2",parseFloat($j('line',this).attr("y2")*(parseFloat(coeff))));
-
 	    	
 
     		x0 = parseFloat($j("rect",nodeSrc).attr('x'))+($j("rect",nodeSrc).attr('width')/2);

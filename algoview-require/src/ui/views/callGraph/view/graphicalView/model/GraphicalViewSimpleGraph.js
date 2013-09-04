@@ -19,8 +19,8 @@ GraphicalViewSimpleGraph = function(directed, containerId) {  // MSO : ajouté c
         "offsety": "80",
         "marginX": 50,		// MSO : ajouté marges
 	    "marginY": 50,
-        "coefZoom": 1.3,   // TIL : ajout pour (de)zoom
-        "coefDezoom": 0.8,
+        "coefZoom": 1.05,   // TIL : ajout pour (de)zoom
+        "coefDezoom": 0.95,
         "maxNbNodeChar":25
     }
 
@@ -214,7 +214,7 @@ GraphicalViewSimpleGraph.prototype.createGraphHtml = function() {
     // $j(window).resize({self: this.listenerHandler}, this.listenerHandler.OnWindowSizeChange); // retiré par MSO
     
     // MSO : convention de nommage pour la zone svg : id du container + "-svg"
-    $j(document).off('mousedown');
+    $j(document).off('mousedown',"#" + this.containerId + "-svg");
     $j(document).on('mousedown', "#" + this.containerId + "-svg", {self: this.listenerHandler}, this.listenerHandler.nodeDragMouseDown);
     $j(document).on('mousedown', "#" + this.containerId + "-svg", {self: this.listenerHandler}, this.listenerHandler.moveGraph);
     $j(document).on('keydown.zoom', {self: this.listenerHandler}, this.listenerHandler.zoomGraph);
