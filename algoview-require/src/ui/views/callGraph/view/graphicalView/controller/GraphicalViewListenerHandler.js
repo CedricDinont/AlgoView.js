@@ -5,6 +5,7 @@ function($j) {
 GraphicalViewListenerHandler = function(model, svgId) { // MSO : ajouté svgId
     this.model = model;
     this.svgId = svgId;
+    this.zoomLevel = 0;
 };
 
  // MSO : retiré : sera géré par Ext.js
@@ -184,7 +185,7 @@ GraphicalViewListenerHandler.prototype.moveGraph = function(ev) {
 		    Ypage = 0;
 		    ePageX = 0.0;
 		    ePageY = 0.0;
-		    $j(document).on('mousemove.dragnode',ev.data.self.svgId);
+
 		    $j(document).off('mousedown.moveGraph',ev.data.self.svgId);
 		});
 
@@ -292,47 +293,47 @@ GraphicalViewListenerHandler.prototype.moveGraph = function(ev) {
 	}
 };
 
-GraphicalViewListenerHandler.prototype.zoomGraph = function(ev) {
-		if (ev.keyCode == 16) {
+GraphicalViewListenerHandler.prototype.zoomGraph = function(ev, delta, deltaX, deltaY) {
+		
+		var svg = $('#' + ev.data.self.model.defaultValues.contener);
+		var relativeMousePosition = {top: ev.clientY - svg.offset().top, left: ev.clientX - svg.offset().left};
 
-			$j(document).on('keypress.zoom2',function(ev2) {
-				
-				if(ev2.keyCode == 43) {
+
+		if(relativeMousePosition.top > 0 && relativeMousePosition.left > 0 && relativeMousePosition.top < svg.height() && relativeMousePosition.left < svg.width()){
+                if(deltaY > 0 && ev.data.self.zoomLevel < ev.data.self.model.defaultValues.maxZoomLevel){
 					//ZOOM
+					ev.data.self.zoomLevel++;
 					var coefZoom = ev.data.self.model.defaultValues.coefZoom;
-				 	GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff(coefZoom,ev);
+				 	GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff(coefZoom,ev, relativeMousePosition);
 				}
-				if(ev2.keyCode == 45) {
+				if(deltaY < 0 && ev.data.self.zoomLevel > ev.data.self.model.defaultValues.minZoomLevel){
 					//DEZOOM
+                    ev.data.self.zoomLevel--;
 					var coefDezoom = ev.data.self.model.defaultValues.coefDezoom;
-					GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff(coefDezoom,ev);
+					GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff(coefDezoom,ev, relativeMousePosition);
 				}
-			});
-
-			$j(document).keyup(function(ev3) {
-				if (ev3.keyCode == 16) {
-					$j(document).off("keypress.zoom2");
-					
-				}
-			});
 		}
 };
 
-GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff = function(coeff, ev) {
+GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff = function(coeff, ev, relativeMousePosition) {
 
 	var nodeSrc,a,b;
+        
+        var newPosition = {top: relativeMousePosition.top*coeff, left:relativeMousePosition.left*coeff};
+        var translation = {top: relativeMousePosition.top - newPosition.top, left:relativeMousePosition.left - newPosition.left};
+        
 
 	$j("rect",$j(ev.data.self.svgId)).each(function() {
 		$j(this).attr("width",parseFloat($j(this).attr("width")*(parseFloat(coeff))));
 		$j(this).attr("height",parseFloat($j(this).attr("height")*(parseFloat(coeff))));
-		$j(this).attr("x",parseFloat($j(this).attr("x")*(parseFloat(coeff))));
-		$j(this).attr("y",parseFloat($j(this).attr("y")*(parseFloat(coeff))));
+		$j(this).attr("x",parseFloat($j(this).attr("x")*(parseFloat(coeff))) + translation.left);
+		$j(this).attr("y",parseFloat($j(this).attr("y")*(parseFloat(coeff)))+ translation.top);
 	});
 
 	$j("text",$j(ev.data.self.svgId)).each(function() {
-		$j(this).css("font-size",parseFloat(parseFloat($j(this).css("font-size"))*(parseFloat(coeff)))+"px");
-		$j(this).attr("x",parseFloat($j(this).attr("x")*(parseFloat(coeff))));
-		$j(this).attr("y",parseFloat($j(this).attr("y")*(parseFloat(coeff))));
+		$j(this).css("font-size",parseFloat(12+(ev.data.self.zoomLevel*0.5))+"px");
+		$j(this).attr("x",parseFloat($j(this).attr("x")*(parseFloat(coeff)))+ translation.left);
+		$j(this).attr("y",parseFloat($j(this).attr("y")*(parseFloat(coeff)))+ translation.top);
 	});
 
 	$j(".groupedge",$j(ev.data.self.svgId)).each(function() {
@@ -376,11 +377,11 @@ GraphicalViewListenerHandler.prototype.zoomGraphWithCoeff = function(coeff, ev) 
     		nodeDest = $j(ev.data.self.svgId+" #node-"+String($j(this).attr('data-dest')));
     		nodeDest = nodeDest[0];
 
-	    	$j('line',this).attr("x1",parseFloat($j('line',this).attr("x1")*(parseFloat(coeff))));
-			$j('line',this).attr("y1",parseFloat($j('line',this).attr("y1")*(parseFloat(coeff))));
+	    	$j('line',this).attr("x1",parseFloat($j('line',this).attr("x1")*(parseFloat(coeff)))+ translation.left);
+			$j('line',this).attr("y1",parseFloat($j('line',this).attr("y1")*(parseFloat(coeff)))+ translation.top);
 
-			$j('line',this).attr("x2",parseFloat($j('line',this).attr("x2")*(parseFloat(coeff))));
-			$j('line',this).attr("y2",parseFloat($j('line',this).attr("y2")*(parseFloat(coeff))));
+			$j('line',this).attr("x2",parseFloat($j('line',this).attr("x2")*(parseFloat(coeff)))+ translation.left);
+			$j('line',this).attr("y2",parseFloat($j('line',this).attr("y2")*(parseFloat(coeff)))+ translation.top);
 	    	
 
     		x0 = parseFloat($j("rect",nodeSrc).attr('x'))+($j("rect",nodeSrc).attr('width')/2);

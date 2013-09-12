@@ -13,7 +13,8 @@ requirejs.config({
 		aceAlgoviewTheme: "../lib/ace/ace-0.2/theme-algoview",
 		aceSimpleLanguageMode: "../lib/ace/ace-0.2/mode-simple_language",
 		Ext: "../lib/extjs/extjs-4.1.0/ext-all",     
-        raphael: "../lib/raphael/raphael-2.1",  
+        raphael: "../lib/raphael/raphael-2.1",
+        mousewheel: "../lib/jquery-mousewheel/jquery.mousewheel",
         
         // AlgoView GUI
         AlgoViewApp: "AlgoViewApp",

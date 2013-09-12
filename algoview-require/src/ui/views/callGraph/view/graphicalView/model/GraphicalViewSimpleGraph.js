@@ -1,5 +1,5 @@
 define("GraphicalViewSimpleGraph",
-["SimpleGraph", "GraphicalView", "GraphicalViewListenerHandler", "WindowWidthChangeEvent", "GraphicalViewNode", "jQuery"],
+["SimpleGraph", "GraphicalView", "GraphicalViewListenerHandler", "WindowWidthChangeEvent", "GraphicalViewNode", "jQuery", "mousewheel"],
 function(SimpleGraph, GraphicalView, GraphicalViewListenerHandler, WindowWidthChangeEvent, GraphicalViewNode, $j){
 
 
@@ -21,7 +21,10 @@ GraphicalViewSimpleGraph = function(directed, containerId) {  // MSO : ajouté c
 	    "marginY": 50,
         "coefZoom": 1.05,   // TIL : ajout pour (de)zoom
         "coefDezoom": 0.95,
-        "maxNbNodeChar":25
+        "maxNbNodeChar":25,
+        "maxZoomLevel" : 10,
+        "minZoomLevel" : -10
+        
     }
 
 };
@@ -217,7 +220,8 @@ GraphicalViewSimpleGraph.prototype.createGraphHtml = function() {
     $j(document).off('mousedown',"#" + this.containerId + "-svg");
     $j(document).on('mousedown', "#" + this.containerId + "-svg", {self: this.listenerHandler}, this.listenerHandler.nodeDragMouseDown);
     $j(document).on('mousedown', "#" + this.containerId + "-svg", {self: this.listenerHandler}, this.listenerHandler.moveGraph);
-    $j(document).on('keydown.zoom', {self: this.listenerHandler}, this.listenerHandler.zoomGraph);
+    this.listenerHandler.zoomLevel = 0;
+    $j(document).on('mousewheel.zoom', "#" + this.containerId + "-svg", {self: this.listenerHandler}, this.listenerHandler.zoomGraph);
     return graphHtml;
 };
 
