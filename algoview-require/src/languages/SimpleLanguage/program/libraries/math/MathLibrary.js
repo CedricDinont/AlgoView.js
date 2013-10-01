@@ -1,8 +1,12 @@
 define("MathLibrary",
-["BuiltInFunctionLibrary", "CosFunctionNode", "SinFunctionNode",
-"TanFunctionNode", "PowFunctionNode"],
-function(BuiltInFunctionLibrary, CosFunctionNode, SinFunctionNode,
-TanFunctionNode, PowFunctionNode) {
+["BuiltInFunctionLibrary", "CosFunctionNode", "SinFunctionNode", "TanFunctionNode",
+"ACosFunctionNode", "ASinFunctionNode", "ATanFunctionNode",
+"PowFunctionNode", "SqrtFunctionNode", "LogFunctionNode", "ExpFunctionNode",
+"AbsFunctionNode", "MinFunctionNode", "MaxFunctionNode", "CeilFunctionNode", "FloorFunctionNode", "RoundFunctionNode"],
+function(BuiltInFunctionLibrary, CosFunctionNode, SinFunctionNode, TanFunctionNode,
+ACosFunctionNode, ASinFunctionNode, ATanFunctionNode,
+PowFunctionNode, SqrtFunctionNode, LogFunctionNode, ExpFunctionNode,
+AbsFunctionNode, MinFunctionNode, MaxFunctionNode, CeilFunctionNode, FloorFunctionNode, RoundFunctionNode) {
 	
 	function MathLibrary() {
 		BuiltInFunctionLibrary.call(this);
@@ -12,7 +16,22 @@ TanFunctionNode, PowFunctionNode) {
 		this.functions.push(new CosFunctionNode());
 		this.functions.push(new SinFunctionNode());
 		this.functions.push(new TanFunctionNode());
+
+		this.functions.push(new ACosFunctionNode());
+		this.functions.push(new ASinFunctionNode());
+		this.functions.push(new ATanFunctionNode());
+
 		this.functions.push(new PowFunctionNode());
+		this.functions.push(new SqrtFunctionNode());
+		this.functions.push(new LogFunctionNode());
+		this.functions.push(new ExpFunctionNode());
+
+		this.functions.push(new AbsFunctionNode());
+		this.functions.push(new MinFunctionNode());
+		this.functions.push(new MaxFunctionNode());
+		this.functions.push(new CeilFunctionNode());
+		this.functions.push(new FloorFunctionNode());
+		this.functions.push(new RoundFunctionNode());
 	}
 	
 	// Prototype based inheritance
