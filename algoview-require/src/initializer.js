@@ -259,11 +259,25 @@ requirejs.config({
         BuiltInFunctionLibrary: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionLibrary",
         BuiltInFunctionLibrariesManager: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionLibrariesManager",
         BuiltInFunctionNode: "languages/SimpleLanguage/program/libraries/common/BuiltInFunctionNode",
+
+	// lib maths
         MathLibrary: "languages/SimpleLanguage/program/libraries/math/MathLibrary",
         CosFunctionNode: "languages/SimpleLanguage/program/libraries/math/CosFunctionNode",
         SinFunctionNode: "languages/SimpleLanguage/program/libraries/math/SinFunctionNode",
         TanFunctionNode: "languages/SimpleLanguage/program/libraries/math/TanFunctionNode",
+        ACosFunctionNode: "languages/SimpleLanguage/program/libraries/math/ACosFunctionNode",
+        ASinFunctionNode: "languages/SimpleLanguage/program/libraries/math/ASinFunctionNode",
+        ATanFunctionNode: "languages/SimpleLanguage/program/libraries/math/ATanFunctionNode",
         PowFunctionNode: "languages/SimpleLanguage/program/libraries/math/PowFunctionNode",
+	SqrtFunctionNode: "languages/SimpleLanguage/program/libraries/math/SqrtFunctionNode",
+	LogFunctionNode: "languages/SimpleLanguage/program/libraries/math/LogFunctionNode",
+	AbsFunctionNode: "languages/SimpleLanguage/program/libraries/math/AbsFunctionNode",
+	MinFunctionNode: "languages/SimpleLanguage/program/libraries/math/MinFunctionNode",
+	MaxFunctionNode: "languages/SimpleLanguage/program/libraries/math/MaxFunctionNode",
+	CeilFunctionNode: "languages/SimpleLanguage/program/libraries/math/CeilFunctionNode",
+	FloorFunctionNode: "languages/SimpleLanguage/program/libraries/math/FloorFunctionNode",
+	RoundFunctionNode: "languages/SimpleLanguage/program/libraries/math/RoundFunctionNode",
+
         StringLibrary: "languages/SimpleLanguage/program/libraries/string/StringLibrary",
         
         // Compiler not yet implemented classes aliases
