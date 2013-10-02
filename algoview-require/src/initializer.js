@@ -271,6 +271,7 @@ requirejs.config({
         PowFunctionNode: "languages/SimpleLanguage/program/libraries/math/PowFunctionNode",
 	SqrtFunctionNode: "languages/SimpleLanguage/program/libraries/math/SqrtFunctionNode",
 	LogFunctionNode: "languages/SimpleLanguage/program/libraries/math/LogFunctionNode",
+	ExpFunctionNode: "languages/SimpleLanguage/program/libraries/math/ExpFunctionNode",
 	AbsFunctionNode: "languages/SimpleLanguage/program/libraries/math/AbsFunctionNode",
 	MinFunctionNode: "languages/SimpleLanguage/program/libraries/math/MinFunctionNode",
 	MaxFunctionNode: "languages/SimpleLanguage/program/libraries/math/MaxFunctionNode",
