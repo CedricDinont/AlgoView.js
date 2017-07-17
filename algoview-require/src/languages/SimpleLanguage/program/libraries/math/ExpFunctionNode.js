@@ -1,4 +1,4 @@
-define("SqrtFunctionNode",
+define("ExpFunctionNode",
 ["BuiltInFunctionNode", "FunctionNameNode", "FunctionParametersListNode",
 "VariablesDeclarationListNode", "VariableDeclarationNode",
 "VariableNameNode", "VariableTypeNode", "FloatDataType", "FloatMemoryValue"],
