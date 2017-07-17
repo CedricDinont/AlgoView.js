@@ -1,4 +1,4 @@
-define("CosFunctionNode",
+define("ACosFunctionNode",
 ["BuiltInFunctionNode", "FunctionNameNode", "FunctionParametersListNode",
 "VariablesDeclarationListNode", "VariableDeclarationNode",
 "VariableNameNode", "VariableTypeNode", "FloatDataType", "FloatMemoryValue"],
