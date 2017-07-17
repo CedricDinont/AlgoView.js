@@ -1,10 +1,10 @@
 define("CeilFunctionNode",
 ["BuiltInFunctionNode", "FunctionNameNode", "FunctionParametersListNode",
 "VariablesDeclarationListNode", "VariableDeclarationNode",
-"VariableNameNode", "VariableTypeNode", "IntegerDataType", "IntegerMemoryValue"],
+"VariableNameNode", "VariableTypeNode", "FloatDataType", "IntegerDataType", "IntegerMemoryValue"],
 function(BuiltInFunctionNode, FunctionNameNode, FunctionParametersListNode,
 VariablesDeclarationListNode, VariableDeclarationNode,
-VariableNameNode, VariableTypeNode, IntegerDataType, IntegerMemoryValue) {
+VariableNameNode, VariableTypeNode, FloatDataType, IntegerDataType, IntegerMemoryValue) {
 	
 	function CeilFunctionNode() {
 		BuiltInFunctionNode.call(this);
